@@ -1,0 +1,32 @@
+/*
+select
+    B.id                    ID_HOUSE, --Уникальный идентификатор дома
+    "TaStreets"."Name",     --Улица
+    B."Number",             --Номер дома
+    T."PolName",            --Название услуги
+    T."Code"                CODE_SERVICE, --Код услуги
+    T."FactZatrat"          FACT_SUMM,-- Фактический тариф
+    T."NormatTarif"         NORM_SUMM --Утвержденный тариф
+from
+    "TaBuilding" B
+        left join "PrRepSravnTarifDifuchetAnalit"(:BDate, :EDate, B."Analitika") T on 0=0
+        left join "TaStreets" on "TaStreets".id = b."Street"
+where
+   T."InTarif" = 1
+order by "TaStreets"."Name", B."Number", T."Code"
+*/
+
+select
+    B.id                    ID_HOUSE, --Уникальный идентификатор дома
+    "TaStreets"."Name",     --Улица
+    B."Number",             --Номер дома
+    sum(T."FactZatrat")          FACT_SUMM,-- Фактический тариф
+    sum(T."NormatTarif")         NORM_SUMM --Утвержденный тариф
+from
+    "TaBuilding" B
+        left join "PrRepSravnTarifDifuchetAnalit"(:BDate, :EDate, B."Analitika") T on 0=0
+        left join "TaStreets" on "TaStreets".id = b."Street"
+where
+   T."InTarif" = 1
+group by B.id, "TaStreets"."Name", B."Number"
+order by "TaStreets"."Name", B."Number"
