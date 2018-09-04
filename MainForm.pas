@@ -1,4 +1,4 @@
-unit MainMater;
+unit MainForm;
 
 interface
 
@@ -33,12 +33,10 @@ type
     dxBarButton32: TdxBarButton;
     dxBarButton33: TdxBarButton;
     dxBarButton34: TdxBarButton;
-    dxBarButton35: TdxBarButton;
     dxBarButton36: TdxBarButton;
     dxBarSubItem15: TdxBarSubItem;
     dxBarButton37: TdxBarButton;
     dxBarButton38: TdxBarButton;
-    dxBarButton39: TdxBarButton;
     dxBarButton40: TdxBarButton;
     ActionList1: TActionList;
     WindowCascade1: TWindowCascade;
@@ -51,63 +49,6 @@ type
     dxBarButton41: TdxBarButton;
     dxBarButton42: TdxBarButton;
     dxBarManager1Bar2: TdxBar;
-    dxBarButton43: TdxBarButton;
-    dxBarButton44: TdxBarButton;
-    dxBarSubItem16: TdxBarSubItem;
-    dxBarSubItem17: TdxBarSubItem;
-    dxBarSubItem18: TdxBarSubItem;
-    dxBarSubItem19: TdxBarSubItem;
-    dxBarSubItem20: TdxBarSubItem;
-    dxBarButton45: TdxBarButton;
-    dxBarButton46: TdxBarButton;
-    dxBarButton47: TdxBarButton;
-    dxBarButton48: TdxBarButton;
-    dxBarButton49: TdxBarButton;
-    dxBarButton50: TdxBarButton;
-    dxBarButton51: TdxBarButton;
-    dxBarButton52: TdxBarButton;
-    dxBarButton53: TdxBarButton;
-    dxBarButton54: TdxBarButton;
-    dxBarButton55: TdxBarButton;
-    dxBarButton56: TdxBarButton;
-    dxBarButton57: TdxBarButton;
-    dxBarButton58: TdxBarButton;
-    dxBarButton59: TdxBarButton;
-    dxBarButton60: TdxBarButton;
-    dxBarButton61: TdxBarButton;
-    dxBarButton62: TdxBarButton;
-    dxBarSubItem21: TdxBarSubItem;
-    dxBarButton63: TdxBarButton;
-    dxBarButton64: TdxBarButton;
-    dxBarButton65: TdxBarButton;
-    dxBarSubItem22: TdxBarSubItem;
-    dxBarButton66: TdxBarButton;
-    dxBarButton67: TdxBarButton;
-    dxBarButton68: TdxBarButton;
-    dxBarSubItem23: TdxBarSubItem;
-    dxBarButton69: TdxBarButton;
-    dxBarButton70: TdxBarButton;
-    dxBarButton71: TdxBarButton;
-    dxBarButton72: TdxBarButton;
-    dxBarButton73: TdxBarButton;
-    dxBarButton74: TdxBarButton;
-    dxBarButton75: TdxBarButton;
-    dxBarButton76: TdxBarButton;
-    dxBarButton77: TdxBarButton;
-    dxBarButton78: TdxBarButton;
-    dxBarSubItem24: TdxBarSubItem;
-    dxBarButton79: TdxBarButton;
-    dxBarButton80: TdxBarButton;
-    dxBarButton81: TdxBarButton;
-    dxBarButton82: TdxBarButton;
-    dxBarButton83: TdxBarButton;
-    dxBarSubItem25: TdxBarSubItem;
-    dxBarButton84: TdxBarButton;
-    dxBarButton85: TdxBarButton;
-    dxBarButton86: TdxBarButton;
-    dxBarButton87: TdxBarButton;
-    dxBarButton88: TdxBarButton;
-    dxBarButton89: TdxBarButton;
     dxBarManager1Bar3: TdxBar;
     dxBarButton3: TdxBarButton;
     cxImageList1: TcxImageList;
@@ -115,8 +56,9 @@ type
     dxBarButton91: TdxBarButton;
     dxBarButton92: TdxBarButton;
     ImageList3: TImageList;
-    dxBarButton94: TdxBarButton;
     dxBarButton6: TdxBarButton;
+    dxBarButton7: TdxBarButton;
+    dxBarButton8: TdxBarButton;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -131,13 +73,6 @@ type
     procedure dxBarButton92Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure dxBarButton20Click(Sender: TObject);
-    procedure dxBarButton21Click(Sender: TObject);
-    procedure dxBarButton22Click(Sender: TObject);
-    procedure dxBarButton23Click(Sender: TObject);
-    procedure dxBarButton24Click(Sender: TObject);
-    procedure dxBarButton25Click(Sender: TObject);
-    procedure dxBarButton26Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -220,103 +155,7 @@ begin
 Close;
 end;
 
-procedure TMain.dxBarButton20Click(Sender: TObject);
-begin
-vid_doc:=2;
- if JPrih=nil then
- begin
-   Application.CreateForm(TJurn,JPrih);
-   JPrih.Caption:=dxBarButton20.Caption;
-   AddToolBar(JPrih);
- end
- else
-   JPrih.SetFocus;
-   JPrih.Show;
-end;
 
-procedure TMain.dxBarButton21Click(Sender: TObject);
-begin
-vid_doc:=3;
- if JRash=nil then
- begin
-   Application.CreateForm(TJurn,JRash);
-   JRash.Caption:=dxBarButton21.Caption;
-   AddToolBar(JRash);
- end
- else
-   JRash.SetFocus;
-   JRash.Show;
-end;
-
-procedure TMain.dxBarButton22Click(Sender: TObject);
-begin
-vid_doc:=4;
- if JPerem=nil then
- begin
-   Application.CreateForm(TJurn,JPerem);
-   JPerem.Caption:=dxBarButton22.Caption;
-   AddToolBar(JPerem);
- end
- else
-   JPerem.SetFocus;
-   JPerem.Show;
-end;
-
-procedure TMain.dxBarButton23Click(Sender: TObject);
-begin
-vid_doc:=5;
- if JVozPok=nil then
- begin
-   Application.CreateForm(TJurn,JVozPok);
-   JVozPok.Caption:=dxBarButton23.Caption;
-   AddToolBar(JVozPok);
- end
- else
-   JVozPok.SetFocus;
-   JVozPok.Show;
-end;
-
-procedure TMain.dxBarButton24Click(Sender: TObject);
-begin
-vid_doc:=6;
- if JVozPos=nil then
- begin
-   Application.CreateForm(TJurn,JVozPos);
-   JVozPos.Caption:=dxBarButton24.Caption;
-   AddToolBar(JVozPos);
- end
- else
-   JVozPos.SetFocus;
-   JVozPos.Show;
-end;
-
-procedure TMain.dxBarButton25Click(Sender: TObject);
-begin
-vid_doc:=7;
- if JSpis=nil then
- begin
-   Application.CreateForm(TJurn,JSpis);
-   JSpis.Caption:=dxBarButton25.Caption;
-   AddToolBar(JSpis);
- end
- else
-   JSpis.SetFocus;
-   JSpis.Show;
-end;
-
-procedure TMain.dxBarButton26Click(Sender: TObject);
-begin
-vid_doc:=8;
- if JInv=nil then
- begin
-   Application.CreateForm(TJurn,JInv);
-   JInv.Caption:=dxBarButton26.Caption;
-   AddToolBar(JInv);
- end
- else
-   JInv.SetFocus;
-   JInv.Show;
-end;
 
 procedure TMain.dxBarButton29Click(Sender: TObject);
 begin

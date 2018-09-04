@@ -2,7 +2,7 @@ program Tarif;
 
 uses
   Forms,
-  MainMater in 'MainMater.pas' {Main},
+  MainForm in 'MainForm.pas' {Main},
   DataMod in 'DataMod.pas' {DataM: TDataModule},
   Zastavka in 'Zastavka.pas' {Start},
   Aboutt in 'Aboutt.pas' {About},
@@ -20,7 +20,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Start := TStart.Create(Application);
-  Application.Title := 'Движение материальных ценностей';
+  Application.Title := 'Розрахунок тарифів';
   Application.CreateForm(TDataM, DataM);
   application.ProcessMessages;
   Start.Show;

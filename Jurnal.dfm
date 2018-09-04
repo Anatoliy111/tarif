@@ -14,18 +14,15 @@ inherited Jurn: TJurn
     ExplicitWidth = 762
   end
   object cxGrid1: TcxGrid [1]
-    Left = 0
-    Top = 28
-    Width = 768
-    Height = 470
-    Align = alClient
+    Left = 256
+    Top = 56
+    Width = 488
+    Height = 450
     TabOrder = 4
-    ExplicitTop = 26
-    ExplicitHeight = 472
     object cxGrid1DBTableView1: TcxGridDBTableView
       OnDblClick = cxGrid1DBTableView1DblClick
       Navigator.Buttons.CustomButtons = <>
-      DataController.DataSource = DSDOC
+      DataController.DataSource = DSTARIF
       DataController.KeyFieldNames = 'KL'
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
@@ -87,6 +84,17 @@ inherited Jurn: TJurn
     object cxGrid1Level1: TcxGridLevel
       GridView = cxGrid1DBTableView1
     end
+  end
+  object CheckListBox1: TCheckListBox [2]
+    Left = 128
+    Top = 224
+    Width = 121
+    Height = 97
+    ItemHeight = 13
+    TabOrder = 6
+  end
+  inherited IBTransaction1: TIBTransaction
+    Active = True
   end
   object dxBarManager1: TdxBarManager
     Font.Charset = DEFAULT_CHARSET
@@ -166,173 +174,207 @@ inherited Jurn: TJurn
       ImageIndex = 6
     end
   end
-  object IBDOC: TIBDataSet
+  object IBTARIF: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
-    BeforePost = IBDOCBeforePost
+    BeforePost = IBTARIFBeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
-      'delete from DOCUMENT'
+      'delete from TARIF'
       'where'
-      '  KL = :OLD_KL')
+      '  ID = :OLD_ID')
     InsertSQL.Strings = (
-      'insert into DOCUMENT'
+      'insert into TARIF'
       
-        '  (DATA_DOC, DATA_NOW, DATA_RAX, KL, KL_BANK_RAX_DT, KL_BANK_RAX' +
-        '_KR, KL_CEX, '
-      
-        '   KL_DOC, KL_KLIENT, KL_PLAT, KL_SKL, MOL, NOTE, NUM_DOC, NUM_R' +
-        'AX, PRIZ, '
-      '   SUMMA)'
+        '  (ID, DATA, NAME, ID_POSL, ID_TARDOM, NOTE, TARIF_PLAN, TARIF_F' +
+        'ACT, TARIF_RN, '
+      '   TARIF_RK, NORMA, TARIF_END)'
       'values'
       
-        '  (:DATA_DOC, :DATA_NOW, :DATA_RAX, :KL, :KL_BANK_RAX_DT, :KL_BA' +
-        'NK_RAX_KR, '
-      
-        '   :KL_CEX, :KL_DOC, :KL_KLIENT, :KL_PLAT, :KL_SKL, :MOL, :NOTE,' +
-        ' :NUM_DOC, '
-      '   :NUM_RAX, :PRIZ, :SUMMA)')
+        '  (:ID, :DATA, :NAME, :ID_POSL, :ID_TARDOM, :NOTE, :TARIF_PLAN, ' +
+        ':TARIF_FACT, '
+      '   :TARIF_RN, :TARIF_RK, :NORMA, :TARIF_END)')
     RefreshSQL.Strings = (
       'Select '
-      '  KL,'
-      '  KL_DOC,'
-      '  KL_PLAT,'
-      '  KL_BANK_RAX_DT,'
-      '  KL_BANK_RAX_KR,'
-      '  SUMMA,'
-      '  NUM_DOC,'
-      '  DATA_DOC,'
-      '  KL_CEX,'
-      '  KL_SKL,'
-      '  KL_KLIENT,'
-      '  PRIZ,'
-      '  MOL,'
-      '  NUM_RAX,'
-      '  DATA_RAX,'
+      '  ID,'
+      '  DATA,'
+      '  NAME,'
+      '  ID_POSL,'
+      '  ID_TARDOM,'
       '  NOTE,'
-      '  DATA_NOW'
-      'from DOCUMENT '
+      '  TARIF_PLAN,'
+      '  TARIF_FACT,'
+      '  TARIF_RN,'
+      '  TARIF_RK,'
+      '  NORMA,'
+      '  TARIF_END'
+      'from TARIF '
       'where'
-      '  KL = :KL')
+      '  ID = :ID')
     SelectSQL.Strings = (
-      
-        'SELECT DOCUMENT.KL, DOCUMENT.KL_DOC, DOCUMENT.KL_PLAT, DOCUMENT.' +
-        'KL_BANK_RAX_DT, DOCUMENT.KL_BANK_RAX_KR, DOCUMENT.SUMMA, DOCUMEN' +
-        'T.NUM_DOC, DOCUMENT.DATA_DOC, DOCUMENT.KL_CEX, DOCUMENT.KL_SKL, ' +
-        'DOCUMENT.KL_KLIENT, DOCUMENT.PRIZ, DOCUMENT.MOL, DOCUMENT.NUM_RA' +
-        'X, DOCUMENT.DATA_RAX, DOCUMENT.NOTE, DOCUMENT.DATA_NOW'
-      'FROM DOCUMENT WHERE KL_DOC=:TDOC ORDER BY KL')
+      'select * from TARIF')
     ModifySQL.Strings = (
-      'update DOCUMENT'
+      'update TARIF'
       'set'
-      '  DATA_DOC = :DATA_DOC,'
-      '  DATA_NOW = :DATA_NOW,'
-      '  DATA_RAX = :DATA_RAX,'
-      '  KL = :KL,'
-      '  KL_BANK_RAX_DT = :KL_BANK_RAX_DT,'
-      '  KL_BANK_RAX_KR = :KL_BANK_RAX_KR,'
-      '  KL_CEX = :KL_CEX,'
-      '  KL_DOC = :KL_DOC,'
-      '  KL_KLIENT = :KL_KLIENT,'
-      '  KL_PLAT = :KL_PLAT,'
-      '  KL_SKL = :KL_SKL,'
-      '  MOL = :MOL,'
+      '  ID = :ID,'
+      '  DATA = :DATA,'
+      '  NAME = :NAME,'
+      '  ID_POSL = :ID_POSL,'
+      '  ID_TARDOM = :ID_TARDOM,'
       '  NOTE = :NOTE,'
-      '  NUM_DOC = :NUM_DOC,'
-      '  NUM_RAX = :NUM_RAX,'
-      '  PRIZ = :PRIZ,'
-      '  SUMMA = :SUMMA'
+      '  TARIF_PLAN = :TARIF_PLAN,'
+      '  TARIF_FACT = :TARIF_FACT,'
+      '  TARIF_RN = :TARIF_RN,'
+      '  TARIF_RK = :TARIF_RK,'
+      '  NORMA = :NORMA,'
+      '  TARIF_END = :TARIF_END'
       'where'
-      '  KL = :OLD_KL')
+      '  ID = :OLD_ID')
     ParamCheck = True
     UniDirectional = False
-    GeneratorField.Field = 'KL'
-    GeneratorField.Generator = 'GEN_DOCUMENT_ID'
-    Left = 40
-    Top = 40
-    object IBDOCKL: TIntegerField
-      FieldName = 'KL'
-      Origin = '"DOCUMENT"."KL"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_ID'
+    Left = 80
+    Top = 400
+    object IBTARIFID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF"."ID"'
       Required = True
     end
-    object IBDOCKL_DOC: TIntegerField
-      FieldName = 'KL_DOC'
-      Origin = '"DOCUMENT"."KL_DOC"'
-      Required = True
+    object IBTARIFDATA: TDateField
+      FieldName = 'DATA'
+      Origin = '"TARIF"."DATA"'
     end
-    object IBDOCKL_PLAT: TIntegerField
-      FieldName = 'KL_PLAT'
-      Origin = '"DOCUMENT"."KL_PLAT"'
+    object IBTARIFNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"TARIF"."NAME"'
+      Size = 50
     end
-    object IBDOCKL_BANK_RAX_DT: TIntegerField
-      FieldName = 'KL_BANK_RAX_DT'
-      Origin = '"DOCUMENT"."KL_BANK_RAX_DT"'
+    object IBTARIFID_POSL: TIntegerField
+      FieldName = 'ID_POSL'
+      Origin = '"TARIF"."ID_POSL"'
     end
-    object IBDOCKL_BANK_RAX_KR: TIntegerField
-      FieldName = 'KL_BANK_RAX_KR'
-      Origin = '"DOCUMENT"."KL_BANK_RAX_KR"'
+    object IBTARIFID_TARDOM: TIntegerField
+      FieldName = 'ID_TARDOM'
+      Origin = '"TARIF"."ID_TARDOM"'
     end
-    object IBDOCSUMMA: TIBBCDField
-      FieldName = 'SUMMA'
-      Origin = '"DOCUMENT"."SUMMA"'
+    object IBTARIFNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"TARIF"."NOTE"'
+      Size = 100
+    end
+    object IBTARIFTARIF_PLAN: TIBBCDField
+      FieldName = 'TARIF_PLAN'
+      Origin = '"TARIF"."TARIF_PLAN"'
       Precision = 18
       Size = 2
     end
-    object IBDOCNUM_DOC: TIBStringField
-      FieldName = 'NUM_DOC'
-      Origin = '"DOCUMENT"."NUM_DOC"'
-      Size = 15
+    object IBTARIFTARIF_FACT: TIBBCDField
+      FieldName = 'TARIF_FACT'
+      Origin = '"TARIF"."TARIF_FACT"'
+      Precision = 18
+      Size = 2
     end
-    object IBDOCDATA_DOC: TDateField
-      FieldName = 'DATA_DOC'
-      Origin = '"DOCUMENT"."DATA_DOC"'
+    object IBTARIFTARIF_RN: TIBBCDField
+      FieldName = 'TARIF_RN'
+      Origin = '"TARIF"."TARIF_RN"'
+      Precision = 18
+      Size = 2
     end
-    object IBDOCKL_CEX: TIntegerField
-      FieldName = 'KL_CEX'
-      Origin = '"DOCUMENT"."KL_CEX"'
+    object IBTARIFTARIF_RK: TIBBCDField
+      FieldName = 'TARIF_RK'
+      Origin = '"TARIF"."TARIF_RK"'
+      Precision = 18
+      Size = 2
     end
-    object IBDOCKL_SKL: TIntegerField
-      FieldName = 'KL_SKL'
-      Origin = '"DOCUMENT"."KL_SKL"'
+    object IBTARIFNORMA: TIBBCDField
+      FieldName = 'NORMA'
+      Origin = '"TARIF"."NORMA"'
+      Precision = 18
+      Size = 2
     end
-    object IBDOCKL_KLIENT: TIntegerField
-      FieldName = 'KL_KLIENT'
-      Origin = '"DOCUMENT"."KL_KLIENT"'
-    end
-    object IBDOCPRIZ: TIBStringField
-      FieldName = 'PRIZ'
-      Origin = '"DOCUMENT"."PRIZ"'
-      Size = 250
-    end
-    object IBDOCMOL: TIBStringField
-      FieldName = 'MOL'
-      Origin = '"DOCUMENT"."MOL"'
-      Size = 100
-    end
-    object IBDOCNUM_RAX: TIBStringField
-      FieldName = 'NUM_RAX'
-      Origin = '"DOCUMENT"."NUM_RAX"'
-      Size = 10
-    end
-    object IBDOCDATA_RAX: TDateField
-      FieldName = 'DATA_RAX'
-      Origin = '"DOCUMENT"."DATA_RAX"'
-    end
-    object IBDOCNOTE: TIBStringField
-      FieldName = 'NOTE'
-      Origin = '"DOCUMENT"."NOTE"'
-      Size = 128
-    end
-    object IBDOCDATA_NOW: TDateField
-      FieldName = 'DATA_NOW'
-      Origin = '"DOCUMENT"."DATA_NOW"'
+    object IBTARIFTARIF_END: TIBBCDField
+      FieldName = 'TARIF_END'
+      Origin = '"TARIF"."TARIF_END"'
+      Precision = 18
+      Size = 2
     end
   end
-  object DSDOC: TDataSource
-    DataSet = IBDOC
-    Left = 40
-    Top = 72
+  object DSTARIF: TDataSource
+    DataSet = IBTARIF
+    Left = 80
+    Top = 448
+  end
+  object IBPOSL: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BeforePost = IBTARIFBeforePost
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from POSL'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into POSL'
+      '  (ID, WID, NAME, FL_ZAGR, FL_ROZRAH)'
+      'values'
+      '  (:ID, :WID, :NAME, :FL_ZAGR, :FL_ROZRAH)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  WID,'
+      '  NAME,'
+      '  FL_ZAGR,'
+      '  FL_ROZRAH'
+      'from POSL '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from  POSL')
+    ModifySQL.Strings = (
+      'update POSL'
+      'set'
+      '  ID = :ID,'
+      '  WID = :WID,'
+      '  NAME = :NAME,'
+      '  FL_ZAGR = :FL_ZAGR,'
+      '  FL_ROZRAH = :FL_ROZRAH'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_POSL_ID'
+    Left = 136
+    Top = 400
+    object IBPOSLID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"POSL"."ID"'
+      Required = True
+    end
+    object IBPOSLWID: TIBStringField
+      FieldName = 'WID'
+      Origin = '"POSL"."WID"'
+      Size = 2
+    end
+    object IBPOSLNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"POSL"."NAME"'
+    end
+    object IBPOSLFL_ZAGR: TIntegerField
+      FieldName = 'FL_ZAGR'
+      Origin = '"POSL"."FL_ZAGR"'
+    end
+    object IBPOSLFL_ROZRAH: TIntegerField
+      FieldName = 'FL_ROZRAH'
+      Origin = '"POSL"."FL_ROZRAH"'
+    end
+  end
+  object DSPOSL: TDataSource
+    DataSet = IBPOSL
+    Left = 136
+    Top = 448
   end
 end

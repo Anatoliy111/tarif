@@ -21,7 +21,7 @@ object Main: TMain
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900100010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -428,11 +428,7 @@ object Main: TMain
       Caption = #1044#1086#1082#1091#1084#1077#1085#1090#1099
       Category = 0
       Visible = ivNever
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton76'
-        end>
+      ItemLinks = <>
     end
     object dxBarSubItem4: TdxBarSubItem
       Caption = #1046#1091#1088#1085#1072#1083#1099' '#1076#1086#1082#1091#1084#1077#1085#1090#1086#1074
@@ -447,23 +443,11 @@ object Main: TMain
       ItemLinks = <
         item
           Visible = True
-          ItemName = 'dxBarSubItem16'
+          ItemName = 'dxBarButton8'
         end
         item
           Visible = True
-          ItemName = 'dxBarSubItem17'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarSubItem18'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarSubItem19'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarSubItem20'
+          ItemName = 'dxBarButton7'
         end>
     end
     object dxBarSubItem6: TdxBarSubItem
@@ -587,12 +571,6 @@ object Main: TMain
       Visible = ivAlways
       OnClick = dxBarButton34Click
     end
-    object dxBarButton35: TdxBarButton
-      Caption = #1072#1087#1074#1072#1087#1074#1072#1087#1074#1072#1087
-      Category = 0
-      Hint = #1072#1087#1074#1072#1087#1074#1072#1087#1074#1072#1087
-      Visible = ivAlways
-    end
     object dxBarButton36: TdxBarButton
       Caption = #1040#1088#1093#1080#1074
       Category = 0
@@ -640,12 +618,6 @@ object Main: TMain
       Caption = #1043#1086#1088#1080#1079#1086#1085#1090#1072#1083#1100
       Category = 0
     end
-    object dxBarButton39: TdxBarButton
-      Caption = 'Arrage'
-      Category = 0
-      Hint = 'Arrage'
-      Visible = ivAlways
-    end
     object dxBarButton40: TdxBarButton
       Action = WindowMinimizeAll1
       Caption = #1057#1074#1077#1088#1085#1091#1090#1100' '#1074#1089#1077
@@ -667,514 +639,6 @@ object Main: TMain
       Hint = #1047#1072#1082#1088#1099#1090#1100' '#1074#1089#1077
       Visible = ivAlways
       OnClick = dxBarButton42Click
-    end
-    object dxBarButton43: TdxBarButton
-      Caption = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Category = 0
-      Hint = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Visible = ivAlways
-    end
-    object dxBarButton44: TdxBarButton
-      Caption = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Category = 0
-      Hint = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Visible = ivAlways
-    end
-    object dxBarSubItem16: TdxBarSubItem
-      Caption = #1055#1088#1080#1093#1086#1076
-      Category = 0
-      Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton45'
-        end
-        item
-          BeginGroup = True
-          Visible = True
-          ItemName = 'dxBarSubItem22'
-        end
-        item
-          BeginGroup = True
-          Visible = True
-          ItemName = 'dxBarButton49'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton50'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton51'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton52'
-        end>
-    end
-    object dxBarSubItem17: TdxBarSubItem
-      Caption = #1056#1072#1089#1093#1086#1076
-      Category = 0
-      Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton53'
-        end
-        item
-          BeginGroup = True
-          Visible = True
-          ItemName = 'dxBarSubItem21'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarSubItem23'
-        end
-        item
-          BeginGroup = True
-          Visible = True
-          ItemName = 'dxBarButton56'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton58'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton59'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton60'
-        end>
-    end
-    object dxBarSubItem18: TdxBarSubItem
-      Caption = #1054#1073#1086#1088#1086#1090
-      Category = 0
-      Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton77'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton78'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton83'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton82'
-        end
-        item
-          BeginGroup = True
-          Visible = True
-          ItemName = 'dxBarSubItem24'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarSubItem25'
-        end>
-    end
-    object dxBarSubItem19: TdxBarSubItem
-      Caption = #1057#1072#1083#1100#1076#1086
-      Category = 0
-      Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton86'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton87'
-        end
-        item
-          BeginGroup = True
-          Visible = True
-          ItemName = 'dxBarButton88'
-        end>
-    end
-    object dxBarSubItem20: TdxBarSubItem
-      Caption = #1044#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1086
-      Category = 0
-      Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton89'
-        end>
-    end
-    object dxBarButton45: TdxBarButton
-      Caption = #1042#1077#1076#1086#1084#1086#1089#1090#1100' '#1087#1086#1089#1090#1091#1087#1083#1077#1085#1080#1103' '#1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Category = 0
-      Hint = #1042#1077#1076#1086#1084#1086#1089#1090#1100' '#1087#1086#1089#1090#1091#1087#1083#1077#1085#1080#1103' '#1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton46: TdxBarButton
-      Caption = #1055#1086' '#1076#1077#1073#1077#1090#1072#1084
-      Category = 0
-      Hint = #1055#1086' '#1076#1077#1073#1077#1090#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton47: TdxBarButton
-      Caption = #1055#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Category = 0
-      Hint = #1055#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton48: TdxBarButton
-      Caption = #1055#1086' '#1082#1088#1077#1076#1080#1090#1072#1084
-      Category = 0
-      Hint = #1055#1086' '#1082#1088#1077#1076#1080#1090#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton49: TdxBarButton
-      Caption = #1056#1072#1089#1095#1077#1090' '#1089' '#1087#1086#1089#1090#1072#1074#1097#1080#1082#1072#1084#1080' '#1087#1086' '#1085#1072#1080#1084'.'
-      Category = 0
-      Hint = #1056#1072#1089#1095#1077#1090' '#1089' '#1087#1086#1089#1090#1072#1074#1097#1080#1082#1072#1084#1080' '#1087#1086' '#1085#1072#1080#1084'.'
-      Visible = ivAlways
-    end
-    object dxBarButton50: TdxBarButton
-      Caption = #1056#1072#1089#1095#1077#1090' '#1089' '#1087#1086#1089#1090#1072#1074#1097#1080#1082#1072#1084#1080' '#1087#1086' '#1076#1086#1082'.'
-      Category = 0
-      Hint = #1056#1072#1089#1095#1077#1090' '#1089' '#1087#1086#1089#1090#1072#1074#1097#1080#1082#1072#1084#1080' '#1087#1086' '#1076#1086#1082'.'
-      Visible = ivAlways
-    end
-    object dxBarButton51: TdxBarButton
-      Caption = #1056#1072#1089#1095#1077#1090' '#1089' '#1087#1086#1089#1090#1072#1074#1097#1080#1082#1072#1084#1080' '#1079#1072' '#1087#1077#1088#1080#1086#1076
-      Category = 0
-      Hint = #1056#1072#1089#1095#1077#1090' '#1089' '#1087#1086#1089#1090#1072#1074#1097#1080#1082#1072#1084#1080' '#1079#1072' '#1087#1077#1088#1080#1086#1076
-      Visible = ivAlways
-    end
-    object dxBarButton52: TdxBarButton
-      Caption = #1056#1077#1077#1089#1090#1088' '#1087#1088#1080#1093#1086#1076#1072' '#1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Category = 0
-      Hint = #1056#1077#1077#1089#1090#1088' '#1087#1088#1080#1093#1086#1076#1072' '#1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton53: TdxBarButton
-      Caption = #1042#1077#1076#1086#1084#1086#1089#1090#1100' '#1088#1072#1089#1093#1086#1076#1072
-      Category = 0
-      Hint = #1042#1077#1076#1086#1084#1086#1089#1090#1100' '#1088#1072#1089#1093#1086#1076#1072
-      Visible = ivAlways
-    end
-    object dxBarButton54: TdxBarButton
-      Caption = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Category = 0
-      Hint = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Visible = ivAlways
-    end
-    object dxBarButton55: TdxBarButton
-      Caption = #1057#1074#1086#1076#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090#1100' '
-      Category = 0
-      Hint = #1057#1074#1086#1076#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090#1100' '
-      Visible = ivAlways
-    end
-    object dxBarButton56: TdxBarButton
-      Caption = #1056#1072#1089#1096#1080#1092#1088#1086#1074#1082#1072' '#1087#1086' '#1089#1090#1086#1088'. '#1086#1088#1075#1072#1085#1080#1079#1072#1094#1080#1103#1084
-      Category = 0
-      Hint = #1056#1072#1089#1096#1080#1092#1088#1086#1074#1082#1072' '#1087#1086' '#1089#1090#1086#1088'. '#1086#1088#1075#1072#1085#1080#1079#1072#1094#1080#1103#1084
-      Visible = ivAlways
-    end
-    object dxBarButton57: TdxBarButton
-      Caption = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Category = 0
-      Hint = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Visible = ivAlways
-    end
-    object dxBarButton58: TdxBarButton
-      Caption = #1055#1086' '#1076#1088#1072#1075'. '#1084#1077#1090#1072#1083#1083#1072#1084
-      Category = 0
-      Hint = #1055#1086' '#1076#1088#1072#1075'. '#1084#1077#1090#1072#1083#1083#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton59: TdxBarButton
-      Caption = #1056#1077#1072#1083#1080#1079#1072#1094#1080#1103' '#1058#1052#1062
-      Category = 0
-      Hint = #1056#1077#1072#1083#1080#1079#1072#1094#1080#1103' '#1058#1052#1062
-      Visible = ivAlways
-    end
-    object dxBarButton60: TdxBarButton
-      Caption = #1056#1072#1089#1093#1086#1076' '#1079#1072' '#1087#1077#1088#1080#1086#1076
-      Category = 0
-      Hint = #1056#1072#1089#1093#1086#1076' '#1079#1072' '#1087#1077#1088#1080#1086#1076
-      Visible = ivAlways
-    end
-    object dxBarButton61: TdxBarButton
-      Caption = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Category = 0
-      Hint = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Visible = ivAlways
-    end
-    object dxBarButton62: TdxBarButton
-      Caption = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Category = 0
-      Hint = #1053#1086#1074#1072#1103' '#1082#1085#1086#1087#1082#1072
-      Visible = ivAlways
-    end
-    object dxBarSubItem21: TdxBarSubItem
-      Caption = #1057#1074#1086#1076#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090#1100' '#1088#1072#1089#1093#1086#1076#1072
-      Category = 0
-      Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton63'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton64'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton65'
-        end>
-    end
-    object dxBarButton63: TdxBarButton
-      Caption = #1087#1086' '#1076#1077#1073#1077#1090#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1076#1077#1073#1077#1090#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton64: TdxBarButton
-      Caption = #1087#1086' '#1082#1088#1077#1076#1080#1090#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1082#1088#1077#1076#1080#1090#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton65: TdxBarButton
-      Caption = #1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarSubItem22: TdxBarSubItem
-      Caption = #1057#1074#1086#1076#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090#1100' '#1087#1088#1080#1093#1086#1076#1072
-      Category = 0
-      Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton66'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton67'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton68'
-        end>
-    end
-    object dxBarButton66: TdxBarButton
-      Caption = #1087#1086' '#1076#1077#1073#1077#1090#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1076#1077#1073#1077#1090#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton67: TdxBarButton
-      Caption = #1087#1086' '#1082#1088#1077#1076#1080#1090#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1082#1088#1077#1076#1080#1090#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton68: TdxBarButton
-      Caption = #1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarSubItem23: TdxBarSubItem
-      Caption = #1056#1077#1077#1089#1090#1088' '#1088#1072#1089#1093#1086#1076#1072
-      Category = 0
-      Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton69'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton70'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton71'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton72'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton73'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton74'
-        end>
-    end
-    object dxBarButton69: TdxBarButton
-      Caption = #1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton70: TdxBarButton
-      Caption = #1087#1086' '#1094#1077#1093#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1094#1077#1093#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton71: TdxBarButton
-      Caption = #1085#1072' '#1089#1090#1086#1088#1086#1085#1091' '#1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Category = 0
-      Hint = #1085#1072' '#1089#1090#1086#1088#1086#1085#1091' '#1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton72: TdxBarButton
-      Caption = #1085#1072' '#1089#1090#1086#1088#1086#1085#1091' '#1087#1086' '#1085#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1102
-      Category = 0
-      Hint = #1085#1072' '#1089#1090#1086#1088#1086#1085#1091' '#1087#1086' '#1085#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1102
-      Visible = ivAlways
-    end
-    object dxBarButton73: TdxBarButton
-      Caption = #1079#1072' '#1085#1072#1083'. '#1088#1072#1089#1095#1077#1090
-      Category = 0
-      Hint = #1079#1072' '#1085#1072#1083'. '#1088#1072#1089#1095#1077#1090
-      Visible = ivAlways
-    end
-    object dxBarButton74: TdxBarButton
-      Caption = #1089#1082#1083#1072#1076#1089#1082#1080#1093' '#1080' '#1088#1077#1075#1080#1089#1090#1088#1072' '#1085#1086#1084#1077#1088#1086#1074
-      Category = 0
-      Hint = #1089#1082#1083#1072#1076#1089#1082#1080#1093' '#1080' '#1088#1077#1075#1080#1089#1090#1088#1072' '#1085#1086#1084#1077#1088#1086#1074
-      Visible = ivAlways
-    end
-    object dxBarButton75: TdxBarButton
-      Caption = #1053#1086#1074#1099#1081' '#1084#1077#1089#1103#1094
-      Category = 0
-      Hint = #1053#1086#1074#1099#1081' '#1084#1077#1089#1103#1094
-      Visible = ivAlways
-    end
-    object dxBarButton76: TdxBarButton
-      Caption = #1053#1086#1074#1099#1081' '#1084#1077#1089#1103#1094
-      Category = 0
-      Hint = #1053#1086#1074#1099#1081' '#1084#1077#1089#1103#1094
-      Visible = ivAlways
-    end
-    object dxBarButton77: TdxBarButton
-      Caption = #1054#1073#1086#1088#1086#1090#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090' '#1076#1074#1080#1078'. '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074
-      Category = 0
-      Hint = #1054#1073#1086#1088#1086#1090#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090' '#1076#1074#1080#1078'. '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074
-      Visible = ivAlways
-    end
-    object dxBarButton78: TdxBarButton
-      Caption = #1054#1073#1086#1088#1086#1090#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090' '#1076#1074#1080#1078'. '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074' ('#1087#1086#1083#1085')'
-      Category = 0
-      Hint = #1054#1073#1086#1088#1086#1090#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090' '#1076#1074#1080#1078'. '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074' ('#1087#1086#1083#1085')'
-      Visible = ivAlways
-    end
-    object dxBarSubItem24: TdxBarSubItem
-      Caption = #1057#1074#1086#1076#1085#1072' '#1074#1077#1076#1086#1084#1086#1089#1090#1100' '#1076#1074#1080#1078#1077#1085#1080#1103
-      Category = 0
-      Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton79'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton80'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton81'
-        end>
-    end
-    object dxBarButton79: TdxBarButton
-      Caption = #1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton80: TdxBarButton
-      Caption = #1087#1086' '#1089#1095#1077#1090#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1089#1095#1077#1090#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton81: TdxBarButton
-      Caption = #1054#1073#1097#1072#1103
-      Category = 0
-      Hint = #1054#1073#1097#1072#1103
-      Visible = ivAlways
-    end
-    object dxBarButton82: TdxBarButton
-      Caption = #1054#1073#1086#1088#1086#1090#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090' '#1076#1074#1080#1078'. '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074' '#1079#1072' '#1087#1077#1088#1080#1086#1076' ('#1087#1086#1083#1085')'
-      Category = 0
-      Hint = #1054#1073#1086#1088#1086#1090#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090' '#1076#1074#1080#1078'. '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074' '#1079#1072' '#1087#1077#1088#1080#1086#1076' ('#1087#1086#1083#1085')'
-      Visible = ivAlways
-    end
-    object dxBarButton83: TdxBarButton
-      Caption = #1054#1073#1086#1088#1086#1090#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090' '#1076#1074#1080#1078'. '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074' '#1079#1072' '#1087#1077#1088#1080#1086#1076
-      Category = 0
-      Hint = #1054#1073#1086#1088#1086#1090#1085#1072#1103' '#1074#1077#1076#1086#1084#1086#1089#1090' '#1076#1074#1080#1078'. '#1084#1072#1090#1077#1088#1080#1072#1083#1086#1074' '#1079#1072' '#1087#1077#1088#1080#1086#1076
-      Visible = ivAlways
-    end
-    object dxBarSubItem25: TdxBarSubItem
-      Caption = #1057#1074#1086#1076#1085#1072' '#1074#1077#1076#1086#1084#1086#1089#1090#1100' '#1076#1074#1080#1078#1077#1085#1080#1103' '#1079#1072' '#1087#1077#1088#1080#1086#1076
-      Category = 0
-      Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton84'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton85'
-        end>
-    end
-    object dxBarButton84: TdxBarButton
-      Caption = #1087#1086' '#1089#1095#1077#1090#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1089#1095#1077#1090#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton85: TdxBarButton
-      Caption = #1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Category = 0
-      Hint = #1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton86: TdxBarButton
-      Caption = #1042#1077#1076#1086#1084#1086#1089#1090#1100' '#1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Category = 0
-      Hint = #1042#1077#1076#1086#1084#1086#1089#1090#1100' '#1087#1086' '#1089#1082#1083#1072#1076#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton87: TdxBarButton
-      Caption = #1055#1086' '#1076#1088#1072#1075#1084#1077#1090#1072#1083#1083#1072#1084
-      Category = 0
-      Hint = #1055#1086' '#1076#1088#1072#1075#1084#1077#1090#1072#1083#1083#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton88: TdxBarButton
-      Caption = #1054#1096#1080#1073#1082#1080' '#1087#1086' '#1086#1089#1090#1072#1090#1072#1082#1072#1084
-      Category = 0
-      Hint = #1054#1096#1080#1073#1082#1080' '#1087#1086' '#1086#1089#1090#1072#1090#1072#1082#1072#1084
-      Visible = ivAlways
-    end
-    object dxBarButton89: TdxBarButton
-      Caption = #1048#1085#1074#1077#1085#1090#1072#1088#1080#1079#1072#1094#1080#1103
-      Category = 0
-      Hint = #1048#1085#1074#1077#1085#1090#1072#1088#1080#1079#1072#1094#1080#1103
-      Visible = ivAlways
     end
     object dxBarButton3: TdxBarButton
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1072' '#1087#1088#1080#1085#1090#1077#1088#1072
@@ -1203,16 +667,22 @@ object Main: TMain
       Visible = ivAlways
       OnClick = dxBarButton92Click
     end
-    object dxBarButton94: TdxBarButton
+    object dxBarButton6: TdxBarButton
+      Caption = #1058#1072#1088#1080#1092#1080
+      Category = 0
+      Hint = #1058#1072#1088#1080#1092#1080
+      Visible = ivAlways
+    end
+    object dxBarButton7: TdxBarButton
       Caption = 'New Button'
       Category = 0
       Hint = 'New Button'
       Visible = ivAlways
     end
-    object dxBarButton6: TdxBarButton
-      Caption = #1058#1072#1088#1080#1092#1080
+    object dxBarButton8: TdxBarButton
+      Caption = 'New Button'
       Category = 0
-      Hint = #1058#1072#1088#1080#1092#1080
+      Hint = 'New Button'
       Visible = ivAlways
     end
   end
@@ -1253,7 +723,7 @@ object Main: TMain
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400100010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2101,7 +1571,7 @@ object Main: TMain
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900100010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000

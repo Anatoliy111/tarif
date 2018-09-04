@@ -143,7 +143,7 @@ var
 
 implementation
 
-uses DataMod, MainMater;
+uses DataMod, MainForm;
 
 {$R *.dfm}
 

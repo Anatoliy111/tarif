@@ -9,7 +9,7 @@ uses
   IBCustomDataSet, cxGridLevel, cxClasses, cxControls, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, dxBar,
   IBDatabase, dxStatusBar, cxContainer, cxTextEdit, cxLookAndFeels,
-  cxLookAndFeelPainters, cxNavigator;
+  cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst;
 
 type
   TJurn = class(TAllMDICh)
@@ -18,25 +18,8 @@ type
     cxGrid1DBTableView1: TcxGridDBTableView;
     cxGrid1Level1: TcxGridLevel;
     cxGrid1: TcxGrid;
-    IBDOC: TIBDataSet;
-    IBDOCKL: TIntegerField;
-    IBDOCKL_DOC: TIntegerField;
-    IBDOCKL_PLAT: TIntegerField;
-    IBDOCKL_BANK_RAX_DT: TIntegerField;
-    IBDOCKL_BANK_RAX_KR: TIntegerField;
-    IBDOCSUMMA: TIBBCDField;
-    IBDOCNUM_DOC: TIBStringField;
-    IBDOCDATA_DOC: TDateField;
-    IBDOCKL_CEX: TIntegerField;
-    IBDOCKL_SKL: TIntegerField;
-    IBDOCKL_KLIENT: TIntegerField;
-    IBDOCPRIZ: TIBStringField;
-    IBDOCMOL: TIBStringField;
-    IBDOCNUM_RAX: TIBStringField;
-    IBDOCDATA_RAX: TDateField;
-    IBDOCNOTE: TIBStringField;
-    IBDOCDATA_NOW: TDateField;
-    DSDOC: TDataSource;
+    IBTARIF: TIBDataSet;
+    DSTARIF: TDataSource;
     cxGrid1DBTableView1KL: TcxGridDBColumn;
     cxGrid1DBTableView1KL_DOC: TcxGridDBColumn;
     cxGrid1DBTableView1KL_PLAT: TcxGridDBColumn;
@@ -57,10 +40,30 @@ type
     dxBarButton1: TdxBarButton;
     dxBarButton2: TdxBarButton;
     dxBarButton3: TdxBarButton;
+    IBPOSL: TIBDataSet;
+    DSPOSL: TDataSource;
+    IBPOSLID: TIntegerField;
+    IBPOSLWID: TIBStringField;
+    IBPOSLNAME: TIBStringField;
+    IBPOSLFL_ZAGR: TIntegerField;
+    IBPOSLFL_ROZRAH: TIntegerField;
+    IBTARIFID: TIntegerField;
+    IBTARIFDATA: TDateField;
+    IBTARIFNAME: TIBStringField;
+    IBTARIFID_POSL: TIntegerField;
+    IBTARIFID_TARDOM: TIntegerField;
+    IBTARIFNOTE: TIBStringField;
+    IBTARIFTARIF_PLAN: TIBBCDField;
+    IBTARIFTARIF_FACT: TIBBCDField;
+    IBTARIFTARIF_RN: TIBBCDField;
+    IBTARIFTARIF_RK: TIBBCDField;
+    IBTARIFNORMA: TIBBCDField;
+    IBTARIFTARIF_END: TIBBCDField;
+    CheckListBox1: TCheckListBox;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure IBDOCBeforePost(DataSet: TDataSet);
+    procedure IBTARIFBeforePost(DataSet: TDataSet);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure cxGrid1DBTableView1DblClick(Sender: TObject);
   private
@@ -75,7 +78,7 @@ var
 
 implementation
 
-uses MainMater, InsertForm;
+uses MainForm, InsertForm;
 
 {$R *.dfm}
 
@@ -125,7 +128,7 @@ begin
   //cxTextEdit1.Text:=IntToStr(Main.MDIChildCount);
 end;
 
-procedure TJurn.IBDOCBeforePost(DataSet: TDataSet);
+procedure TJurn.IBTARIFBeforePost(DataSet: TDataSet);
 begin
   inherited;
 self.fl_post:=1;

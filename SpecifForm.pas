@@ -95,7 +95,7 @@ var
 
 implementation
 
-uses MainMater, InsertForm, mytools;
+uses MainForm, InsertForm, mytools;
 
 {$R *.dfm}
 
