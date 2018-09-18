@@ -46,7 +46,7 @@ inherited Imp: TImp
         end
         object cxButton3: TcxButton
           Left = 16
-          Top = 74
+          Top = 82
           Width = 185
           Height = 33
           Hint = #1044#1086#1076#1072#1090#1080
@@ -56,6 +56,7 @@ inherited Imp: TImp
           ParentShowHint = False
           ShowHint = True
           TabOrder = 1
+          OnClick = cxButton3Click
         end
       end
       object cxGrid1: TcxGrid

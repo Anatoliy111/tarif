@@ -84,6 +84,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 
     procedure cxButton2Click(Sender: TObject);
+    procedure cxButton3Click(Sender: TObject);
 
 
 
@@ -98,6 +99,7 @@ type
 
 var
   Imp: TImp;
+  FilePath, FileName: String;
 
 {    Hint1:string;
     SColor1:TColor; }
@@ -190,6 +192,18 @@ begin
 end;
 
 
+
+procedure TImp.cxButton3Click(Sender: TObject);
+var
+  FilePathSh: String;
+begin
+  if OpenDialog1.Execute then begin
+
+    FilePath := ExtractFilePath(OpenDialog1.FileName);
+    FilePathSh := Copy(FilePath, 1, Length(FilePath) - 1);
+    FileName := ExtractFileName(OpenDialog1.FileName);
+  end;
+end;
 
 procedure TImp.cxButton4Click(Sender: TObject);
 begin
