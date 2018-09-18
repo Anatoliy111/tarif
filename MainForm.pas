@@ -6,8 +6,10 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxClasses, dxBar, ImgList, ComCtrls, Menus, cxControls, dxStatusBar,
   dxRibbonStatusBar, ToolWin, StdActns, ActnList, ExtCtrls, StdCtrls, cxGraphics,
-  jpeg, cxContainer, cxEdit, cxImage, cxLabel, dxSkinsCore, Jurnal,
-  System.Actions, System.ImageList;
+  jpeg, cxContainer, cxEdit, cxImage, cxLabel, dxSkinsCore,
+  System.Actions, System.ImageList, cxButtonEdit, cxBarEditItem, dxBarExtItems,
+  Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
+  cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch;
 
 type
   TMain = class(TForm)
@@ -59,6 +61,38 @@ type
     dxBarButton6: TdxBarButton;
     dxBarButton7: TdxBarButton;
     dxBarButton8: TdxBarButton;
+    dxBarSubItem1: TdxBarSubItem;
+    dxBarButton9: TdxBarButton;
+    cxBarEditItem1: TcxBarEditItem;
+    dxBarSubItem7: TdxBarSubItem;
+    dxBarSubItem9: TdxBarSubItem;
+    dxBarSubItem10: TdxBarSubItem;
+    dxBarButton10: TdxBarButton;
+    dxBarButton11: TdxBarButton;
+    cxBarEditItem2: TcxBarEditItem;
+    cxBarEditItem3: TcxBarEditItem;
+    dxBarStatic1: TdxBarStatic;
+    dxBarButton12: TdxBarButton;
+    dxBarButton13: TdxBarButton;
+    IBPERIOD: TIBDataSet;
+    IBPERIODID: TIntegerField;
+    IBPERIODDATA: TDateField;
+    DІPERIOD: TDataSource;
+    dxBarButton14: TdxBarButton;
+    cxBarEditItem4: TcxBarEditItem;
+    IBTransaction1: TIBTransaction;
+    dxBarSubItem11: TdxBarSubItem;
+    dxBarEdit1: TdxBarEdit;
+    cxBarEditItem5: TcxBarEditItem;
+    dxBarStatic2: TdxBarStatic;
+    dxBarSpinEdit1: TdxBarSpinEdit;
+    cxBarEditItem6: TcxBarEditItem;
+    cxBarEditItem7: TcxBarEditItem;
+    cxBarEditItem8: TcxBarEditItem;
+    cxBarEditItem9: TcxBarEditItem;
+    cxBarEditItem10: TcxBarEditItem;
+    cxBarEditItem11: TcxBarEditItem;
+    cxBarEditItem12: TcxBarEditItem;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -73,6 +107,8 @@ type
     procedure dxBarButton92Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure dxBarButton10Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -80,14 +116,6 @@ type
     public
     vid_doc:integer;    //вид документа (приход,расход ...)
        { Public declarations }
-    JPrih:TJurn;     //
-    JRash:TJurn;     //
-    JPerem:TJurn;    //
-    JVozPok:TJurn;   //  переменные класса TJurn дочерней формы
-    JVozPos:TJurn;   //
-    JSpis:TJurn;     //
-    JInv:TJurn;      //
-
     kl_doc:integer; //ключ документа
     fl_ins:boolean; //флаг - true: при открытии добавляем запись в документ false: не добавляем
 
@@ -102,7 +130,7 @@ var
  // TB:TToolButton;
 implementation
 
-uses Aboutt ,AllMDIChild, Spravoch;
+uses Aboutt ,AllMDIChild, Spravoch, TarifForm, DataMod, mytools;
 
 {$R *.dfm}
 
@@ -150,6 +178,20 @@ end;
 
 
 
+procedure TMain.dxBarButton10Click(Sender: TObject);
+begin
+ if Tarifs=nil then
+ begin
+ Application.CreateForm(TTarifs,Tarifs);
+ AddToolBar(Tarifs);
+ end
+ else
+ begin
+ Tarifs.Show;
+ Tarifs.SetFocus;
+ end;
+end;
+
 procedure TMain.dxBarButton19Click(Sender: TObject);
 begin
 Close;
@@ -194,14 +236,6 @@ var i: integer;
 begin
 for i:= 0 to MdiChildCount - 1 do
   MDIChildren[i].Close;
-
-    JPrih:=nil;
-    JRash:=nil;
-    JPerem:=nil;
-    JVozPok:=nil;
-    JVozPos:=nil;
-    JSpis:=nil;
-    JInv:=nil;
 end;
 
 procedure TMain.dxBarButton4Click(Sender: TObject);
@@ -292,6 +326,14 @@ begin
     IDYES:ModalResult:=mrYes;
     IDNO:CanClose:=false;
   end;
+end;
+
+procedure TMain.FormCreate(Sender: TObject);
+begin
+IBTransaction1.Active:=true;
+IBPERIOD.Active:=true;
+cxBarEditItem4.Caption:='                    '+mon_slovoDt(IBPERIODDATA.Value);
+
 end;
 
 end.

@@ -12,7 +12,9 @@ uses
   MyLibrary in 'MyLibrary.pas',
   mytools in 'mytools.pas',
   SpecifForm in 'SpecifForm.pas' {Specif},
-  Jurnal in 'Jurnal.pas' {Jurn};
+  TarifForm in 'TarifForm.pas' {Tarifs},
+  Import in 'Import.pas' {Tarifs},
+  Ins in 'Ins.pas' {InsForm};
 
 {$R *.res}
 
@@ -28,6 +30,7 @@ begin
 //  Start.Gauge1.Progress:= i div 10000;
   Application.CreateForm(TMain, Main);
   Application.CreateForm(TAbout, About);
+  Application.CreateForm(TInsForm, InsForm);
   Start.Free;
   Application.Run;
 end.

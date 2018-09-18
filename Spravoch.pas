@@ -273,6 +273,8 @@ begin
     Sprav.IBPOSL.Edit;
     Sprav.IBPOSLWID.Value:=cxTextEdit7.Text;
     Sprav.IBPOSLNAME.Value:=cxTextEdit1.Text;
+    Sprav.IBPOSLFL_ZAGR.Value:=0;
+    Sprav.IBPOSLFL_ROZRAH.Value:=0;
     Sprav.IBPOSL.Post;
 
    cxTextEdit7.Text:='';

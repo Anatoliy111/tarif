@@ -1,4 +1,4 @@
-object Main: TMain
+﻿object Main: TMain
   Left = 163
   Top = 138
   Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1090#1072#1088#1080#1092#1110#1074
@@ -15,13 +15,14 @@ object Main: TMain
   WindowState = wsMaximized
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object ImageList1: TImageList
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -336,7 +337,7 @@ object Main: TMain
         end
         item
           Visible = True
-          ItemName = 'dxBarButton6'
+          ItemName = 'dxBarSubItem7'
         end
         item
           Visible = True
@@ -353,6 +354,12 @@ object Main: TMain
         item
           Visible = True
           ItemName = 'dxBarButton19'
+        end
+        item
+          UserDefine = [udWidth]
+          UserWidth = 187
+          Visible = True
+          ItemName = 'cxBarEditItem4'
         end>
       MultiLine = True
       OneOnRow = True
@@ -417,11 +424,11 @@ object Main: TMain
         end
         item
           Visible = True
-          ItemName = 'dxBarButton4'
+          ItemName = 'dxBarButton5'
         end
         item
           Visible = True
-          ItemName = 'dxBarButton5'
+          ItemName = 'dxBarButton4'
         end>
     end
     object dxBarSubItem3: TdxBarSubItem
@@ -549,12 +556,12 @@ object Main: TMain
       Caption = #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
       Category = 0
       Hint = #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
-      Visible = ivAlways
+      Visible = ivNever
     end
     object dxBarButton32: TdxBarButton
-      Caption = #1056#1072#1079#1088#1077#1096#1077#1085#1080#1103
+      Caption = #1048#1084#1087#1086#1088#1090
       Category = 0
-      Hint = #1056#1072#1079#1088#1077#1096#1077#1085#1080#1103
+      Hint = #1048#1084#1087#1086#1088#1090
       Visible = ivAlways
     end
     object dxBarButton33: TdxBarButton
@@ -575,7 +582,7 @@ object Main: TMain
       Caption = #1040#1088#1093#1080#1074
       Category = 0
       Hint = #1040#1088#1093#1080#1074
-      Visible = ivAlways
+      Visible = ivNever
     end
     object dxBarSubItem15: TdxBarSubItem
       Caption = #1054#1082#1085#1072
@@ -644,7 +651,7 @@ object Main: TMain
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1072' '#1087#1088#1080#1085#1090#1077#1088#1072
       Category = 0
       Hint = #1053#1072#1089#1090#1088#1086#1081#1082#1072' '#1087#1088#1080#1085#1090#1077#1088#1072
-      Visible = ivAlways
+      Visible = ivNever
     end
     object dxBarButton90: TdxBarButton
       Caption = #1057#1086#1090#1088#1091#1076#1085#1080#1082#1080
@@ -685,6 +692,214 @@ object Main: TMain
       Hint = 'New Button'
       Visible = ivAlways
     end
+    object dxBarSubItem1: TdxBarSubItem
+      Caption = 'New SubItem'
+      Category = 0
+      Visible = ivAlways
+      ItemLinks = <>
+    end
+    object dxBarButton9: TdxBarButton
+      Caption = 'New Button'
+      Category = 0
+      Hint = 'New Button'
+      Visible = ivAlways
+    end
+    object cxBarEditItem1: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TcxButtonEditProperties'
+      Properties.Buttons = <
+        item
+          Default = True
+          Kind = bkEllipsis
+        end>
+    end
+    object dxBarSubItem7: TdxBarSubItem
+      Caption = #1058#1072#1088#1080#1092#1080
+      Category = 0
+      Visible = ivAlways
+      ItemLinks = <
+        item
+          Visible = True
+          ItemName = 'dxBarButton10'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton11'
+        end>
+    end
+    object dxBarSubItem9: TdxBarSubItem
+      Caption = 'New SubItem'
+      Category = 0
+      Visible = ivAlways
+      ItemLinks = <>
+    end
+    object dxBarSubItem10: TdxBarSubItem
+      Caption = 'New SubItem'
+      Category = 0
+      Visible = ivAlways
+      ItemLinks = <>
+    end
+    object dxBarButton10: TdxBarButton
+      Caption = #1058#1072#1088#1080#1092#1080
+      Category = 0
+      Hint = #1058#1072#1088#1080#1092#1080
+      Visible = ivAlways
+      OnClick = dxBarButton10Click
+    end
+    object dxBarButton11: TdxBarButton
+      Caption = #1053#1086#1074#1080#1081' '#1084#1110#1089#1103#1094#1100
+      Category = 0
+      Hint = #1053#1086#1074#1080#1081' '#1084#1110#1089#1103#1094#1100
+      Visible = ivAlways
+    end
+    object cxBarEditItem2: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TcxLabelProperties'
+    end
+    object cxBarEditItem3: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TcxLabelProperties'
+    end
+    object dxBarStatic1: TdxBarStatic
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+    end
+    object dxBarButton12: TdxBarButton
+      Caption = '                                     '
+      Category = 0
+      Hint = '                                     '
+      Visible = ivAlways
+    end
+    object dxBarButton13: TdxBarButton
+      Caption = #1055#1086#1089#1083#1091#1075#1080' '#1087#1086' '#1073#1091#1076#1080#1085#1082#1072#1093
+      Category = 0
+      Hint = #1055#1086#1089#1083#1091#1075#1080' '#1087#1086' '#1073#1091#1076#1080#1085#1082#1072#1093
+      Visible = ivAlways
+    end
+    object dxBarButton14: TdxBarButton
+      Caption = #1055#1077#1088#1110#1086#1076#1080
+      Category = 0
+      Hint = #1055#1077#1088#1110#1086#1076#1080
+      Visible = ivAlways
+    end
+    object cxBarEditItem4: TcxBarEditItem
+      Align = iaRight
+      Caption = '                                           DATA           '
+      Category = 0
+      Hint = #1044#1072#1090#1072
+      Visible = ivAlways
+      Width = 200
+      PropertiesClassName = 'TcxLabelProperties'
+      BarStyleDropDownButton = False
+      CanSelect = False
+      Properties.Orientation = cxoRight
+      Properties.PenWidth = 15
+      Properties.ShadowedColor = clRed
+      Properties.ShowAccelChar = False
+    end
+    object dxBarSubItem11: TdxBarSubItem
+      Caption = 'New SubItem'
+      Category = 0
+      Visible = ivAlways
+      ItemLinks = <>
+    end
+    object dxBarEdit1: TdxBarEdit
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+    end
+    object cxBarEditItem5: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+    end
+    object dxBarStatic2: TdxBarStatic
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      KeyTip = '5'
+      Visible = ivAlways
+      BorderStyle = sbsBump
+      LeftIndent = 56
+      RightIndent = 56
+    end
+    object dxBarSpinEdit1: TdxBarSpinEdit
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+    end
+    object cxBarEditItem6: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TcxRichEditProperties'
+    end
+    object cxBarEditItem7: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TcxTextEditProperties'
+    end
+    object cxBarEditItem8: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TcxButtonEditProperties'
+      Properties.Buttons = <
+        item
+          Default = True
+          Kind = bkEllipsis
+        end>
+    end
+    object cxBarEditItem9: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TcxHyperLinkEditProperties'
+    end
+    object cxBarEditItem10: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TdxRatingControlProperties'
+    end
+    object cxBarEditItem11: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TdxSparklineProperties'
+      Properties.Series = <>
+    end
+    object cxBarEditItem12: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      ShowCaption = True
+      Width = 0
+      PropertiesClassName = 'TdxToggleSwitchProperties'
+      Properties.ImmediatePost = True
+    end
   end
   object ActionList1: TActionList
     Images = ImageList2
@@ -723,7 +938,7 @@ object Main: TMain
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1571,7 +1786,7 @@ object Main: TMain
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -1841,5 +2056,61 @@ object Main: TMain
       9001C80BC80BFFFFE617EC03EC03FFFFFA07F82FFA2FFFFFFEEFFD8FFD8FFFFF
       FE5FFF5FFE5FFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  object IBPERIOD: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from PERIOD'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into PERIOD'
+      '  (ID, DATA)'
+      'values'
+      '  (:ID, :DATA)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  DATA'
+      'from PERIOD '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select *  from PERIOD order by data desc')
+    ModifySQL.Strings = (
+      'update PERIOD'
+      'set'
+      '  ID = :ID,'
+      '  DATA = :DATA'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_PERIOD_ID'
+    Left = 88
+    Top = 344
+    object IBPERIODID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"PERIOD"."ID"'
+      Required = True
+    end
+    object IBPERIODDATA: TDateField
+      FieldName = 'DATA'
+      Origin = '"PERIOD"."DATA"'
+    end
+  end
+  object DІPERIOD: TDataSource
+    DataSet = IBPERIOD
+    Left = 88
+    Top = 392
+  end
+  object IBTransaction1: TIBTransaction
+    DefaultDatabase = DataM.IBDatabase1
+    Left = 32
+    Top = 416
   end
 end

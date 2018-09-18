@@ -20,7 +20,7 @@ inherited Sprav: TSprav
     Height = 502
     Align = alClient
     TabOrder = 1
-    Properties.ActivePage = cxTabSheet3
+    Properties.ActivePage = cxTabSheet1
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
     ClientRectBottom = 498
@@ -48,7 +48,7 @@ inherited Sprav: TSprav
           Left = 12
           Top = 22
           Properties.MaxLength = 2
-          TabOrder = 0
+          TabOrder = 1
           Width = 39
         end
         object cxButton8: TcxButton
@@ -118,7 +118,8 @@ inherited Sprav: TSprav
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 2
+          TabOrder = 3
+          TabStop = False
           OnClick = cxButton8Click
         end
         object cxButton11: TcxButton
@@ -199,7 +200,8 @@ inherited Sprav: TSprav
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000}
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 3
+          TabOrder = 0
+          TabStop = False
           OnClick = cxButton11Click
         end
         object cxLabel7: TcxLabel
@@ -210,7 +212,7 @@ inherited Sprav: TSprav
         object cxTextEdit1: TcxTextEdit
           Left = 8
           Top = 64
-          TabOrder = 5
+          TabOrder = 2
           Width = 329
         end
       end
@@ -264,8 +266,6 @@ inherited Sprav: TSprav
         Height = 129
         Align = alTop
         TabOrder = 0
-        ExplicitLeft = -1
-        ExplicitTop = -6
         object cxLabel2: TcxLabel
           Left = 224
           Top = 8
@@ -279,14 +279,14 @@ inherited Sprav: TSprav
         object cxTextEdit4: TcxTextEdit
           Left = 8
           Top = 61
-          TabOrder = 2
+          TabOrder = 3
           Width = 429
         end
         object cxTextEdit3: TcxTextEdit
           Left = 224
           Top = 24
           Properties.OnChange = cxTextEdit3PropertiesChange
-          TabOrder = 3
+          TabOrder = 2
           Width = 121
         end
         object cxLabel4: TcxLabel
@@ -361,7 +361,8 @@ inherited Sprav: TSprav
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 5
+          TabOrder = 6
+          TabStop = False
           OnClick = cxButton1Click
         end
         object cxButton2: TcxButton
@@ -442,7 +443,8 @@ inherited Sprav: TSprav
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000}
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 6
+          TabOrder = 7
+          TabStop = False
           OnClick = cxButton2Click
         end
         object cxLookupComboBox1: TcxLookupComboBox
@@ -455,7 +457,7 @@ inherited Sprav: TSprav
             end>
           Properties.ListSource = DSUL
           Properties.OnChange = cxLookupComboBox1PropertiesChange
-          TabOrder = 7
+          TabOrder = 1
           Width = 194
         end
       end
@@ -582,7 +584,8 @@ inherited Sprav: TSprav
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 1
+          TabOrder = 2
+          TabStop = False
           OnClick = cxButton3Click
         end
         object cxButton4: TcxButton
@@ -663,13 +666,14 @@ inherited Sprav: TSprav
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000}
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 2
+          TabOrder = 3
+          TabStop = False
           OnClick = cxButton4Click
         end
         object cxTextEdit2: TcxTextEdit
           Left = 7
           Top = 28
-          TabOrder = 3
+          TabOrder = 1
           Width = 429
         end
       end
@@ -680,8 +684,6 @@ inherited Sprav: TSprav
         Height = 361
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 161
-        ExplicitHeight = 313
         object cxGridDBTableView2: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSUL
@@ -698,9 +700,6 @@ inherited Sprav: TSprav
         end
       end
     end
-  end
-  inherited IBTransaction1: TIBTransaction
-    Active = True
   end
   object IBPOSL: TIBDataSet
     Database = DataM.IBDatabase1
