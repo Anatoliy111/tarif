@@ -114,7 +114,7 @@ Coordinates=419,10,66,36
 Coordinates=554,386,179,36
 
 []
-Coordinates=657,661,144,36
+Coordinates=21,351,72,58
 
 [IBTARIF_COMPNAME]
 Coordinates=383,496,145,36
@@ -130,9 +130,6 @@ Coordinates=566,221,97,36
 
 [IBPOSL]
 Coordinates=530,70,80,168
-
-[cxButton5]
-Coordinates=21,351,72,58
 
 [IBTARIF_COMPID_TARIF]
 Coordinates=772,331,165,36

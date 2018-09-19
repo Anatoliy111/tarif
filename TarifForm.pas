@@ -46,8 +46,6 @@ type
     cxGrid1DBTableView1NORMA: TcxGridDBColumn;
     cxGrid1DBTableView1TARIF_END: TcxGridDBColumn;
     Panel1: TPanel;
-    cxButton3: TcxButton;
-    cxButton4: TcxButton;
     cxLabel5: TcxLabel;
     cxLabel1: TcxLabel;
     DBLookupListBox1: TDBLookupListBox;
@@ -60,7 +58,6 @@ type
     IBPOSLFL_ROZRAH: TIntegerField;
     cxButton1: TcxButton;
     cxButton2: TcxButton;
-    cxButton5: TcxButton;
     IBTARIF_COMP: TIBDataSet;
     DSTARIF_COMP: TDataSource;
     IBTARIF_COMPID: TIntegerField;
@@ -107,7 +104,7 @@ end;
 procedure TTarifs.cxLookupComboBox1PropertiesChange(Sender: TObject);
 begin
   inherited;
-   if cxLookupComboBox1.EditValue = main.IBPERIODDATA.Value then
+   if cxLookupComboBox1.EditValue = main.Period then
    begin
       cxLabel2.Caption:='Поточний період';
    end
@@ -165,7 +162,7 @@ end;
 procedure TTarifs.FormCreate(Sender: TObject);
 begin
   inherited;
-
+  cxLookupComboBox1.EditValue:= main.Period;
   IBTransaction1.Active:=true;
   IBPOSL.Active:=true;
   IBTARIF.Active:=false;

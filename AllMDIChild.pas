@@ -10,18 +10,23 @@ uses
 
 type
   TAllMDICh = class(TForm)
-    dxStatusBar1: TdxStatusBar;
     IBTransaction1: TIBTransaction;
     Panel2: TPanel;
     cxButton6: TcxButton;
     cxButton7: TcxButton;
     cxButton8: TcxButton;
     cxButton9: TcxButton;
+    Panel4: TPanel;
+    Panel3: TPanel;
+    dxStatusBar1: TdxStatusBar;
+    cxButton4: TcxButton;
+    cxButton3: TcxButton;
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormDeactivate(Sender: TObject);
-    procedure cxButton6Click(Sender: TObject);
+    procedure cxButton3Click(Sender: TObject);
+    procedure cxButton4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -42,7 +47,12 @@ uses DataMod, InsertForm;
 {$R *.dfm}
 
 
-procedure TAllMDICh.cxButton6Click(Sender: TObject);
+procedure TAllMDICh.cxButton3Click(Sender: TObject);
+begin
+close;
+end;
+
+procedure TAllMDICh.cxButton4Click(Sender: TObject);
 begin
   if self.fl_post=1 then
   begin
@@ -53,7 +63,6 @@ begin
            end;
     end;
   end;
-
 
 end;
 
@@ -116,7 +125,7 @@ procedure TAllMDICh.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   CanClose:=true;
   if self.fl_post=1 then
-  case MessageBox(handle,pchar('«берегти вс≥ зм≥ни?'),pchar(''),51) of
+  case MessageBox(handle,pchar('«берегти вс≥ зм≥ни? (‘орма буде закрита)'),pchar(''),51) of
     IDYES:ModalResult:=mrYes;
     IDNO:ModalResult:=mrNo;
     IDCANCEL:CanClose:=false;

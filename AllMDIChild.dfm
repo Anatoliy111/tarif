@@ -3,7 +3,7 @@ object AllMDICh: TAllMDICh
   Top = 0
   Caption = 'AllMDICh'
   ClientHeight = 517
-  ClientWidth = 758
+  ClientWidth = 724
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,26 +19,13 @@ object AllMDICh: TAllMDICh
   OnDeactivate = FormDeactivate
   PixelsPerInch = 96
   TextHeight = 13
-  object dxStatusBar1: TdxStatusBar
-    AlignWithMargins = True
-    Left = 3
-    Top = 496
-    Width = 752
-    Height = 18
-    Panels = <>
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-  end
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 758
+    Width = 724
     Height = 41
     Align = alTop
-    TabOrder = 1
+    TabOrder = 0
     object cxButton6: TcxButton
       Left = 123
       Top = 1
@@ -179,7 +166,6 @@ object AllMDICh: TAllMDICh
         0004000000040000000400000003000000010000000000000000000000000000
         0000000000000000000000000000000000000000000000000000}
       TabOrder = 0
-      OnClick = cxButton6Click
     end
     object cxButton7: TcxButton
       Left = 81
@@ -322,8 +308,6 @@ object AllMDICh: TAllMDICh
         0000000000000000000000000000000000000000000000000000}
       OptionsImage.Layout = blGlyphRight
       TabOrder = 1
-      OnClick = cxButton6Click
-      ExplicitHeight = 31
     end
     object cxButton8: TcxButton
       Left = 41
@@ -466,8 +450,6 @@ object AllMDICh: TAllMDICh
         0000000000000000000000000000000000000000000000000000}
       OptionsImage.Layout = blGlyphRight
       TabOrder = 2
-      OnClick = cxButton6Click
-      ExplicitLeft = -5
     end
     object cxButton9: TcxButton
       Left = 1
@@ -610,8 +592,55 @@ object AllMDICh: TAllMDICh
         0000000000000000000000000000000000000000000000000000}
       OptionsImage.Layout = blGlyphRight
       TabOrder = 3
-      OnClick = cxButton6Click
-      ExplicitLeft = -5
+    end
+  end
+  object Panel4: TPanel
+    Left = 0
+    Top = 448
+    Width = 724
+    Height = 69
+    Align = alBottom
+    TabOrder = 1
+    object Panel3: TPanel
+      Left = 552
+      Top = 1
+      Width = 171
+      Height = 43
+      Align = alRight
+      TabOrder = 0
+      object cxButton4: TcxButton
+        Left = 89
+        Top = 8
+        Width = 75
+        Height = 25
+        Caption = #1047#1072#1087#1080#1089#1072#1090#1080
+        LookAndFeel.NativeStyle = False
+        TabOrder = 0
+        OnClick = cxButton4Click
+      end
+      object cxButton3: TcxButton
+        Left = 8
+        Top = 8
+        Width = 75
+        Height = 25
+        Caption = #1054#1050
+        LookAndFeel.NativeStyle = False
+        TabOrder = 1
+        OnClick = cxButton3Click
+      end
+    end
+    object dxStatusBar1: TdxStatusBar
+      AlignWithMargins = True
+      Left = 4
+      Top = 47
+      Width = 716
+      Height = 18
+      Panels = <>
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
     end
   end
   object IBTransaction1: TIBTransaction

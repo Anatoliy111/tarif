@@ -100,7 +100,6 @@ type
     procedure dxBarButton30Click(Sender: TObject);
     procedure dxBarButton4Click(Sender: TObject);
     procedure dxBarButton5Click(Sender: TObject);
-    procedure dxBarButton29Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure dxBarButton10Click(Sender: TObject);
@@ -194,9 +193,7 @@ begin
 Close;
 end;
 
-
-
-procedure TMain.dxBarButton29Click(Sender: TObject);
+procedure TMain.dxBarButton30Click(Sender: TObject);
 begin
  if Sprav=nil then
  begin
@@ -205,38 +202,7 @@ begin
  end
  else
  Sprav.SetFocus;
-// Sprav.cxPageControl1.ActivePageIndex:=4;
-end;
-
-procedure TMain.dxBarButton30Click(Sender: TObject);
-//var frm:TSprav;
-begin
-  frm:= TSprav.create(self);
-//  try
-//    frm.edit1.text:= temp;
-    frm.Show;
-//  finally
-//    frm.Free;
-
-
-//   end;
-
-// if Sprav=nil then
-// begin
-// Application.CreateForm(TSprav,Sprav);
-// AddToolBar(Sprav);
-// Sprav.IBPOSL.Active:=true;
-// Sprav.cxGrid1DBTableView1.DataController.DataSource:=Sprav.DSPOSL;
-// Sprav.cxGrid1DBTableView1.DataController.DetailKeyFieldNames:='ID';
-//// Sprav.cxGrid1DBTableView1.Columns.
-//
-// end
-// else
-// begin
-// Sprav.Show;
-// Sprav.SetFocus;
-// end;
-// Sprav.cxPageControl1.ActivePageIndex:=0;
+ Sprav.cxPageControl1.ActivePageIndex:=0;
 end;
 
 procedure TMain.dxBarButton32Click(Sender: TObject);
@@ -274,7 +240,7 @@ begin
  end
  else
  Sprav.SetFocus;
-// Sprav.cxPageControl1.ActivePageIndex:=1;
+ Sprav.cxPageControl1.ActivePageIndex:=1;
 end;
 
 procedure TMain.dxBarButton5Click(Sender: TObject);
@@ -286,7 +252,7 @@ begin
  end
  else
  Sprav.SetFocus;
-// Sprav.cxPageControl1.ActivePageIndex:=2;
+ Sprav.cxPageControl1.ActivePageIndex:=2;
 end;
 
 procedure TMain.FormClose(Sender: TObject; var Action: TCloseAction);

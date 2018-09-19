@@ -8,24 +8,22 @@ inherited Imp: TImp
   PixelsPerInch = 96
   TextHeight = 13
   inherited dxStatusBar1: TdxStatusBar
-    Top = 507
+    Top = 505
     Width = 761
     ExplicitTop = 491
     ExplicitWidth = 761
   end
   object cxPageControl1: TcxPageControl [1]
     Left = 0
-    Top = 41
+    Top = 0
     Width = 767
-    Height = 463
+    Height = 502
     Align = alClient
     TabOrder = 1
     Properties.ActivePage = cxTabSheet1
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
-    ExplicitTop = 0
-    ExplicitHeight = 502
-    ClientRectBottom = 459
+    ClientRectBottom = 498
     ClientRectLeft = 4
     ClientRectRight = 763
     ClientRectTop = 24
@@ -34,7 +32,7 @@ inherited Imp: TImp
       Caption = #1055#1086#1089#1083#1091#1075#1080
       DragMode = dmAutomatic
       ImageIndex = 0
-      ExplicitHeight = 468
+      ExplicitHeight = 429
       object Panel9: TPanel
         Left = 0
         Top = 0
@@ -66,10 +64,9 @@ inherited Imp: TImp
         Left = 0
         Top = 129
         Width = 753
-        Height = 300
+        Height = 339
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 339
         object cxGrid1DBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSPOSL
@@ -106,7 +103,7 @@ inherited Imp: TImp
     object cxTabSheet2: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1080
       ImageIndex = 1
-      ExplicitHeight = 474
+      ExplicitHeight = 435
       object Panel7: TPanel
         Left = 0
         Top = 0
@@ -137,10 +134,9 @@ inherited Imp: TImp
         Left = 0
         Top = 129
         Width = 759
-        Height = 306
+        Height = 345
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 345
         object cxGridDBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSDOM
@@ -178,7 +174,7 @@ inherited Imp: TImp
     object cxTabSheet3: TcxTabSheet
       Caption = #1042#1091#1083#1080#1094#1110
       ImageIndex = 2
-      ExplicitHeight = 474
+      ExplicitHeight = 435
       object Panel6: TPanel
         Left = 0
         Top = 0
@@ -209,10 +205,9 @@ inherited Imp: TImp
         Left = 0
         Top = 113
         Width = 759
-        Height = 322
+        Height = 361
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 361
         object cxGridDBTableView2: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSUL
@@ -229,11 +224,6 @@ inherited Imp: TImp
         end
       end
     end
-  end
-  inherited Panel2: TPanel
-    Width = 767
-    TabOrder = 2
-    ExplicitWidth = 767
   end
   object IBPOSL: TIBDataSet
     Database = DataM.IBDatabase1
