@@ -207,15 +207,17 @@ end;
 
 procedure TMain.dxBarButton32Click(Sender: TObject);
 begin
- if Imp=nil then
+ if ImpForm=nil then
  begin
- Application.CreateForm(TImp,Imp);
- AddToolBar(Imp);
+ Application.CreateForm(TImpForm,ImpForm);
+  ImpForm.Show;
+ ImpForm.SetFocus;
+// AddToolBar(ImpForm);
  end
  else
  begin
- Imp.Show;
- Imp.SetFocus;
+ ImpForm.Show;
+ ImpForm.SetFocus;
  end;
 end;
 

@@ -596,7 +596,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Import.pas">
-            <Form>InsForm1</Form>
+            <Form>ImpForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Debug">

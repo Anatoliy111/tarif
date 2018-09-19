@@ -14,7 +14,7 @@ uses
   SpecifForm in 'SpecifForm.pas' {Specif},
   TarifForm in 'TarifForm.pas' {Tarifs},
   Ins in 'Ins.pas' {InsForm},
-  Import in 'Import.pas' {InsForm1};
+  Import in 'Import.pas' {ImpForm};
 
 {$R *.res}
 
@@ -24,7 +24,6 @@ begin
   Start := TStart.Create(Application);
   Application.Title := 'Розрахунок тарифів';
   Application.CreateForm(TDataM, DataM);
-  Application.CreateForm(TInsForm1, InsForm1);
   application.ProcessMessages;
   Start.Show;
 //  for i:=1 to 1000000 do

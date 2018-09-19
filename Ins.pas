@@ -16,6 +16,8 @@ type
     IBTransaction1: TIBTransaction;
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cxButton3Click(Sender: TObject);
+    procedure cxButton4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -29,6 +31,24 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TInsForm.cxButton3Click(Sender: TObject);
+begin
+close;
+end;
+
+procedure TInsForm.cxButton4Click(Sender: TObject);
+begin
+  if self.fl_post=1 then
+  begin
+    case MessageBox(handle,pchar('«берегти зм≥ни?'),pchar(''),MB_OKCANCEL) of
+      mrOK:begin
+            IBTransaction1.CommitRetaining;
+            self.fl_post:=0;
+           end;
+    end;
+  end;
+end;
 
 procedure TInsForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin

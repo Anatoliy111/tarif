@@ -22,7 +22,6 @@ object InsForm: TInsForm
     Height = 38
     Align = alBottom
     TabOrder = 0
-    ExplicitTop = 336
     object cxButton3: TcxButton
       Left = 336
       Top = 5
@@ -32,6 +31,7 @@ object InsForm: TInsForm
       LookAndFeel.Kind = lfUltraFlat
       LookAndFeel.NativeStyle = False
       TabOrder = 0
+      OnClick = cxButton3Click
     end
     object cxButton4: TcxButton
       Left = 447
@@ -42,6 +42,7 @@ object InsForm: TInsForm
       LookAndFeel.Kind = lfUltraFlat
       LookAndFeel.NativeStyle = False
       TabOrder = 1
+      OnClick = cxButton4Click
     end
   end
   object IBTransaction1: TIBTransaction

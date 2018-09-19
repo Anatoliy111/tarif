@@ -620,7 +620,7 @@ object AllMDICh: TAllMDICh
       end
       object cxButton3: TcxButton
         Left = 8
-        Top = 8
+        Top = 15
         Width = 75
         Height = 25
         Caption = #1054#1050
