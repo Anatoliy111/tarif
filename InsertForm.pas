@@ -183,7 +183,7 @@ begin
 
   MatSpec:=nil;
 //  IBADDIT.ParamByName('KlDoc').AsInteger:=IBDOCKL.Value;  // сортировка спецыфикации по документу
-  main.fl_ins:=false;
+//  main.fl_ins:=false;
   inherited;
 end;
 

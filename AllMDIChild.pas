@@ -12,10 +12,16 @@ type
   TAllMDICh = class(TForm)
     dxStatusBar1: TdxStatusBar;
     IBTransaction1: TIBTransaction;
+    Panel2: TPanel;
+    cxButton6: TcxButton;
+    cxButton7: TcxButton;
+    cxButton8: TcxButton;
+    cxButton9: TcxButton;
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormDeactivate(Sender: TObject);
+    procedure cxButton6Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -35,6 +41,21 @@ uses DataMod, InsertForm;
 
 {$R *.dfm}
 
+
+procedure TAllMDICh.cxButton6Click(Sender: TObject);
+begin
+  if self.fl_post=1 then
+  begin
+    case MessageBox(handle,pchar('Зберегти зміни?'),pchar(''),MB_OKCANCEL) of
+      mrOK:begin
+            IBTransaction1.CommitRetaining;
+            self.fl_post:=0;
+           end;
+    end;
+  end;
+
+
+end;
 
 procedure TAllMDICh.FormActivate(Sender: TObject);
  var i:integer;
@@ -95,7 +116,7 @@ procedure TAllMDICh.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   CanClose:=true;
   if self.fl_post=1 then
-  case MessageBox(handle,pchar('Сохранить все изменения?'),pchar(''),51) of
+  case MessageBox(handle,pchar('Зберегти всі зміни?'),pchar(''),51) of
     IDYES:ModalResult:=mrYes;
     IDNO:ModalResult:=mrNo;
     IDCANCEL:CanClose:=false;

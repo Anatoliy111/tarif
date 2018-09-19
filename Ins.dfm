@@ -1,8 +1,8 @@
 object InsForm: TInsForm
   Left = 0
   Top = 0
-  Caption = #1044#1086#1076#1072#1090#1080' '#1090#1072#1088#1080#1092
-  ClientHeight = 374
+  Caption = #1044#1086#1076#1072#1090#1080
+  ClientHeight = 538
   ClientWidth = 561
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,43 +11,46 @@ object InsForm: TInsForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
   PixelsPerInch = 96
   TextHeight = 13
-  object cxButton1: TcxButton
-    Left = 320
-    Top = 341
-    Width = 105
-    Height = 25
-    Caption = 'OK'
-    LookAndFeel.Kind = lfUltraFlat
-    LookAndFeel.NativeStyle = False
+  object Panel1: TPanel
+    Left = 0
+    Top = 500
+    Width = 561
+    Height = 38
+    Align = alBottom
     TabOrder = 0
+    ExplicitTop = 336
+    object cxButton3: TcxButton
+      Left = 336
+      Top = 5
+      Width = 105
+      Height = 25
+      Caption = 'OK'
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      TabOrder = 0
+    end
+    object cxButton4: TcxButton
+      Left = 447
+      Top = 5
+      Width = 105
+      Height = 25
+      Caption = #1047#1072#1087#1080#1089#1072#1090#1080
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      TabOrder = 1
+    end
   end
-  object cxButton2: TcxButton
-    Left = 431
-    Top = 341
-    Width = 105
-    Height = 25
-    Caption = #1042#1110#1076#1084#1110#1085#1072
-    LookAndFeel.Kind = lfUltraFlat
-    LookAndFeel.NativeStyle = False
-    TabOrder = 1
-  end
-  object cxTextEdit1: TcxTextEdit
-    Left = 32
-    Top = 47
-    TabOrder = 2
-    Text = 'cxTextEdit1'
-    Width = 257
-  end
-  object cxLabel1: TcxLabel
-    Left = 320
-    Top = 24
-    Caption = #1042#1080#1073#1077#1088#1110#1090#1100' '#1073#1091#1076#1080#1085#1086#1082
-  end
-  object cxLabel2: TcxLabel
-    Left = 32
-    Top = 24
-    Caption = #1053#1072#1079#1074#1072
+  object IBTransaction1: TIBTransaction
+    DefaultDatabase = DataM.IBDatabase1
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    Left = 8
+    Top = 504
   end
 end

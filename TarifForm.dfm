@@ -1,27 +1,31 @@
-inherited Tarifs: TTarifs
+﻿inherited Tarifs: TTarifs
   Caption = #1058#1072#1088#1080#1092#1080
   ClientHeight = 588
-  ClientWidth = 711
+  ClientWidth = 910
   OnCreate = FormCreate
-  ExplicitWidth = 727
+  ExplicitWidth = 926
   ExplicitHeight = 626
   PixelsPerInch = 96
   TextHeight = 13
   inherited dxStatusBar1: TdxStatusBar
     Top = 568
-    Width = 705
+    Width = 904
     Height = 17
     ExplicitTop = 568
     ExplicitWidth = 705
     ExplicitHeight = 17
   end
   object cxGrid1: TcxGrid [1]
-    Left = 121
-    Top = 41
-    Width = 590
-    Height = 524
+    Left = 137
+    Top = 130
+    Width = 773
+    Height = 435
     Align = alClient
     TabOrder = 2
+    ExplicitLeft = 127
+    ExplicitTop = 89
+    ExplicitWidth = 584
+    ExplicitHeight = 476
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = DSTARIF
@@ -67,14 +71,16 @@ inherited Tarifs: TTarifs
   end
   object Panel1: TPanel [2]
     Left = 0
-    Top = 0
-    Width = 711
-    Height = 41
+    Top = 41
+    Width = 910
+    Height = 89
     Align = alTop
     TabOrder = 6
+    ExplicitTop = 0
+    ExplicitWidth = 711
     object cxButton3: TcxButton
-      Left = 180
-      Top = 2
+      Left = 216
+      Top = 50
       Width = 39
       Height = 33
       Hint = #1044#1086#1076#1072#1090#1080
@@ -143,8 +149,8 @@ inherited Tarifs: TTarifs
       OnClick = cxButton3Click
     end
     object cxButton4: TcxButton
-      Left = 225
-      Top = 2
+      Left = 261
+      Top = 50
       Width = 39
       Height = 33
       Hint = #1042#1080#1076#1072#1083#1080#1090#1080
@@ -223,18 +229,32 @@ inherited Tarifs: TTarifs
       TabOrder = 3
     end
     object cxLabel5: TcxLabel
-      Left = 32
-      Top = 20
+      Left = 5
+      Top = 66
       Caption = #1055#1086#1089#1083#1091#1075#1080
+      ParentFont = False
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = []
+      Style.IsFontAssigned = True
     end
     object cxLabel1: TcxLabel
-      Left = 132
-      Top = 20
+      Left = 135
+      Top = 66
       Caption = #1058#1072#1088#1080#1092#1080
+      ParentFont = False
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = []
+      Style.IsFontAssigned = True
     end
     object cxButton1: TcxButton
-      Left = 315
-      Top = 2
+      Left = 351
+      Top = 50
       Width = 120
       Height = 33
       Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
@@ -246,8 +266,8 @@ inherited Tarifs: TTarifs
       TabOrder = 4
     end
     object cxButton2: TcxButton
-      Left = 441
-      Top = 2
+      Left = 477
+      Top = 50
       Width = 120
       Height = 33
       Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
@@ -259,8 +279,8 @@ inherited Tarifs: TTarifs
       TabOrder = 5
     end
     object cxButton5: TcxButton
-      Left = 270
-      Top = 2
+      Left = 306
+      Top = 50
       Width = 39
       Height = 33
       Hint = #1056#1077#1076#1072#1075#1091#1074#1072#1090#1080
@@ -338,18 +358,42 @@ inherited Tarifs: TTarifs
       ShowHint = True
       TabOrder = 6
     end
+    object cxLabel2: TcxLabel
+      Left = 11
+      Top = 0
+      Caption = #1055#1077#1088#1110#1086#1076
+    end
+    object cxLookupComboBox1: TcxLookupComboBox
+      Left = 5
+      Top = 23
+      Properties.KeyFieldNames = 'DATA'
+      Properties.ListColumns = <
+        item
+          FieldName = 'DATA'
+        end>
+      Properties.ListSource = Main.DІPERIOD
+      Properties.OnChange = cxLookupComboBox1PropertiesChange
+      TabOrder = 8
+      Width = 164
+    end
   end
   object DBLookupListBox1: TDBLookupListBox [3]
     Left = 0
-    Top = 41
-    Width = 121
-    Height = 524
+    Top = 130
+    Width = 137
+    Height = 433
     Align = alLeft
     KeyField = 'ID'
     ListField = 'NAME'
     ListSource = DSPOSL
     TabOrder = 1
     OnClick = DBLookupListBox1Click
+    ExplicitTop = 89
+    ExplicitHeight = 472
+  end
+  inherited Panel2: TPanel
+    Width = 910
+    TabOrder = 8
   end
   inherited IBTransaction1: TIBTransaction
     Active = True

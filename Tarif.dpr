@@ -14,7 +14,10 @@ uses
   SpecifForm in 'SpecifForm.pas' {Specif},
   TarifForm in 'TarifForm.pas' {Tarifs},
   Import in 'Import.pas' {Tarifs},
-  Ins in 'Ins.pas' {InsForm};
+  Ins in 'Ins.pas' {InsForm},
+  InsUL in 'InsUL.pas' {InsFormUL},
+  InsBUD in 'InsBUD.pas' {InsFormBUD},
+  InsPOSL in 'InsPOSL.pas' {InsFormPOSL};
 
 {$R *.res}
 
@@ -30,7 +33,6 @@ begin
 //  Start.Gauge1.Progress:= i div 10000;
   Application.CreateForm(TMain, Main);
   Application.CreateForm(TAbout, About);
-  Application.CreateForm(TInsForm, InsForm);
   Start.Free;
   Application.Run;
 end.

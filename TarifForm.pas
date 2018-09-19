@@ -10,7 +10,8 @@ uses
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, dxBar,
   IBDatabase, dxStatusBar, cxContainer, cxTextEdit, cxLookAndFeels,
   cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst, Vcl.Menus,
-  cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls;
+  cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit,
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox;
 
 type
   TTarifs = class(TAllMDICh)
@@ -67,6 +68,8 @@ type
     IBTARIF_COMPID_TARIF: TIntegerField;
     IBTARIF_COMPNAME: TIBStringField;
     IBTARIF_COMPSUMM: TIBBCDField;
+    cxLabel2: TcxLabel;
+    cxLookupComboBox1: TcxLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -74,6 +77,8 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure DBLookupListBox1Click(Sender: TObject);
     procedure cxButton3Click(Sender: TObject);
+    procedure DBComboBox1Change(Sender: TObject);
+    procedure cxLookupComboBox1PropertiesChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -86,7 +91,7 @@ var
 
 implementation
 
-uses MainForm, InsertForm, Ins;
+uses MainForm, InsertForm, Ins, mytools;
 
 {$R *.dfm}
 
@@ -97,6 +102,27 @@ begin
   inherited;
   IBTARIF.Insert;
   InsForm.ShowModal;
+end;
+
+procedure TTarifs.cxLookupComboBox1PropertiesChange(Sender: TObject);
+begin
+  inherited;
+   if cxLookupComboBox1.EditValue = main.IBPERIODDATA.Value then
+   begin
+      cxLabel2.Caption:='Поточний період';
+   end
+   else
+   begin
+      cxLabel2.Caption:='Архів';
+   end;
+end;
+
+procedure TTarifs.DBComboBox1Change(Sender: TObject);
+begin
+  inherited;
+
+if Main.IBPERIODDATA.Value=main.Period then
+//cxComboBox1.EditValue
 end;
 
 procedure TTarifs.DBLookupListBox1Click(Sender: TObject);
@@ -141,12 +167,15 @@ begin
   inherited;
 
   IBTransaction1.Active:=true;
+  IBPOSL.Active:=true;
   IBTARIF.Active:=false;
   IBTARIF.SelectSQL.Text:='select * from TARIF where id_posl=:pos';
   IBTARIF.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF.Active:=true;
+//  DBLookupComboBox1.KeyField:=  Main.IBPERIODID.Value;
 
-  IBPOSL.Active:=true;
+
+
 //  IBTARIF.Close;
 //  IBDOC.ParamByName('TDOC').AsInteger:=main.vid_doc;    //сортировка по типу документа
 //  IBTARIF.Open;

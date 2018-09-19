@@ -9,7 +9,7 @@ uses
   jpeg, cxContainer, cxEdit, cxImage, cxLabel, dxSkinsCore,
   System.Actions, System.ImageList, cxButtonEdit, cxBarEditItem, dxBarExtItems,
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
-  cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch;
+  cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild;
 
 type
   TMain = class(TForm)
@@ -100,15 +100,12 @@ type
     procedure dxBarButton30Click(Sender: TObject);
     procedure dxBarButton4Click(Sender: TObject);
     procedure dxBarButton5Click(Sender: TObject);
-    procedure dxBarButton7Click(Sender: TObject);
     procedure dxBarButton29Click(Sender: TObject);
-    procedure dxBarButton90Click(Sender: TObject);
-    procedure dxBarButton91Click(Sender: TObject);
-    procedure dxBarButton92Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure dxBarButton10Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure dxBarButton32Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -116,8 +113,7 @@ type
     public
     vid_doc:integer;    //вид документа (приход,расход ...)
        { Public declarations }
-    kl_doc:integer; //ключ документа
-    fl_ins:boolean; //флаг - true: при открытии добавляем запись в документ false: не добавляем
+    Period:TDate;
 
     procedure AddToolbar(frm:TForm);
 
@@ -127,10 +123,11 @@ var
   Main: TMain;
   ExB: WORD;
   HiForm:integer;
+  frm:TSprav;
  // TB:TToolButton;
 implementation
 
-uses Aboutt ,AllMDIChild, Spravoch, TarifForm, DataMod, mytools;
+uses Aboutt ,TarifForm, DataMod, mytools, Import;
 
 {$R *.dfm}
 
@@ -208,22 +205,52 @@ begin
  end
  else
  Sprav.SetFocus;
- Sprav.cxPageControl1.ActivePageIndex:=4;
+// Sprav.cxPageControl1.ActivePageIndex:=4;
 end;
 
 procedure TMain.dxBarButton30Click(Sender: TObject);
+//var frm:TSprav;
 begin
- if Sprav=nil then
+  frm:= TSprav.create(self);
+//  try
+//    frm.edit1.text:= temp;
+    frm.Show;
+//  finally
+//    frm.Free;
+
+
+//   end;
+
+// if Sprav=nil then
+// begin
+// Application.CreateForm(TSprav,Sprav);
+// AddToolBar(Sprav);
+// Sprav.IBPOSL.Active:=true;
+// Sprav.cxGrid1DBTableView1.DataController.DataSource:=Sprav.DSPOSL;
+// Sprav.cxGrid1DBTableView1.DataController.DetailKeyFieldNames:='ID';
+//// Sprav.cxGrid1DBTableView1.Columns.
+//
+// end
+// else
+// begin
+// Sprav.Show;
+// Sprav.SetFocus;
+// end;
+// Sprav.cxPageControl1.ActivePageIndex:=0;
+end;
+
+procedure TMain.dxBarButton32Click(Sender: TObject);
+begin
+ if Imp=nil then
  begin
- Application.CreateForm(TSprav,Sprav);
- AddToolBar(Sprav);
+ Application.CreateForm(TImp,Imp);
+ AddToolBar(Imp);
  end
  else
  begin
- Sprav.Show;
- Sprav.SetFocus;
+ Imp.Show;
+ Imp.SetFocus;
  end;
- Sprav.cxPageControl1.ActivePageIndex:=0;
 end;
 
 procedure TMain.dxBarButton34Click(Sender: TObject);
@@ -247,7 +274,7 @@ begin
  end
  else
  Sprav.SetFocus;
- Sprav.cxPageControl1.ActivePageIndex:=1;
+// Sprav.cxPageControl1.ActivePageIndex:=1;
 end;
 
 procedure TMain.dxBarButton5Click(Sender: TObject);
@@ -259,58 +286,8 @@ begin
  end
  else
  Sprav.SetFocus;
- Sprav.cxPageControl1.ActivePageIndex:=2;
+// Sprav.cxPageControl1.ActivePageIndex:=2;
 end;
-
-procedure TMain.dxBarButton7Click(Sender: TObject);
-begin
- if Sprav=nil then
- begin
- Application.CreateForm(TSprav,Sprav);
- AddToolBar(Sprav);
- end
- else
- Sprav.SetFocus;
- Sprav.cxPageControl1.ActivePageIndex:=3;
- end;
-
-
-procedure TMain.dxBarButton90Click(Sender: TObject);
-begin
- if Sprav=nil then
- begin
- Application.CreateForm(TSprav,Sprav);
- AddToolBar(Sprav);
- end
- else
- Sprav.SetFocus;
- Sprav.cxPageControl1.ActivePageIndex:=5;
-end;
-
-procedure TMain.dxBarButton91Click(Sender: TObject);
-begin
- if Sprav=nil then
- begin
- Application.CreateForm(TSprav,Sprav);
- AddToolBar(Sprav);
- end
- else
- Sprav.SetFocus;
- Sprav.cxPageControl1.ActivePageIndex:=6;
-end;
-
-procedure TMain.dxBarButton92Click(Sender: TObject);
-begin
- if Sprav=nil then
- begin
- Application.CreateForm(TSprav,Sprav);
- AddToolBar(Sprav);
- end
- else
- Sprav.SetFocus;
- Sprav.cxPageControl1.ActivePageIndex:=7;
-end;
-
 
 procedure TMain.FormClose(Sender: TObject; var Action: TCloseAction);
 var i: integer;
@@ -333,7 +310,7 @@ begin
 IBTransaction1.Active:=true;
 IBPERIOD.Active:=true;
 cxBarEditItem4.Caption:='                    '+mon_slovoDt(IBPERIODDATA.Value);
-
+Period:=IBPERIODDATA.Value;
 end;
 
 end.
