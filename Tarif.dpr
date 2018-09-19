@@ -13,11 +13,8 @@ uses
   mytools in 'mytools.pas',
   SpecifForm in 'SpecifForm.pas' {Specif},
   TarifForm in 'TarifForm.pas' {Tarifs},
-  Import in 'Import.pas' {Tarifs},
   Ins in 'Ins.pas' {InsForm},
-  InsUL in 'InsUL.pas' {InsFormUL},
-  InsBUD in 'InsBUD.pas' {InsFormBUD},
-  InsPOSL in 'InsPOSL.pas' {InsFormPOSL};
+  Import in 'Import.pas' {InsForm1};
 
 {$R *.res}
 
@@ -27,6 +24,7 @@ begin
   Start := TStart.Create(Application);
   Application.Title := 'Розрахунок тарифів';
   Application.CreateForm(TDataM, DataM);
+  Application.CreateForm(TInsForm1, InsForm1);
   application.ProcessMessages;
   Start.Show;
 //  for i:=1 to 1000000 do

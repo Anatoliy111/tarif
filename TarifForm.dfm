@@ -14,11 +14,12 @@
   end
   object cxGrid1: TcxGrid [1]
     Left = 137
-    Top = 130
+    Top = 105
     Width = 773
-    Height = 389
+    Height = 414
     Align = alClient
     TabOrder = 1
+    ExplicitHeight = 408
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = DSTARIF
@@ -38,6 +39,7 @@
       end
       object cxGrid1DBTableView1NOTE: TcxGridDBColumn
         DataBinding.FieldName = 'NOTE'
+        Width = 135
       end
       object cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn
         DataBinding.FieldName = 'TARIF_PLAN'
@@ -66,12 +68,12 @@
     Left = 0
     Top = 41
     Width = 910
-    Height = 89
+    Height = 64
     Align = alTop
-    TabOrder = 5
+    TabOrder = 4
     object cxLabel5: TcxLabel
-      Left = 5
-      Top = 66
+      Left = 41
+      Top = 41
       Caption = #1055#1086#1089#1083#1091#1075#1080
       ParentFont = False
       Style.Font.Charset = DEFAULT_CHARSET
@@ -82,8 +84,8 @@
       Style.IsFontAssigned = True
     end
     object cxLabel1: TcxLabel
-      Left = 135
-      Top = 66
+      Left = 475
+      Top = 41
       Caption = #1058#1072#1088#1080#1092#1080
       ParentFont = False
       Style.Font.Charset = DEFAULT_CHARSET
@@ -94,8 +96,8 @@
       Style.IsFontAssigned = True
     end
     object cxButton1: TcxButton
-      Left = 351
-      Top = 50
+      Left = 175
+      Top = 23
       Width = 120
       Height = 33
       Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
@@ -107,8 +109,8 @@
       TabOrder = 2
     end
     object cxButton2: TcxButton
-      Left = 477
-      Top = 50
+      Left = 301
+      Top = 23
       Width = 120
       Height = 33
       Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
@@ -120,8 +122,8 @@
       TabOrder = 4
     end
     object cxLabel2: TcxLabel
-      Left = 11
-      Top = 0
+      Left = 37
+      Top = 5
       Caption = #1055#1077#1088#1110#1086#1076
     end
     object cxLookupComboBox1: TcxLookupComboBox
@@ -135,28 +137,34 @@
       Properties.ListSource = Main.DІPERIOD
       Properties.OnChange = cxLookupComboBox1PropertiesChange
       TabOrder = 5
-      Width = 164
+      Width = 132
     end
   end
   object DBLookupListBox1: TDBLookupListBox [3]
     Left = 0
-    Top = 130
+    Top = 105
     Width = 137
-    Height = 381
+    Height = 407
     Align = alLeft
     KeyField = 'ID'
     ListField = 'NAME'
     ListSource = DSPOSL
     TabOrder = 2
     OnClick = DBLookupListBox1Click
+    ExplicitTop = 130
+    ExplicitHeight = 381
   end
   inherited Panel4: TPanel
     Top = 519
     Width = 910
     TabOrder = 0
+    ExplicitTop = 519
+    ExplicitWidth = 910
     inherited Panel3: TPanel
       Left = 738
       Height = 44
+      ExplicitLeft = 738
+      ExplicitHeight = 44
     end
     inherited dxStatusBar1: TdxStatusBar
       Top = 48
