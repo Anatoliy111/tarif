@@ -14,7 +14,7 @@ inherited Sprav: TSprav
     Height = 418
     Align = alClient
     TabOrder = 2
-    Properties.ActivePage = cxTabSheet3
+    Properties.ActivePage = cxTabSheet2
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
     ClientRectBottom = 414
@@ -436,16 +436,17 @@ inherited Sprav: TSprav
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into POSL'
-      '  (ID, WID, NAME, FL_ZAGR, FL_ROZRAH)'
+      '  (ID, WID, NAME, FL_ZAGR, FL_ROZRAH, VAL)'
       'values'
-      '  (:ID, :WID, :NAME, :FL_ZAGR, :FL_ROZRAH)')
+      '  (:ID, :WID, :NAME, :FL_ZAGR, :FL_ROZRAH, :VAL)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  WID,'
       '  NAME,'
       '  FL_ZAGR,'
-      '  FL_ROZRAH'
+      '  FL_ROZRAH,'
+      '  VAL'
       'from POSL '
       'where'
       '  ID = :ID')
@@ -458,7 +459,8 @@ inherited Sprav: TSprav
       '  WID = :WID,'
       '  NAME = :NAME,'
       '  FL_ZAGR = :FL_ZAGR,'
-      '  FL_ROZRAH = :FL_ROZRAH'
+      '  FL_ROZRAH = :FL_ROZRAH,'
+      '  VAL = :VAL'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -488,6 +490,10 @@ inherited Sprav: TSprav
     object IBPOSLFL_ROZRAH: TIntegerField
       FieldName = 'FL_ROZRAH'
       Origin = '"POSL"."FL_ROZRAH"'
+    end
+    object IBPOSLVAL: TIntegerField
+      FieldName = 'VAL'
+      Origin = '"POSL"."VAL"'
     end
   end
   object DSPOSL: TDataSource

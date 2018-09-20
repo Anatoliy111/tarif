@@ -13,7 +13,7 @@ uses
   cxTextEdit, ExtCtrls, cxPC, cxDBLabel, cxCalendar, cxDBEdit,
   cxSchedulerStorage, cxSchedulerCustomControls, cxSchedulerDateNavigator,
   cxDateNavigator, dxBar, IBDatabase, IBCustomDataSet, cxLookAndFeels,
-  dxBarBuiltInMenu, cxNavigator;
+  dxBarBuiltInMenu, cxNavigator, Vcl.Buttons;
 
 type
   TSprav = class(TAllMDICh)
@@ -77,6 +77,7 @@ type
     IBULVAL: TIntegerField;
     cxGridDBTableView2KL: TcxGridDBColumn;
     cxGridDBTableView2ID_STREET: TcxGridDBColumn;
+    IBPOSLVAL: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);

@@ -57,6 +57,7 @@ inherited ImpForm: TImpForm
     LookAndFeel.Kind = lfUltraFlat
     LookAndFeel.NativeStyle = False
     TabOrder = 3
+    OnClick = cxButton2Click
   end
   object cxButton5: TcxButton [8]
     Left = 48
@@ -82,6 +83,7 @@ inherited ImpForm: TImpForm
     Active = True
   end
   object OpenDialog1: TOpenDialog
+    Filter = 'dbf|*.dbf'
     Left = 40
     Top = 504
   end
@@ -97,16 +99,17 @@ inherited ImpForm: TImpForm
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into POSL'
-      '  (ID, WID, NAME, FL_ZAGR, FL_ROZRAH)'
+      '  (ID, WID, NAME, FL_ZAGR, FL_ROZRAH, VAL)'
       'values'
-      '  (:ID, :WID, :NAME, :FL_ZAGR, :FL_ROZRAH)')
+      '  (:ID, :WID, :NAME, :FL_ZAGR, :FL_ROZRAH, :VAL)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  WID,'
       '  NAME,'
       '  FL_ZAGR,'
-      '  FL_ROZRAH'
+      '  FL_ROZRAH,'
+      '  VAL'
       'from POSL '
       'where'
       '  ID = :ID')
@@ -119,7 +122,8 @@ inherited ImpForm: TImpForm
       '  WID = :WID,'
       '  NAME = :NAME,'
       '  FL_ZAGR = :FL_ZAGR,'
-      '  FL_ROZRAH = :FL_ROZRAH'
+      '  FL_ROZRAH = :FL_ROZRAH,'
+      '  VAL = :VAL'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -149,6 +153,10 @@ inherited ImpForm: TImpForm
     object IBPOSLFL_ROZRAH: TIntegerField
       FieldName = 'FL_ROZRAH'
       Origin = '"POSL"."FL_ROZRAH"'
+    end
+    object IBPOSLVAL: TIntegerField
+      FieldName = 'VAL'
+      Origin = '"POSL"."VAL"'
     end
   end
   object DSPOSL: TDataSource
@@ -303,7 +311,7 @@ inherited ImpForm: TImpForm
   object DSUL: TDataSource
     DataSet = IBUL
     Left = 128
-    Top = 424
+    Top = 432
   end
   object DB: TDbf
     IndexDefs = <>

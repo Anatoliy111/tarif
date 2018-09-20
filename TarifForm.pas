@@ -11,7 +11,7 @@ uses
   IBDatabase, dxStatusBar, cxContainer, cxTextEdit, cxLookAndFeels,
   cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst, Vcl.Menus,
   cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox;
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons;
 
 type
   TTarifs = class(TAllMDICh)

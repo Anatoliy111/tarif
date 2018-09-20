@@ -19,7 +19,6 @@
     Height = 414
     Align = alClient
     TabOrder = 1
-    ExplicitHeight = 408
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = DSTARIF
@@ -70,7 +69,7 @@
     Width = 910
     Height = 64
     Align = alTop
-    TabOrder = 4
+    TabOrder = 3
     object cxLabel5: TcxLabel
       Left = 41
       Top = 41
@@ -151,8 +150,6 @@
     ListSource = DSPOSL
     TabOrder = 2
     OnClick = DBLookupListBox1Click
-    ExplicitTop = 130
-    ExplicitHeight = 381
   end
   inherited Panel4: TPanel
     Top = 519
@@ -161,9 +158,9 @@
     ExplicitTop = 519
     ExplicitWidth = 910
     inherited Panel3: TPanel
-      Left = 738
+      Left = 753
       Height = 44
-      ExplicitLeft = 738
+      ExplicitLeft = 753
       ExplicitHeight = 44
     end
     inherited dxStatusBar1: TdxStatusBar
@@ -176,7 +173,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Left = 24
   end
   object dxBarManager1: TdxBarManager

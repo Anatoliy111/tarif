@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Ins, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Vcl.Menus, IBX.IBDatabase, Vcl.StdCtrls, cxButtons,
   Vcl.ExtCtrls, cxControls, cxContainer, cxEdit, cxProgressBar,Data.DB,
-  IBX.IBCustomDataSet,dbf;
+  IBX.IBCustomDataSet,dbf, Vcl.Buttons;
 
 type
   TImpForm = class(TInsForm)
@@ -44,11 +44,13 @@ type
     IBULKL: TIntegerField;
     IBULID_STREET: TIntegerField;
     IBULVAL: TIntegerField;
+    IBPOSLVAL: TIntegerField;
     procedure cxButton1Click(Sender: TObject);
     procedure IBPOSLBeforePost(DataSet: TDataSet);
     procedure IBDOMBeforePost(DataSet: TDataSet);
     procedure IBULBeforePost(DataSet: TDataSet);
     procedure FormCreate(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -108,6 +110,53 @@ begin
     DB.Next;
     end;
     DB.Active:=false;
+    cxProgressBar1.Position:=0;
+    messagedlg('Імпорт завершено!',mtInformation,[mbOK],0);
+  end;
+end;
+
+procedure TImpForm.cxButton2Click(Sender: TObject);
+var res:Variant;
+begin
+  inherited;
+  if OpenDialog1.Execute then begin
+    FilePath := ExtractFilePath(OpenDialog1.FileName);
+    DB.Active:=false;
+    DB.TableName:=OpenDialog1.FileName;
+    DB.Active:=true;
+        cxProgressBar1.Position:=0;
+        cxProgressBar1.Properties.Min:=0;
+       cxProgressBar1.Properties.Max:=DB.RecordCount-1;
+    DB.First;
+    while not DB.Eof do
+    begin
+        cxProgressBar1.Position:=cxProgressBar1.Position+1;
+        Application.ProcessMessages;
+        IBPOSL.First;
+               if not IBPOSL.Locate('wid',DB.FieldByName('wid').Value,[]) then
+               begin
+                  IBPOSL.Insert;
+                  IBPOSLWID.Value:=DB.FieldByName('wid').Value;
+                  IBPOSLNAME.Value:=DB.FieldByName('naim').Value;
+                  IBPOSLVAL.Value:=DB.FieldByName('val').Value;
+                  IBPOSL.Post;
+               end
+               else
+               begin
+                 if DB.FieldByName('val').Value<> IBPOSLVAL.Value then
+                 begin
+                  IBPOSL.Edit;
+                  IBPOSLNAME.Value:=DB.FieldByName('naim').Value;
+                  IBPOSLVAL.Value:=DB.FieldByName('val').Value;
+                  IBPOSL.Post;
+                 end;
+
+               end;
+    DB.Next;
+    end;
+    DB.Active:=false;
+    cxProgressBar1.Position:=0;
+    messagedlg('Імпорт завершено!',mtInformation,[mbOK],0);
   end;
 end;
 
