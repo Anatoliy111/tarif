@@ -9,7 +9,8 @@ uses
   jpeg, cxContainer, cxEdit, cxImage, cxLabel, dxSkinsCore,
   System.Actions, System.ImageList, cxButtonEdit, cxBarEditItem, dxBarExtItems,
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
-  cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild;
+  cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
+  cxRadioGroup;
 
 type
   TMain = class(TForm)
@@ -93,6 +94,10 @@ type
     cxBarEditItem10: TcxBarEditItem;
     cxBarEditItem11: TcxBarEditItem;
     cxBarEditItem12: TcxBarEditItem;
+    dxBarSpinEdit2: TdxBarSpinEdit;
+    cxBarEditItem13: TcxBarEditItem;
+    cxBarEditItem14: TcxBarEditItem;
+    cxBarEditItem15: TcxBarEditItem;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);

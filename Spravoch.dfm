@@ -14,7 +14,7 @@ inherited Sprav: TSprav
     Height = 418
     Align = alClient
     TabOrder = 2
-    Properties.ActivePage = cxTabSheet1
+    Properties.ActivePage = cxTabSheet3
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
     ClientRectBottom = 414
@@ -377,9 +377,18 @@ inherited Sprav: TSprav
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
+          object cxGridDBTableView2KL: TcxGridDBColumn
+            DataBinding.FieldName = 'KL'
+            Width = 57
+          end
           object cxGridDBTableView2NAME: TcxGridDBColumn
+            Caption = #1042#1091#1083#1080#1094#1103
             DataBinding.FieldName = 'NAME'
-            Width = 366
+            Width = 290
+          end
+          object cxGridDBTableView2ID_STREET: TcxGridDBColumn
+            Caption = #1050#1083#1102#1095' SoftProekt'
+            DataBinding.FieldName = 'ID_STREET'
           end
         end
         object cxGridLevel2: TcxGridLevel
@@ -401,12 +410,19 @@ inherited Sprav: TSprav
   inherited Panel4: TPanel
     Top = 459
     Width = 767
+    ExplicitTop = 459
+    ExplicitWidth = 767
     inherited Panel3: TPanel
-      Left = 595
+      Left = 610
+      ExplicitLeft = 610
     end
     inherited dxStatusBar1: TdxStatusBar
       Width = 759
+      ExplicitWidth = 759
     end
+  end
+  inherited IBTransaction1: TIBTransaction
+    Active = True
   end
   object IBPOSL: TIBDataSet
     Database = DataM.IBDatabase1
@@ -557,13 +573,16 @@ inherited Sprav: TSprav
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into UL'
-      '  (ID, NAME)'
+      '  (ID, NAME, KL, ID_STREET, VAL)'
       'values'
-      '  (:ID, :NAME)')
+      '  (:ID, :NAME, :KL, :ID_STREET, :VAL)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
-      '  NAME'
+      '  NAME,'
+      '  KL,'
+      '  ID_STREET,'
+      '  VAL'
       'from UL '
       'where'
       '  ID = :ID')
@@ -574,7 +593,10 @@ inherited Sprav: TSprav
       'update UL'
       'set'
       '  ID = :ID,'
-      '  NAME = :NAME'
+      '  NAME = :NAME,'
+      '  KL = :KL,'
+      '  ID_STREET = :ID_STREET,'
+      '  VAL = :VAL'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -592,6 +614,18 @@ inherited Sprav: TSprav
       FieldName = 'NAME'
       Origin = '"UL"."NAME"'
       Size = 40
+    end
+    object IBULKL: TIntegerField
+      FieldName = 'KL'
+      Origin = '"UL"."KL"'
+    end
+    object IBULID_STREET: TIntegerField
+      FieldName = 'ID_STREET'
+      Origin = '"UL"."ID_STREET"'
+    end
+    object IBULVAL: TIntegerField
+      FieldName = 'VAL'
+      Origin = '"UL"."VAL"'
     end
   end
   object DSUL: TDataSource

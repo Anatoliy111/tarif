@@ -72,6 +72,11 @@ type
     cxGridDBTableView2NAME: TcxGridDBColumn;
     cxLookupComboBox1: TcxLookupComboBox;
     cxTextEdit2: TcxTextEdit;
+    IBULKL: TIntegerField;
+    IBULID_STREET: TIntegerField;
+    IBULVAL: TIntegerField;
+    cxGridDBTableView2KL: TcxGridDBColumn;
+    cxGridDBTableView2ID_STREET: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);
