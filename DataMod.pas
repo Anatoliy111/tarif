@@ -8,6 +8,7 @@ uses
 type
   TDataM = class(TDataModule)
     IBDatabase1: TIBDatabase;
+    IBDatabase2: TIBDatabase;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -24,14 +25,17 @@ implementation
 {$R *.dfm}
 
 procedure TDataM.DataModuleCreate(Sender: TObject);
-var s:string;
+var s,ss:string;
 begin
   try
   IBDatabase1.Connected:=false;
   iniFile:=TIniFile.Create(extractfilepath(paramstr(0))+'Tarif.ini');
-  s:=iniFile.ReadString('Data','Database',extractfilepath(paramstr(0))+'TARIF.FDB');
+  s:=iniFile.ReadString('Data','Database1',extractfilepath(paramstr(0))+'TARIF.FDB');
   IBDatabase1.DatabaseName:=s;
   IBDatabase1.Open;
+    ss:=iniFile.ReadString('Data','Database2',extractfilepath(paramstr(0))+'GKP_NEW.GDB');
+  IBDatabase2.DatabaseName:=ss;
+  IBDatabase2.Open;
   except
     messagedlg('Проблемы с открытием базы данных',mtError,[mbCancel],0);
     Application.Terminate;

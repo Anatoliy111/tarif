@@ -11,7 +11,7 @@ uses
   IBDatabase, dxStatusBar, cxContainer, cxTextEdit, cxLookAndFeels,
   cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst, Vcl.Menus,
   cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons;
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons, IBX.IBQuery;
 
 type
   TTarifs = class(TAllMDICh)
@@ -46,8 +46,6 @@ type
     cxGrid1DBTableView1NORMA: TcxGridDBColumn;
     cxGrid1DBTableView1TARIF_END: TcxGridDBColumn;
     Panel1: TPanel;
-    cxLabel5: TcxLabel;
-    cxLabel1: TcxLabel;
     DBLookupListBox1: TDBLookupListBox;
     IBPOSL: TIBDataSet;
     DSPOSL: TDataSource;
@@ -56,7 +54,6 @@ type
     IBPOSLNAME: TIBStringField;
     IBPOSLFL_ZAGR: TIntegerField;
     IBPOSLFL_ROZRAH: TIntegerField;
-    cxButton1: TcxButton;
     cxButton2: TcxButton;
     IBTARIF_COMP: TIBDataSet;
     DSTARIF_COMP: TDataSource;
@@ -67,6 +64,9 @@ type
     IBTARIF_COMPSUMM: TIBBCDField;
     cxLabel2: TcxLabel;
     cxLookupComboBox1: TcxLookupComboBox;
+    cxButton1: TcxButton;
+    IBQuery1: TIBQuery;
+    IBTransaction2: TIBTransaction;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -88,7 +88,7 @@ var
 
 implementation
 
-uses MainForm, InsertForm, Ins, mytools;
+uses MainForm, InsertForm, Ins, mytools, DataMod;
 
 {$R *.dfm}
 

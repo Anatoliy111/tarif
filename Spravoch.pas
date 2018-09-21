@@ -78,6 +78,8 @@ type
     cxGridDBTableView2KL: TcxGridDBColumn;
     cxGridDBTableView2ID_STREET: TcxGridDBColumn;
     IBPOSLVAL: TIntegerField;
+    IBDOMID_HOUSE: TIntegerField;
+    cxGridDBTableView1ID_HOUSE: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);

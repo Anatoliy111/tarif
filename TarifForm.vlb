@@ -94,9 +94,6 @@ Coordinates=772,166,219,36
 [cxGrid1DBTableView1NORMA]
 Coordinates=554,166,191,36
 
-[cxLabel1]
-Coordinates=10,342,66,36
-
 [cxGrid1DBTableView1TARIF_RK]
 Coordinates=789,221,205,36
 
@@ -107,23 +104,17 @@ Visible=True
 [cxGrid1DBTableView1TARIF_PLAN]
 Coordinates=789,276,221,36
 
-[cxLabel5]
-Coordinates=419,10,66,36
-
 [cxGrid1DBTableView1NOTE]
 Coordinates=554,386,179,36
 
 []
-Coordinates=21,351,72,58
+Coordinates=10,342,66,36
 
 [IBTARIF_COMPNAME]
 Coordinates=383,496,145,36
 
 [cxButton2]
 Coordinates=99,1,72,58
-
-[cxButton1]
-Coordinates=110,78,72,58
 
 [IBPOSLNAME]
 Coordinates=566,221,97,36

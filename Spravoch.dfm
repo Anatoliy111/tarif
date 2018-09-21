@@ -315,10 +315,12 @@ inherited Sprav: TSprav
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
           object cxGridDBTableView1NAME: TcxGridDBColumn
+            Caption = #1053#1072#1081#1084#1077#1085#1091#1074#1072#1085#1085#1103
             DataBinding.FieldName = 'NAME'
             Width = 265
           end
           object cxGridDBTableView1ID_UL: TcxGridDBColumn
+            Caption = #1042#1091#1083#1080#1094#1103
             DataBinding.FieldName = 'ID_UL'
             PropertiesClassName = 'TcxLookupComboBoxProperties'
             Properties.KeyFieldNames = 'ID'
@@ -331,10 +333,16 @@ inherited Sprav: TSprav
             Width = 111
           end
           object cxGridDBTableView1DOM: TcxGridDBColumn
+            Caption = #1041#1091#1076#1080#1085#1086#1082
             DataBinding.FieldName = 'DOM'
             PropertiesClassName = 'TcxTextEditProperties'
             Properties.ReadOnly = True
             Width = 54
+          end
+          object cxGridDBTableView1ID_HOUSE: TcxGridDBColumn
+            Caption = #1050#1083#1102#1095' SoftProekt'
+            DataBinding.FieldName = 'ID_HOUSE'
+            Width = 145
           end
         end
         object cxGridLevel1: TcxGridLevel
@@ -513,15 +521,17 @@ inherited Sprav: TSprav
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into DOM'
-      '  (ID, NAME, ID_UL, DOM)'
+      '  (ID, NAME, ID_UL, DOM, ID_HOUSE)'
       'values'
-      '  (:ID, :NAME, :ID_UL, :DOM)')
+      '  (:ID, :NAME, :ID_UL, :DOM, :ID_HOUSE)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  NAME,'
       '  ID_UL,'
-      '  DOM'
+      '  DOM,'
+      '  CH,'
+      '  ID_HOUSE'
       'from DOM '
       'where'
       '  ID = :ID')
@@ -533,7 +543,8 @@ inherited Sprav: TSprav
       '  ID = :ID,'
       '  NAME = :NAME,'
       '  ID_UL = :ID_UL,'
-      '  DOM = :DOM'
+      '  DOM = :DOM,'
+      '  ID_HOUSE = :ID_HOUSE'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -560,6 +571,10 @@ inherited Sprav: TSprav
       FieldName = 'DOM'
       Origin = '"DOM"."DOM"'
       Size = 5
+    end
+    object IBDOMID_HOUSE: TIntegerField
+      FieldName = 'ID_HOUSE'
+      Origin = '"DOM"."ID_HOUSE"'
     end
   end
   object DSDOM: TDataSource

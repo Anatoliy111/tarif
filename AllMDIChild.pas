@@ -22,14 +22,12 @@ type
     dxStatusBar1: TdxStatusBar;
     cxButton4: TcxButton;
     cxButton3: TcxButton;
-    SpeedButton1: TSpeedButton;
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormDeactivate(Sender: TObject);
     procedure cxButton3Click(Sender: TObject);
     procedure cxButton4Click(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -62,6 +60,8 @@ begin
     case MessageBox(handle,pchar('«берегти зм≥ни?'),pchar(''),MB_OKCANCEL) of
       mrOK:begin
             IBTransaction1.CommitRetaining;
+            IBTransaction1.Active:=false;
+            IBTransaction1.Active:=true;
             self.fl_post:=0;
            end;
     end;
@@ -146,14 +146,6 @@ begin
       TdxBarButton(ABar.ItemLinks[i].Item).Down:=false;
       exit;
     end;
-end;
-
-procedure TAllMDICh.SpeedButton1Click(Sender: TObject);
-begin
- if SpeedButton1.Down then
-    SpeedButton1.Down:=false
- else
-    SpeedButton1.Down:=true;
 end;
 
 end.

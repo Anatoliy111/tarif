@@ -14,4 +14,16 @@ object DataM: TDataM
     Left = 40
     Top = 24
   end
+  object IBDatabase2: TIBDatabase
+    Connected = True
+    DatabaseName = 'D:\WORK\KOMUN\tarif\GKP_NEW.GDB'
+    Params.Strings = (
+      'user_name=sysdba'
+      'password=masterkey')
+    LoginPrompt = False
+    ServerType = 'IBServer'
+    AllowStreamedConnected = False
+    Left = 128
+    Top = 24
+  end
 end

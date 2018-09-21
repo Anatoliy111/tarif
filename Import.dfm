@@ -1,39 +1,40 @@
 inherited ImpForm: TImpForm
   Caption = 'ImpForm'
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel [0]
-    Left = 288
-    Top = 112
+    Left = 400
+    Top = 120
     Width = 65
     Height = 13
     Caption = ' '#1087#1086' '#1082#1083#1102#1095#1091' KL'
   end
   object Label2: TLabel [1]
-    Left = 288
-    Top = 145
+    Left = 384
+    Top = 161
     Width = 62
     Height = 13
     Caption = ' '#1087#1086' '#1074#1080#1076#1091' wid'
   end
   object Label3: TLabel [2]
-    Left = 288
-    Top = 176
+    Left = 336
+    Top = 188
     Width = 192
     Height = 13
     Caption = ' '#1087#1086' '#1082#1083#1102#1095#1091' '#1074#1091#1083#1080#1094#1110' KL_UL '#1090#1072' '#8470#1073#1091#1076#1080#1085#1082#1091
   end
   object Label4: TLabel [3]
     Left = 288
-    Top = 207
+    Top = 239
     Width = 158
     Height = 13
     Caption = ' '#1087#1086' '#1082#1083#1102#1095#1091' '#1090#1072#1088#1080#1092#1091' '#1090#1072' '#1072#1076#1088#1077#1089#1086#1102' '
   end
   object cxButton1: TcxButton [5]
-    Left = 48
-    Top = 109
+    Left = 248
+    Top = 315
     Width = 193
     Height = 25
     Caption = #1030#1084#1088#1086#1088#1090' '#1074#1091#1083#1080#1094#1100' (UL.DBF)'
@@ -49,8 +50,8 @@ inherited ImpForm: TImpForm
     Width = 393
   end
   object cxButton2: TcxButton [7]
-    Left = 48
-    Top = 140
+    Left = 104
+    Top = 284
     Width = 193
     Height = 25
     Caption = #1030#1084#1088#1086#1088#1090' '#1087#1086#1089#1083#1091#1075' (WIDS.DBF)'
@@ -60,24 +61,56 @@ inherited ImpForm: TImpForm
     OnClick = cxButton2Click
   end
   object cxButton5: TcxButton [8]
-    Left = 48
-    Top = 171
+    Left = 8
+    Top = 315
     Width = 193
     Height = 25
     Caption = #1030#1084#1088#1086#1088#1090' '#1073#1091#1076#1080#1085#1082#1110#1074' (KART.DBF)'
     LookAndFeel.Kind = lfUltraFlat
     LookAndFeel.NativeStyle = False
     TabOrder = 4
+    OnClick = cxButton5Click
   end
   object cxButton6: TcxButton [9]
     Left = 48
-    Top = 202
+    Top = 234
     Width = 193
     Height = 25
     Caption = #1030#1084#1088#1086#1088#1090' '#1090#1072#1088#1080#1092#1110#1074' (NTARIF.DBF)'
     LookAndFeel.Kind = lfUltraFlat
     LookAndFeel.NativeStyle = False
     TabOrder = 5
+    OnClick = cxButton6Click
+  end
+  object DateTimePicker1: TDateTimePicker [10]
+    Left = 48
+    Top = 207
+    Width = 193
+    Height = 21
+    Date = 43364.453337430550000000
+    Time = 43364.453337430550000000
+    TabOrder = 6
+  end
+  object cxCheckGroup1: TcxCheckGroup [11]
+    Left = 56
+    Top = 96
+    Caption = 'cxCheckGroup1'
+    Properties.Items = <
+      item
+        Caption = #1030#1084#1088#1086#1088#1090' '#1074#1091#1083#1080#1094#1100' (UL.DBF)'
+      end
+      item
+        Caption = #1030#1084#1088#1086#1088#1090' '#1087#1086#1089#1083#1091#1075' (WIDS.DBF)'
+      end
+      item
+        Caption = #1030#1084#1088#1086#1088#1090' '#1073#1091#1076#1080#1085#1082#1110#1074' (KART.DBF)'
+      end
+      item
+        Caption = #1030#1084#1088#1086#1088#1090' '#1090#1072#1088#1080#1092#1110#1074' (POSLTAR.DBF,KART.DBF)'
+      end>
+    TabOrder = 7
+    Height = 105
+    Width = 257
   end
   inherited IBTransaction1: TIBTransaction
     Active = True
@@ -130,7 +163,8 @@ inherited ImpForm: TImpForm
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_POSL_ID'
-    Left = 56
+    Active = True
+    Left = 48
     Top = 376
     object IBPOSLID: TIntegerField
       FieldName = 'ID'
@@ -318,5 +352,28 @@ inherited ImpForm: TImpForm
     TableLevel = 5
     Left = 168
     Top = 376
+  end
+  object ADOConnectionDBF: TADOConnection
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;User ID=Admin;Data Source=d:\WO' +
+      'RK\KOMUN\kvpl\dbf\;Mode=Read;Jet OLEDB:System database="";Jet OL' +
+      'EDB:Registry Path="";Jet OLEDB:Database Password="";Jet OLEDB:En' +
+      'gine Type=16;Jet OLEDB:Database Locking Mode=0;Jet OLEDB:Global ' +
+      'Partial Bulk Ops=2;Jet OLEDB:Global Bulk Transactions=1;Jet OLED' +
+      'B:New Database Password="";Jet OLEDB:Create System Database=Fals' +
+      'e;Jet OLEDB:Encrypt Database=False;Jet OLEDB:Don'#39't Copy Locale o' +
+      'n Compact=False;Jet OLEDB:Compact Without Replica Repair=False;J' +
+      'et OLEDB:SFP=False;'
+    LoginPrompt = False
+    Mode = cmRead
+    Provider = 'Microsoft.Jet.OLEDB.4.0'
+    Left = 232
+    Top = 376
+  end
+  object ADOQuery1: TADOQuery
+    Connection = ADOConnectionDBF
+    Parameters = <>
+    Left = 232
+    Top = 424
   end
 end

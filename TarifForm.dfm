@@ -1,24 +1,40 @@
 ﻿inherited Tarifs: TTarifs
   Caption = #1058#1072#1088#1080#1092#1080
   ClientHeight = 588
-  ClientWidth = 910
+  ClientWidth = 790
   OnCreate = FormCreate
-  ExplicitWidth = 926
+  ExplicitWidth = 806
   ExplicitHeight = 626
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
-    Width = 910
+    Width = 790
     TabOrder = 8
     ExplicitWidth = 910
+    object cxButton1: TcxButton
+      Left = 168
+      Top = 1
+      Width = 120
+      Height = 39
+      Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+      Caption = #1056#1086#1079#1088#1072#1093#1091#1074#1072#1090#1080' '#1090#1072#1088#1080#1092#1080
+      LookAndFeel.Kind = lfOffice11
+      LookAndFeel.NativeStyle = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 4
+    end
   end
   object cxGrid1: TcxGrid [1]
     Left = 137
-    Top = 105
-    Width = 773
-    Height = 414
+    Top = 89
+    Width = 653
+    Height = 430
     Align = alClient
     TabOrder = 1
+    ExplicitTop = 105
+    ExplicitWidth = 773
+    ExplicitHeight = 414
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = DSTARIF
@@ -66,59 +82,23 @@
   object Panel1: TPanel [2]
     Left = 0
     Top = 41
-    Width = 910
-    Height = 64
+    Width = 790
+    Height = 48
     Align = alTop
     TabOrder = 3
-    object cxLabel5: TcxLabel
-      Left = 41
-      Top = 41
-      Caption = #1055#1086#1089#1083#1091#1075#1080
-      ParentFont = False
-      Style.Font.Charset = DEFAULT_CHARSET
-      Style.Font.Color = clWindowText
-      Style.Font.Height = -11
-      Style.Font.Name = 'Tahoma'
-      Style.Font.Style = []
-      Style.IsFontAssigned = True
-    end
-    object cxLabel1: TcxLabel
-      Left = 475
-      Top = 41
-      Caption = #1058#1072#1088#1080#1092#1080
-      ParentFont = False
-      Style.Font.Charset = DEFAULT_CHARSET
-      Style.Font.Color = clWindowText
-      Style.Font.Height = -11
-      Style.Font.Name = 'Tahoma'
-      Style.Font.Style = []
-      Style.IsFontAssigned = True
-    end
-    object cxButton1: TcxButton
-      Left = 175
-      Top = 23
-      Width = 120
-      Height = 33
-      Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
-      Caption = #1056#1086#1079#1088#1072#1093#1091#1074#1072#1090#1080' '#1090#1072#1088#1080#1092#1080
-      LookAndFeel.Kind = lfOffice11
-      LookAndFeel.NativeStyle = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 2
-    end
+    ExplicitWidth = 910
     object cxButton2: TcxButton
-      Left = 301
-      Top = 23
-      Width = 120
+      Left = 151
+      Top = 5
+      Width = 137
       Height = 33
       Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
-      Caption = #1047#1072#1074#1072#1085#1090#1072#1078#1080#1090#1080' '#1090#1072#1088#1080#1092#1080
+      Caption = #1047#1072#1074#1072#1085#1090#1072#1078#1080#1090#1080'  SoftProekt'
       LookAndFeel.Kind = lfOffice11
       LookAndFeel.NativeStyle = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 4
+      TabOrder = 1
     end
     object cxLabel2: TcxLabel
       Left = 37
@@ -135,37 +115,39 @@
         end>
       Properties.ListSource = Main.DІPERIOD
       Properties.OnChange = cxLookupComboBox1PropertiesChange
-      TabOrder = 5
+      TabOrder = 2
       Width = 132
     end
   end
   object DBLookupListBox1: TDBLookupListBox [3]
     Left = 0
-    Top = 105
+    Top = 89
     Width = 137
-    Height = 407
+    Height = 420
     Align = alLeft
     KeyField = 'ID'
     ListField = 'NAME'
     ListSource = DSPOSL
     TabOrder = 2
     OnClick = DBLookupListBox1Click
+    ExplicitTop = 105
+    ExplicitHeight = 407
   end
   inherited Panel4: TPanel
     Top = 519
-    Width = 910
+    Width = 790
     TabOrder = 0
     ExplicitTop = 519
     ExplicitWidth = 910
     inherited Panel3: TPanel
-      Left = 753
+      Left = 633
       Height = 44
       ExplicitLeft = 753
       ExplicitHeight = 44
     end
     inherited dxStatusBar1: TdxStatusBar
       Top = 48
-      Width = 902
+      Width = 782
       Height = 17
       ExplicitTop = 48
       ExplicitWidth = 902
@@ -499,5 +481,108 @@
     DataSet = IBTARIF_COMP
     Left = 208
     Top = 448
+  end
+  object IBQuery1: TIBQuery
+    Database = DataM.IBDatabase2
+    Transaction = IBTransaction2
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      '        select ID_HOUSE,'
+      '       STREET,'
+      '       N_BUD,'
+      '       sum(FACT_SUMM_BEZ_LIFT) FACT_SUMM_BEZ_LIFT,'
+      '       sum(NORM_SUMM_BEZ_LIFT) NORM_SUMM_BEZ_LIFT,'
+      '       sum(FACT_SUMM_S_LIFT) FACT_SUMM_S_LIFT,'
+      '       sum(NORM_SUMM_S_LIFT) NORM_SUMM_S_LIFT'
+      'from'
+      '('
+      '    select'
+      '        1                               "IsNotFirstFloat",'
+      
+        '        B.id                            ID_HOUSE, --'#1059#1085#1080#1082#1072#1083#1100#1085#1099#1081' '#1080 +
+        #1076#1077#1085#1090#1080#1092#1080#1082#1072#1090#1086#1088' '#1076#1086#1084#1072
+      '        "TaStreets"."Name"              STREET, --'#1059#1083#1080#1094#1072
+      '        B."Number"                      N_BUD, --'#1053#1086#1084#1077#1088' '#1076#1086#1084#1072
+      '        0                               FACT_SUMM_BEZ_LIFT,'
+      '        0                               NORM_SUMM_BEZ_LIFT,'
+      '        T."PolID"                         USL,'
+      
+        '        T."FactZatrat"                  FACT_SUMM_S_LIFT, -- '#1060#1072#1082 +
+        #1090#1080#1095#1077#1089#1082#1080#1081' '#1090#1072#1088#1080#1092
+      
+        '        T."NormatTarif"                 NORM_SUMM_S_LIFT --'#1059#1090#1074#1077#1088 +
+        #1078#1076#1077#1085#1085#1099#1081' '#1090#1072#1088#1080#1092
+      '    from'
+      '        "TaBuilding" B'
+      
+        '            left join "PrRepSravnTarifDifuchetAnalit"(:BDate, :E' +
+        'Date, B."Analitika") T on 0=0'
+      '            left join "TaStreets" on "TaStreets".id = b."Street"'
+      '    where'
+      '        T."InTarif" = 1'
+      '  union'
+      '    select'
+      '        0                               "IsNotFirstFloat",'
+      
+        '        B.id                            ID_HOUSE, --'#1059#1085#1080#1082#1072#1083#1100#1085#1099#1081' '#1080 +
+        #1076#1077#1085#1090#1080#1092#1080#1082#1072#1090#1086#1088' '#1076#1086#1084#1072
+      '        "TaStreets"."Name"              STREET, --'#1059#1083#1080#1094#1072
+      '        B."Number"                      N_BUD, --'#1053#1086#1084#1077#1088' '#1076#1086#1084#1072
+      
+        '        T."FactZatrat"                  FACT_SUMM_BEZ_LIFT, -- '#1060 +
+        #1072#1082#1090#1080#1095#1077#1089#1082#1080#1081' '#1090#1072#1088#1080#1092
+      
+        '        T."NormatTarif"                 NORM_SUMM_BEZ_LIFT, --'#1059#1090 +
+        #1074#1077#1088#1078#1076#1077#1085#1085#1099#1081' '#1090#1072#1088#1080#1092
+      '        T."PolID"                         USL,'
+      '        0                               FACT_SUMM_S_LIFT,'
+      '        0                               NORM_SUMM_S_LIFT'
+      '    from'
+      '        "TaBuilding" B'
+      
+        '            left join "PrRepSravnTarifDifuchetAnalit"(:BDate, :E' +
+        'Date, B."Analitika") T on 0=0'
+      '            left join "TaStreets" on "TaStreets".id = b."Street"'
+      '    where'
+      '        T."InTarif" = 1'
+      '        and coalesce(T."IsNotFirstFloat",0) = 0'
+      ')'
+      'group by ID_HOUSE, STREET, N_BUD'
+      'order by ID_HOUSE, STREET, N_BUD')
+    Left = 288
+    Top = 400
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'BDate'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'EDate'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'BDate'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'EDate'
+        ParamType = ptUnknown
+      end>
+  end
+  object IBTransaction2: TIBTransaction
+    Active = True
+    DefaultDatabase = DataM.IBDatabase2
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    Left = 288
+    Top = 456
   end
 end
