@@ -1,16 +1,17 @@
 ﻿inherited Tarifs: TTarifs
   Caption = #1058#1072#1088#1080#1092#1080
-  ClientHeight = 588
+  ClientHeight = 629
   ClientWidth = 790
   OnCreate = FormCreate
+  ExplicitTop = 0
   ExplicitWidth = 806
-  ExplicitHeight = 626
+  ExplicitHeight = 667
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
     Width = 790
     TabOrder = 8
-    ExplicitWidth = 910
+    ExplicitWidth = 790
     object cxButton1: TcxButton
       Left = 168
       Top = 1
@@ -29,12 +30,10 @@
     Left = 137
     Top = 89
     Width = 653
-    Height = 430
+    Height = 403
     Align = alClient
     TabOrder = 1
-    ExplicitTop = 105
-    ExplicitWidth = 773
-    ExplicitHeight = 414
+    ExplicitHeight = 400
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = DSTARIF
@@ -86,7 +85,6 @@
     Height = 48
     Align = alTop
     TabOrder = 3
-    ExplicitWidth = 910
     object cxButton2: TcxButton
       Left = 151
       Top = 5
@@ -123,35 +121,96 @@
     Left = 0
     Top = 89
     Width = 137
-    Height = 420
+    Height = 394
     Align = alLeft
     KeyField = 'ID'
     ListField = 'NAME'
     ListSource = DSPOSL
     TabOrder = 2
     OnClick = DBLookupListBox1Click
-    ExplicitTop = 105
-    ExplicitHeight = 407
+    ExplicitHeight = 420
   end
   inherited Panel4: TPanel
-    Top = 519
+    Top = 576
     Width = 790
+    Height = 53
     TabOrder = 0
-    ExplicitTop = 519
-    ExplicitWidth = 910
+    ExplicitTop = 576
+    ExplicitWidth = 790
+    ExplicitHeight = 53
     inherited Panel3: TPanel
       Left = 633
-      Height = 44
-      ExplicitLeft = 753
+      Height = 28
+      ExplicitLeft = 633
       ExplicitHeight = 44
+      inherited cxButton4: TcxButton
+        Top = 3
+        ExplicitTop = 3
+      end
+      inherited cxButton3: TcxButton
+        Top = 3
+        ExplicitTop = 3
+      end
     end
     inherited dxStatusBar1: TdxStatusBar
-      Top = 48
+      Top = 32
       Width = 782
       Height = 17
       ExplicitTop = 48
-      ExplicitWidth = 902
+      ExplicitWidth = 782
       ExplicitHeight = 17
+    end
+  end
+  object cxGrid2: TcxGrid [5]
+    Left = 0
+    Top = 492
+    Width = 790
+    Height = 84
+    Align = alBottom
+    TabOrder = 9
+    ExplicitTop = 472
+    object cxGridDBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      DataController.DataSource = DSTARIF
+      DataController.KeyFieldNames = 'KL'
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      object cxGridDBColumn1: TcxGridDBColumn
+        DataBinding.FieldName = 'NAME'
+        Width = 236
+      end
+      object cxGridDBColumn2: TcxGridDBColumn
+        DataBinding.FieldName = 'ID_TARDOM'
+        Width = 87
+      end
+      object cxGridDBColumn3: TcxGridDBColumn
+        DataBinding.FieldName = 'NOTE'
+        Width = 135
+      end
+      object cxGridDBColumn4: TcxGridDBColumn
+        DataBinding.FieldName = 'TARIF_PLAN'
+      end
+      object cxGridDBColumn5: TcxGridDBColumn
+        DataBinding.FieldName = 'TARIF_FACT'
+      end
+      object cxGridDBColumn6: TcxGridDBColumn
+        DataBinding.FieldName = 'TARIF_RN'
+      end
+      object cxGridDBColumn7: TcxGridDBColumn
+        DataBinding.FieldName = 'TARIF_RK'
+      end
+      object cxGridDBColumn8: TcxGridDBColumn
+        DataBinding.FieldName = 'NORMA'
+      end
+      object cxGridDBColumn9: TcxGridDBColumn
+        DataBinding.FieldName = 'TARIF_END'
+      end
+    end
+    object cxGridLevel1: TcxGridLevel
+      GridView = cxGridDBTableView1
     end
   end
   inherited IBTransaction1: TIBTransaction
@@ -551,7 +610,7 @@
       ')'
       'group by ID_HOUSE, STREET, N_BUD'
       'order by ID_HOUSE, STREET, N_BUD')
-    Left = 288
+    Left = 448
     Top = 400
     ParamData = <
       item
@@ -582,7 +641,7 @@
       'read_committed'
       'rec_version'
       'nowait')
-    Left = 288
+    Left = 448
     Top = 456
   end
 end
