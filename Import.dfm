@@ -42,16 +42,7 @@ inherited ImpForm: TImpForm
     TabOrder = 2
     OnClick = cxButton6Click
   end
-  object DateTimePicker1: TDateTimePicker [6]
-    Left = 48
-    Top = 207
-    Width = 193
-    Height = 21
-    Date = 43364.453337430550000000
-    Time = 43364.453337430550000000
-    TabOrder = 3
-  end
-  object cxCheckGroup1: TcxCheckGroup [7]
+  object cxCheckGroup1: TcxCheckGroup [6]
     Left = 56
     Top = 96
     Caption = 'cxCheckGroup1'
@@ -68,7 +59,7 @@ inherited ImpForm: TImpForm
       item
         Caption = #1030#1084#1088#1086#1088#1090' '#1090#1072#1088#1080#1092#1110#1074' (POSLTAR.DBF,KART.DBF)'
       end>
-    TabOrder = 4
+    TabOrder = 3
     Height = 105
     Width = 257
   end
@@ -123,7 +114,6 @@ inherited ImpForm: TImpForm
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_POSL_ID'
-    Active = True
     Left = 48
     Top = 376
     object IBPOSLID: TIntegerField
@@ -339,7 +329,7 @@ inherited ImpForm: TImpForm
   object IBTARIF: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
-    BeforePost = IBULBeforePost
+    BeforePost = IBTARIFBeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
@@ -349,21 +339,20 @@ inherited ImpForm: TImpForm
     InsertSQL.Strings = (
       'insert into TARIF'
       
-        '  (ID, DATA, NAME, ID_POSL, ID_TARDOM, NOTE, TARIF_PLAN, TARIF_F' +
-        'ACT, TARIF_RN, '
-      '   TARIF_RK, NORMA, TARIF_END)'
+        '  (ID, DATA, NAME, ID_POSL, NOTE, TARIF_PLAN, TARIF_FACT, TARIF_' +
+        'RN, TARIF_RK, '
+      '   NORMA, TARIF_END)'
       'values'
       
-        '  (:ID, :DATA, :NAME, :ID_POSL, :ID_TARDOM, :NOTE, :TARIF_PLAN, ' +
-        ':TARIF_FACT, '
-      '   :TARIF_RN, :TARIF_RK, :NORMA, :TARIF_END)')
+        '  (:ID, :DATA, :NAME, :ID_POSL, :NOTE, :TARIF_PLAN, :TARIF_FACT,' +
+        ' :TARIF_RN, '
+      '   :TARIF_RK, :NORMA, :TARIF_END)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  DATA,'
       '  NAME,'
       '  ID_POSL,'
-      '  ID_TARDOM,'
       '  NOTE,'
       '  TARIF_PLAN,'
       '  TARIF_FACT,'
@@ -384,7 +373,6 @@ inherited ImpForm: TImpForm
       '  DATA = :DATA,'
       '  NAME = :NAME,'
       '  ID_POSL = :ID_POSL,'
-      '  ID_TARDOM = :ID_TARDOM,'
       '  NOTE = :NOTE,'
       '  TARIF_PLAN = :TARIF_PLAN,'
       '  TARIF_FACT = :TARIF_FACT,'
@@ -417,10 +405,6 @@ inherited ImpForm: TImpForm
     object IBTARIFID_POSL: TIntegerField
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
-    end
-    object IBTARIFID_TARDOM: TIntegerField
-      FieldName = 'ID_TARDOM'
-      Origin = '"TARIF"."ID_TARDOM"'
     end
     object IBTARIFNOTE: TIBStringField
       FieldName = 'NOTE'
@@ -455,7 +439,7 @@ inherited ImpForm: TImpForm
       FieldName = 'NORMA'
       Origin = '"TARIF"."NORMA"'
       Precision = 18
-      Size = 2
+      Size = 3
     end
     object IBTARIFTARIF_END: TIBBCDField
       FieldName = 'TARIF_END'
@@ -472,7 +456,7 @@ inherited ImpForm: TImpForm
   object IBTARIF_COMP: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
-    BeforePost = IBULBeforePost
+    BeforePost = IBTARIF_COMPBeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
@@ -481,9 +465,11 @@ inherited ImpForm: TImpForm
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into TARIF_COMP'
-      '  (ID, DATA, ID_TARIF, NAME, SUMM, KL_NTAR, FL_LIFT)'
+      '  (ID, DATA, ID_TARIF, NAME, SUMM, KL_NTAR, FL_LIFT, NORMA)'
       'values'
-      '  (:ID, :DATA, :ID_TARIF, :NAME, :SUMM, :KL_NTAR, :FL_LIFT)')
+      
+        '  (:ID, :DATA, :ID_TARIF, :NAME, :SUMM, :KL_NTAR, :FL_LIFT, :NOR' +
+        'MA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -492,7 +478,8 @@ inherited ImpForm: TImpForm
       '  NAME,'
       '  SUMM,'
       '  KL_NTAR,'
-      '  FL_LIFT'
+      '  FL_LIFT,'
+      '  NORMA'
       'from TARIF_COMP '
       'where'
       '  ID = :ID')
@@ -508,14 +495,15 @@ inherited ImpForm: TImpForm
       '  NAME = :NAME,'
       '  SUMM = :SUMM,'
       '  KL_NTAR = :KL_NTAR,'
-      '  FL_LIFT = :FL_LIFT'
+      '  FL_LIFT = :FL_LIFT,'
+      '  NORMA = :NORMA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_UL_ID'
-    Left = 232
+    Left = 240
     Top = 376
     object IBTARIF_COMPID: TIntegerField
       FieldName = 'ID'
@@ -549,6 +537,12 @@ inherited ImpForm: TImpForm
       FieldName = 'FL_LIFT'
       Origin = '"TARIF_COMP"."FL_LIFT"'
     end
+    object IBTARIF_COMPNORMA: TIBBCDField
+      FieldName = 'NORMA'
+      Origin = '"TARIF_COMP"."NORMA"'
+      Precision = 18
+      Size = 3
+    end
   end
   object DSTARIF_COMP: TDataSource
     DataSet = IBTARIF_COMP
@@ -558,134 +552,76 @@ inherited ImpForm: TImpForm
   object IBTARIF_DOM: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
-    BeforePost = IBULBeforePost
+    BeforePost = IBTARIF_DOMBeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
-      'delete from TARIF'
+      'delete from TARIF_DOM'
       'where'
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
-      'insert into TARIF'
-      
-        '  (ID, DATA, NAME, ID_POSL, ID_TARDOM, NOTE, TARIF_PLAN, TARIF_F' +
-        'ACT, TARIF_RN, '
-      '   TARIF_RK, NORMA, TARIF_END)'
+      'insert into TARIF_DOM'
+      '  (ID, ID_TARIF, ID_DOM, NAME)'
       'values'
-      
-        '  (:ID, :DATA, :NAME, :ID_POSL, :ID_TARDOM, :NOTE, :TARIF_PLAN, ' +
-        ':TARIF_FACT, '
-      '   :TARIF_RN, :TARIF_RK, :NORMA, :TARIF_END)')
+      '  (:ID, :ID_TARIF, :ID_DOM, :NAME)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
-      '  DATA,'
-      '  NAME,'
-      '  ID_POSL,'
-      '  ID_TARDOM,'
-      '  NOTE,'
-      '  TARIF_PLAN,'
-      '  TARIF_FACT,'
-      '  TARIF_RN,'
-      '  TARIF_RK,'
-      '  NORMA,'
-      '  TARIF_END'
-      'from TARIF '
+      '  ID_TARIF,'
+      '  ID_DOM,'
+      '  NAME'
+      'from TARIF_DOM '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
       'SELECT * from TARIF_DOM'
       '')
     ModifySQL.Strings = (
-      'update TARIF'
+      'update TARIF_DOM'
       'set'
       '  ID = :ID,'
-      '  DATA = :DATA,'
-      '  NAME = :NAME,'
-      '  ID_POSL = :ID_POSL,'
-      '  ID_TARDOM = :ID_TARDOM,'
-      '  NOTE = :NOTE,'
-      '  TARIF_PLAN = :TARIF_PLAN,'
-      '  TARIF_FACT = :TARIF_FACT,'
-      '  TARIF_RN = :TARIF_RN,'
-      '  TARIF_RK = :TARIF_RK,'
-      '  NORMA = :NORMA,'
-      '  TARIF_END = :TARIF_END'
+      '  ID_TARIF = :ID_TARIF,'
+      '  ID_DOM = :ID_DOM,'
+      '  NAME = :NAME'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_UL_ID'
-    Left = 304
-    Top = 376
-    object IntegerField4: TIntegerField
+    Left = 320
+    Top = 328
+    object IBTARIF_DOMID: TIntegerField
       FieldName = 'ID'
-      Origin = '"TARIF"."ID"'
+      Origin = '"TARIF_DOM"."ID"'
       Required = True
     end
-    object DateField2: TDateField
-      FieldName = 'DATA'
-      Origin = '"TARIF"."DATA"'
+    object IBTARIF_DOMID_TARIF: TIntegerField
+      FieldName = 'ID_TARIF'
+      Origin = '"TARIF_DOM"."ID_TARIF"'
     end
-    object IBStringField3: TIBStringField
+    object IBTARIF_DOMID_DOM: TIntegerField
+      FieldName = 'ID_DOM'
+      Origin = '"TARIF_DOM"."ID_DOM"'
+    end
+    object IBTARIF_DOMNAME: TIBStringField
       FieldName = 'NAME'
-      Origin = '"TARIF"."NAME"'
+      Origin = '"TARIF_DOM"."NAME"'
       Size = 50
-    end
-    object IntegerField5: TIntegerField
-      FieldName = 'ID_POSL'
-      Origin = '"TARIF"."ID_POSL"'
-    end
-    object IntegerField6: TIntegerField
-      FieldName = 'ID_TARDOM'
-      Origin = '"TARIF"."ID_TARDOM"'
-    end
-    object IBStringField4: TIBStringField
-      FieldName = 'NOTE'
-      Origin = '"TARIF"."NOTE"'
-      Size = 100
-    end
-    object IBBCDField7: TIBBCDField
-      FieldName = 'TARIF_PLAN'
-      Origin = '"TARIF"."TARIF_PLAN"'
-      Precision = 18
-      Size = 2
-    end
-    object IBBCDField8: TIBBCDField
-      FieldName = 'TARIF_FACT'
-      Origin = '"TARIF"."TARIF_FACT"'
-      Precision = 18
-      Size = 2
-    end
-    object IBBCDField9: TIBBCDField
-      FieldName = 'TARIF_RN'
-      Origin = '"TARIF"."TARIF_RN"'
-      Precision = 18
-      Size = 2
-    end
-    object IBBCDField10: TIBBCDField
-      FieldName = 'TARIF_RK'
-      Origin = '"TARIF"."TARIF_RK"'
-      Precision = 18
-      Size = 2
-    end
-    object IBBCDField11: TIBBCDField
-      FieldName = 'NORMA'
-      Origin = '"TARIF"."NORMA"'
-      Precision = 18
-      Size = 2
-    end
-    object IBBCDField12: TIBBCDField
-      FieldName = 'TARIF_END'
-      Origin = '"TARIF"."TARIF_END"'
-      Precision = 18
-      Size = 2
     end
   end
   object DataSource2: TDataSource
     DataSet = IBTARIF_DOM
-    Left = 304
-    Top = 432
+    Left = 320
+    Top = 384
+  end
+  object IBQuery1: TIBQuery
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    Left = 376
+    Top = 376
   end
 end

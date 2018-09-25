@@ -11,6 +11,7 @@ object DataM: TDataM
       'password=masterkey')
     LoginPrompt = False
     ServerType = 'IBServer'
+    AllowStreamedConnected = False
     Left = 40
     Top = 24
   end

@@ -1,17 +1,5 @@
-﻿[IBTARIFTARIF_END]
-Coordinates=199,1,134,36
-
-[IBTARIFID_TARDOM]
-Coordinates=199,56,138,36
-
-[IBTARIFTARIF_RK]
-Coordinates=199,111,125,36
-
-[dxBarButton1]
+﻿[dxBarButton1]
 Coordinates=219,166,92,36
-
-[IBTARIFNOTE]
-Coordinates=371,1,99,36
 
 [IBTARIF]
 Coordinates=10,10,81,322
@@ -22,32 +10,14 @@ Coordinates=219,221,97,36
 [DSTARIF]
 Coordinates=100,188,69,36
 
-[IBTARIFID_POSL]
-Coordinates=199,331,117,36
-
 [dxStatusBar1]
 Coordinates=155,342,92,36
-
-[IBTARIFTARIF_RN]
-Coordinates=375,56,126,36
 
 [dxBarManager1]
 Coordinates=375,111,106,36
 
-[IBTARIFTARIF_PLAN]
-Coordinates=375,166,141,36
-
-[IBTARIFID]
-Coordinates=219,496,76,36
-
 [cxGrid1]
 Coordinates=86,342,59,36
-
-[IBTARIFNAME]
-Coordinates=375,221,100,36
-
-[IBTARIFTARIF_FACT]
-Coordinates=375,276,141,36
 
 [dxBarButton3]
 Coordinates=375,331,92,36
@@ -58,26 +28,11 @@ Coordinates=375,386,101,36
 [dxBarButton2]
 Coordinates=375,441,92,36
 
-[IBTARIFDATA]
-Coordinates=375,551,98,36
-
 [cxGrid1DBTableView1]
 Coordinates=554,1,144,36
 
-[IBTARIFNORMA]
-Coordinates=554,56,111,36
-
-[cxGrid1DBTableView1TARIF_RN]
-Coordinates=736,1,206,36
-
 [cxButton3]
 Coordinates=191,10,72,58
-
-[cxGrid1DBTableView1TARIF_FACT]
-Coordinates=736,56,221,36
-
-[cxGrid1DBTableView1NAME]
-Coordinates=554,111,180,36
 
 [Panel1]
 Coordinates=355,10,54,58
@@ -85,33 +40,9 @@ Coordinates=355,10,54,58
 [cxButton4]
 Coordinates=273,10,72,58
 
-[cxGrid1DBTableView1TARIF_END]
-Coordinates=772,111,214,36
-
-[cxGrid1DBTableView1ID_TARDOM]
-Coordinates=772,166,219,36
-
-[cxGrid1DBTableView1NORMA]
-Coordinates=554,166,191,36
-
-[cxGrid1DBTableView1TARIF_RK]
-Coordinates=789,221,205,36
-
-[DBLookupListBox1]
+[]
 Coordinates=495,10,124,36
 Visible=True
-
-[cxGrid1DBTableView1TARIF_PLAN]
-Coordinates=789,276,221,36
-
-[cxGrid1DBTableView1NOTE]
-Coordinates=554,386,179,36
-
-[]
-Coordinates=10,342,66,36
-
-[IBTARIF_COMPNAME]
-Coordinates=383,496,145,36
 
 [cxButton2]
 Coordinates=99,1,72,58
@@ -122,17 +53,11 @@ Coordinates=566,221,97,36
 [IBPOSL]
 Coordinates=530,70,80,168
 
-[IBTARIF_COMPID_TARIF]
-Coordinates=772,331,165,36
-
 [IBPOSLFL_ZAGR]
 Coordinates=657,276,118,36
 
 [DSPOSL]
 Coordinates=167,548,66,36
-
-[IBTARIF_COMPID]
-Coordinates=657,441,122,36
 
 [DSTARIF_COMP]
 Coordinates=256,548,114,36
@@ -140,14 +65,8 @@ Coordinates=256,548,114,36
 [IBPOSLID]
 Coordinates=220,397,73,36
 
-[IBTARIF_COMPSUMM]
-Coordinates=657,496,147,36
-
 [IBPOSLWID]
 Coordinates=566,276,85,36
-
-[IBTARIF_COMPDATA]
-Coordinates=657,551,143,36
 
 [Main.IBPERIOD]
 Coordinates=190,221,107,102

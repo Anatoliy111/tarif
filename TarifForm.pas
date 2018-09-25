@@ -24,29 +24,7 @@ type
     dxBarButton1: TdxBarButton;
     dxBarButton2: TdxBarButton;
     dxBarButton3: TdxBarButton;
-    IBTARIFID: TIntegerField;
-    IBTARIFDATA: TDateField;
-    IBTARIFNAME: TIBStringField;
-    IBTARIFID_POSL: TIntegerField;
-    IBTARIFID_TARDOM: TIntegerField;
-    IBTARIFNOTE: TIBStringField;
-    IBTARIFTARIF_PLAN: TIBBCDField;
-    IBTARIFTARIF_FACT: TIBBCDField;
-    IBTARIFTARIF_RN: TIBBCDField;
-    IBTARIFTARIF_RK: TIBBCDField;
-    IBTARIFNORMA: TIBBCDField;
-    IBTARIFTARIF_END: TIBBCDField;
-    cxGrid1DBTableView1NAME: TcxGridDBColumn;
-    cxGrid1DBTableView1ID_TARDOM: TcxGridDBColumn;
-    cxGrid1DBTableView1NOTE: TcxGridDBColumn;
-    cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn;
-    cxGrid1DBTableView1TARIF_FACT: TcxGridDBColumn;
-    cxGrid1DBTableView1TARIF_RN: TcxGridDBColumn;
-    cxGrid1DBTableView1TARIF_RK: TcxGridDBColumn;
-    cxGrid1DBTableView1NORMA: TcxGridDBColumn;
-    cxGrid1DBTableView1TARIF_END: TcxGridDBColumn;
     Panel1: TPanel;
-    DBLookupListBox1: TDBLookupListBox;
     IBPOSL: TIBDataSet;
     DSPOSL: TDataSource;
     IBPOSLID: TIntegerField;
@@ -57,11 +35,6 @@ type
     cxButton2: TcxButton;
     IBTARIF_COMP: TIBDataSet;
     DSTARIF_COMP: TDataSource;
-    IBTARIF_COMPID: TIntegerField;
-    IBTARIF_COMPDATA: TDateField;
-    IBTARIF_COMPID_TARIF: TIntegerField;
-    IBTARIF_COMPNAME: TIBStringField;
-    IBTARIF_COMPSUMM: TIBBCDField;
     cxLabel2: TcxLabel;
     cxLookupComboBox1: TcxLookupComboBox;
     cxButton1: TcxButton;
@@ -69,16 +42,51 @@ type
     IBTransaction2: TIBTransaction;
     cxGrid2: TcxGrid;
     cxGridDBTableView1: TcxGridDBTableView;
-    cxGridDBColumn1: TcxGridDBColumn;
-    cxGridDBColumn2: TcxGridDBColumn;
-    cxGridDBColumn3: TcxGridDBColumn;
-    cxGridDBColumn4: TcxGridDBColumn;
-    cxGridDBColumn5: TcxGridDBColumn;
-    cxGridDBColumn6: TcxGridDBColumn;
-    cxGridDBColumn7: TcxGridDBColumn;
-    cxGridDBColumn8: TcxGridDBColumn;
-    cxGridDBColumn9: TcxGridDBColumn;
     cxGridLevel1: TcxGridLevel;
+    IBTARIFID: TIntegerField;
+    IBTARIFDATA: TDateField;
+    IBTARIFNAME: TIBStringField;
+    IBTARIFID_POSL: TIntegerField;
+    IBTARIFNOTE: TIBStringField;
+    IBTARIFTARIF_PLAN: TIBBCDField;
+    IBTARIFTARIF_FACT: TIBBCDField;
+    IBTARIFTARIF_RN: TIBBCDField;
+    IBTARIFTARIF_RK: TIBBCDField;
+    IBTARIFNORMA: TIBBCDField;
+    IBTARIFTARIF_END: TIBBCDField;
+    IBTARIF_COMPID: TIntegerField;
+    IBTARIF_COMPDATA: TDateField;
+    IBTARIF_COMPID_TARIF: TIntegerField;
+    IBTARIF_COMPNAME: TIBStringField;
+    IBTARIF_COMPSUMM: TIBBCDField;
+    IBTARIF_COMPKL_NTAR: TIntegerField;
+    IBTARIF_COMPFL_LIFT: TIntegerField;
+    IBTARIF_COMPNORMA: TIBBCDField;
+    IBTARIF_DOM: TIBDataSet;
+    DSTARIF_DOM: TDataSource;
+    IBTARIF_DOMID: TIntegerField;
+    IBTARIF_DOMID_TARIF: TIntegerField;
+    IBTARIF_DOMID_DOM: TIntegerField;
+    IBTARIF_DOMNAME: TIBStringField;
+    Panel5: TPanel;
+    DBLookupListBox1: TDBLookupListBox;
+    cxGrid3: TcxGrid;
+    cxGridDBTableView2: TcxGridDBTableView;
+    cxGridDBTableView2NAME: TcxGridDBColumn;
+    cxGridLevel2: TcxGridLevel;
+    cxGridDBTableView1NAME: TcxGridDBColumn;
+    cxGridDBTableView1SUMM: TcxGridDBColumn;
+    cxGridDBTableView1KL_NTAR: TcxGridDBColumn;
+    cxGridDBTableView1FL_LIFT: TcxGridDBColumn;
+    cxGridDBTableView1NORMA: TcxGridDBColumn;
+    cxGrid1DBTableView1NAME: TcxGridDBColumn;
+    cxGrid1DBTableView1NOTE: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_FACT: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_RN: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_RK: TcxGridDBColumn;
+    cxGrid1DBTableView1NORMA: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_END: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -141,6 +149,29 @@ begin
   IBTARIF.SelectSQL.Text:='select * from TARIF where id_posl=:pos';
   IBTARIF.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF.Active:=true;
+  if IBPOSLWID.Value='ub' then
+  begin
+    cxGrid1DBTableView1TARIF_FACT.Visible:=true;
+    cxGrid1DBTableView1TARIF_RN.Visible:=true;
+    cxGrid1DBTableView1TARIF_RK.Visible:=true;
+    cxGrid1DBTableView1NORMA.Visible:=false;
+  end
+  else
+  begin
+    cxGrid1DBTableView1TARIF_FACT.Visible:=false;
+    cxGrid1DBTableView1TARIF_RN.Visible:=false;
+    cxGrid1DBTableView1TARIF_RK.Visible:=false;
+    cxGrid1DBTableView1NORMA.Visible:=true;
+  end;
+  IBTARIF_COMP.Active:=false;
+  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarif=:tar';
+  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIFID.Value;
+  IBTARIF_COMP.Active:=true;
+  IBTARIF_DOM.Active:=false;
+  IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_posl=:tar';
+  IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIFID.Value;
+  IBTARIF_DOM.Active:=true;
+
 
 end;
 
@@ -181,6 +212,14 @@ begin
   IBTARIF.SelectSQL.Text:='select * from TARIF where id_posl=:pos';
   IBTARIF.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF.Active:=true;
+  IBTARIF_COMP.Active:=false;
+  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarif=:tar';
+  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIFID.Value;
+  IBTARIF_COMP.Active:=true;
+  IBTARIF_DOM.Active:=false;
+  IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_posl=:tar';
+  IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIFID.Value;
+  IBTARIF_DOM.Active:=true;
 //  DBLookupComboBox1.KeyField:=  Main.IBPERIODID.Value;
 
 

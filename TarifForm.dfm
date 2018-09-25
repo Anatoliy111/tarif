@@ -3,14 +3,13 @@
   ClientHeight = 629
   ClientWidth = 790
   OnCreate = FormCreate
-  ExplicitTop = 0
   ExplicitWidth = 806
   ExplicitHeight = 667
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
     Width = 790
-    TabOrder = 8
+    TabOrder = 6
     ExplicitWidth = 790
     object cxButton1: TcxButton
       Left = 168
@@ -27,17 +26,20 @@
     end
   end
   object cxGrid1: TcxGrid [1]
-    Left = 137
+    Left = 145
     Top = 89
-    Width = 653
+    Width = 645
     Height = 403
     Align = alClient
     TabOrder = 1
-    ExplicitHeight = 400
+    ExplicitLeft = 206
+    ExplicitTop = 104
+    ExplicitWidth = 494
+    ExplicitHeight = 284
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = DSTARIF
-      DataController.KeyFieldNames = 'KL'
+      DataController.KeyFieldNames = 'ID'
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -45,15 +47,7 @@
       OptionsView.GroupByBox = False
       object cxGrid1DBTableView1NAME: TcxGridDBColumn
         DataBinding.FieldName = 'NAME'
-        Width = 236
-      end
-      object cxGrid1DBTableView1ID_TARDOM: TcxGridDBColumn
-        DataBinding.FieldName = 'ID_TARDOM'
-        Width = 87
-      end
-      object cxGrid1DBTableView1NOTE: TcxGridDBColumn
-        DataBinding.FieldName = 'NOTE'
-        Width = 135
+        Width = 203
       end
       object cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn
         DataBinding.FieldName = 'TARIF_PLAN'
@@ -67,11 +61,14 @@
       object cxGrid1DBTableView1TARIF_RK: TcxGridDBColumn
         DataBinding.FieldName = 'TARIF_RK'
       end
+      object cxGrid1DBTableView1TARIF_END: TcxGridDBColumn
+        DataBinding.FieldName = 'TARIF_END'
+      end
       object cxGrid1DBTableView1NORMA: TcxGridDBColumn
         DataBinding.FieldName = 'NORMA'
       end
-      object cxGrid1DBTableView1TARIF_END: TcxGridDBColumn
-        DataBinding.FieldName = 'TARIF_END'
+      object cxGrid1DBTableView1NOTE: TcxGridDBColumn
+        DataBinding.FieldName = 'NOTE'
       end
     end
     object cxGrid1Level1: TcxGridLevel
@@ -84,7 +81,7 @@
     Width = 790
     Height = 48
     Align = alTop
-    TabOrder = 3
+    TabOrder = 2
     object cxButton2: TcxButton
       Left = 151
       Top = 5
@@ -117,19 +114,6 @@
       Width = 132
     end
   end
-  object DBLookupListBox1: TDBLookupListBox [3]
-    Left = 0
-    Top = 89
-    Width = 137
-    Height = 394
-    Align = alLeft
-    KeyField = 'ID'
-    ListField = 'NAME'
-    ListSource = DSPOSL
-    TabOrder = 2
-    OnClick = DBLookupListBox1Click
-    ExplicitHeight = 420
-  end
   inherited Panel4: TPanel
     Top = 576
     Width = 790
@@ -142,7 +126,7 @@
       Left = 633
       Height = 28
       ExplicitLeft = 633
-      ExplicitHeight = 44
+      ExplicitHeight = 28
       inherited cxButton4: TcxButton
         Top = 3
         ExplicitTop = 3
@@ -156,64 +140,100 @@
       Top = 32
       Width = 782
       Height = 17
-      ExplicitTop = 48
+      ExplicitTop = 32
       ExplicitWidth = 782
       ExplicitHeight = 17
     end
   end
-  object cxGrid2: TcxGrid [5]
+  object cxGrid2: TcxGrid [4]
     Left = 0
     Top = 492
     Width = 790
     Height = 84
     Align = alBottom
-    TabOrder = 9
-    ExplicitTop = 472
+    TabOrder = 8
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
-      DataController.DataSource = DSTARIF
-      DataController.KeyFieldNames = 'KL'
+      DataController.DataSource = DSTARIF_COMP
+      DataController.KeyFieldNames = 'ID'
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
       OptionsSelection.CellSelect = False
       OptionsView.GroupByBox = False
-      object cxGridDBColumn1: TcxGridDBColumn
+      object cxGridDBTableView1NAME: TcxGridDBColumn
         DataBinding.FieldName = 'NAME'
-        Width = 236
+        Width = 217
       end
-      object cxGridDBColumn2: TcxGridDBColumn
-        DataBinding.FieldName = 'ID_TARDOM'
-        Width = 87
+      object cxGridDBTableView1SUMM: TcxGridDBColumn
+        DataBinding.FieldName = 'SUMM'
       end
-      object cxGridDBColumn3: TcxGridDBColumn
-        DataBinding.FieldName = 'NOTE'
-        Width = 135
-      end
-      object cxGridDBColumn4: TcxGridDBColumn
-        DataBinding.FieldName = 'TARIF_PLAN'
-      end
-      object cxGridDBColumn5: TcxGridDBColumn
-        DataBinding.FieldName = 'TARIF_FACT'
-      end
-      object cxGridDBColumn6: TcxGridDBColumn
-        DataBinding.FieldName = 'TARIF_RN'
-      end
-      object cxGridDBColumn7: TcxGridDBColumn
-        DataBinding.FieldName = 'TARIF_RK'
-      end
-      object cxGridDBColumn8: TcxGridDBColumn
+      object cxGridDBTableView1NORMA: TcxGridDBColumn
         DataBinding.FieldName = 'NORMA'
       end
-      object cxGridDBColumn9: TcxGridDBColumn
-        DataBinding.FieldName = 'TARIF_END'
+      object cxGridDBTableView1KL_NTAR: TcxGridDBColumn
+        DataBinding.FieldName = 'KL_NTAR'
+      end
+      object cxGridDBTableView1FL_LIFT: TcxGridDBColumn
+        DataBinding.FieldName = 'FL_LIFT'
       end
     end
     object cxGridLevel1: TcxGridLevel
       GridView = cxGridDBTableView1
     end
   end
+  object Panel5: TPanel [5]
+    Left = 0
+    Top = 89
+    Width = 145
+    Height = 403
+    Align = alLeft
+    TabOrder = 9
+    object DBLookupListBox1: TDBLookupListBox
+      Left = 1
+      Top = 1
+      Width = 143
+      Height = 160
+      Align = alTop
+      KeyField = 'ID'
+      ListField = 'NAME'
+      ListSource = DSPOSL
+      TabOrder = 0
+      OnClick = DBLookupListBox1Click
+    end
+    object cxGrid3: TcxGrid
+      Left = 1
+      Top = 161
+      Width = 143
+      Height = 241
+      Align = alClient
+      TabOrder = 1
+      ExplicitLeft = -9
+      ExplicitTop = 184
+      ExplicitWidth = 154
+      ExplicitHeight = 219
+      object cxGridDBTableView2: TcxGridDBTableView
+        Navigator.Buttons.CustomButtons = <>
+        DataController.DataSource = DSTARIF_DOM
+        DataController.KeyFieldNames = 'ID'
+        DataController.Summary.DefaultGroupSummaryItems = <>
+        DataController.Summary.FooterSummaryItems = <>
+        DataController.Summary.SummaryGroups = <>
+        OptionsData.Editing = False
+        OptionsSelection.CellSelect = False
+        OptionsView.GroupByBox = False
+        object cxGridDBTableView2NAME: TcxGridDBColumn
+          DataBinding.FieldName = 'NAME'
+        end
+      end
+      object cxGridLevel2: TcxGridLevel
+        GridView = cxGridDBTableView2
+      end
+    end
+  end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Left = 24
   end
   object dxBarManager1: TdxBarManager
@@ -276,21 +296,20 @@
     InsertSQL.Strings = (
       'insert into TARIF'
       
-        '  (ID, DATA, NAME, ID_POSL, ID_TARDOM, NOTE, TARIF_PLAN, TARIF_F' +
-        'ACT, TARIF_RN, '
-      '   TARIF_RK, NORMA, TARIF_END)'
+        '  (ID, DATA, NAME, ID_POSL, NOTE, TARIF_PLAN, TARIF_FACT, TARIF_' +
+        'RN, TARIF_RK, '
+      '   NORMA, TARIF_END)'
       'values'
       
-        '  (:ID, :DATA, :NAME, :ID_POSL, :ID_TARDOM, :NOTE, :TARIF_PLAN, ' +
-        ':TARIF_FACT, '
-      '   :TARIF_RN, :TARIF_RK, :NORMA, :TARIF_END)')
+        '  (:ID, :DATA, :NAME, :ID_POSL, :NOTE, :TARIF_PLAN, :TARIF_FACT,' +
+        ' :TARIF_RN, '
+      '   :TARIF_RK, :NORMA, :TARIF_END)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  DATA,'
       '  NAME,'
       '  ID_POSL,'
-      '  ID_TARDOM,'
       '  NOTE,'
       '  TARIF_PLAN,'
       '  TARIF_FACT,'
@@ -310,7 +329,6 @@
       '  DATA = :DATA,'
       '  NAME = :NAME,'
       '  ID_POSL = :ID_POSL,'
-      '  ID_TARDOM = :ID_TARDOM,'
       '  NOTE = :NOTE,'
       '  TARIF_PLAN = :TARIF_PLAN,'
       '  TARIF_FACT = :TARIF_FACT,'
@@ -345,10 +363,6 @@
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
     end
-    object IBTARIFID_TARDOM: TIntegerField
-      FieldName = 'ID_TARDOM'
-      Origin = '"TARIF"."ID_TARDOM"'
-    end
     object IBTARIFNOTE: TIBStringField
       FieldName = 'NOTE'
       Origin = '"TARIF"."NOTE"'
@@ -382,7 +396,7 @@
       FieldName = 'NORMA'
       Origin = '"TARIF"."NORMA"'
       Precision = 18
-      Size = 2
+      Size = 3
     end
     object IBTARIFTARIF_END: TIBBCDField
       FieldName = 'TARIF_END'
@@ -479,16 +493,21 @@
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into TARIF_COMP'
-      '  (ID, DATA, ID_TARIF, NAME, SUMM)'
+      '  (ID, DATA, ID_TARIF, NAME, SUMM, KL_NTAR, FL_LIFT, NORMA)'
       'values'
-      '  (:ID, :DATA, :ID_TARIF, :NAME, :SUMM)')
+      
+        '  (:ID, :DATA, :ID_TARIF, :NAME, :SUMM, :KL_NTAR, :FL_LIFT, :NOR' +
+        'MA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  DATA,'
       '  ID_TARIF,'
       '  NAME,'
-      '  SUMM'
+      '  SUMM,'
+      '  KL_NTAR,'
+      '  FL_LIFT,'
+      '  NORMA'
       'from TARIF_COMP '
       'where'
       '  ID = :ID')
@@ -501,14 +520,17 @@
       '  DATA = :DATA,'
       '  ID_TARIF = :ID_TARIF,'
       '  NAME = :NAME,'
-      '  SUMM = :SUMM'
+      '  SUMM = :SUMM,'
+      '  KL_NTAR = :KL_NTAR,'
+      '  FL_LIFT = :FL_LIFT,'
+      '  NORMA = :NORMA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_TARIF_COMP_ID'
-    DataSource = DSPOSL
+    DataSource = DSTARIF
     Left = 208
     Top = 400
     object IBTARIF_COMPID: TIntegerField
@@ -534,6 +556,20 @@
       Origin = '"TARIF_COMP"."SUMM"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIF_COMPKL_NTAR: TIntegerField
+      FieldName = 'KL_NTAR'
+      Origin = '"TARIF_COMP"."KL_NTAR"'
+    end
+    object IBTARIF_COMPFL_LIFT: TIntegerField
+      FieldName = 'FL_LIFT'
+      Origin = '"TARIF_COMP"."FL_LIFT"'
+    end
+    object IBTARIF_COMPNORMA: TIBBCDField
+      FieldName = 'NORMA'
+      Origin = '"TARIF_COMP"."NORMA"'
+      Precision = 18
+      Size = 3
     end
   end
   object DSTARIF_COMP: TDataSource
@@ -635,7 +671,6 @@
       end>
   end
   object IBTransaction2: TIBTransaction
-    Active = True
     DefaultDatabase = DataM.IBDatabase2
     Params.Strings = (
       'read_committed'
@@ -643,5 +678,71 @@
       'nowait')
     Left = 448
     Top = 456
+  end
+  object IBTARIF_DOM: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BeforePost = IBTARIFBeforePost
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF_DOM'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF_DOM'
+      '  (ID, ID_TARIF, ID_DOM, NAME)'
+      'values'
+      '  (:ID, :ID_TARIF, :ID_DOM, :NAME)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_TARIF,'
+      '  ID_DOM,'
+      '  NAME'
+      'from TARIF_DOM '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from TARIF_DOM')
+    ModifySQL.Strings = (
+      'update TARIF_DOM'
+      'set'
+      '  ID = :ID,'
+      '  ID_TARIF = :ID_TARIF,'
+      '  ID_DOM = :ID_DOM,'
+      '  NAME = :NAME'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_DOM_ID'
+    DataSource = DSTARIF
+    Left = 288
+    Top = 400
+    object IBTARIF_DOMID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF_DOM"."ID"'
+      Required = True
+    end
+    object IBTARIF_DOMID_TARIF: TIntegerField
+      FieldName = 'ID_TARIF'
+      Origin = '"TARIF_DOM"."ID_TARIF"'
+    end
+    object IBTARIF_DOMID_DOM: TIntegerField
+      FieldName = 'ID_DOM'
+      Origin = '"TARIF_DOM"."ID_DOM"'
+    end
+    object IBTARIF_DOMNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"TARIF_DOM"."NAME"'
+      Size = 50
+    end
+  end
+  object DSTARIF_DOM: TDataSource
+    DataSet = IBTARIF_DOM
+    Left = 288
+    Top = 448
   end
 end
