@@ -45,6 +45,10 @@
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
       OptionsView.GroupByBox = False
+      object cxGrid1DBTableView1ID: TcxGridDBColumn
+        DataBinding.FieldName = 'ID'
+        Visible = False
+      end
       object cxGrid1DBTableView1NAME: TcxGridDBColumn
         DataBinding.FieldName = 'NAME'
         Width = 203

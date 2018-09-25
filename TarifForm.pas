@@ -87,6 +87,7 @@ type
     cxGrid1DBTableView1TARIF_RK: TcxGridDBColumn;
     cxGrid1DBTableView1NORMA: TcxGridDBColumn;
     cxGrid1DBTableView1TARIF_END: TcxGridDBColumn;
+    cxGrid1DBTableView1ID: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
