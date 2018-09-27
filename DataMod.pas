@@ -14,7 +14,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    iniFile:TIniFile;    
+    iniFile:TIniFile;
   end;
 
 var
@@ -32,12 +32,18 @@ begin
   iniFile:=TIniFile.Create(extractfilepath(paramstr(0))+'Tarif.ini');
   s:=iniFile.ReadString('Data','Database1',extractfilepath(paramstr(0))+'TARIF.FDB');
   IBDatabase1.DatabaseName:=s;
+//    messagedlg(s,mtInformation,[mbOK],0);
   IBDatabase1.Open;
-    ss:=iniFile.ReadString('Data','Database2',extractfilepath(paramstr(0))+'GKP_NEW.GDB');
+  IBDatabase2.Connected:=false;
+  ss:=iniFile.ReadString('Data','Database2',extractfilepath(paramstr(0))+'GKP_NEW.GDB');
   IBDatabase2.DatabaseName:=ss;
+//    messagedlg(ss,mtInformation,[mbOK],0);
   IBDatabase2.Open;
+
+
+
   except
-    messagedlg('Проблемы с открытием базы данных',mtError,[mbCancel],0);
+    messagedlg('Помилка підключення до бази даних '+s,mtError,[mbCancel],0);
     Application.Terminate;
   end;
 

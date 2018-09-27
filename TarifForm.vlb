@@ -1,14 +1,8 @@
 ﻿[dxBarButton1]
 Coordinates=219,166,92,36
 
-[IBTARIF]
-Coordinates=10,10,81,322
-
 [cxGrid1Level1]
 Coordinates=219,221,97,36
-
-[DSTARIF]
-Coordinates=100,188,69,36
 
 [dxStatusBar1]
 Coordinates=155,342,92,36
@@ -80,4 +74,10 @@ Coordinates=657,606,136,36
 
 [IBTARIF_COMP]
 Coordinates=48,548,109,168
+
+[IBTARIFUPD]
+Coordinates=10,10,81,322
+
+[DSTARIFUPD]
+Coordinates=100,188,69,36
 

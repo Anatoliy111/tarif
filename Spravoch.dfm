@@ -1,23 +1,24 @@
 inherited Sprav: TSprav
   Caption = #1044#1086#1074#1110#1076#1085#1080#1082
-  ClientHeight = 528
+  ClientHeight = 534
   ClientWidth = 767
   OnCreate = FormCreate
   ExplicitWidth = 783
-  ExplicitHeight = 566
+  ExplicitHeight = 572
   PixelsPerInch = 96
   TextHeight = 13
   object cxPageControl1: TcxPageControl [0]
     Left = 0
     Top = 41
     Width = 767
-    Height = 418
+    Height = 424
     Align = alClient
     TabOrder = 2
     Properties.ActivePage = cxTabSheet2
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
-    ClientRectBottom = 414
+    ExplicitHeight = 418
+    ClientRectBottom = 420
     ClientRectLeft = 4
     ClientRectRight = 763
     ClientRectTop = 24
@@ -26,6 +27,7 @@ inherited Sprav: TSprav
       Caption = #1055#1086#1089#1083#1091#1075#1080
       DragMode = dmAutomatic
       ImageIndex = 0
+      ExplicitHeight = 384
       object Panel9: TPanel
         Left = 0
         Top = 0
@@ -61,9 +63,10 @@ inherited Sprav: TSprav
         Left = 0
         Top = 97
         Width = 753
-        Height = 287
+        Height = 293
         Align = alClient
         TabOrder = 1
+        ExplicitHeight = 287
         object cxGrid1DBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSPOSL
@@ -100,6 +103,7 @@ inherited Sprav: TSprav
     object cxTabSheet2: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1080
       ImageIndex = 1
+      ExplicitHeight = 390
       object Panel7: TPanel
         Left = 0
         Top = 0
@@ -305,9 +309,10 @@ inherited Sprav: TSprav
         Left = 0
         Top = 129
         Width = 759
-        Height = 261
+        Height = 267
         Align = alClient
         TabOrder = 1
+        ExplicitHeight = 261
         object cxGridDBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSDOM
@@ -353,6 +358,7 @@ inherited Sprav: TSprav
     object cxTabSheet3: TcxTabSheet
       Caption = #1042#1091#1083#1080#1094#1110
       ImageIndex = 2
+      ExplicitHeight = 390
       object Panel6: TPanel
         Left = 0
         Top = 0
@@ -376,9 +382,10 @@ inherited Sprav: TSprav
         Left = 0
         Top = 113
         Width = 759
-        Height = 277
+        Height = 283
         Align = alClient
         TabOrder = 1
+        ExplicitHeight = 277
         object cxGridDBTableView2: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSUL
@@ -408,6 +415,12 @@ inherited Sprav: TSprav
   inherited Panel2: TPanel
     Width = 767
     ExplicitWidth = 767
+    inherited cxButton6: TcxButton
+      ExplicitLeft = 165
+    end
+    inherited cxButton7: TcxButton
+      ExplicitLeft = 123
+    end
     inherited cxButton8: TcxButton
       OnClick = cxButton8Click
     end
@@ -416,7 +429,7 @@ inherited Sprav: TSprav
     end
   end
   inherited Panel4: TPanel
-    Top = 459
+    Top = 465
     Width = 767
     ExplicitTop = 459
     ExplicitWidth = 767

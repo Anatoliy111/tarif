@@ -98,6 +98,7 @@ type
     procedure cxLookupComboBox1PropertiesChange(Sender: TObject);
     procedure cxTextEdit3PropertiesChange(Sender: TObject);
     procedure cxButton9Click(Sender: TObject);
+    procedure cxButton7Click(Sender: TObject);
   private
     { Private declarations }
 
@@ -185,6 +186,19 @@ begin
 
     end;
   end;
+end;
+
+procedure TSprav.cxButton7Click(Sender: TObject);
+begin
+  inherited;
+  IBPOSL.Active:=false;
+  IBUL.Active:=false;
+  IBDOM.Active:=false;
+
+  IBPOSL.Active:=true;
+  IBUL.Active:=true;
+  IBDOM.Active:=true;
+
 end;
 
 procedure TSprav.cxButton8Click(Sender: TObject);

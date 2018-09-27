@@ -16,7 +16,6 @@ object DataM: TDataM
     Top = 24
   end
   object IBDatabase2: TIBDatabase
-    Connected = True
     DatabaseName = 'D:\WORK\KOMUN\tarif\GKP_NEW.GDB'
     Params.Strings = (
       'user_name=sysdba'

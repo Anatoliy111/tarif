@@ -12,7 +12,6 @@ uses
 
 type
   TImpForm = class(TInsForm)
-    cxProgressBar1: TcxProgressBar;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -50,43 +49,48 @@ type
     IBTARIF_COMP: TIBDataSet;
     DSTARIF_COMP: TDataSource;
     IBTARIF_DOM: TIBDataSet;
-    DataSource2: TDataSource;
+    DSTARIF_DOM: TDataSource;
     IBQuery1: TIBQuery;
-    IBTARIF_DOMID: TIntegerField;
-    IBTARIF_DOMID_TARIF: TIntegerField;
-    IBTARIF_DOMID_DOM: TIntegerField;
-    IBTARIF_DOMNAME: TIBStringField;
+    IBTARIF_MES: TIBDataSet;
+    DataSource1: TDataSource;
     IBTARIFID: TIntegerField;
-    IBTARIFDATA: TDateField;
     IBTARIFNAME: TIBStringField;
     IBTARIFID_POSL: TIntegerField;
     IBTARIFNOTE: TIBStringField;
-    IBTARIFTARIF_PLAN: TIBBCDField;
-    IBTARIFTARIF_FACT: TIBBCDField;
-    IBTARIFTARIF_RN: TIBBCDField;
-    IBTARIFTARIF_RK: TIBBCDField;
-    IBTARIFNORMA: TIBBCDField;
-    IBTARIFTARIF_END: TIBBCDField;
+    IBTARIF_MESID: TIntegerField;
+    IBTARIF_MESID_TARIF: TIntegerField;
+    IBTARIF_MESDATA: TDateField;
+    IBTARIF_MESTARIF_PLAN: TIBBCDField;
+    IBTARIF_MESTARIF_FACT: TIBBCDField;
+    IBTARIF_MESTARIF_RN: TIBBCDField;
+    IBTARIF_MESTARIF_RK: TIBBCDField;
+    IBTARIF_MESNORMA: TIBBCDField;
+    IBTARIF_MESTARIF_END: TIBBCDField;
+    IBTARIF_MESPLAN_BL: TIBBCDField;
+    IBTARIF_MESFACT_BL: TIBBCDField;
     IBTARIF_COMPID: TIntegerField;
-    IBTARIF_COMPDATA: TDateField;
     IBTARIF_COMPID_TARIF: TIntegerField;
+    IBTARIF_COMPID_TARIFMES: TIntegerField;
     IBTARIF_COMPNAME: TIBStringField;
     IBTARIF_COMPSUMM: TIBBCDField;
     IBTARIF_COMPKL_NTAR: TIntegerField;
     IBTARIF_COMPFL_LIFT: TIntegerField;
     IBTARIF_COMPNORMA: TIBBCDField;
-    procedure cxButton1Click(Sender: TObject);
+    IBTARIF_DOMID: TIntegerField;
+    IBTARIF_DOMID_TARIF: TIntegerField;
+    IBTARIF_DOMID_DOM: TIntegerField;
+    IBTARIF_DOMNAME: TIBStringField;
+    IBTARIF_DOMID_TARIFMES: TIntegerField;
     procedure IBPOSLBeforePost(DataSet: TDataSet);
     procedure IBDOMBeforePost(DataSet: TDataSet);
     procedure IBULBeforePost(DataSet: TDataSet);
     procedure FormCreate(Sender: TObject);
-    procedure cxButton2Click(Sender: TObject);
-    procedure cxButton5Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure cxButton6Click(Sender: TObject);
     procedure IBTARIFBeforePost(DataSet: TDataSet);
     procedure IBTARIF_COMPBeforePost(DataSet: TDataSet);
     procedure IBTARIF_DOMBeforePost(DataSet: TDataSet);
+    procedure IBTARIF_MESBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -101,150 +105,7 @@ implementation
 
 {$R *.dfm}
 
-uses MainForm, mytools;
-
-
-procedure TImpForm.cxButton1Click(Sender: TObject);
-var res:Variant;
-begin
-  inherited;
-  if OpenDialog1.Execute then begin
-    FilePath := ExtractFilePath(OpenDialog1.FileName);
-    DB.Active:=false;
-    DB.TableName:=OpenDialog1.FileName;
-    DB.Active:=true;
-        cxProgressBar1.Position:=0;
-        cxProgressBar1.Properties.Min:=0;
-       cxProgressBar1.Properties.Max:=DB.RecordCount-1;
-    DB.First;
-    while not DB.Eof do
-    begin
-        cxProgressBar1.Position:=cxProgressBar1.Position+1;
-        Application.ProcessMessages;
-        IBUL.First;
-//          res:= IBUL.Lookup('schet;wid', VarArrayOf([schet,wid]),'schet');
-//            res:= IBUL.Lookup('kl',DB.FieldByName('kl').Value ,'kl');
-               if not IBUL.Locate('kl',DB.FieldByName('kl').Value,[]) then
-               begin
-                  IBUL.Insert;
-                  IBULKL.Value:=DB.FieldByName('kl').Value;
-                  IBULNAME.Value:=DB.FieldByName('ul').Value;
-                  IBULVAL.Value:=DB.FieldByName('val').Value;
-                  IBUL.Post
-               end
-               else
-               begin
-                 if DB.FieldByName('val').Value<> IBULVAL.Value then
-                 begin
-                  IBUL.Edit;
-                  IBULNAME.Value:=DB.FieldByName('ul').Value;
-                  IBULVAL.Value:=DB.FieldByName('val').Value;
-                  IBUL.Post
-                 end;
-
-               end;
-    DB.Next;
-    end;
-    DB.Active:=false;
-    cxProgressBar1.Position:=0;
-    messagedlg('Імпорт завершено!',mtInformation,[mbOK],0);
-  end;
-end;
-
-procedure TImpForm.cxButton2Click(Sender: TObject);
-var res:Variant;
-begin
-  inherited;
-  if OpenDialog1.Execute then begin
-    FilePath := ExtractFilePath(OpenDialog1.FileName);
-    DB.Active:=false;
-    DB.TableName:=OpenDialog1.FileName;
-    DB.Active:=true;
-        cxProgressBar1.Position:=0;
-        cxProgressBar1.Properties.Min:=0;
-       cxProgressBar1.Properties.Max:=DB.RecordCount-1;
-    DB.First;
-    while not DB.Eof do
-    begin
-        cxProgressBar1.Position:=cxProgressBar1.Position+1;
-        Application.ProcessMessages;
-        IBPOSL.First;
-               if not IBPOSL.Locate('wid',DB.FieldByName('wid').Value,[]) then
-               begin
-                  IBPOSL.Insert;
-                  IBPOSLWID.Value:=DB.FieldByName('wid').Value;
-                  IBPOSLNAME.Value:=DB.FieldByName('naim').Value;
-                  IBPOSLVAL.Value:=DB.FieldByName('val').Value;
-                  IBPOSL.Post;
-               end
-               else
-               begin
-                 if DB.FieldByName('val').Value<> IBPOSLVAL.Value then
-                 begin
-                  IBPOSL.Edit;
-                  IBPOSLNAME.Value:=DB.FieldByName('naim').Value;
-                  IBPOSLVAL.Value:=DB.FieldByName('val').Value;
-                  IBPOSL.Post;
-                 end;
-
-               end;
-    DB.Next;
-    end;
-    DB.Active:=false;
-    cxProgressBar1.Position:=0;
-    messagedlg('Імпорт завершено!',mtInformation,[mbOK],0);
-  end;
-end;
-
-procedure TImpForm.cxButton5Click(Sender: TObject);
-begin
-  inherited;
-  if OpenDialog1.Execute then begin
-    FilePath := ExtractFilePath(OpenDialog1.FileName);
-    DB.Active:=false;
-    DB.TableName:=OpenDialog1.FileName;
-    DB.Active:=true;
-        cxProgressBar1.Position:=0;
-        cxProgressBar1.Properties.Min:=0;
-       cxProgressBar1.Properties.Max:=DB.RecordCount-1;
-    DB.First;
-    while not DB.Eof do
-    begin
-        cxProgressBar1.Position:=cxProgressBar1.Position+1;
-        Application.ProcessMessages;
-        IBDOM.First;
-               if (DB.FieldByName('nomdom').Value=null) or (trim(DB.FieldByName('nomdom').Value)='0') then
-               begin
-               DB.Next;
-               Continue;
-               end;
-               if IBUL.Locate('kl',DB.FieldByName('kl_ul').Value,[]) then
-               begin
-                   if not IBDOM.Locate('id_ul;dom', VarArrayOf([IBULID.Value,DB.FieldByName('nomdom').Value]),[]) then
-                   begin
-                      IBDOM.Insert;
-                      IBDOMID_UL.Value:=IBULID.Value;
-                      IBDOMDOM.Value:=DB.FieldByName('nomdom').Value;
-                      IBDOMNAME.Value:=IBULNAME.Value+' '+DB.FieldByName('nomdom').Value;
-                      IBDOM.Post;
-                   end
-                   else
-                   begin
-                     begin
-                      IBDOM.Edit;
-                      IBDOMNAME.Value:=IBULNAME.Value+' '+DB.FieldByName('nomdom').Value;
-                      IBDOM.Post;
-                     end;
-
-                   end;
-               end;
-    DB.Next;
-    end;
-    DB.Active:=false;
-    cxProgressBar1.Position:=0;
-    messagedlg('Імпорт завершено!',mtInformation,[mbOK],0);
-  end;
-end;
+uses MainForm, mytools, Progress;
 
 procedure TImpForm.cxButton6Click(Sender: TObject);
 var     adostr:WideString;
@@ -270,6 +131,7 @@ begin
   end;
   if ADOConnectionDBF.Connected then
   begin
+  Prores.Show;
   IBPOSL.Active:=true;
   IBUL.Active:=true;
   IBDOM.Active:=true;
@@ -282,14 +144,17 @@ begin
           ADOQuery1.Active:=false;
           ADOQuery1.SQL.Text:='select * from ul';
           ADOQuery1.Active:=true;
-              cxProgressBar1.Position:=0;
-              cxProgressBar1.Properties.Min:=0;
-             cxProgressBar1.Properties.Max:=ADOQuery1.RecordCount-1;
+              Prores.cxProgressBar1.Position:=0;
+              Prores.cxProgressBar1.Properties.Min:=0;
+             Prores.cxProgressBar1.Properties.Max:=ADOQuery1.RecordCount-1;
           ADOQuery1.First;
           while not ADOQuery1.Eof do
           begin
-              cxProgressBar1.Position:=cxProgressBar1.Position+1;
+              Prores.cxProgressBar1.Position:=Prores.cxProgressBar1.Position+1;
               Application.ProcessMessages;
+              if not Prores.Showing then
+                 Break;
+
               IBUL.First;
       //          res:= IBUL.Lookup('schet;wid', VarArrayOf([schet,wid]),'schet');
       //            res:= IBUL.Lookup('kl',DB.FieldByName('kl').Value ,'kl');
@@ -315,7 +180,7 @@ begin
           ADOQuery1.Next;
           end;
           ADOQuery1.Active:=false;
-          cxProgressBar1.Position:=0;
+          Prores.cxProgressBar1.Position:=0;
     end;
 
     if cxCheckGroup1.States[1]=cbsChecked then
@@ -323,14 +188,16 @@ begin
           ADOQuery1.Active:=false;
           ADOQuery1.SQL.Text:='select * from wids';
           ADOQuery1.Active:=true;
-          cxProgressBar1.Position:=0;
-          cxProgressBar1.Properties.Min:=0;
-         cxProgressBar1.Properties.Max:=ADOQuery1.RecordCount-1;
+          Prores.cxProgressBar1.Position:=0;
+          Prores.cxProgressBar1.Properties.Min:=0;
+         Prores.cxProgressBar1.Properties.Max:=ADOQuery1.RecordCount-1;
       ADOQuery1.First;
       while not ADOQuery1.Eof do
       begin
-          cxProgressBar1.Position:=cxProgressBar1.Position+1;
+          Prores.cxProgressBar1.Position:=Prores.cxProgressBar1.Position+1;
           Application.ProcessMessages;
+          if not Prores.Showing then
+             Break;
           IBPOSL.First;
                  if not IBPOSL.Locate('wid',ADOQuery1.FieldByName('wid').Value,[]) then
                  begin
@@ -353,7 +220,7 @@ begin
       ADOQuery1.Next;
       end;
       ADOQuery1.Active:=false;
-      cxProgressBar1.Position:=0;
+      Prores.cxProgressBar1.Position:=0;
     end;
 
     if cxCheckGroup1.States[2]=cbsChecked then
@@ -361,14 +228,16 @@ begin
           ADOQuery1.Active:=false;
           ADOQuery1.SQL.Text:='select * from kart';
           ADOQuery1.Active:=true;
-          cxProgressBar1.Position:=0;
-          cxProgressBar1.Properties.Min:=0;
-         cxProgressBar1.Properties.Max:=ADOQuery1.RecordCount-1;
+          Prores.cxProgressBar1.Position:=0;
+          Prores.cxProgressBar1.Properties.Min:=0;
+         Prores.cxProgressBar1.Properties.Max:=ADOQuery1.RecordCount-1;
       ADOQuery1.First;
       while not ADOQuery1.Eof do
       begin
-          cxProgressBar1.Position:=cxProgressBar1.Position+1;
+          Prores.cxProgressBar1.Position:=Prores.cxProgressBar1.Position+1;
           Application.ProcessMessages;
+          if not Prores.Showing then
+             Break;
         IBDOM.First;
                if (ADOQuery1.FieldByName('nomdom').Value=null) or (trim(ADOQuery1.FieldByName('nomdom').Value)='0') then
                begin
@@ -398,7 +267,7 @@ begin
       ADOQuery1.Next;
       end;
       ADOQuery1.Active:=false;
-      cxProgressBar1.Position:=0;
+      Prores.cxProgressBar1.Position:=0;
     end;
 
     if cxCheckGroup1.States[3]=cbsChecked then
@@ -408,6 +277,7 @@ begin
             IBUL.Active:=true;
             IBDOM.Active:=true;
             IBTARIF.Active:=true;
+            IBTARIF_MES.Active:=true;
             IBTARIF_COMP.Active:=true;
             IBTARIF_DOM.Active:=true;
 
@@ -418,15 +288,18 @@ begin
           ADOQuery1.SQL.Text:='select ntarif.kl, ntarif.name, ntarif.wid, ntarif.tarif, kart.kl_ul, kart.nomdom, ntarif.lift, ntarif.norma'+
                               ' FROM ntarif, posl, kart where ntarif.kl=posl.kl_ntar and posl.schet=kart.schet group by ntarif.kl, ntarif.name, ntarif.wid, ntarif.tarif, ntarif.norma, kart.kl_ul, kart.nomdom, ntarif.lift';
           ADOQuery1.Active:=true;
-          cxProgressBar1.Position:=0;
-          cxProgressBar1.Properties.Min:=0;
-         cxProgressBar1.Properties.Max:=ADOQuery1.RecordCount-1;
+          Prores.cxProgressBar1.Position:=0;
+          Prores.cxProgressBar1.Properties.Min:=0;
+          ADOQuery1.Last;
+          Prores.cxProgressBar1.Properties.Max:=ADOQuery1.RecordCount-1;
       ADOQuery1.First;
       while not ADOQuery1.Eof do
       begin
 
-          cxProgressBar1.Position:=cxProgressBar1.Position+1;
+          Prores.cxProgressBar1.Position:=Prores.cxProgressBar1.Position+1;
           Application.ProcessMessages;
+          if not Prores.Showing then
+             Break;
 //          IBQuery1.Active:=false;
 //          IBQuery1.SQL.Text:='select tarif.id,tarif_dom.id,tarif_comp.kl_ntar,tarif_comp.lift,posl.wid,dom.dom,ul.kl from tarif,tarif_dom,tarif_comp,posl,dom,ul where tarif.id=tarif_dom.id_tarif and tarif.id=tarif_comp.id_tarif and tarif.date=:dt and tarif_dom.id_dom=dom.id and dom.id_ul=ul.id and tarif.id_posl=posl.id';
 //
@@ -449,19 +322,23 @@ begin
                ADOQuery1.Next;
                Continue;
           end;
-
+               if ADOQuery1.FieldByName('kl').Value=328 then
+              begin
+                ADOQuery1.FieldByName('lift').Value;
+              end;
 
             IBQuery1.Active:=false;
-            IBQuery1.SQL.Text:='select tarif.id, tarif_comp.kl_ntar, tarif_comp.fl_lift from tarif, tarif_comp where tarif.id=tarif_comp.id_tarif and tarif.data=:dt';
+            IBQuery1.SQL.Text:='select tarif_mes.id, tarif_mes.id_tarif, tarif_comp.kl_ntar, tarif_comp.fl_lift from tarif_mes, tarif_comp where tarif_mes.id=tarif_comp.id_tarifmes and tarif_mes.data=:dt';
             IBQuery1.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
             IBQuery1.Active:=true;
             if IBQuery1.Locate('kl_ntar',ADOQuery1.FieldByName('kl').Value,[]) then
             begin
               IBTARIF_DOM.First;
-              if not IBTARIF_DOM.Locate('ID_TARIF;ID_DOM', VarArrayOf([IBQuery1.FieldByName('id').Value,IBDOMID.Value]),[]) then
+              if not IBTARIF_DOM.Locate('ID_TARIFMES;ID_DOM', VarArrayOf([IBQuery1.FieldByName('id').Value,IBDOMID.Value]),[]) then
               begin
                  IBTARIF_DOM.Insert;
-                 IBTARIF_DOMID_TARIF.AsVariant:=IBQuery1.FieldByName('id').Value;
+                 IBTARIF_DOMID_TARIF.AsVariant:=IBQuery1.FieldByName('id_tarif').Value;
+                 IBTARIF_DOMID_TARIFMES.AsVariant:=IBQuery1.FieldByName('id').Value;
                  IBTARIF_DOMID_DOM.Value:=IBDOMID.Value;
                  IBTARIF_DOMNAME.Value:=IBDOMNAME.Value;
                  IBTARIF_DOM.Post;
@@ -469,43 +346,47 @@ begin
             end
             else
             begin
-              if ADOQuery1.FieldByName('lift').Value=1 then
-              begin
-                ADOQuery1.FieldByName('lift').Value;
-              end;
+
                 IBQuery1.Active:=false;
-                IBQuery1.SQL.Text:='select tarif.id, tarif.id_posl, tarif_dom.id_dom from tarif, tarif_dom where tarif.id=tarif_dom.id_tarif and tarif.data=:dt';
+                IBQuery1.SQL.Text:='select tarif_mes.id, tarif_mes.id_tarif, tarif.id_posl, tarif_dom.id_dom from tarif, tarif_mes, tarif_dom where tarif_mes.id=tarif_dom.id_tarifmes and tarif.id=tarif_mes.id_tarif and tarif_mes.data=:dt';
                 IBQuery1.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
                 IBQuery1.Active:=true;
-                if IBQuery1.Locate('id_posl;id_dom', VarArrayOf([IBPOSLID.Value,IBDOMID.Value]),[]) then
+                if (IBQuery1.Locate('id_posl;id_dom', VarArrayOf([IBPOSLID.Value,IBDOMID.Value]),[])) and (IBPOSLWID.Value='ub') then
                 begin
                   IBTARIF_COMP.Insert;
-                  IBTARIF_COMPID_TARIF.AsVariant:=IBQuery1.FieldByName('id').Value;
+                  IBTARIF_COMPID_TARIF.AsVariant:=IBQuery1.FieldByName('id_tarif').Value;
+                  IBTARIF_COMPID_TARIFMES.AsVariant:=IBQuery1.FieldByName('id').Value;
                   IBTARIF_COMPNAME.Value:=ADOQuery1.FieldByName('name').Value;
                   IBTARIF_COMPSUMM.AsVariant:=ADOQuery1.FieldByName('tarif').Value;
                   IBTARIF_COMPKL_NTAR.AsVariant:=ADOQuery1.FieldByName('kl').Value;
-                  IBTARIF_COMPFL_LIFT.AsVariant:=ADOQuery1.FieldByName('lift').Value;
+                  IBTARIF_COMPFL_LIFT.Value:=iif(ADOQuery1.FieldByName('lift').Value=1,1,0);
                   IBTARIF_COMPNORMA.AsVariant:=ADOQuery1.FieldByName('norma').Value;
                   IBTARIF_COMP.Post;
                 end
                 else
                 begin
                   IBTARIF.Insert;
-                  IBTARIFDATA.Value:=main.IBPERIODDATA.Value;
                   IBTARIFID_POSL.AsVariant:=IBPOSLID.Value;
-                  IBTARIFTARIF_END.AsVariant:=ADOQuery1.FieldByName('tarif').Value;
-                  IBTARIFNORMA.AsVariant:=ADOQuery1.FieldByName('norma').Value;
+                  IBTARIFNAME.Value:=IBPOSLNAME.Value+' '+IBDOMNAME.Value;
                   IBTARIF.Post;
+                  IBTARIF_MES.Insert;
+                  IBTARIF_MESDATA.Value:=main.IBPERIODDATA.Value;
+                  IBTARIF_MESID_TARIF.AsVariant:=IBTARIFID.Value;
+                  IBTARIF_MESTARIF_END.AsVariant:=ADOQuery1.FieldByName('tarif').Value;
+                  IBTARIF_MESNORMA.AsVariant:=ADOQuery1.FieldByName('norma').Value;
+                  IBTARIF_MES.Post;
                   IBTARIF_COMP.Insert;
                   IBTARIF_COMPID_TARIF.Value:=IBTARIFID.Value;
+                  IBTARIF_COMPID_TARIFMES.Value:=IBTARIF_MESID.Value;
                   IBTARIF_COMPNAME.AsVariant:=ADOQuery1.FieldByName('name').Value;
                   IBTARIF_COMPSUMM.AsVariant:=ADOQuery1.FieldByName('tarif').Value;
                   IBTARIF_COMPKL_NTAR.AsVariant:=ADOQuery1.FieldByName('kl').Value;
-                  IBTARIF_COMPFL_LIFT.AsVariant:=ADOQuery1.FieldByName('lift').Value;
+                  IBTARIF_COMPFL_LIFT.Value:=iif(ADOQuery1.FieldByName('lift').Value=1,1,0);
                   IBTARIF_COMPNORMA.AsVariant:=ADOQuery1.FieldByName('norma').Value;
                   IBTARIF_COMP.Post;
                   IBTARIF_DOM.Insert;
                   IBTARIF_DOMID_TARIF.Value:=IBTARIFID.Value;
+                  IBTARIF_DOMID_TARIFMES.Value:=IBTARIF_MESID.Value;
                   IBTARIF_DOMID_DOM.Value:=IBDOMID.Value;
                   IBTARIF_DOMNAME.AsVariant:=IBDOMNAME.Value;
                   IBTARIF_DOM.Post;
@@ -515,11 +396,11 @@ begin
       ADOQuery1.Next;
       end;
       ADOQuery1.Active:=false;
-      cxProgressBar1.Position:=0;
+      Prores.cxProgressBar1.Position:=0;
     end;
 
     messagedlg('Імпорт завершено!',mtInformation,[mbOK],0);
-
+    Prores.Close;
   end;
 
 
@@ -576,6 +457,13 @@ fl_post:=1;
 end;
 
 procedure TImpForm.IBTARIF_DOMBeforePost(DataSet: TDataSet);
+begin
+fl_post:=1;
+  inherited;
+
+end;
+
+procedure TImpForm.IBTARIF_MESBeforePost(DataSet: TDataSet);
 begin
 fl_post:=1;
   inherited;

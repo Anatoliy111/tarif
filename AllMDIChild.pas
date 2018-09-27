@@ -22,6 +22,7 @@ type
     dxStatusBar1: TdxStatusBar;
     cxButton4: TcxButton;
     cxButton3: TcxButton;
+    cxButton5: TcxButton;
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -60,8 +61,8 @@ begin
     case MessageBox(handle,pchar('«берегти зм≥ни?'),pchar(''),MB_OKCANCEL) of
       mrOK:begin
             IBTransaction1.CommitRetaining;
-            IBTransaction1.Active:=false;
-            IBTransaction1.Active:=true;
+//            IBTransaction1.Active:=false;
+//            IBTransaction1.Active:=true;
             self.fl_post:=0;
            end;
     end;

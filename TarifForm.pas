@@ -11,7 +11,7 @@ uses
   IBDatabase, dxStatusBar, cxContainer, cxTextEdit, cxLookAndFeels,
   cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst, Vcl.Menus,
   cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons, IBX.IBQuery;
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons, IBX.IBQuery,inifiles;
 
 type
   TTarifs = class(TAllMDICh)
@@ -19,8 +19,8 @@ type
     cxGrid1DBTableView1: TcxGridDBTableView;
     cxGrid1Level1: TcxGridLevel;
     cxGrid1: TcxGrid;
-    IBTARIF: TIBDataSet;
-    DSTARIF: TDataSource;
+    IBTARIFUPD: TIBDataSet;
+    DSTARIFUPD: TDataSource;
     dxBarButton1: TdxBarButton;
     dxBarButton2: TdxBarButton;
     dxBarButton3: TdxBarButton;
@@ -43,25 +43,6 @@ type
     cxGrid2: TcxGrid;
     cxGridDBTableView1: TcxGridDBTableView;
     cxGridLevel1: TcxGridLevel;
-    IBTARIFID: TIntegerField;
-    IBTARIFDATA: TDateField;
-    IBTARIFNAME: TIBStringField;
-    IBTARIFID_POSL: TIntegerField;
-    IBTARIFNOTE: TIBStringField;
-    IBTARIFTARIF_PLAN: TIBBCDField;
-    IBTARIFTARIF_FACT: TIBBCDField;
-    IBTARIFTARIF_RN: TIBBCDField;
-    IBTARIFTARIF_RK: TIBBCDField;
-    IBTARIFNORMA: TIBBCDField;
-    IBTARIFTARIF_END: TIBBCDField;
-    IBTARIF_COMPID: TIntegerField;
-    IBTARIF_COMPDATA: TDateField;
-    IBTARIF_COMPID_TARIF: TIntegerField;
-    IBTARIF_COMPNAME: TIBStringField;
-    IBTARIF_COMPSUMM: TIBBCDField;
-    IBTARIF_COMPKL_NTAR: TIntegerField;
-    IBTARIF_COMPFL_LIFT: TIntegerField;
-    IBTARIF_COMPNORMA: TIBBCDField;
     IBTARIF_DOM: TIBDataSet;
     DSTARIF_DOM: TDataSource;
     IBTARIF_DOMID: TIntegerField;
@@ -88,20 +69,92 @@ type
     cxGrid1DBTableView1NORMA: TcxGridDBColumn;
     cxGrid1DBTableView1TARIF_END: TcxGridDBColumn;
     cxGrid1DBTableView1ID: TcxGridDBColumn;
+    IBDOM: TIBDataSet;
+    IBDOMID: TIntegerField;
+    IBDOMNAME: TIBStringField;
+    IBDOMID_UL: TIntegerField;
+    IBDOMDOM: TIBStringField;
+    IBDOMCH: TSmallintField;
+    IBDOMID_HOUSE: TIntegerField;
+    IBUL: TIBDataSet;
+    IBULID: TIntegerField;
+    IBULNAME: TIBStringField;
+    IBULKL: TIntegerField;
+    IBULID_STREET: TIntegerField;
+    IBULVAL: TIntegerField;
+    DSUL: TDataSource;
+    DSDOM: TDataSource;
+    IBQuery2: TIBQuery;
+    IBPERIOD: TIBDataSet;
+    IBPERIODID: TIntegerField;
+    IBPERIODDATA: TDateField;
+    DІPERIOD: TDataSource;
+    IBTARIF_MES: TIBDataSet;
+    DSTARIF_MES: TDataSource;
+    IBTARIF_MESID: TIntegerField;
+    IBTARIF_MESID_TARIF: TIntegerField;
+    IBTARIF_MESDATA: TDateField;
+    IBTARIF_MESTARIF_PLAN: TIBBCDField;
+    IBTARIF_MESTARIF_FACT: TIBBCDField;
+    IBTARIF_MESTARIF_RN: TIBBCDField;
+    IBTARIF_MESTARIF_RK: TIBBCDField;
+    IBTARIF_MESNORMA: TIBBCDField;
+    IBTARIF_MESTARIF_END: TIBBCDField;
+    IBTARIF_MESPLAN_BL: TIBBCDField;
+    IBTARIF_MESFACT_BL: TIBBCDField;
+    IBTARIF_MESNAME: TIBStringField;
+    IBTARIF_DOMID_TARIFMES: TIntegerField;
+    IBTARIF_COMPID: TIntegerField;
+    IBTARIF_COMPID_TARIF: TIntegerField;
+    IBTARIF_COMPID_TARIFMES: TIntegerField;
+    IBTARIF_COMPNAME: TIBStringField;
+    IBTARIF_COMPSUMM: TIBBCDField;
+    IBTARIF_COMPKL_NTAR: TIntegerField;
+    IBTARIF_COMPFL_LIFT: TIntegerField;
+    IBTARIF_COMPNORMA: TIBBCDField;
+    IBTARIFUPDID: TIntegerField;
+    IBTARIFUPDID_TARIF: TIntegerField;
+    IBTARIFUPDDATA: TDateField;
+    IBTARIFUPDTARIF_PLAN: TIBBCDField;
+    IBTARIFUPDTARIF_FACT: TIBBCDField;
+    IBTARIFUPDTARIF_RN: TIBBCDField;
+    IBTARIFUPDTARIF_RK: TIBBCDField;
+    IBTARIFUPDNORMA: TIBBCDField;
+    IBTARIFUPDTARIF_END: TIBBCDField;
+    IBTARIFUPDPLAN_BL: TIBBCDField;
+    IBTARIFUPDFACT_BL: TIBBCDField;
+    IBTARIFUPDWID: TIBStringField;
+    IBTARIFUPDPOSL: TIBStringField;
+    IBTARIFUPDDOM: TIBStringField;
+    cxGrid1DBTableView1PLAN_BL: TcxGridDBColumn;
+    cxGrid1DBTableView1FACT_BL: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure IBTARIFBeforePost(DataSet: TDataSet);
+    procedure IBTARIFUPDBeforePost(DataSet: TDataSet);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure DBLookupListBox1Click(Sender: TObject);
-    procedure cxButton3Click(Sender: TObject);
     procedure DBComboBox1Change(Sender: TObject);
     procedure cxLookupComboBox1PropertiesChange(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
+    procedure IBDOMBeforePost(DataSet: TDataSet);
+    procedure IBULBeforePost(DataSet: TDataSet);
+    procedure IBPOSLBeforePost(DataSet: TDataSet);
+    procedure IBTARIF_COMPBeforePost(DataSet: TDataSet);
+    procedure IBTARIF_DOMBeforePost(DataSet: TDataSet);
+    procedure cxButton7Click(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
+    procedure cxGrid1DBTableView1FocusedRecordChanged(
+      Sender: TcxCustomGridTableView; APrevFocusedRecord,
+      AFocusedRecord: TcxCustomGridRecord;
+      ANewItemRecordFocusingChanged: Boolean);
+    procedure IBTARIF_MESBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
     { Public declarations }
     Glavna:Tform;
+     iniFile:TIniFile;
   end;
 
 var
@@ -109,17 +162,308 @@ var
 
 implementation
 
-uses MainForm, InsertForm, Ins, mytools, DataMod;
+uses MainForm, InsertForm, Ins, mytools, DataMod, Progress;
 
 {$R *.dfm}
 
 
-
-procedure TTarifs.cxButton3Click(Sender: TObject);
+procedure TTarifs.cxButton1Click(Sender: TObject);
+var res:CURRENCY;
 begin
   inherited;
-  IBTARIF.Insert;
-  InsForm.ShowModal;
+    Prores.Show;
+  IBTARIFUPD.Active:=false;
+//  IBTARIF.SelectSQL.Text:='select tarif_mes.*,posl.wid from TARIF, TARIF_MES, POSL where tarif_mes.data=:dt and tarif.id_posl=posl.id and tarif_mes.id_tarif=tarif.id';
+  IBTARIFUPD.ParamByName('dt').Value:=IBPERIODDATA.Value;
+  IBTARIFUPD.Active:=true;
+  IBTARIFUPD.First;
+    IBTARIF_COMP.Active:=false;
+  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp';
+//  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
+  IBTARIF_COMP.Active:=true;
+            Prores.Label1.Caption:='Завантаження даних';
+            Application.ProcessMessages;
+            Prores.cxProgressBar1.Visible:=true;
+          Prores.cxProgressBar1.Position:=0;
+          Prores.cxProgressBar1.Properties.Min:=0;
+          IBTARIFUPD.Last;
+         Prores.cxProgressBar1.Properties.Max:=IBTARIFUPD.RecordCount-1;
+         Application.ProcessMessages;
+
+
+  IBTARIFUPD.First;
+  while not IBTARIFUPD.Eof do
+  begin
+  res:=0;
+            Prores.cxProgressBar1.Position:=Prores.cxProgressBar1.Position+1;
+          Application.ProcessMessages;
+          if not Prores.Showing then
+             Break;
+
+//    if not IBPOSL.Locate('id_posl',IBTARIFID_POSL.Value,[]) then
+//    begin
+//      IBTARIF.Next;
+//      Continue;
+//    end;
+
+    if IBTARIFUPDWID.Value='ub' then
+    begin
+//      if IBTARIF_MESTARIF_FACT.Value>IBTARIF_MESTARIF_PLAN.Value then
+//      begin
+//         IBTARIF_MESTARIF_RK.Value:=IBTARIF_MESTARIF_PLAN.Value-IBTARIF_MESTARIF_FACT.Value-IBTARIF_MESTARIF_RN.Value;
+//         IBTARIF_MESTARIF_END.Value:=IBTARIF_MESTARIF_PLAN.Value;
+//      end
+//      else
+//      begin
+         res:= IBTARIFUPDTARIF_PLAN.Value-IBTARIFUPDTARIF_FACT.Value-IBTARIFUPDTARIF_RN.Value;
+         if res>0 then
+         begin
+           IBTARIFUPD.Edit;
+           IBTARIFUPDTARIF_RK.Value:=0;
+           IBTARIFUPD.Post;
+         end
+         else
+         begin
+           IBTARIFUPD.Edit;
+           IBTARIFUPDTARIF_RK.Value:=res;
+           IBTARIFUPD.Post;
+         end;
+
+         IBTARIFUPD.Edit;
+         IBTARIFUPDTARIF_END.Value:=IBTARIFUPDTARIF_RK.Value-IBTARIFUPDTARIF_RN.Value+IBTARIFUPDTARIF_FACT.Value;
+         IBTARIFUPD.Post;
+
+         res:=IBTARIFUPDTARIF_FACT.Value-IBTARIFUPDFACT_BL.Value;
+         if res>0 then
+         begin
+           IBTARIF_COMP.First;
+           if IBTARIF_COMP.Locate('ID_TARIFMES;FL_LIFT', VarArrayOf([IBTARIFUPDID.Value,0]),[]) then
+           begin
+             IBTARIF_COMP.Edit;
+             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value-res;
+             IBTARIF_COMP.Post;
+           end
+           else
+           begin
+             IBTARIF_COMP.Insert;
+             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
+             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
+             IBTARIF_COMPNAME.Value:=IBTARIFUPDPOSL.Value+' '+IBTARIFUPDDOM.Value;
+             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value-res;
+             IBTARIF_COMPFL_LIFT.Value:=0;
+             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
+             IBTARIF_COMP.Post;
+           end;
+           IBTARIF_COMP.First;
+           if IBTARIF_COMP.Locate('ID_TARIFMES;FL_LIFT', VarArrayOf([IBTARIFUPDID.Value,1]),[]) then
+           begin
+           IBTARIF_COMP.Edit;
+             IBTARIF_COMPSUMM.Value:=res;
+             IBTARIF_COMP.Post;
+           end
+           else
+           begin
+             IBTARIF_COMP.Insert;
+             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
+             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
+             IBTARIF_COMPNAME.Value:='Лiфт '+IBTARIFUPDDOM.Value;
+             IBTARIF_COMPSUMM.Value:=res;
+             IBTARIF_COMPFL_LIFT.Value:=1;
+             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
+             IBTARIF_COMP.Post;
+           end;
+         end
+         else
+         begin
+           IBTARIF_COMP.First;
+           if IBTARIF_COMP.Locate('ID_TARIFMES;FL_LIFT', VarArrayOf([IBTARIFUPDID.Value,0]),[]) then
+           begin
+             IBTARIF_COMP.Edit;
+             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value-res;
+             IBTARIF_COMP.Post;
+           end
+           else
+           begin
+             IBTARIF_COMP.Insert;
+             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
+             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
+             IBTARIF_COMPNAME.Value:=IBTARIFUPDPOSL.Value+' '+IBTARIFUPDDOM.Value;
+             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value;
+             IBTARIF_COMPFL_LIFT.Value:=0;
+             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
+             IBTARIF_COMP.Post;
+           end;
+         end;
+
+//      end;
+
+    end
+    else
+    begin
+           IBTARIF_COMP.First;
+           if IBTARIF_COMP.Locate('ID_TARIFMES', IBTARIFUPDID.Value,[]) then
+           begin
+             IBTARIF_COMP.Edit;
+             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value;
+             IBTARIF_COMP.Post;
+           end
+           else
+           begin
+             IBTARIF_COMP.Insert;
+             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
+             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
+             IBTARIF_COMPNAME.Value:=IBTARIFUPDPOSL.Value+' '+IBTARIFUPDDOM.Value;
+             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value;
+             IBTARIF_COMPFL_LIFT.Value:=0;
+             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
+             IBTARIF_COMP.Post;
+           end;
+    end;
+
+
+
+  IBTARIFUPD.Next;
+  end;
+  IBTARIFUPD.Active:=false;
+        Prores.cxProgressBar1.Position:=0;
+        Prores.Close;
+      messagedlg('Імпорт завершено!',mtInformation,[mbOK],0);
+
+//  UpdateGrids;
+//  cxButton7.OnClick;
+
+
+end;
+
+procedure TTarifs.cxButton2Click(Sender: TObject);
+var s,ss:string;
+begin
+  inherited;
+            Prores.Show;
+            Prores.Label1.Caption:='Підключення до бази даних';
+            Application.ProcessMessages;
+            Prores.cxProgressBar1.Visible:=false;
+//            try
+//              DataM.IBDatabase2.Connected:=false;
+//              ss:=iniFile.ReadString('Data','Database2',extractfilepath(paramstr(0))+'GKP_NEW.GDB');
+//              DataM.IBDatabase2.DatabaseName:=ss;
+//                    //    messagedlg(ss,mtInformation,[mbOK],0);
+//              DataM.IBDatabase2.Open;
+//            except
+//              messagedlg('Помилка підключення до бази даних '+ss,mtError,[mbCancel],0);
+//              Application.Terminate;
+//            end;
+
+
+            IBQuery1.Active:=false;
+            IBQuery1.ParamByName('BDATE').AsDate:=main.IBPERIODDATA.Value;
+            IBQuery1.ParamByName('EDATE').AsDate:=LastDayMon(main.IBPERIODDATA.Value);
+            IBQuery1.Active:=true;
+            Prores.Label1.Caption:='Завантаження даних';
+            Application.ProcessMessages;
+            Prores.cxProgressBar1.Visible:=true;
+          Prores.cxProgressBar1.Position:=0;
+          Prores.cxProgressBar1.Properties.Min:=0;
+          IBQuery1.Last;
+         Prores.cxProgressBar1.Properties.Max:=IBQuery1.RecordCount-1;
+         Application.ProcessMessages;
+      IBQuery1.First;
+      while not IBQuery1.Eof do
+      begin
+          Prores.cxProgressBar1.Position:=Prores.cxProgressBar1.Position+1;
+          Application.ProcessMessages;
+          if not Prores.Showing then
+             Break;
+//          if IBQuery1.FieldByName('ID_HOUSE').Value=10000044 then
+//             IBQuery1.FieldByName('ID_HOUSE').Value;
+
+          IBDOM.first;
+          if not IBDOM.Locate('ID_HOUSE',IBQuery1.FieldByName('ID_HOUSE').Value,[]) then
+          begin
+              IBUL.first;
+              if not IBUL.Locate('ID_STREET',IBQuery1.FieldByName('ID_STREET').Value,[]) then
+              begin
+                   IBQuery1.Next;
+                   Continue;
+              end;
+              IBDOM.first;
+              if not IBDOM.Locate('id_ul;dom', VarArrayOf([IBULID.Value,IBQuery1.FieldByName('N_BUD').Value]),[]) then
+              begin
+                   IBQuery1.Next;
+                   Continue;
+              end
+              else
+              begin
+                IBDOM.Edit;
+                IBDOMID_HOUSE.Value:=IBQuery1.FieldByName('ID_HOUSE').Value;
+                IBDOM.Post;
+              end;
+          end;
+
+          IBQuery2.Active:=false;
+          IBQuery2.SQL.Text:='select tarif_mes.id, tarif.id_posl, tarif_dom.id_dom from tarif, tarif_dom, tarif_mes where tarif_mes.id=tarif_dom.id_tarifmes and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+          IBQuery2.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
+          IBQuery2.Active:=true;
+          if IBQuery2.Locate('id_posl;id_dom', VarArrayOf([IBPOSLID.Value,IBDOMID.Value]),[]) then
+          begin
+            if IBTARIF_MES.Locate('id',IBQuery2.FieldByName('id').Value,[]) then
+            begin
+               IBTARIF_MES.Edit;
+               IBTARIF_MESTARIF_PLAN.Value:=IBQuery1.FieldByName('NORM').Value;
+               IBTARIF_MESTARIF_FACT.Value:=IBQuery1.FieldByName('FACT').Value;
+               IBTARIF_MESPLAN_BL.Value:=IBQuery1.FieldByName('NORM_BL').Value;
+               IBTARIF_MESFACT_BL.Value:=IBQuery1.FieldByName('FACT_BL').Value;
+               IBTARIF_MES.Post;
+            end;
+          end;
+
+
+
+        IBQuery1.Next;
+      end;
+      IBQuery1.Active:=false;
+      Prores.cxProgressBar1.Position:=0;
+      Prores.Close;
+      messagedlg('Імпорт завершено!',mtInformation,[mbOK],0);
+
+end;
+
+procedure TTarifs.cxButton7Click(Sender: TObject);
+begin
+  inherited;
+  IBPOSL.Active:=false;
+  IBPERIOD.Active:=false;
+  IBUL.Active:=false;
+  IBDOM.Active:=false;
+//  IBTARIF.Active:=false;
+  IBTARIF_COMP.Active:=false;
+  IBTARIF_DOM.Active:=false;
+  IBTARIF_MES.Active:=false;
+
+  IBPOSL.Active:=true;
+  IBPERIOD.Active:=true;
+  IBUL.Active:=true;
+  IBDOM.Active:=true;
+//  IBTARIF.Active:=true;
+  IBTARIF_COMP.Active:=true;
+  IBTARIF_DOM.Active:=true;
+  IBTARIF_MES.Active:=true;
+end;
+
+
+procedure TTarifs.cxGrid1DBTableView1FocusedRecordChanged(
+  Sender: TcxCustomGridTableView; APrevFocusedRecord,
+  AFocusedRecord: TcxCustomGridRecord; ANewItemRecordFocusingChanged: Boolean);
+begin
+  inherited;
+  IBTARIF_COMP.Active:=false;
+  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarifmes=:tar';
+  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
+  IBTARIF_COMP.Active:=true;
+  IBTARIF_DOM.Active:=false;
+  IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_tarifmes=:tar';
+  IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
+  IBTARIF_DOM.Active:=true;
 end;
 
 procedure TTarifs.cxLookupComboBox1PropertiesChange(Sender: TObject);
@@ -146,16 +490,19 @@ end;
 procedure TTarifs.DBLookupListBox1Click(Sender: TObject);
 begin
   inherited;
-  IBTARIF.Active:=false;
-  IBTARIF.SelectSQL.Text:='select * from TARIF where id_posl=:pos';
-  IBTARIF.ParamByName('pos').AsInteger:=IBPOSLID.Value;
-  IBTARIF.Active:=true;
+//  UpdateGrids;
+    IBTARIF_MES.Active:=false;
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
+  IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
+  IBTARIF_MES.Active:=true;
   if IBPOSLWID.Value='ub' then
   begin
     cxGrid1DBTableView1TARIF_FACT.Visible:=true;
     cxGrid1DBTableView1TARIF_RN.Visible:=true;
     cxGrid1DBTableView1TARIF_RK.Visible:=true;
     cxGrid1DBTableView1NORMA.Visible:=false;
+    cxButton2.Visible:=true;
   end
   else
   begin
@@ -163,17 +510,16 @@ begin
     cxGrid1DBTableView1TARIF_RN.Visible:=false;
     cxGrid1DBTableView1TARIF_RK.Visible:=false;
     cxGrid1DBTableView1NORMA.Visible:=true;
+    cxButton2.Visible:=false;
   end;
   IBTARIF_COMP.Active:=false;
-  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarif=:tar';
-  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIFID.Value;
+  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarifmes=:tar';
+  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
   IBTARIF_COMP.Active:=true;
   IBTARIF_DOM.Active:=false;
-  IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_posl=:tar';
-  IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIFID.Value;
+  IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_tarifmes=:tar';
+  IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
   IBTARIF_DOM.Active:=true;
-
-
 end;
 
 procedure TTarifs.FormActivate(Sender: TObject);
@@ -198,8 +544,8 @@ end;
 
 procedure TTarifs.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  if IBTARIF.State in [dsInsert,dsEdit] then
-  IBTARIF.Post;
+  if IBTARIF_MES.State in [dsInsert,dsEdit] then
+  IBTARIF_MES.Post;
   inherited;
 end;
 
@@ -209,18 +555,43 @@ begin
   cxLookupComboBox1.EditValue:= main.Period;
   IBTransaction1.Active:=true;
   IBPOSL.Active:=true;
-  IBTARIF.Active:=false;
-  IBTARIF.SelectSQL.Text:='select * from TARIF where id_posl=:pos';
-  IBTARIF.ParamByName('pos').AsInteger:=IBPOSLID.Value;
-  IBTARIF.Active:=true;
+  IBUL.Active:=true;
+  IBDOM.Active:=true;
+  IBPERIOD.Active:=true;
+
+  IBTARIF_MES.Active:=false;
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
+  IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
+  IBTARIF_MES.Active:=true;
+  if IBPOSLWID.Value='ub' then
+  begin
+    cxGrid1DBTableView1TARIF_FACT.Visible:=true;
+    cxGrid1DBTableView1TARIF_RN.Visible:=true;
+    cxGrid1DBTableView1TARIF_RK.Visible:=true;
+    cxGrid1DBTableView1NORMA.Visible:=false;
+    cxButton2.Visible:=true;
+  end
+  else
+  begin
+    cxGrid1DBTableView1TARIF_FACT.Visible:=false;
+    cxGrid1DBTableView1TARIF_RN.Visible:=false;
+    cxGrid1DBTableView1TARIF_RK.Visible:=false;
+    cxGrid1DBTableView1NORMA.Visible:=true;
+    cxButton2.Visible:=false;
+  end;
   IBTARIF_COMP.Active:=false;
-  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarif=:tar';
-  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIFID.Value;
+  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarifmes=:tar';
+  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
   IBTARIF_COMP.Active:=true;
   IBTARIF_DOM.Active:=false;
-  IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_posl=:tar';
-  IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIFID.Value;
+  IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_tarifmes=:tar';
+  IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
   IBTARIF_DOM.Active:=true;
+
+
+
+
 //  DBLookupComboBox1.KeyField:=  Main.IBPERIODID.Value;
 
 
@@ -231,10 +602,53 @@ begin
   //cxTextEdit1.Text:=IntToStr(Main.MDIChildCount);
 end;
 
-procedure TTarifs.IBTARIFBeforePost(DataSet: TDataSet);
+procedure TTarifs.IBDOMBeforePost(DataSet: TDataSet);
 begin
-  inherited;
 self.fl_post:=1;
+  inherited;
+
+end;
+
+procedure TTarifs.IBPOSLBeforePost(DataSet: TDataSet);
+begin
+self.fl_post:=1;
+  inherited;
+
+end;
+
+procedure TTarifs.IBTARIFUPDBeforePost(DataSet: TDataSet);
+begin
+self.fl_post:=1;
+  inherited;
+
+end;
+
+procedure TTarifs.IBTARIF_COMPBeforePost(DataSet: TDataSet);
+begin
+self.fl_post:=1;
+  inherited;
+
+end;
+
+procedure TTarifs.IBTARIF_DOMBeforePost(DataSet: TDataSet);
+begin
+self.fl_post:=1;
+  inherited;
+
+end;
+
+procedure TTarifs.IBTARIF_MESBeforePost(DataSet: TDataSet);
+begin
+self.fl_post:=1;
+  inherited;
+
+end;
+
+procedure TTarifs.IBULBeforePost(DataSet: TDataSet);
+begin
+self.fl_post:=1;
+  inherited;
+
 end;
 
 end.

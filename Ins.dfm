@@ -2,8 +2,8 @@ object InsForm: TInsForm
   Left = 0
   Top = 0
   Caption = #1044#1086#1076#1072#1090#1080
-  ClientHeight = 538
-  ClientWidth = 561
+  ClientHeight = 548
+  ClientWidth = 562
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,11 +17,13 @@ object InsForm: TInsForm
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
-    Top = 500
-    Width = 561
+    Top = 510
+    Width = 562
     Height = 38
     Align = alBottom
     TabOrder = 0
+    ExplicitTop = 500
+    ExplicitWidth = 561
     object cxButton3: TcxButton
       Left = 336
       Top = 5
