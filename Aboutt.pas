@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons;
+  Dialogs, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons, cxGraphics,
+  cxLookAndFeels;
 
 type
   TAbout = class(TForm)

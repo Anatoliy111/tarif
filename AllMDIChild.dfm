@@ -167,7 +167,6 @@ object AllMDICh: TAllMDICh
         0000000000000000000000000000000000000000000000000000}
       OptionsImage.ImageIndex = 2
       TabOrder = 0
-      ExplicitLeft = 123
     end
     object cxButton7: TcxButton
       Left = 123
@@ -310,7 +309,6 @@ object AllMDICh: TAllMDICh
         0000000000000000000000000000000000000000000000000000}
       OptionsImage.Layout = blGlyphRight
       TabOrder = 1
-      ExplicitLeft = 81
     end
     object cxButton8: TcxButton
       Left = 41

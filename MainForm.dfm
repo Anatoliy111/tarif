@@ -22,7 +22,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C0101050009004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -435,7 +435,13 @@
         item
           Visible = True
           ItemName = 'dxBarButton4'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton11'
         end>
+      ItemOptions.ShowDescriptions = False
+      ItemOptions.ShowShortCuts = True
     end
     object dxBarSubItem3: TdxBarSubItem
       Caption = #1044#1086#1082#1091#1084#1077#1085#1090#1099
@@ -516,6 +522,7 @@
       Category = 0
       Hint = #1041#1091#1076#1080#1085#1082#1080
       Visible = ivAlways
+      PaintStyle = psCaption
       OnClick = dxBarButton4Click
     end
     object dxBarButton5: TdxBarButton
@@ -766,7 +773,7 @@
         end
         item
           Visible = True
-          ItemName = 'dxBarButton11'
+          ItemName = 'dxBarButton17'
         end>
     end
     object dxBarSubItem9: TdxBarSubItem
@@ -782,9 +789,9 @@
       ItemLinks = <>
     end
     object dxBarButton10: TdxBarButton
-      Caption = #1058#1072#1088#1080#1092#1080
+      Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082#1072' '#1090#1088#1080#1092#1110#1074
       Category = 0
-      Hint = #1058#1072#1088#1080#1092#1080
+      Hint = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082#1072' '#1090#1088#1080#1092#1110#1074
       Visible = ivAlways
       OnClick = dxBarButton10Click
     end
@@ -793,6 +800,9 @@
       Category = 0
       Hint = #1053#1086#1074#1080#1081' '#1084#1110#1089#1103#1094#1100
       Visible = ivAlways
+      DropDownEnabled = False
+      Lowered = True
+      OnClick = dxBarButton11Click
     end
     object cxBarEditItem2: TcxBarEditItem
       Caption = 'New Item'
@@ -973,6 +983,131 @@
       PropertiesClassName = 'TcxRadioGroupProperties'
       Properties.Items = <>
     end
+    object dxBarSeparator2: TdxBarSeparator
+      Caption = 'New Separator'
+      Category = 0
+      Hint = 'New Separator'
+      Visible = ivAlways
+    end
+    object dxBarLargeButton1: TdxBarLargeButton
+      Caption = 'New Button'
+      Category = 0
+      Hint = 'New Button'
+      Visible = ivAlways
+    end
+    object dxBarSeparator3: TdxBarSeparator
+      Caption = 'New Separator'
+      Category = 0
+      Hint = 'New Separator'
+      Visible = ivAlways
+    end
+    object dxBarButton15: TdxBarButton
+      Caption = 'New Button'
+      Category = 0
+      Hint = 'New Button'
+      Visible = ivAlways
+    end
+    object dxBarSeparator4: TdxBarSeparator
+      Caption = 'New Separator'
+      Category = 0
+      Hint = 'New Separator'
+      Visible = ivAlways
+    end
+    object dxBarSubItem12: TdxBarSubItem
+      Caption = 'New SubItem'
+      Category = 0
+      Visible = ivAlways
+      ItemLinks = <>
+    end
+    object dxBarButton16: TdxBarButton
+      Caption = 'New Button'
+      Category = 0
+      Hint = 'New Button'
+      Visible = ivAlways
+    end
+    object dxBarLargeButton2: TdxBarLargeButton
+      Caption = 'New Button'
+      Category = 0
+      Hint = 'New Button'
+      Visible = ivAlways
+    end
+    object dxBarEdit2: TdxBarEdit
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+    end
+    object dxBarSeparator5: TdxBarSeparator
+      Caption = 'New Separator'
+      Category = 0
+      Hint = 'New Separator'
+      Visible = ivAlways
+    end
+    object dxBarStatic3: TdxBarStatic
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+    end
+    object dxBarStatic4: TdxBarStatic
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+    end
+    object dxBarSpinEdit3: TdxBarSpinEdit
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+    end
+    object dxBarMRUListItem1: TdxBarMRUListItem
+      Caption = 'New Item'
+      Category = 0
+      Visible = ivAlways
+    end
+    object dxBarInPlaceSubItem1: TdxBarInPlaceSubItem
+      Caption = 'New Item'
+      Category = 0
+      Visible = ivAlways
+      ItemLinks = <>
+      KeepBeginGroupWhileExpanded = False
+    end
+    object dxRibbonGalleryItem1: TdxRibbonGalleryItem
+      Caption = 'New Gallery'
+      Category = 0
+      Visible = ivAlways
+      GalleryFilter.Categories = <>
+      ItemLinks = <>
+    end
+    object cxBarEditItem16: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TcxHyperLinkEditProperties'
+    end
+    object cxBarEditItem17: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TdxSparklineProperties'
+      Properties.Series = <>
+    end
+    object cxBarEditItem18: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TcxTrackBarProperties'
+    end
+    object dxBarButton17: TdxBarButton
+      Caption = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1072#1076#1088#1077#1089#1072#1084
+      Category = 0
+      Hint = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1072#1076#1088#1077#1089#1072#1084
+      Visible = ivAlways
+    end
   end
   object ActionList1: TActionList
     Images = ImageList2
@@ -1011,7 +1146,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C0101120014004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1859,7 +1994,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C0101070009004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2164,8 +2299,8 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_PERIOD_ID'
-    Left = 88
-    Top = 344
+    Left = 32
+    Top = 320
     object IBPERIODID: TIntegerField
       FieldName = 'ID'
       Origin = '"PERIOD"."ID"'
@@ -2178,12 +2313,326 @@
   end
   object DІPERIOD: TDataSource
     DataSet = IBPERIOD
-    Left = 88
-    Top = 392
+    Left = 32
+    Top = 368
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultDatabase = DataM.IBDatabase1
     Left = 32
     Top = 416
+  end
+  object IBTARIF_COMP: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF_COMP'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF_COMP'
+      
+        '  (ID, ID_TARIF, ID_TARIFMES, NAME, SUMM, KL_NTAR, FL_LIFT, NORM' +
+        'A)'
+      'values'
+      
+        '  (:ID, :ID_TARIF, :ID_TARIFMES, :NAME, :SUMM, :KL_NTAR, :FL_LIF' +
+        'T, :NORMA)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_TARIF,'
+      '  ID_TARIFMES,'
+      '  NAME,'
+      '  SUMM,'
+      '  KL_NTAR,'
+      '  FL_LIFT,'
+      '  NORMA'
+      'from TARIF_COMP '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select *  from TARIF_COMP')
+    ModifySQL.Strings = (
+      'update TARIF_COMP'
+      'set'
+      '  ID = :ID,'
+      '  ID_TARIF = :ID_TARIF,'
+      '  ID_TARIFMES = :ID_TARIFMES,'
+      '  NAME = :NAME,'
+      '  SUMM = :SUMM,'
+      '  KL_NTAR = :KL_NTAR,'
+      '  FL_LIFT = :FL_LIFT,'
+      '  NORMA = :NORMA'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_COMP_ID'
+    DataSource = DSTARIF_MES
+    Left = 248
+    Top = 315
+    object IBTARIF_COMPID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF_COMP"."ID"'
+      Required = True
+    end
+    object IBTARIF_COMPID_TARIF: TIntegerField
+      FieldName = 'ID_TARIF'
+      Origin = '"TARIF_COMP"."ID_TARIF"'
+    end
+    object IBTARIF_COMPID_TARIFMES: TIntegerField
+      FieldName = 'ID_TARIFMES'
+      Origin = '"TARIF_COMP"."ID_TARIFMES"'
+    end
+    object IBTARIF_COMPNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"TARIF_COMP"."NAME"'
+      Size = 50
+    end
+    object IBTARIF_COMPSUMM: TIBBCDField
+      FieldName = 'SUMM'
+      Origin = '"TARIF_COMP"."SUMM"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_COMPKL_NTAR: TIntegerField
+      FieldName = 'KL_NTAR'
+      Origin = '"TARIF_COMP"."KL_NTAR"'
+    end
+    object IBTARIF_COMPFL_LIFT: TIntegerField
+      FieldName = 'FL_LIFT'
+      Origin = '"TARIF_COMP"."FL_LIFT"'
+    end
+    object IBTARIF_COMPNORMA: TIBBCDField
+      FieldName = 'NORMA'
+      Origin = '"TARIF_COMP"."NORMA"'
+      Precision = 18
+      Size = 3
+    end
+  end
+  object DSTARIF_COMP: TDataSource
+    DataSet = IBTARIF_COMP
+    Left = 248
+    Top = 371
+  end
+  object IBTARIF_DOM: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF_DOM'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF_DOM'
+      '  (ID, ID_TARIF, ID_TARIFMES, ID_DOM, NAME)'
+      'values'
+      '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOM, :NAME)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_TARIF,'
+      '  ID_TARIFMES,'
+      '  ID_DOM,'
+      '  NAME'
+      'from TARIF_DOM '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from TARIF_DOM')
+    ModifySQL.Strings = (
+      'update TARIF_DOM'
+      'set'
+      '  ID = :ID,'
+      '  ID_TARIF = :ID_TARIF,'
+      '  ID_TARIFMES = :ID_TARIFMES,'
+      '  ID_DOM = :ID_DOM,'
+      '  NAME = :NAME'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_DOM_ID'
+    DataSource = DSTARIF_MES
+    Left = 168
+    Top = 315
+    object IBTARIF_DOMID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF_DOM"."ID"'
+      Required = True
+    end
+    object IBTARIF_DOMID_TARIF: TIntegerField
+      FieldName = 'ID_TARIF'
+      Origin = '"TARIF_DOM"."ID_TARIF"'
+    end
+    object IBTARIF_DOMID_DOM: TIntegerField
+      FieldName = 'ID_DOM'
+      Origin = '"TARIF_DOM"."ID_DOM"'
+    end
+    object IBTARIF_DOMNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"TARIF_DOM"."NAME"'
+      Size = 50
+    end
+    object IBTARIF_DOMID_TARIFMES: TIntegerField
+      FieldName = 'ID_TARIFMES'
+      Origin = '"TARIF_DOM"."ID_TARIFMES"'
+    end
+  end
+  object DSTARIF_DOM: TDataSource
+    DataSet = IBTARIF_DOM
+    Left = 168
+    Top = 371
+  end
+  object IBTARIF_MES: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF_MES'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF_MES'
+      
+        '  (ID, ID_TARIF, DATA, TARIF_PLAN, TARIF_FACT, TARIF_RN, TARIF_R' +
+        'K, NORMA, '
+      '   TARIF_END, PLAN_BL, FACT_BL)'
+      'values'
+      
+        '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
+        'TARIF_RK, '
+      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_TARIF,'
+      '  DATA,'
+      '  TARIF_PLAN,'
+      '  TARIF_FACT,'
+      '  TARIF_RN,'
+      '  TARIF_RK,'
+      '  NORMA,'
+      '  TARIF_END,'
+      '  PLAN_BL,'
+      '  FACT_BL'
+      'from TARIF_MES '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from TARIF_MES')
+    ModifySQL.Strings = (
+      'update TARIF_MES'
+      'set'
+      '  ID = :ID,'
+      '  ID_TARIF = :ID_TARIF,'
+      '  DATA = :DATA,'
+      '  TARIF_PLAN = :TARIF_PLAN,'
+      '  TARIF_FACT = :TARIF_FACT,'
+      '  TARIF_RN = :TARIF_RN,'
+      '  TARIF_RK = :TARIF_RK,'
+      '  NORMA = :NORMA,'
+      '  TARIF_END = :TARIF_END,'
+      '  PLAN_BL = :PLAN_BL,'
+      '  FACT_BL = :FACT_BL'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_MES_ID'
+    Left = 96
+    Top = 315
+    object IBTARIF_MESID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF_MES"."ID"'
+      Required = True
+    end
+    object IBTARIF_MESID_TARIF: TIntegerField
+      FieldName = 'ID_TARIF'
+      Origin = '"TARIF_MES"."ID_TARIF"'
+    end
+    object IBTARIF_MESDATA: TDateField
+      FieldName = 'DATA'
+      Origin = '"TARIF_MES"."DATA"'
+    end
+    object IBTARIF_MESTARIF_PLAN: TIBBCDField
+      FieldName = 'TARIF_PLAN'
+      Origin = '"TARIF_MES"."TARIF_PLAN"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESTARIF_FACT: TIBBCDField
+      FieldName = 'TARIF_FACT'
+      Origin = '"TARIF_MES"."TARIF_FACT"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESTARIF_RN: TIBBCDField
+      FieldName = 'TARIF_RN'
+      Origin = '"TARIF_MES"."TARIF_RN"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESTARIF_RK: TIBBCDField
+      FieldName = 'TARIF_RK'
+      Origin = '"TARIF_MES"."TARIF_RK"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESNORMA: TIBBCDField
+      FieldName = 'NORMA'
+      Origin = '"TARIF_MES"."NORMA"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESTARIF_END: TIBBCDField
+      FieldName = 'TARIF_END'
+      Origin = '"TARIF_MES"."TARIF_END"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESPLAN_BL: TIBBCDField
+      FieldName = 'PLAN_BL'
+      Origin = '"TARIF_MES"."PLAN_BL"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESFACT_BL: TIBBCDField
+      FieldName = 'FACT_BL'
+      Origin = '"TARIF_MES"."FACT_BL"'
+      Precision = 18
+      Size = 4
+    end
+  end
+  object DSTARIF_MES: TDataSource
+    DataSet = IBTARIF_MES
+    Left = 96
+    Top = 371
+  end
+  object IBQuery1: TIBQuery
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    Left = 80
+    Top = 240
+  end
+  object IBQuery2: TIBQuery
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    Left = 144
+    Top = 240
   end
 end

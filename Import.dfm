@@ -32,6 +32,8 @@ inherited ImpForm: TImpForm
   inherited Panel1: TPanel
     Top = 291
     Width = 564
+    ExplicitTop = 291
+    ExplicitWidth = 564
   end
   object cxButton6: TcxButton [4]
     Left = 24
@@ -299,12 +301,6 @@ inherited ImpForm: TImpForm
     DataSet = IBUL
     Left = 112
     Top = 232
-  end
-  object DB: TDbf
-    IndexDefs = <>
-    TableLevel = 5
-    Left = 8
-    Top = 112
   end
   object ADOConnectionDBF: TADOConnection
     ConnectionString = 

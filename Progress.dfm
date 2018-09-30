@@ -11,9 +11,9 @@ object Prores: TProres
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  FormStyle = fsStayOnTop
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnActivate = FormActivate
   OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96

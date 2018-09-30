@@ -88,6 +88,7 @@ begin//  ExB:=MessageBox(handle,pchar('Сохранить все изменения?'),pchar(''),65);
   if ModalResult=mrYES then
   begin
     IBTransaction1.Commit;
+    self.fl_post:=0;
     if ABar<>nil then
       for I := 0 to ABar.ItemLinks.Count - 1 do
         if ABar.ItemLinks[i].Item.Data=Self then
@@ -101,6 +102,7 @@ begin//  ExB:=MessageBox(handle,pchar('Сохранить все изменения?'),pchar(''),65);
   if ModalResult=mrNO then
   begin
     IBTransaction1.Rollback;
+    self.fl_post:=0;
     if ABar<>nil then
       for I := 0 to ABar.ItemLinks.Count - 1 do
         if ABar.ItemLinks[i].Item.Data=Self then

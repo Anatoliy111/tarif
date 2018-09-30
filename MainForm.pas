@@ -10,7 +10,7 @@ uses
   System.Actions, System.ImageList, cxButtonEdit, cxBarEditItem, dxBarExtItems,
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
-  cxRadioGroup;
+  cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery;
 
 type
   TMain = class(TForm)
@@ -98,6 +98,58 @@ type
     cxBarEditItem13: TcxBarEditItem;
     cxBarEditItem14: TcxBarEditItem;
     cxBarEditItem15: TcxBarEditItem;
+    dxBarSeparator2: TdxBarSeparator;
+    dxBarLargeButton1: TdxBarLargeButton;
+    dxBarSeparator3: TdxBarSeparator;
+    dxBarButton15: TdxBarButton;
+    dxBarSeparator4: TdxBarSeparator;
+    dxBarSubItem12: TdxBarSubItem;
+    dxBarButton16: TdxBarButton;
+    dxBarLargeButton2: TdxBarLargeButton;
+    dxBarEdit2: TdxBarEdit;
+    dxBarSeparator5: TdxBarSeparator;
+    dxBarStatic3: TdxBarStatic;
+    dxBarStatic4: TdxBarStatic;
+    dxBarSpinEdit3: TdxBarSpinEdit;
+    dxBarMRUListItem1: TdxBarMRUListItem;
+    dxBarInPlaceSubItem1: TdxBarInPlaceSubItem;
+    dxRibbonGalleryItem1: TdxRibbonGalleryItem;
+    cxBarEditItem16: TcxBarEditItem;
+    cxBarEditItem17: TcxBarEditItem;
+    cxBarEditItem18: TcxBarEditItem;
+    dxBarButton17: TdxBarButton;
+    IBTARIF_COMP: TIBDataSet;
+    IBTARIF_COMPID: TIntegerField;
+    IBTARIF_COMPID_TARIF: TIntegerField;
+    IBTARIF_COMPID_TARIFMES: TIntegerField;
+    IBTARIF_COMPNAME: TIBStringField;
+    IBTARIF_COMPSUMM: TIBBCDField;
+    IBTARIF_COMPKL_NTAR: TIntegerField;
+    IBTARIF_COMPFL_LIFT: TIntegerField;
+    IBTARIF_COMPNORMA: TIBBCDField;
+    DSTARIF_COMP: TDataSource;
+    IBTARIF_DOM: TIBDataSet;
+    IBTARIF_DOMID: TIntegerField;
+    IBTARIF_DOMID_TARIF: TIntegerField;
+    IBTARIF_DOMID_DOM: TIntegerField;
+    IBTARIF_DOMNAME: TIBStringField;
+    IBTARIF_DOMID_TARIFMES: TIntegerField;
+    DSTARIF_DOM: TDataSource;
+    IBTARIF_MES: TIBDataSet;
+    DSTARIF_MES: TDataSource;
+    IBTARIF_MESID: TIntegerField;
+    IBTARIF_MESID_TARIF: TIntegerField;
+    IBTARIF_MESDATA: TDateField;
+    IBTARIF_MESTARIF_PLAN: TIBBCDField;
+    IBTARIF_MESTARIF_FACT: TIBBCDField;
+    IBTARIF_MESTARIF_RN: TIBBCDField;
+    IBTARIF_MESTARIF_RK: TIBBCDField;
+    IBTARIF_MESNORMA: TIBBCDField;
+    IBTARIF_MESTARIF_END: TIBBCDField;
+    IBTARIF_MESPLAN_BL: TIBBCDField;
+    IBTARIF_MESFACT_BL: TIBBCDField;
+    IBQuery1: TIBQuery;
+    IBQuery2: TIBQuery;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -110,9 +162,11 @@ type
     procedure dxBarButton10Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure dxBarButton32Click(Sender: TObject);
+    procedure dxBarButton11Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
+    procedure Newmes;
 
     public
     vid_doc:integer;    //вид документа (приход,расход ...)
@@ -131,7 +185,7 @@ var
  // TB:TToolButton;
 implementation
 
-uses Aboutt ,TarifForm, DataMod, mytools, Import;
+uses Aboutt ,TarifForm, DataMod, mytools, Import, Progress;
 
 {$R *.dfm}
 
@@ -193,6 +247,122 @@ begin
  end;
 end;
 
+procedure TMain.dxBarButton11Click(Sender: TObject);
+begin
+      if MdiChildCount<>0 then
+      begin
+            case MessageBox(handle,pchar('ўоб перейти на новий м≥€ць треба закрити вс≥ форми!'),pchar(''),MB_OKCANCEL) of
+              mrOK:begin
+                      dxBarButton42.Click;
+        //            IBTransaction1.Active:=false;
+        //            IBTransaction1.Active:=true;
+
+                   end;
+              mrCANCEL:begin
+                Exit;
+              end;
+            end;
+      end;
+
+    if MdiChildCount=0 then
+    case MessageBox(handle,pchar('¬и д≥йсно бажаЇте перейти на новий м≥с€ць?'),pchar(''),MB_OKCANCEL) of
+      mrOK:begin
+
+           Newmes;
+
+           end;
+    end;
+
+end;
+
+procedure TMain.Newmes;
+begin
+IBTARIF_MES.Active:=true;
+IBTARIF_COMP.Active:=true;
+IBTARIF_DOM.Active:=true;
+Prores.Show;
+         Prores.Label1.Caption:='ѕерех≥д на новий м≥с€ць';
+         Application.ProcessMessages;
+         Prores.cxProgressBar1.Visible:=true;
+         Prores.cxProgressBar1.Position:=0;
+         Prores.cxProgressBar1.Properties.Min:=0;
+         IBQuery1.Active:=false;
+         IBQuery1.SQL.Text:='select * from tarif_mes where tarif_mes.data=:dt';
+         IBQuery1.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
+         IBQuery1.Active:=true;
+         IBQuery1.Last;
+         Prores.cxProgressBar1.Properties.Max:=IBQuery1.RecordCount-1;
+         Application.ProcessMessages;
+
+
+        IBQuery1.First;
+        while not IBQuery1.Eof do
+        begin
+          Prores.cxProgressBar1.Position:=Prores.cxProgressBar1.Position+1;
+          Application.ProcessMessages;
+          if not Prores.Showing then
+             Break;
+
+          IBTARIF_MES.Insert;
+          IBTARIF_MESID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').Value;
+          IBTARIF_MESDATA.Value:=IncMonth(Period);
+          IBTARIF_MESTARIF_RN.Value:=iif(IBQuery1.FieldByName('TARIF_RK').Value=null,0,IBQuery1.FieldByName('TARIF_RK').Value);
+          IBTARIF_MESNORMA.Value:=iif(IBQuery1.FieldByName('NORMA').Value=null,0,IBQuery1.FieldByName('NORMA').Value);
+          IBTARIF_MESTARIF_END.Value:=iif(IBQuery1.FieldByName('TARIF_END').Value=null,0,IBQuery1.FieldByName('TARIF_END').Value);
+          IBTARIF_MES.Post;
+
+          IBQuery2.Active:=false;
+         IBQuery2.SQL.Text:='select * from tarif_dom where id_tarifmes=:idmes';
+         IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
+         IBQuery2.Active:=true;
+         IBQuery2.First;
+         while not IBQuery2.Eof do
+         begin
+           IBTARIF_DOM.Insert;
+           IBTARIF_DOMID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').Value;
+           IBTARIF_DOMID_DOM.Value:=IBQuery2.FieldByName('ID_DOM').Value;
+           IBTARIF_DOMNAME.Value:=IBQuery2.FieldByName('NAME').Value;
+           IBTARIF_DOMID_TARIFMES.Value:=IBTARIF_MESID.Value;
+           IBTARIF_DOM.Post;
+         IBQuery2.Next;
+         end;
+
+
+         IBQuery2.Active:=false;
+         IBQuery2.SQL.Text:='select * from tarif_comp where id_tarifmes=:idmes';
+         IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
+         IBQuery2.Active:=true;
+         IBQuery2.First;
+         while not IBQuery2.Eof do
+         begin
+           IBTARIF_COMP.Insert;
+           IBTARIF_COMPID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').Value;
+           IBTARIF_COMPNAME.Value:=IBQuery2.FieldByName('NAME').Value;
+           IBTARIF_COMPKL_NTAR.Value:=iif(IBQuery2.FieldByName('KL_NTAR').Value=null,0,IBQuery2.FieldByName('KL_NTAR').Value);
+           IBTARIF_COMPFL_LIFT.Value:=iif(IBQuery2.FieldByName('FL_LIFT').Value=null,0,IBQuery2.FieldByName('FL_LIFT').Value);
+           IBTARIF_COMPNORMA.Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
+           IBTARIF_COMPID_TARIFMES.Value:=IBTARIF_MESID.Value;
+           IBTARIF_COMP.Post;
+         IBQuery2.Next;
+         end;
+
+
+        IBQuery1.Next;
+        end;
+        Prores.cxProgressBar1.Position:=0;
+        Prores.Close;
+        IBPERIOD.Insert;
+        IBPERIODDATA.Value:=IncMonth(Period);
+        IBPERIOD.Post;
+        IBTransaction1.CommitRetaining;
+        IBPERIOD.Close;
+        IBPERIOD.Open;
+        Period:=IBPERIODDATA.Value;
+      messagedlg('ѕерех≥д завершено!',mtInformation,[mbOK],0);
+
+end;
+
+
 procedure TMain.dxBarButton19Click(Sender: TObject);
 begin
 Close;
@@ -206,6 +376,7 @@ begin
  AddToolBar(Sprav);
  end
  else
+ Sprav.Show;
  Sprav.SetFocus;
  Sprav.cxPageControl1.ActivePageIndex:=0;
 end;
@@ -246,6 +417,7 @@ begin
  AddToolBar(Sprav);
  end
  else
+ Sprav.Show;
  Sprav.SetFocus;
  Sprav.cxPageControl1.ActivePageIndex:=1;
 end;
@@ -258,6 +430,7 @@ begin
  AddToolBar(Sprav);
  end
  else
+ Sprav.Show;
  Sprav.SetFocus;
  Sprav.cxPageControl1.ActivePageIndex:=2;
 end;

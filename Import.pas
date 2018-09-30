@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Ins, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Vcl.Menus, IBX.IBDatabase, Vcl.StdCtrls, cxButtons,
   Vcl.ExtCtrls, cxControls, cxContainer, cxEdit, cxProgressBar,Data.DB,
-  IBX.IBCustomDataSet,dbf, Vcl.Buttons, Vcl.ComCtrls, Data.Win.ADODB,
+  IBX.IBCustomDataSet, Vcl.Buttons, Vcl.ComCtrls, Data.Win.ADODB,
   cxGroupBox, cxCheckGroup, IBX.IBQuery;
 
 type
@@ -34,7 +34,6 @@ type
     DSUL: TDataSource;
     IBDOMCH: TSmallintField;
     IBDOMID_HOUSE: TIntegerField;
-    DB: TDbf;
     IBULID: TIntegerField;
     IBULNAME: TIBStringField;
     IBULKL: TIntegerField;

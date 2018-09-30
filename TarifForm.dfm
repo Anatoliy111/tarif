@@ -3,19 +3,18 @@
   ClientHeight = 629
   ClientWidth = 790
   Position = poMainFormCenter
+  WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitTop = -8
   ExplicitWidth = 806
   ExplicitHeight = 667
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
     Width = 790
-    TabOrder = 6
+    TabOrder = 3
     ExplicitWidth = 790
     inherited cxButton7: TcxButton
       OnClick = cxButton7Click
-      ExplicitLeft = 120
     end
     object cxButton1: TcxButton [4]
       Left = 211
@@ -42,10 +41,6 @@
     Height = 403
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 206
-    ExplicitTop = 104
-    ExplicitWidth = 494
-    ExplicitHeight = 284
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       OnFocusedRecordChanged = cxGrid1DBTableView1FocusedRecordChanged
@@ -53,7 +48,24 @@
       DataController.KeyFieldNames = 'ID'
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
+      DataController.Summary.SummaryGroups = <
+        item
+          Links = <
+            item
+              Column = cxGrid1DBTableView1TARIF_PLAN
+            end
+            item
+              Column = cxGrid1DBTableView1TARIF_FACT
+            end>
+          SummaryItems = <
+            item
+            end>
+        end>
+      OptionsSelection.HideFocusRectOnExit = False
+      OptionsView.CellEndEllipsis = True
+      OptionsView.CellAutoHeight = True
+      OptionsView.Footer = True
+      OptionsView.FooterMultiSummaries = True
       OptionsView.GroupByBox = False
       object cxGrid1DBTableView1ID: TcxGridDBColumn
         DataBinding.FieldName = 'ID'
@@ -99,6 +111,8 @@
       end
       object cxGrid1DBTableView1FACT_BL: TcxGridDBColumn
         DataBinding.FieldName = 'FACT_BL'
+      end
+      object cxGrid1DBTableView1Column1: TcxGridDBColumn
       end
     end
     object cxGrid1Level1: TcxGridLevel
@@ -183,7 +197,7 @@
     Width = 790
     Height = 84
     Align = alBottom
-    TabOrder = 8
+    TabOrder = 5
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = DSTARIF_COMP
@@ -230,26 +244,27 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 160
+      Height = 116
       Align = alTop
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
       KeyField = 'ID'
       ListField = 'NAME'
       ListSource = DSPOSL
+      ParentFont = False
       TabOrder = 0
       OnClick = DBLookupListBox1Click
-      ExplicitWidth = 143
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 161
+      Top = 117
       Width = 167
-      Height = 241
+      Height = 285
       Align = alClient
       TabOrder = 1
-      ExplicitLeft = -9
-      ExplicitTop = 184
-      ExplicitWidth = 154
-      ExplicitHeight = 219
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -383,7 +398,6 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_TARIF_MES_ID'
-    DataSource = DSPOSL
     Left = 48
     Top = 520
     object IBTARIFUPDID: TIntegerField
@@ -589,7 +603,7 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_TARIF_COMP_ID'
-    DataSource = DSTARIFUPD
+    DataSource = DSTARIF_MES
     Left = 120
     Top = 520
     object IBTARIF_COMPID: TIntegerField
@@ -771,7 +785,7 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_TARIF_DOM_ID'
-    DataSource = DSTARIFUPD
+    DataSource = DSTARIF_MES
     Left = 168
     Top = 520
     object IBTARIF_DOMID: TIntegerField
@@ -1147,7 +1161,7 @@
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'ID'
-    GeneratorField.Generator = 'GEN_TARIF_ID'
+    GeneratorField.Generator = 'GEN_TARIF_MES_ID'
     DataSource = DSPOSL
     Left = 224
     Top = 520

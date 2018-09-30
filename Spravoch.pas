@@ -58,8 +58,6 @@ type
     cxGrid1DBTableView1FL_ROZRAH: TcxGridDBColumn;
     cxLabel7: TcxLabel;
     cxTextEdit1: TcxTextEdit;
-    cxButton1: TcxButton;
-    cxButton2: TcxButton;
     IBDOMID: TIntegerField;
     IBDOMNAME: TIBStringField;
     IBDOMID_UL: TIntegerField;

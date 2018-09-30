@@ -16,6 +16,7 @@ type
     procedure cxButton2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,6 +35,13 @@ uses MainForm;
 procedure TProres.cxButton2Click(Sender: TObject);
 begin
 close;
+end;
+
+procedure TProres.FormActivate(Sender: TObject);
+begin
+with Prores do
+SetWindowPos(Handle, HWND_TOPMOST, Left, Top, Width, Height, SWP_NOACTIVATE or SWP_NOMOVE or SWP_NOSIZE);
+
 end;
 
 procedure TProres.FormClose(Sender: TObject; var Action: TCloseAction);
