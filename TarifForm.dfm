@@ -13,6 +13,9 @@
     Width = 790
     TabOrder = 3
     ExplicitWidth = 790
+    inherited cxButton6: TcxButton
+      OnClick = cxButton6Click
+    end
     inherited cxButton7: TcxButton
       OnClick = cxButton7Click
     end
@@ -80,22 +83,25 @@
       object cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn
         Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF_PLAN'
+        Options.Editing = False
       end
       object cxGrid1DBTableView1TARIF_FACT: TcxGridDBColumn
         Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF_FACT'
       end
       object cxGrid1DBTableView1TARIF_RN: TcxGridDBColumn
-        Caption = #1042#1110#1076#1093#1080#1083#1077#1085#1085#1103' '#1090#1072#1088#1080#1092#1091' '
+        Caption = #1042#1110#1076#1093'.'#1090#1072#1088'.'#1079#1072'.'#1087#1086#1087#1077#1088'.'#1084#1110#1089#1103#1094#1100' '
         DataBinding.FieldName = 'TARIF_RN'
+        Options.Editing = False
       end
       object cxGrid1DBTableView1TARIF_RK: TcxGridDBColumn
-        Caption = #1042#1110#1076#1093'.'#1079' '#1091#1088#1072#1093'.'#1087#1086#1087#1077#1088'.'#1084#1110#1089'.'
+        Caption = #1042#1110#1076#1093#1080#1083#1077#1085#1085#1103' '#1090#1072#1088#1080#1092#1091' '
         DataBinding.FieldName = 'TARIF_RK'
       end
       object cxGrid1DBTableView1TARIF_END: TcxGridDBColumn
         Caption = #1053#1072#1088#1072#1093#1086#1074#1072#1085#1080#1081' '#1090#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF_END'
+        Options.Editing = False
       end
       object cxGrid1DBTableView1NORMA: TcxGridDBColumn
         Caption = #1053#1086#1088#1084#1072
@@ -108,9 +114,11 @@
       end
       object cxGrid1DBTableView1PLAN_BL: TcxGridDBColumn
         DataBinding.FieldName = 'PLAN_BL'
+        Options.Editing = False
       end
       object cxGrid1DBTableView1FACT_BL: TcxGridDBColumn
         DataBinding.FieldName = 'FACT_BL'
+        Options.Editing = False
       end
       object cxGrid1DBTableView1Column1: TcxGridDBColumn
       end
@@ -197,7 +205,7 @@
     Width = 790
     Height = 84
     Align = alBottom
-    TabOrder = 5
+    TabOrder = 4
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = DSTARIF_COMP
@@ -244,7 +252,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 116
+      Height = 132
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -260,11 +268,13 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 117
+      Top = 133
       Width = 167
-      Height = 285
+      Height = 269
       Align = alClient
       TabOrder = 1
+      ExplicitTop = 101
+      ExplicitHeight = 301
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -286,6 +296,7 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -648,7 +659,7 @@
   object DSTARIF_COMP: TDataSource
     DataSet = IBTARIF_COMP
     Left = 120
-    Top = 552
+    Top = 576
   end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase2
@@ -1104,6 +1115,7 @@
   object IBTARIF_MES: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
+    AfterEdit = IBTARIF_MESAfterEdit
     BeforePost = IBTARIF_MESBeforePost
     BufferChunks = 1000
     CachedUpdates = False
@@ -1187,6 +1199,7 @@
     object IBTARIF_MESTARIF_FACT: TIBBCDField
       FieldName = 'TARIF_FACT'
       Origin = '"TARIF_MES"."TARIF_FACT"'
+      OnChange = IBTARIF_MESTARIF_FACTChange
       Precision = 18
       Size = 4
     end

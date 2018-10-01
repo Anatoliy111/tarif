@@ -10,7 +10,7 @@ uses
   System.Actions, System.ImageList, cxButtonEdit, cxBarEditItem, dxBarExtItems,
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
-  cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery;
+  cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm;
 
 type
   TMain = class(TForm)
@@ -150,6 +150,7 @@ type
     IBTARIF_MESFACT_BL: TIBBCDField;
     IBQuery1: TIBQuery;
     IBQuery2: TIBQuery;
+    dxBarButton18: TdxBarButton;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -163,6 +164,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure dxBarButton32Click(Sender: TObject);
     procedure dxBarButton11Click(Sender: TObject);
+    procedure dxBarButton17Click(Sender: TObject);
+    procedure dxBarButton18Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -182,6 +185,8 @@ var
   ExB: WORD;
   HiForm:integer;
   frm:TSprav;
+  Report1: tReport;
+  Report2: tReport;
  // TB:TToolButton;
 implementation
 
@@ -273,6 +278,34 @@ begin
            end;
     end;
 
+end;
+
+procedure TMain.dxBarButton17Click(Sender: TObject);
+begin
+ if Report1=nil then
+ begin
+ Application.CreateForm(TReport,Report1);
+ AddToolBar(Report1);
+ end
+ else
+ begin
+ Report1.Show;
+ Report1.SetFocus;
+ end;
+end;
+
+procedure TMain.dxBarButton18Click(Sender: TObject);
+begin
+ if Report2=nil then
+ begin
+ Application.CreateForm(TReport,Report2);
+ AddToolBar(Report2);
+ end
+ else
+ begin
+ Report2.Show;
+ Report2.SetFocus;
+ end;
 end;
 
 procedure TMain.Newmes;

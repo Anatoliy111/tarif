@@ -11,7 +11,7 @@ uses
   IBDatabase, dxStatusBar, cxContainer, cxTextEdit, cxLookAndFeels,
   cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst, Vcl.Menus,
   cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons, IBX.IBQuery,inifiles;
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons, IBX.IBQuery, inifiles;
 
 type
   TTarifs = class(TAllMDICh)
@@ -150,7 +150,13 @@ type
       AFocusedRecord: TcxCustomGridRecord;
       ANewItemRecordFocusingChanged: Boolean);
     procedure IBTARIF_MESBeforePost(DataSet: TDataSet);
+    procedure IBTARIF_MESTARIF_FACTChange(Sender: TField);
+    procedure IBTARIF_MESAfterEdit(DataSet: TDataSet);
+    procedure cxButton6Click(Sender: TObject);
   private
+  procedure Enables(val:boolean);
+  procedure Rasch();
+  procedure ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
     { Private declarations }
   public
     { Public declarations }
@@ -160,10 +166,11 @@ type
 
 var
   Tarifs: TTarifs;
+  tmpval:Currency;
 
 implementation
 
-uses MainForm, InsertForm, Ins, mytools, DataMod, Progress;
+uses registry, cxGridExportLink, comobj, MainForm, InsertForm, Ins, mytools, DataMod, Progress, math;
 
 {$R *.dfm}
 
@@ -317,14 +324,14 @@ begin
            end
            else
            begin
-             IBTARIF_COMP.Insert;
-             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
-             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
-             IBTARIF_COMPNAME.Value:=IBTARIFUPDPOSL.Value+' '+IBTARIFUPDDOM.Value;
-             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value;
-             IBTARIF_COMPFL_LIFT.Value:=0;
-             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
-             IBTARIF_COMP.Post;
+//             IBTARIF_COMP.Insert;
+//             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
+//             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
+//             IBTARIF_COMPNAME.Value:=IBTARIFUPDPOSL.Value+' '+IBTARIFUPDDOM.Value;
+//             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value;
+//             IBTARIF_COMPFL_LIFT.Value:=0;
+//             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
+//             IBTARIF_COMP.Post;
            end;
     end;
 
@@ -344,6 +351,13 @@ begin
 
 
 end;
+
+procedure TTarifs.Rasch();
+begin
+
+end;
+
+
 
 procedure TTarifs.cxButton2Click(Sender: TObject);
 var s,ss:string;
@@ -438,6 +452,12 @@ begin
 
 end;
 
+procedure TTarifs.cxButton6Click(Sender: TObject);
+begin
+  inherited;
+  ExportGrid(cxGrid1);
+end;
+
 procedure TTarifs.cxButton7Click(Sender: TObject);
 begin
   inherited;
@@ -458,6 +478,17 @@ begin
   IBTARIF_COMP.Active:=true;
   IBTARIF_DOM.Active:=true;
   IBTARIF_MES.Active:=true;
+end;
+
+procedure TTarifs.Enables(val:boolean);
+begin
+  cxButton2.Enabled:=val;
+  cxButton9.Enabled:=val;
+  cxButton8.Enabled:=val;
+  cxButton7.Enabled:=val;
+//  cxButton6.Enabled:=val;
+  cxButton1.Enabled:=val;
+  cxGrid1DBTableView1.OptionsData.Editing:=val;
 end;
 
 
@@ -484,10 +515,12 @@ begin
    if cxLookupComboBox1.EditValue = main.Period then
    begin
       cxLabel2.Caption:='Поточний період';
+      Enables(true);
    end
    else
    begin
       cxLabel2.Caption:='Архів';
+      Enables(false);
    end;
     IBTARIF_MES.Active:=false;
   IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
@@ -590,18 +623,23 @@ procedure TTarifs.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   if IBTARIF_MES.State in [dsInsert,dsEdit] then
   IBTARIF_MES.Post;
+  if IBTARIF_COMP.State in [dsInsert,dsEdit] then
+  IBTARIF_COMP.Post;
+  if IBTARIF_DOM.State in [dsInsert,dsEdit] then
+  IBTARIF_DOM.Post;
   inherited;
 end;
 
 procedure TTarifs.FormCreate(Sender: TObject);
 begin
   inherited;
-  cxLookupComboBox1.EditValue:= main.Period;
+
   IBTransaction1.Active:=true;
   IBPOSL.Active:=true;
   IBUL.Active:=true;
   IBDOM.Active:=true;
   IBPERIOD.Active:=true;
+  cxLookupComboBox1.EditValue:= IBPERIODDATA.Value;
 
   IBTARIF_MES.Active:=false;
   IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
@@ -681,11 +719,146 @@ self.fl_post:=1;
 
 end;
 
+procedure TTarifs.IBTARIF_MESAfterEdit(DataSet: TDataSet);
+begin
+  inherited;
+  tmpval:=IBTARIF_MESTARIF_FACT.Value;
+end;
+
 procedure TTarifs.IBTARIF_MESBeforePost(DataSet: TDataSet);
 begin
 self.fl_post:=1;
   inherited;
 
+end;
+
+procedure TTarifs.IBTARIF_MESTARIF_FACTChange(Sender: TField);
+var res,res1:CURRENCY;
+begin
+  inherited;
+  IBTARIF_MES.Edit;
+  IBTARIF_MESFACT_BL.Value:=IBTARIF_MESFACT_BL.Value+(IBTARIF_MESTARIF_FACT.Value-tmpval);
+  tmpval:=0;
+    if IBPOSLWID.Value='ub' then
+    begin
+//      if IBTARIF_MESTARIF_FACT.Value>IBTARIF_MESTARIF_PLAN.Value then
+//      begin
+//         IBTARIF_MESTARIF_RK.Value:=IBTARIF_MESTARIF_PLAN.Value-IBTARIF_MESTARIF_FACT.Value-IBTARIF_MESTARIF_RN.Value;
+//         IBTARIF_MESTARIF_END.Value:=IBTARIF_MESTARIF_PLAN.Value;
+//      end
+//      else
+//      begin
+         res:= IBTARIF_MESTARIF_PLAN.Value-IBTARIF_MESTARIF_FACT.Value;
+
+         if res<0 then
+         begin
+              IBTARIF_MESTARIF_END.Value:=IBTARIF_MESTARIF_FACT.Value+res;
+              IBTARIF_MESTARIF_RK.Value:=IBTARIF_MESTARIF_RN.Value+res;
+         end
+         else
+         begin
+           res1:=IBTARIF_MESTARIF_RN.Value+res;
+           if res1>0 then
+           begin
+              IBTARIF_MESTARIF_RK.Value:=0;
+              IBTARIF_MESTARIF_END.Value:=IBTARIF_MESTARIF_FACT.Value-IBTARIF_MESTARIF_RN.Value;
+           end
+           else
+           begin
+           IBTARIF_MESTARIF_RK.Value:=res1;
+           IBTARIF_MESTARIF_END.Value:=IBTARIF_MESTARIF_FACT.Value+res;
+           end;
+         end;
+
+         IBTARIF_MESTARIF_END.Value:=RoundTo(IBTARIF_MESTARIF_END.Value,-2);
+
+         res:=IBTARIF_MESTARIF_FACT.Value-IBTARIF_MESFACT_BL.Value;
+         if res>0 then
+         begin
+           IBTARIF_COMP.First;
+           if IBTARIF_COMP.Locate('ID_TARIFMES;FL_LIFT', VarArrayOf([IBTARIF_MESID.Value,0]),[]) then
+           begin
+             IBTARIF_COMP.Edit;
+             IBTARIF_COMPSUMM.Value:=IBTARIF_MESTARIF_END.Value-res;
+             IBTARIF_COMP.Post;
+           end
+           else
+           begin
+//             IBTARIF_COMP.Insert;
+//             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
+//             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
+//             IBTARIF_COMPNAME.Value:=IBTARIFUPDPOSL.Value+' '+IBTARIFUPDDOM.Value;
+//             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value-res;
+//             IBTARIF_COMPFL_LIFT.Value:=0;
+//             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
+//             IBTARIF_COMP.Post;
+           end;
+           IBTARIF_COMP.First;
+           if IBTARIF_COMP.Locate('ID_TARIFMES;FL_LIFT', VarArrayOf([IBTARIF_MESID.Value,1]),[]) then
+           begin
+           IBTARIF_COMP.Edit;
+             IBTARIF_COMPSUMM.Value:=res;
+             IBTARIF_COMP.Post;
+           end
+           else
+           begin
+//             IBTARIF_COMP.Insert;
+//             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
+//             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
+//             IBTARIF_COMPNAME.Value:='Лiфт '+IBTARIFUPDDOM.Value;
+//             IBTARIF_COMPSUMM.Value:=res;
+//             IBTARIF_COMPFL_LIFT.Value:=1;
+//             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
+//             IBTARIF_COMP.Post;
+           end;
+         end
+         else
+         begin
+           IBTARIF_COMP.First;
+           if IBTARIF_COMP.Locate('ID_TARIFMES;FL_LIFT', VarArrayOf([IBTARIF_MESID.Value,0]),[]) then
+           begin
+             IBTARIF_COMP.Edit;
+             IBTARIF_COMPSUMM.Value:=IBTARIF_MESTARIF_END.Value-res;
+             IBTARIF_COMP.Post;
+           end
+           else
+           begin
+//             IBTARIF_COMP.Insert;
+//             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
+//             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
+//             IBTARIF_COMPNAME.Value:=IBTARIFUPDPOSL.Value+' '+IBTARIFUPDDOM.Value;
+//             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value;
+//             IBTARIF_COMPFL_LIFT.Value:=0;
+//             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
+//             IBTARIF_COMP.Post;
+           end;
+         end;
+
+//      end;
+
+    end
+    else
+    begin
+           IBTARIF_COMP.First;
+           if IBTARIF_COMP.Locate('ID_TARIFMES', IBTARIF_MESID.Value,[]) then
+           begin
+             IBTARIF_COMP.Edit;
+             IBTARIF_COMPSUMM.Value:=IBTARIF_MESTARIF_END.Value;
+             IBTARIF_COMP.Post;
+           end
+           else
+           begin
+//             IBTARIF_COMP.Insert;
+//             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
+//             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
+//             IBTARIF_COMPNAME.Value:=IBTARIFUPDPOSL.Value+' '+IBTARIFUPDDOM.Value;
+//             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value;
+//             IBTARIF_COMPFL_LIFT.Value:=0;
+//             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
+//             IBTARIF_COMP.Post;
+           end;
+    end;
+  IBTARIF_MES.Post;
 end;
 
 procedure TTarifs.IBULBeforePost(DataSet: TDataSet);
@@ -694,5 +867,90 @@ self.fl_post:=1;
   inherited;
 
 end;
+
+procedure TTarifs.ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
+var
+  sd:TSaveDialog;
+  Excel: Variant;
+  Reg: TRegistry;
+  path:string;
+  i:integer;
+begin
+  Reg := TRegistry.Create;
+  try
+    Reg.RootKey := HKEY_CURRENT_USER;
+    if not Reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders' , False) then
+      //ShowMessage('Error in opening key')
+      path := '.\'
+    else
+    begin
+      path := Reg.Readstring('Personal')+'\'
+    end;
+  finally
+    Reg.Free;
+  end;
+
+  sd:=TSaveDialog.Create(application);
+  try
+    if FileName='Table.xls' then
+    begin
+//      DateTimeToString(Filename,'mmddhhmm',now);
+//      DateTimeToString(Filename,'dd mm yyyy',now);
+        DateTimeToString(Filename,'dd mm yyyy',cxLookupComboBox1.EditValue);
+      Filename:=IBPOSLNAME.Value+' '+Filename+'.xls'
+    end;
+    sd.FileName := path + Filename;
+    sd.Filter := 'Excel files (*.xls)|*.XLS';
+    if not sd.Execute then exit;
+    filename:=sd.FileName;
+  finally
+    sd.Free;
+  end;
+
+  ExportGridToExcel(filename, AGrid,false,true,true);
+
+  try
+    Excel := CreateOLEObject('Excel.Application');
+    Excel.Visible := True;
+
+    Excel.WorkBooks.Open(FileName);
+    Excel.ActiveWindow.DisplayGridlines := True;
+
+    Excel.columns.NumberFormat:='0,00';
+
+//    for i:=9 to Excel.columns.count-4 do
+//    begin
+//       Excel.columns[i].NumberFormat:='0,00';
+//    end;
+
+//    Excel.columns[9].NumberFormat:='0,00';
+//    Excel.columns[10].NumberFormat:='0,00';
+//    Excel.columns[11].NumberFormat:='0,00';
+//    Excel.columns[12].NumberFormat:='0,00';
+//    Excel.columns[13].NumberFormat:='0,00';
+//    Excel.columns[14].NumberFormat:='0,00';
+//    Excel.columns[15].NumberFormat:='0,00';
+//    Excel.columns[16].NumberFormat:='0,00';
+//    Excel.columns[17].NumberFormat:='0,00';
+//    Excel.columns[18].NumberFormat:='0,00';
+//    Excel.columns[19].NumberFormat:='0,00';
+//    Excel.columns[20].NumberFormat:='0,00';
+//    Excel.columns[21].NumberFormat:='0,00';
+//    Excel.columns[22].NumberFormat:='0,00';
+//    Excel.columns[23].NumberFormat:='0,00';
+//    Excel.columns[24].NumberFormat:='0,00';
+//    Excel.columns[25].NumberFormat:='0,00';
+
+    Excel.ActiveWindow.View := 2;
+    if Excel.ActiveSheet.VPageBreaks.count <> 0 then
+       Excel.ActiveSheet.VPageBreaks[1].DragOff(Direction:=1, RegionIndex:=1);
+    if Excel.ActiveSheet.HPageBreaks.count <> 0 then
+       Excel.ActiveSheet.HPageBreaks[1].DragOff(Direction:=1, RegionIndex:=1);
+    Excel.ActiveWindow.View := 1;
+
+  except
+  end;
+end;
+
 
 end.

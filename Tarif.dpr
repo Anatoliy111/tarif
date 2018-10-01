@@ -15,7 +15,8 @@ uses
   TarifForm in 'TarifForm.pas' {Tarifs},
   Ins in 'Ins.pas' {InsForm},
   Import in 'Import.pas' {ImpForm},
-  Progress in 'Progress.pas' {Prores};
+  Progress in 'Progress.pas' {Prores},
+  ReportForm in 'ReportForm.pas' {Report};
 
 {$R *.res}
 

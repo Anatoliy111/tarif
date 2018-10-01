@@ -22,7 +22,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -462,11 +462,11 @@
       ItemLinks = <
         item
           Visible = True
-          ItemName = 'dxBarButton8'
+          ItemName = 'dxBarButton17'
         end
         item
           Visible = True
-          ItemName = 'dxBarButton7'
+          ItemName = 'dxBarButton18'
         end>
     end
     object dxBarSubItem6: TdxBarSubItem
@@ -770,10 +770,6 @@
         item
           Visible = True
           ItemName = 'dxBarButton10'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton17'
         end>
     end
     object dxBarSubItem9: TdxBarSubItem
@@ -1107,6 +1103,14 @@
       Category = 0
       Hint = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1072#1076#1088#1077#1089#1072#1084
       Visible = ivAlways
+      OnClick = dxBarButton17Click
+    end
+    object dxBarButton18: TdxBarButton
+      Caption = 'New Button'
+      Category = 0
+      Hint = 'New Button'
+      Visible = ivNever
+      OnClick = dxBarButton18Click
     end
   end
   object ActionList1: TActionList
@@ -1146,7 +1150,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1994,7 +1998,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2317,7 +2321,6 @@
     Top = 368
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultDatabase = DataM.IBDatabase1
     Left = 32
     Top = 416

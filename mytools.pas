@@ -82,6 +82,7 @@ procedure ExportFile(dt:TDataSet);overload;
 function getVersionInfo(tag:string):string;
 procedure setYearBox(box:TComboBox;curr:TDate=0);
 function roundMoney(s:currency;cent:integer):currency;
+function roundMy(s:currency;cent:integer):currency;
 function var2int(v:variant):integer;
 function var2currency(v:variant):currency;
 procedure ReindexTable(Table: TTable);
@@ -1089,6 +1090,24 @@ end;
 
 
 function roundMoney(s:currency;cent:integer):currency;
+var kop:integer;
+  ost:integer;
+  part:integer;
+begin
+  if cent>1 then
+  begin
+    kop := floor(s*100);
+    ost := kop mod cent;
+    part := cent div 2 + cent mod 2;
+    if ost < part then kop := kop-ost
+    else kop := kop + (cent-ost);
+    result:=kop/100;
+  end
+  else
+    result:=s;
+end;
+
+function roundMy(s:currency;cent:integer):currency;
 var kop:integer;
   ost:integer;
   part:integer;
