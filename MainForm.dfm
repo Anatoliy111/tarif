@@ -22,7 +22,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -1150,7 +1150,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1998,7 +1998,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2636,6 +2636,37 @@
     CachedUpdates = False
     ParamCheck = True
     Left = 144
+    Top = 240
+  end
+  object ADOQuery1: TADOQuery
+    Connection = ADOConnectionDBF
+    CursorLocation = clUseServer
+    Parameters = <>
+    Left = 224
+    Top = 240
+  end
+  object ADOConnectionDBF: TADOConnection
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;User ID=Admin;Data Source=d:\WO' +
+      'RK\KOMUN\kvpl\dbf\;Mode=Share Deny Read|Share Deny Write;Persist' +
+      ' Security Info=False;Jet OLEDB:System database="";Jet OLEDB:Regi' +
+      'stry Path="";Jet OLEDB:Database Password="";Jet OLEDB:Engine Typ' +
+      'e=16;Jet OLEDB:Database Locking Mode=0;Jet OLEDB:Global Partial ' +
+      'Bulk Ops=2;Jet OLEDB:Global Bulk Transactions=1;Jet OLEDB:New Da' +
+      'tabase Password="";Jet OLEDB:Create System Database=False;Jet OL' +
+      'EDB:Encrypt Database=False;Jet OLEDB:Don'#39't Copy Locale on Compac' +
+      't=False;Jet OLEDB:Compact Without Replica Repair=False;Jet OLEDB' +
+      ':SFP=False;'
+    CursorLocation = clUseServer
+    LoginPrompt = False
+    Provider = 'Microsoft.Jet.OLEDB.4.0'
+    Left = 224
+    Top = 184
+  end
+  object ADOCommand1: TADOCommand
+    Connection = ADOConnectionDBF
+    Parameters = <>
+    Left = 296
     Top = 240
   end
 end

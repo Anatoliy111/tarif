@@ -15,6 +15,7 @@ type
   public
     { Public declarations }
     iniFile:TIniFile;
+    dirSoft,dirKvart:string;
   end;
 
 var
@@ -34,11 +35,13 @@ begin
   IBDatabase1.DatabaseName:=s;
 //    messagedlg(s,mtInformation,[mbOK],0);
   IBDatabase1.Open;
-  IBDatabase2.Connected:=false;
-  ss:=iniFile.ReadString('Data','Database2',extractfilepath(paramstr(0))+'GKP_NEW.GDB');
-  IBDatabase2.DatabaseName:=ss;
+//  IBDatabase2.Connected:=false;
+  dirSoft:=iniFile.ReadString('Data','Database2',extractfilepath(paramstr(0))+'GKP_NEW.GDB');
+  dirKvart:=iniFile.ReadString('kvart','tar',extractfilepath(paramstr(0)));
+
+//  IBDatabase2.DatabaseName:=ss;
 //    messagedlg(ss,mtInformation,[mbOK],0);
-  IBDatabase2.Open;
+//  IBDatabase2.Open;
 
 
 

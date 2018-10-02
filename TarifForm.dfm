@@ -114,11 +114,9 @@
       end
       object cxGrid1DBTableView1PLAN_BL: TcxGridDBColumn
         DataBinding.FieldName = 'PLAN_BL'
-        Options.Editing = False
       end
       object cxGrid1DBTableView1FACT_BL: TcxGridDBColumn
         DataBinding.FieldName = 'FACT_BL'
-        Options.Editing = False
       end
       object cxGrid1DBTableView1Column1: TcxGridDBColumn
       end
@@ -252,7 +250,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 132
+      Height = 116
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -268,13 +266,11 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 133
+      Top = 117
       Width = 167
-      Height = 269
+      Height = 285
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 101
-      ExplicitHeight = 301
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -296,7 +292,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager

@@ -10,7 +10,8 @@ uses
   System.Actions, System.ImageList, cxButtonEdit, cxBarEditItem, dxBarExtItems,
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
-  cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm;
+  cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm,
+  Data.Win.ADODB;
 
 type
   TMain = class(TForm)
@@ -151,6 +152,9 @@ type
     IBQuery1: TIBQuery;
     IBQuery2: TIBQuery;
     dxBarButton18: TdxBarButton;
+    ADOQuery1: TADOQuery;
+    ADOConnectionDBF: TADOConnection;
+    ADOCommand1: TADOCommand;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -170,6 +174,8 @@ type
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
     procedure Newmes;
+    function OpenKvart :string;overload;
+//    function FFile(path:string):string;
 
     public
     vid_doc:integer;    //вид документа (приход,расход ...)
@@ -308,7 +314,83 @@ begin
  end;
 end;
 
+
+function TMain.OpenKvart: string;
+var     adostr:WideString;
+  F: TSearchRec;
+  Path,ffile,mes: string;
+  Attr: Integer;
+begin
+    try
+    mes:=DataM.dirKvart;
+    ADOConnectionDBF.Connected:=false;
+    adostr:='Provider=Microsoft.Jet.OLEDB.4.0;User ID=Admin;Data Source='+
+            DataM.dirKvart+';Mode=Share Deny Read|Share Deny Write;Jet OLEDB:System database="";Jet OLEDB:Registry Path="";'+
+            'Jet OLEDB:Database Password="";Jet OLEDB:Engine Type=16;Jet OLEDB:Database Locking Mode=0;'+
+            'Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Global Bulk Transactions=1;'+
+            'Jet OLEDB:New Database Password="";Jet OLEDB:Create System Database=False;'+
+            'Jet OLEDB:Encrypt Database=False;Jet OLEDB:Don"t Copy Locale on Compact=False;'+
+            'Jet OLEDB:Compact Without Replica Repair=False;Jet OLEDB:SFP=False;';
+
+    ADOConnectionDBF.ConnectionString:=adostr;
+    ADOConnectionDBF.Connected:=true;
+    ffile:= 'tr'+Date2Str(IBPERIODDATA.Value,'yyyyMM');
+    Path:=DataM.dirKvart+ffile+'.dbf';
+    FindFirst(Path, Attr, F);
+
+  {Если хотя бы один файл найден, то продолжить поиск}
+    if F.name <> '' then
+    begin
+//      mes:='Неможливо видалити '+Path;
+      if not deleteFile(Path) then
+      begin
+      ShowMessage('Неможливо видалити '+Path+' Можливо файл відкритий в іншій програмі. Спробуйте пізніше!');
+      Result:='';
+      Exit;
+      end;
+
+    end;
+    FindClose(F);
+    ADOQuery1.SQL.Clear;
+
+//    ADOQuery1.SQL.Add('CREATE TABLE ['+ffile+'111]');
+//ADOQuery1.SQL.Add('( [Code] autoincrement PRIMARY KEY,');
+//ADOQuery1.SQL.Add(' [Category] varchar(50),');
+//ADOQuery1.SQL.Add(' [ProgName] varchar(255),');
+//ADOQuery1.SQL.Add(' [PathToFile] varchar(255),');
+//ADOQuery1.SQL.Add(' [Note] varchar(255),');
+//ADOQuery1.SQL.Add(' [PathToImage] varchar(255),');
+//ADOQuery1.SQL.Add(' [PathToCrack1] varchar(255),');
+//ADOQuery1.SQL.Add(' [Crack1] varchar(50),');
+//ADOQuery1.SQL.Add(' [PathToCrack2] varchar(255),');
+//ADOQuery1.SQL.Add(' [Crack2] varchar(50),');
+//ADOQuery1.SQL.Add(' [PathToCrack3] varchar(255),');
+//ADOQuery1.SQL.Add(' [Crack3] varchar(50),');
+//ADOQuery1.SQL.Add(' [Favorit] LOGICAL );');
+//ADOQuery1.ExecSQL;
+
+ADOCommand1.CommandText:='';
+ADOCommand1.CommandText:='create table '+ffile+' (`id` Numeric(10,0),'+
+                                               ' kl Numeric(5,0),'+
+                                               ' wid Character(2),'+
+                                               ' name Character(50),'+
+                                               ' tarif Numeric(9,4),'+
+                                               ' norma Numeric(9,3),'+
+                                               ' lift Numeric(1,0))';
+ADOCommand1.Execute;
+
+    Result:=ffile;
+    except
+    Result:='';
+    messagedlg('Помилка підключення до квартплати '+mes,mtError,[mbCancel],0);
+//    Application.Terminate;
+//    Break;
+    end;
+
+end;
+
 procedure TMain.Newmes;
+var ffile:string;
 begin
 IBTARIF_MES.Active:=true;
 IBTARIF_COMP.Active:=true;
@@ -316,6 +398,21 @@ IBTARIF_DOM.Active:=true;
 Prores.Show;
          Prores.Label1.Caption:='Перехід на новий місяць';
          Application.ProcessMessages;
+            ffile:=OpenKvart;
+            if ffile='' then
+            begin
+              Prores.Close;
+              exit;
+            end
+            else
+            begin
+             ADOQuery1.Close;
+             ADOQuery1.SQL.Clear;
+             ADOQuery1.SQL.Add('select * from '+ffile);
+             ADOQuery1.Open;
+            end;
+
+
          Prores.cxProgressBar1.Visible:=true;
          Prores.cxProgressBar1.Position:=0;
          Prores.cxProgressBar1.Properties.Min:=0;
@@ -361,8 +458,9 @@ Prores.Show;
          end;
 
 
+
          IBQuery2.Active:=false;
-         IBQuery2.SQL.Text:='select * from tarif_comp where id_tarifmes=:idmes';
+         IBQuery2.SQL.Text:='select tarif_comp.*, tarif.name as nnn from tarif_comp, tarif where id_tarifmes=:idmes and tarif_comp.id_tarif=tarif.id';
          IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
          IBQuery2.Active:=true;
          IBQuery2.First;
@@ -376,6 +474,16 @@ Prores.Show;
            IBTARIF_COMPNORMA.Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
            IBTARIF_COMPID_TARIFMES.Value:=IBTARIF_MESID.Value;
            IBTARIF_COMP.Post;
+
+           ADOQuery1.Insert;
+           ADOQuery1.FieldByName('id').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
+           ADOQuery1.FieldByName('kl').Value:=iif(IBQuery2.FieldByName('KL_NTAR').Value=null,0,IBQuery2.FieldByName('KL_NTAR').Value);
+           ADOQuery1.FieldByName('name').Value:=iif(IBQuery2.FieldByName('nnn').Value=null,0,IBQuery2.FieldByName('KL_NTAR').Value);
+           ADOQuery1.FieldByName('lift').Value:=iif(IBQuery2.FieldByName('FL_LIFT').Value=null,0,IBQuery2.FieldByName('FL_LIFT').Value);
+           ADOQuery1.FieldByName('norma').Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
+           ADOQuery1.FieldByName('tarif').Value:=iif(IBQuery2.FieldByName('SUMM').Value=null,0,IBQuery2.FieldByName('SUMM').Value);
+           ADOQuery1.Post;
+
          IBQuery2.Next;
          end;
 
@@ -391,9 +499,13 @@ Prores.Show;
         IBPERIOD.Close;
         IBPERIOD.Open;
         Period:=IBPERIODDATA.Value;
+        ADOQuery1.Close;
+        ADOConnectionDBF.Connected:=false;
       messagedlg('Перехід завершено!',mtInformation,[mbOK],0);
 
 end;
+
+
 
 
 procedure TMain.dxBarButton19Click(Sender: TObject);

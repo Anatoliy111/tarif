@@ -156,6 +156,7 @@ type
   private
   procedure Enables(val:boolean);
   procedure Rasch();
+  function OpenBase :Boolean;overload;
   procedure ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
     { Private declarations }
   public
@@ -357,16 +358,41 @@ begin
 
 end;
 
+function TTarifs.OpenBase: Boolean;
+begin
+    try
+  DataM.IBDatabase2.Connected:=false;
+  DataM.IBDatabase2.DatabaseName:=DataM.dirSoft;
+//    messagedlg(ss,mtInformation,[mbOK],0);
+  DataM.IBDatabase2.Open;
+  Result:=true;
+  except
+    begin
+      Result:=false;
+      messagedlg('Помилка підключення до бази даних '+DataM.dirSoft,mtError,[mbCancel],0);
+    end;
+  end;
 
+end;
 
 procedure TTarifs.cxButton2Click(Sender: TObject);
 var s,ss:string;
 begin
   inherited;
+    IBTARIFUPD.Active:=false;
+//  IBTARIF.SelectSQL.Text:='select tarif_mes.*,posl.wid from TARIF, TARIF_MES, POSL where tarif_mes.data=:dt and tarif.id_posl=posl.id and tarif_mes.id_tarif=tarif.id';
+  IBTARIFUPD.ParamByName('dt').Value:=IBPERIODDATA.Value;
+  IBTARIFUPD.Active:=true;
+  IBTARIFUPD.First;
             Prores.Show;
             Prores.Label1.Caption:='Підключення до бази даних';
             Application.ProcessMessages;
             Prores.cxProgressBar1.Visible:=false;
+            if not OpenBase then
+            begin
+              Prores.Close;
+              exit;
+            end;
 //            try
 //              DataM.IBDatabase2.Connected:=false;
 //              ss:=iniFile.ReadString('Data','Database2',extractfilepath(paramstr(0))+'GKP_NEW.GDB');
@@ -430,14 +456,15 @@ begin
           IBQuery2.Active:=true;
           if IBQuery2.Locate('id_posl;id_dom', VarArrayOf([IBPOSLID.Value,IBDOMID.Value]),[]) then
           begin
-            if IBTARIF_MES.Locate('id',IBQuery2.FieldByName('id').Value,[]) then
+            IBTARIFUPD.First;
+            if IBTARIFUPD.Locate('id',IBQuery2.FieldByName('id').Value,[]) then
             begin
-               IBTARIF_MES.Edit;
-               IBTARIF_MESTARIF_PLAN.Value:=IBQuery1.FieldByName('NORM').Value;
-               IBTARIF_MESTARIF_FACT.Value:=IBQuery1.FieldByName('FACT').Value;
-               IBTARIF_MESPLAN_BL.Value:=IBQuery1.FieldByName('NORM_BL').Value;
-               IBTARIF_MESFACT_BL.Value:=IBQuery1.FieldByName('FACT_BL').Value;
-               IBTARIF_MES.Post;
+               IBTARIFUPD.Edit;
+               IBTARIFUPDTARIF_PLAN.Value:=IBQuery1.FieldByName('NORM').Value;
+               IBTARIFUPDTARIF_FACT.Value:=IBQuery1.FieldByName('FACT').Value;
+               IBTARIFUPDPLAN_BL.Value:=IBQuery1.FieldByName('NORM_BL').Value;
+               IBTARIFUPDFACT_BL.Value:=IBQuery1.FieldByName('FACT_BL').Value;
+               IBTARIFUPD.Post;
             end;
           end;
 
@@ -448,6 +475,7 @@ begin
       IBQuery1.Active:=false;
       Prores.cxProgressBar1.Position:=0;
       Prores.Close;
+      cxButton7.Click;
       messagedlg('Імпорт завершено!',mtInformation,[mbOK],0);
 
 end;
