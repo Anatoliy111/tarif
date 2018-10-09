@@ -3,12 +3,13 @@ unit DataMod;
 interface
 
 uses
-  SysUtils, Classes, DB, IBDatabase, inifiles, dialogs,forms;
+  SysUtils, Classes, DB, IBDatabase, inifiles, dialogs,forms, IBX.IBDatabaseInfo;
 
 type
   TDataM = class(TDataModule)
     IBDatabase1: TIBDatabase;
     IBDatabase2: TIBDatabase;
+    IBDatabaseInfo1: TIBDatabaseInfo;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

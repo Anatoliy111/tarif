@@ -11,7 +11,7 @@ uses
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
   cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm,
-  Data.Win.ADODB;
+  Data.Win.ADODB, dbf;
 
 type
   TMain = class(TForm)
@@ -155,6 +155,14 @@ type
     ADOQuery1: TADOQuery;
     ADOConnectionDBF: TADOConnection;
     ADOCommand1: TADOCommand;
+    Dbf1: TDbf;
+    IBSERVICE: TIBDataSet;
+    DІSERVICE: TDataSource;
+    IBSERVICEID: TIntegerField;
+    IBSERVICEADMINPW: TIBStringField;
+    IBSERVICEFL_RASH: TIntegerField;
+    IBTARIF_MESEND_BL: TIBBCDField;
+    IBTARIF_MESEND_L: TIBBCDField;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -196,7 +204,7 @@ var
  // TB:TToolButton;
 implementation
 
-uses Aboutt ,TarifForm, DataMod, mytools, Import, Progress;
+uses Aboutt ,TarifForm, DataMod, mytools, Import, Progress, UITypes;
 
 {$R *.dfm}
 
@@ -262,7 +270,7 @@ procedure TMain.dxBarButton11Click(Sender: TObject);
 begin
       if MdiChildCount<>0 then
       begin
-            case MessageBox(handle,pchar('Щоб перейти на новий міяць треба закрити всі форми!'),pchar(''),MB_OKCANCEL) of
+            case MessageBox(handle,pchar('Щоб перейти на новий місяць треба закрити всі форми!'),pchar(''),MB_OKCANCEL) of
               mrOK:begin
                       dxBarButton42.Click;
         //            IBTransaction1.Active:=false;
@@ -273,6 +281,21 @@ begin
                 Exit;
               end;
             end;
+      end;
+
+      if DataM.IBDatabaseInfo1.UserNames.Count > 1 then
+      begin
+          ShowMessage('Програма відкрита іншим користувачем. Перехід на новий місяць не можливий!!! Щоб перейти на новий місяць треба закрити програму іншим користувачам ');
+          Exit;
+      end;
+
+      IBSERVICE.Active:=false;
+      IBSERVICE.Active:=true;
+
+      if IBSERVICEFL_RASH.Value = 0 then
+      begin
+          ShowMessage('Були внесені зміни в тарифи і не виконано розрахунок. Виконайте повний розрахунок потім переходьте на новий місяць!!!');
+          Exit;
       end;
 
     if MdiChildCount=0 then
@@ -336,6 +359,7 @@ begin
     ADOConnectionDBF.Connected:=true;
     ffile:= 'tr'+Date2Str(IBPERIODDATA.Value,'yyyyMM');
     Path:=DataM.dirKvart+ffile+'.dbf';
+    Attr:=0;
     FindFirst(Path, Attr, F);
 
   {Если хотя бы один файл найден, то продолжить поиск}
@@ -353,24 +377,19 @@ begin
     FindClose(F);
     ADOQuery1.SQL.Clear;
 
-//    ADOQuery1.SQL.Add('CREATE TABLE ['+ffile+'111]');
-//ADOQuery1.SQL.Add('( [Code] autoincrement PRIMARY KEY,');
-//ADOQuery1.SQL.Add(' [Category] varchar(50),');
-//ADOQuery1.SQL.Add(' [ProgName] varchar(255),');
-//ADOQuery1.SQL.Add(' [PathToFile] varchar(255),');
-//ADOQuery1.SQL.Add(' [Note] varchar(255),');
-//ADOQuery1.SQL.Add(' [PathToImage] varchar(255),');
-//ADOQuery1.SQL.Add(' [PathToCrack1] varchar(255),');
-//ADOQuery1.SQL.Add(' [Crack1] varchar(50),');
-//ADOQuery1.SQL.Add(' [PathToCrack2] varchar(255),');
-//ADOQuery1.SQL.Add(' [Crack2] varchar(50),');
-//ADOQuery1.SQL.Add(' [PathToCrack3] varchar(255),');
-//ADOQuery1.SQL.Add(' [Crack3] varchar(50),');
-//ADOQuery1.SQL.Add(' [Favorit] LOGICAL );');
+//    ADOQuery1.SQL.Add('create table '+ffile+' (');
+//ADOQuery1.SQL.Add('id Numeric(10,0),');
+//ADOQuery1.SQL.Add('kl Numeric(5,0),');
+//ADOQuery1.SQL.Add('wid Character(2),');
+//ADOQuery1.SQL.Add('name Character(50),');
+//ADOQuery1.SQL.Add('tarif Numeric(9,4),');
+//ADOQuery1.SQL.Add('norma Numeric(9,3),');
+//ADOQuery1.SQL.Add('[Category] Numeric(5),');
+//ADOQuery1.SQL.Add('lift Numeric(1,0))');
 //ADOQuery1.ExecSQL;
 
 ADOCommand1.CommandText:='';
-ADOCommand1.CommandText:='create table '+ffile+' (`id` Numeric(10,0),'+
+ADOCommand1.CommandText:='create table '+ffile+' (id Numeric(10,0),'+
                                                ' kl Numeric(5,0),'+
                                                ' wid Character(2),'+
                                                ' name Character(50),'+
@@ -378,6 +397,8 @@ ADOCommand1.CommandText:='create table '+ffile+' (`id` Numeric(10,0),'+
                                                ' norma Numeric(9,3),'+
                                                ' lift Numeric(1,0))';
 ADOCommand1.Execute;
+// Провайдер Microsoft.Jet.OLEDB.4.0, при создании таблици с полем Numeric,
+// ширина всегда будет 19,5 или 20,5 - особенность провайдера.
 
     Result:=ffile;
     except
@@ -392,6 +413,9 @@ end;
 procedure TMain.Newmes;
 var ffile:string;
 begin
+IBTARIF_MES.Active:=false;
+IBTARIF_COMP.Active:=false;
+IBTARIF_DOM.Active:=false;
 IBTARIF_MES.Active:=true;
 IBTARIF_COMP.Active:=true;
 IBTARIF_DOM.Active:=true;
@@ -460,7 +484,7 @@ Prores.Show;
 
 
          IBQuery2.Active:=false;
-         IBQuery2.SQL.Text:='select tarif_comp.*, tarif.name as nnn from tarif_comp, tarif where id_tarifmes=:idmes and tarif_comp.id_tarif=tarif.id';
+         IBQuery2.SQL.Text:='select tarif_comp.*, tarif.name as nnn, posl.wid from tarif_comp, tarif,posl where id_tarifmes=:idmes and tarif_comp.id_tarif=tarif.id and posl.id=tarif.id_posl';
          IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
          IBQuery2.Active:=true;
          IBQuery2.First;
@@ -471,14 +495,15 @@ Prores.Show;
            IBTARIF_COMPNAME.Value:=IBQuery2.FieldByName('NAME').Value;
            IBTARIF_COMPKL_NTAR.Value:=iif(IBQuery2.FieldByName('KL_NTAR').Value=null,0,IBQuery2.FieldByName('KL_NTAR').Value);
            IBTARIF_COMPFL_LIFT.Value:=iif(IBQuery2.FieldByName('FL_LIFT').Value=null,0,IBQuery2.FieldByName('FL_LIFT').Value);
-           IBTARIF_COMPNORMA.Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
+//           IBTARIF_COMPNORMA.Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
            IBTARIF_COMPID_TARIFMES.Value:=IBTARIF_MESID.Value;
            IBTARIF_COMP.Post;
 
            ADOQuery1.Insert;
            ADOQuery1.FieldByName('id').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
            ADOQuery1.FieldByName('kl').Value:=iif(IBQuery2.FieldByName('KL_NTAR').Value=null,0,IBQuery2.FieldByName('KL_NTAR').Value);
-           ADOQuery1.FieldByName('name').Value:=iif(IBQuery2.FieldByName('nnn').Value=null,0,IBQuery2.FieldByName('KL_NTAR').Value);
+           ADOQuery1.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').Value;
+           ADOQuery1.FieldByName('name').Value:=IBQuery2.FieldByName('nnn').Value;
            ADOQuery1.FieldByName('lift').Value:=iif(IBQuery2.FieldByName('FL_LIFT').Value=null,0,IBQuery2.FieldByName('FL_LIFT').Value);
            ADOQuery1.FieldByName('norma').Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
            ADOQuery1.FieldByName('tarif').Value:=iif(IBQuery2.FieldByName('SUMM').Value=null,0,IBQuery2.FieldByName('SUMM').Value);
@@ -499,6 +524,7 @@ Prores.Show;
         IBPERIOD.Close;
         IBPERIOD.Open;
         Period:=IBPERIODDATA.Value;
+        cxBarEditItem4.Caption:='                    '+mon_slovoDt(IBPERIODDATA.Value);
         ADOQuery1.Close;
         ADOConnectionDBF.Connected:=false;
       messagedlg('Перехід завершено!',mtInformation,[mbOK],0);
@@ -590,7 +616,7 @@ end;
 procedure TMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   CanClose:=true;
-  case MessageBox(handle,pchar('Закрыть программу? Все не сохраненные данные будут утеряны.'),pchar(''),36) of
+  case MessageBox(handle,pchar('Закрити програму? Всі не збережені дані будуть втрачені.'),pchar(''),36) of
     IDYES:ModalResult:=mrYes;
     IDNO:CanClose:=false;
   end;
@@ -602,6 +628,7 @@ IBTransaction1.Active:=true;
 IBPERIOD.Active:=true;
 cxBarEditItem4.Caption:='                    '+mon_slovoDt(IBPERIODDATA.Value);
 Period:=IBPERIODDATA.Value;
+IBSERVICE.Active:=true;
 end;
 
 end.

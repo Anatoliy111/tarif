@@ -22,7 +22,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -607,9 +607,9 @@
       Visible = ivNever
     end
     object dxBarButton32: TdxBarButton
-      Caption = #1048#1084#1087#1086#1088#1090
+      Caption = #1053#1072#1083#1072#1096#1090#1091#1074#1072#1085#1085#1103
       Category = 0
-      Hint = #1048#1084#1087#1086#1088#1090
+      Hint = #1053#1072#1083#1072#1096#1090#1091#1074#1072#1085#1085#1103
       Visible = ivAlways
       OnClick = dxBarButton32Click
     end
@@ -1150,7 +1150,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1998,7 +1998,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2322,6 +2322,10 @@
   end
   object IBTransaction1: TIBTransaction
     DefaultDatabase = DataM.IBDatabase1
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
     Left = 32
     Top = 416
   end
@@ -2507,12 +2511,12 @@
       
         '  (ID, ID_TARIF, DATA, TARIF_PLAN, TARIF_FACT, TARIF_RN, TARIF_R' +
         'K, NORMA, '
-      '   TARIF_END, PLAN_BL, FACT_BL)'
+      '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
         'TARIF_RK, '
-      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL)')
+      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -2525,7 +2529,9 @@
       '  NORMA,'
       '  TARIF_END,'
       '  PLAN_BL,'
-      '  FACT_BL'
+      '  FACT_BL,'
+      '  END_BL,'
+      '  END_L'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -2544,7 +2550,9 @@
       '  NORMA = :NORMA,'
       '  TARIF_END = :TARIF_END,'
       '  PLAN_BL = :PLAN_BL,'
-      '  FACT_BL = :FACT_BL'
+      '  FACT_BL = :FACT_BL,'
+      '  END_BL = :END_BL,'
+      '  END_L = :END_L'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2614,6 +2622,18 @@
       Precision = 18
       Size = 4
     end
+    object IBTARIF_MESEND_BL: TIBBCDField
+      FieldName = 'END_BL'
+      Origin = '"TARIF_MES"."END_BL"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESEND_L: TIBBCDField
+      FieldName = 'END_L'
+      Origin = '"TARIF_MES"."END_L"'
+      Precision = 18
+      Size = 2
+    end
   end
   object DSTARIF_MES: TDataSource
     DataSet = IBTARIF_MES
@@ -2668,5 +2688,69 @@
     Parameters = <>
     Left = 296
     Top = 240
+  end
+  object Dbf1: TDbf
+    IndexDefs = <>
+    TableLevel = 5
+    Left = 296
+    Top = 184
+  end
+  object IBSERVICE: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from SERVICE'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into SERVICE'
+      '  (ID, ADMINPW, FL_RASH)'
+      'values'
+      '  (:ID, :ADMINPW, :FL_RASH)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ADMINPW,'
+      '  FL_RASH'
+      'from SERVICE '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select *  from SERVICE')
+    ModifySQL.Strings = (
+      'update SERVICE'
+      'set'
+      '  ID = :ID,'
+      '  ADMINPW = :ADMINPW,'
+      '  FL_RASH = :FL_RASH'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_SERVICE_ID'
+    Left = 344
+    Top = 323
+    object IBSERVICEID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"SERVICE"."ID"'
+      Required = True
+    end
+    object IBSERVICEADMINPW: TIBStringField
+      FieldName = 'ADMINPW'
+      Origin = '"SERVICE"."ADMINPW"'
+      Size = 10
+    end
+    object IBSERVICEFL_RASH: TIntegerField
+      FieldName = 'FL_RASH'
+      Origin = '"SERVICE"."FL_RASH"'
+    end
+  end
+  object DІSERVICE: TDataSource
+    DataSet = IBSERVICE
+    Left = 344
+    Top = 379
   end
 end

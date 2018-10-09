@@ -5,6 +5,7 @@
   Position = poMainFormCenter
   WindowState = wsMaximized
   OnCreate = FormCreate
+  ExplicitTop = -8
   ExplicitWidth = 806
   ExplicitHeight = 667
   PixelsPerInch = 96
@@ -44,13 +45,43 @@
     Height = 403
     Align = alClient
     TabOrder = 1
+    ExplicitLeft = 137
+    ExplicitTop = 83
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       OnFocusedRecordChanged = cxGrid1DBTableView1FocusedRecordChanged
       DataController.DataSource = DSTARIF_MES
       DataController.KeyFieldNames = 'ID'
       DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1TARIF_PLAN
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1TARIF_FACT
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1TARIF_RN
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1TARIF_RK
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1TARIF_END
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1END_BL
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1END_L
+        end>
       DataController.Summary.SummaryGroups = <
         item
           Links = <
@@ -77,7 +108,6 @@
       object cxGrid1DBTableView1NAME: TcxGridDBColumn
         Caption = #1053#1072#1079#1074#1072
         DataBinding.FieldName = 'NAME'
-        Options.Editing = False
         Width = 248
       end
       object cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn
@@ -88,37 +118,43 @@
       object cxGrid1DBTableView1TARIF_FACT: TcxGridDBColumn
         Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF_FACT'
+        Options.Editing = False
       end
       object cxGrid1DBTableView1TARIF_RN: TcxGridDBColumn
         Caption = #1042#1110#1076#1093'.'#1090#1072#1088'.'#1079#1072'.'#1087#1086#1087#1077#1088'.'#1084#1110#1089#1103#1094#1100' '
         DataBinding.FieldName = 'TARIF_RN'
-        Options.Editing = False
       end
       object cxGrid1DBTableView1TARIF_RK: TcxGridDBColumn
         Caption = #1042#1110#1076#1093#1080#1083#1077#1085#1085#1103' '#1090#1072#1088#1080#1092#1091' '
         DataBinding.FieldName = 'TARIF_RK'
+        Options.Editing = False
       end
       object cxGrid1DBTableView1TARIF_END: TcxGridDBColumn
         Caption = #1053#1072#1088#1072#1093#1086#1074#1072#1085#1080#1081' '#1090#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF_END'
-        Options.Editing = False
       end
       object cxGrid1DBTableView1NORMA: TcxGridDBColumn
         Caption = #1053#1086#1088#1084#1072
         DataBinding.FieldName = 'NORMA'
-        Width = 52
-      end
-      object cxGrid1DBTableView1NOTE: TcxGridDBColumn
-        Caption = #1053#1086#1090#1072#1090#1082#1080
-        DataBinding.FieldName = 'NOTE'
+        Width = 106
       end
       object cxGrid1DBTableView1PLAN_BL: TcxGridDBColumn
         DataBinding.FieldName = 'PLAN_BL'
+        Visible = False
       end
       object cxGrid1DBTableView1FACT_BL: TcxGridDBColumn
         DataBinding.FieldName = 'FACT_BL'
+        Visible = False
       end
-      object cxGrid1DBTableView1Column1: TcxGridDBColumn
+      object cxGrid1DBTableView1END_BL: TcxGridDBColumn
+        Caption = #1041#1077#1079' '#1083#1110#1092#1090#1072
+        DataBinding.FieldName = 'END_BL'
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1END_L: TcxGridDBColumn
+        Caption = #1051#1110#1092#1090
+        DataBinding.FieldName = 'END_L'
+        Options.Editing = False
       end
     end
     object cxGrid1Level1: TcxGridLevel
@@ -250,7 +286,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 116
+      Height = 164
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -266,11 +302,13 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 117
+      Top = 165
       Width = 167
-      Height = 285
+      Height = 237
       Align = alClient
       TabOrder = 1
+      ExplicitTop = 101
+      ExplicitHeight = 301
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -292,6 +330,7 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -356,12 +395,12 @@
       
         '  (ID, ID_TARIF, DATA, TARIF_PLAN, TARIF_FACT, TARIF_RN, TARIF_R' +
         'K, NORMA, '
-      '   TARIF_END, PLAN_BL, FACT_BL)'
+      '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
         'TARIF_RK, '
-      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL)')
+      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -374,7 +413,9 @@
       '  NORMA,'
       '  TARIF_END,'
       '  PLAN_BL,'
-      '  FACT_BL'
+      '  FACT_BL,'
+      '  END_BL,'
+      '  END_L'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -397,7 +438,9 @@
       '  NORMA = :NORMA,'
       '  TARIF_END = :TARIF_END,'
       '  PLAN_BL = :PLAN_BL,'
-      '  FACT_BL = :FACT_BL'
+      '  FACT_BL = :FACT_BL,'
+      '  END_BL = :END_BL,'
+      '  END_L = :END_L'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -467,6 +510,18 @@
       Precision = 18
       Size = 4
     end
+    object IBTARIFUPDEND_BL: TIBBCDField
+      FieldName = 'END_BL'
+      Origin = '"TARIF_MES"."END_BL"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDEND_L: TIBBCDField
+      FieldName = 'END_L'
+      Origin = '"TARIF_MES"."END_L"'
+      Precision = 18
+      Size = 2
+    end
     object IBTARIFUPDWID: TIBStringField
       FieldName = 'WID'
       Origin = '"POSL"."WID"'
@@ -528,7 +583,7 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_POSL_ID'
-    Left = 352
+    Left = 424
     Top = 520
     object IBPOSLID: TIntegerField
       FieldName = 'ID'
@@ -555,7 +610,7 @@
   end
   object DSPOSL: TDataSource
     DataSet = IBPOSL
-    Left = 352
+    Left = 424
     Top = 568
   end
   object IBTARIF_COMP: TIBDataSet
@@ -610,7 +665,7 @@
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_TARIF_COMP_ID'
     DataSource = DSTARIF_MES
-    Left = 120
+    Left = 112
     Top = 520
     object IBTARIF_COMPID: TIntegerField
       FieldName = 'ID'
@@ -653,10 +708,10 @@
   end
   object DSTARIF_COMP: TDataSource
     DataSet = IBTARIF_COMP
-    Left = 120
-    Top = 576
+    Left = 112
+    Top = 568
   end
-  object IBQuery1: TIBQuery
+  object IBQSoftproect1: TIBQuery
     Database = DataM.IBDatabase2
     Transaction = IBTransaction2
     BufferChunks = 1000
@@ -717,8 +772,8 @@
       ')'
       'group by ID_HOUSE, STREET,ID_STREET, N_BUD'
       'order by ID_HOUSE, STREET,ID_STREET, N_BUD')
-    Left = 448
-    Top = 400
+    Left = 296
+    Top = 112
     ParamData = <
       item
         DataType = ftUnknown
@@ -820,7 +875,7 @@
   object DSTARIF_DOM: TDataSource
     DataSet = IBTARIF_DOM
     Left = 168
-    Top = 560
+    Top = 568
   end
   object IBDOM: TIBDataSet
     Database = DataM.IBDatabase1
@@ -864,7 +919,7 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_DOM_ID'
-    Left = 432
+    Left = 504
     Top = 520
     object IBDOMID: TIntegerField
       FieldName = 'ID'
@@ -936,7 +991,7 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_UL_ID'
-    Left = 392
+    Left = 464
     Top = 520
     object IBULID: TIntegerField
       FieldName = 'ID'
@@ -963,12 +1018,12 @@
   end
   object DSUL: TDataSource
     DataSet = IBUL
-    Left = 392
+    Left = 464
     Top = 576
   end
   object DSDOM: TDataSource
     DataSet = IBDOM
-    Left = 432
+    Left = 504
     Top = 576
   end
   object IBQuery2: TIBQuery
@@ -977,84 +1032,8 @@
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
-    SQL.Strings = (
-      ' select ID_HOUSE,'
-      '       '#39'ub'#39' as WID,'
-      '       STREET,'
-      '       ID_STREET,'
-      '       N_BUD,'
-      '       sum(FACT_SUMM_BEZ_LIFT) FACT_BL,'
-      '       sum(NORM_SUMM_BEZ_LIFT) NORM_BL,'
-      '       sum(FACT_SUMM_S_LIFT) FACT,'
-      '       sum(NORM_SUMM_S_LIFT) NORM'
-      'from'
-      '('
-      '    select'
-      '        1                               "IsNotFirstFloat",'
-      '        B.id                            ID_HOUSE,'
-      '        "TaStreets"."Name"              STREET,'
-      '        "TaStreets".Id              ID_STREET,'
-      '        B."Number"                      N_BUD,'
-      '        0                               FACT_SUMM_BEZ_LIFT,'
-      '        0                               NORM_SUMM_BEZ_LIFT,'
-      '        T."PolID"                         USL,'
-      '        T."FactZatrat"                  FACT_SUMM_S_LIFT,'
-      '        T."NormatTarif"                 NORM_SUMM_S_LIFT'
-      '    from'
-      '        "TaBuilding" B'
-      
-        '            left join "PrRepSravnTarifDifuchetAnalit"(:BDate, :E' +
-        'Date, B."Analitika") T on 0=0'
-      '            left join "TaStreets" on "TaStreets".id = b."Street"'
-      '    where'
-      '        T."InTarif" = 1'
-      '  union'
-      '    select'
-      '        0                               "IsNotFirstFloat",'
-      '        B.id                            ID_HOUSE,'
-      '        "TaStreets"."Name"              STREET,'
-      '        "TaStreets".Id                ID_STREET,'
-      '        B."Number"                      N_BUD,'
-      '        T."FactZatrat"                  FACT_SUMM_BEZ_LIFT,'
-      '        T."NormatTarif"                 NORM_SUMM_BEZ_LIFT,'
-      '        T."PolID"                         USL,'
-      '        0                               FACT_SUMM_S_LIFT,'
-      '        0                               NORM_SUMM_S_LIFT'
-      '    from'
-      '        "TaBuilding" B'
-      
-        '            left join "PrRepSravnTarifDifuchetAnalit"(:BDate, :E' +
-        'Date, B."Analitika") T on 0=0'
-      '            left join "TaStreets" on "TaStreets".id = b."Street"'
-      '    where'
-      '        T."InTarif" = 1'
-      '        and coalesce(T."IsNotFirstFloat",0) = 0'
-      ')'
-      'group by ID_HOUSE, STREET,ID_STREET, N_BUD'
-      'order by ID_HOUSE, STREET,ID_STREET, N_BUD')
-    Left = 304
-    Top = 288
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'BDate'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'EDate'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'BDate'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'EDate'
-        ParamType = ptUnknown
-      end>
+    Left = 376
+    Top = 176
   end
   object IBPERIOD: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1090,8 +1069,8 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_PERIOD_ID'
-    Left = 136
-    Top = 312
+    Left = 32
+    Top = 288
     object IBPERIODID: TIntegerField
       FieldName = 'ID'
       Origin = '"PERIOD"."ID"'
@@ -1104,8 +1083,8 @@
   end
   object DІPERIOD: TDataSource
     DataSet = IBPERIOD
-    Left = 136
-    Top = 360
+    Left = 32
+    Top = 336
   end
   object IBTARIF_MES: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1123,12 +1102,12 @@
       
         '  (ID, ID_TARIF, DATA, TARIF_PLAN, TARIF_FACT, TARIF_RN, TARIF_R' +
         'K, NORMA, '
-      '   TARIF_END, PLAN_BL, FACT_BL)'
+      '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
         'TARIF_RK, '
-      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL)')
+      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1141,7 +1120,9 @@
       '  NORMA,'
       '  TARIF_END,'
       '  PLAN_BL,'
-      '  FACT_BL'
+      '  FACT_BL,'
+      '  END_BL,'
+      '  END_L'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1162,7 +1143,9 @@
       '  NORMA = :NORMA,'
       '  TARIF_END = :TARIF_END,'
       '  PLAN_BL = :PLAN_BL,'
-      '  FACT_BL = :FACT_BL'
+      '  FACT_BL = :FACT_BL,'
+      '  END_BL = :END_BL,'
+      '  END_L = :END_L'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1170,7 +1153,7 @@
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_TARIF_MES_ID'
     DataSource = DSPOSL
-    Left = 224
+    Left = 232
     Top = 520
     object IBTARIF_MESID: TIntegerField
       FieldName = 'ID'
@@ -1239,10 +1222,273 @@
       Origin = '"TARIF"."NAME"'
       Size = 50
     end
+    object IBTARIF_MESEND_BL: TIBBCDField
+      FieldName = 'END_BL'
+      Origin = '"TARIF_MES"."END_BL"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESEND_L: TIBBCDField
+      FieldName = 'END_L'
+      Origin = '"TARIF_MES"."END_L"'
+      Precision = 18
+      Size = 2
+    end
   end
   object DSTARIF_MES: TDataSource
     DataSet = IBTARIF_MES
-    Left = 224
-    Top = 552
+    Left = 232
+    Top = 568
+  end
+  object IBSERVICE: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from SERVICE'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into SERVICE'
+      '  (ID, ADMINPW, FL_RASH)'
+      'values'
+      '  (:ID, :ADMINPW, :FL_RASH)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ADMINPW,'
+      '  FL_RASH'
+      'from SERVICE '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select *  from SERVICE')
+    ModifySQL.Strings = (
+      'update SERVICE'
+      'set'
+      '  ID = :ID,'
+      '  ADMINPW = :ADMINPW,'
+      '  FL_RASH = :FL_RASH'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_SERVICE_ID'
+    Left = 96
+    Top = 291
+    object IBSERVICEID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"SERVICE"."ID"'
+      Required = True
+    end
+    object IBSERVICEADMINPW: TIBStringField
+      FieldName = 'ADMINPW'
+      Origin = '"SERVICE"."ADMINPW"'
+      Size = 10
+    end
+    object IBSERVICEFL_RASH: TIntegerField
+      FieldName = 'FL_RASH'
+      Origin = '"SERVICE"."FL_RASH"'
+    end
+  end
+  object DІSERVICE: TDataSource
+    DataSet = IBSERVICE
+    Left = 96
+    Top = 339
+  end
+  object IBTARIF_VID: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF_VID'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF_VID'
+      '  (ID, ID_POSL, NAME, CODE_SERVI)'
+      'values'
+      '  (:ID, :ID_POSL, :NAME, :CODE_SERVI)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_POSL,'
+      '  NAME,'
+      '  CODE_SERVI'
+      'from TARIF_VID '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from TARIF_VID')
+    ModifySQL.Strings = (
+      'update TARIF_VID'
+      'set'
+      '  ID = :ID,'
+      '  ID_POSL = :ID_POSL,'
+      '  NAME = :NAME,'
+      '  CODE_SERVI = :CODE_SERVI'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_VID_ID'
+    Left = 368
+    Top = 520
+    object IBTARIF_VIDID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF_VID"."ID"'
+      Required = True
+    end
+    object IBTARIF_VIDID_POSL: TIntegerField
+      FieldName = 'ID_POSL'
+      Origin = '"TARIF_VID"."ID_POSL"'
+      Required = True
+    end
+    object IBTARIF_VIDNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"TARIF_VID"."NAME"'
+      Size = 301
+    end
+    object IBTARIF_VIDCODE_SERVI: TIntegerField
+      FieldName = 'CODE_SERVI'
+      Origin = '"TARIF_VID"."CODE_SERVI"'
+    end
+  end
+  object DSTARIF_VID: TDataSource
+    DataSet = IBTARIF_VID
+    Left = 368
+    Top = 568
+  end
+  object IBTARIF_INFO: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF_INFO'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF_INFO'
+      '  (ID, ID_TARIF, ID_TARIFMES, ID_TARVID, SPLAN, SFACT)'
+      'values'
+      '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_TARVID, :SPLAN, :SFACT)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_TARIF,'
+      '  ID_TARIFMES,'
+      '  ID_TARVID,'
+      '  SPLAN,'
+      '  SFACT'
+      'from TARIF_INFO '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from TARIF_INFO')
+    ModifySQL.Strings = (
+      'update TARIF_INFO'
+      'set'
+      '  ID = :ID,'
+      '  ID_TARIF = :ID_TARIF,'
+      '  ID_TARIFMES = :ID_TARIFMES,'
+      '  ID_TARVID = :ID_TARVID,'
+      '  SPLAN = :SPLAN,'
+      '  SFACT = :SFACT'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_INFO_ID'
+    Left = 304
+    Top = 520
+    object IBTARIF_INFOID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF_INFO"."ID"'
+      Required = True
+    end
+    object IBTARIF_INFOID_TARIF: TIntegerField
+      FieldName = 'ID_TARIF'
+      Origin = '"TARIF_INFO"."ID_TARIF"'
+    end
+    object IBTARIF_INFOID_TARIFMES: TIntegerField
+      FieldName = 'ID_TARIFMES'
+      Origin = '"TARIF_INFO"."ID_TARIFMES"'
+    end
+    object IBTARIF_INFOID_TARVID: TIntegerField
+      FieldName = 'ID_TARVID'
+      Origin = '"TARIF_INFO"."ID_TARVID"'
+    end
+    object IBTARIF_INFOSPLAN: TIBBCDField
+      FieldName = 'SPLAN'
+      Origin = '"TARIF_INFO"."SPLAN"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_INFOSFACT: TIBBCDField
+      FieldName = 'SFACT'
+      Origin = '"TARIF_INFO"."SFACT"'
+      Precision = 18
+      Size = 2
+    end
+  end
+  object DSTARIF_INFO: TDataSource
+    DataSet = IBTARIF_INFO
+    Left = 304
+    Top = 568
+  end
+  object IBQSoftproect2: TIBQuery
+    Database = DataM.IBDatabase2
+    Transaction = IBTransaction2
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      'select'
+      '    B.id                    ID_HOUSE,'
+      '    '#39'ub'#39' as WID,'
+      '    "TaStreets"."Name"    STREET, '
+      '    "TaStreets".id         id_street,  '
+      '    B."Number"            N_BUD, '
+      '    T."PolName",         '
+      '    T."Code"                CODE_SERVI,'
+      '    T."FactZatrat"          FACT,'
+      '    T."NormatTarif"         NORM '
+      'from'
+      '    "TaBuilding" B'
+      
+        '        left join "PrRepSravnTarifDifuchetAnalit"(:BDate, :EDate' +
+        ', B."Analitika") T on 0=0'
+      '        left join "TaStreets" on "TaStreets".id = b."Street"'
+      'where'
+      '   T."InTarif" = 1'
+      'order by "TaStreets"."Name", B."Number", T."Code"')
+    Left = 384
+    Top = 112
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'BDate'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'EDate'
+        ParamType = ptUnknown
+      end>
+  end
+  object IBQuery1: TIBQuery
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    Left = 296
+    Top = 176
   end
 end

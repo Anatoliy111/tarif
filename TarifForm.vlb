@@ -36,7 +36,7 @@ Coordinates=355,10,54,58
 Coordinates=273,10,72,58
 
 []
-Coordinates=896,881,91,36
+Coordinates=736,661,103,36
 Visible=True
 
 [cxButton2]
@@ -88,9 +88,6 @@ Coordinates=831,1,156,36
 [Panel2]
 Coordinates=458,232,54,58
 
-[IBTARIFUPDID]
-Coordinates=736,661,103,36
-
 [Main.IBTARIF_MES]
 Coordinates=125,1,130,300
 
@@ -118,9 +115,6 @@ Coordinates=16,187,104,36
 [cxGrid1DBTableView1TARIF_END]
 Coordinates=846,111,214,36
 
-[IBTARIFUPDTARIF_FACT]
-Coordinates=831,166,168,36
-
 [Main.DSTARIF_DOM]
 Coordinates=529,576,137,36
 
@@ -139,12 +133,6 @@ Coordinates=704,155,72,58
 [IBTARIF_MESTARIF_RN]
 Coordinates=831,276,160,36
 
-[IBTARIFUPDPLAN_BL]
-Coordinates=831,331,146,36
-
-[IBTARIFUPDTARIF_RK]
-Coordinates=831,386,152,36
-
 [cxGridLevel1]
 Coordinates=736,875,90,36
 
@@ -156,9 +144,6 @@ Coordinates=831,441,157,36
 
 [cxButton5]
 Coordinates=704,78,72,58
-
-[IBTARIFUPDDOM]
-Coordinates=1098,56,120,36
 
 [cxGrid1DBTableView1PLAN_BL]
 Coordinates=846,496,200,36
@@ -189,9 +174,6 @@ Coordinates=1098,166,173,36
 
 [IBTARIF_DOMID_TARIFMES]
 Coordinates=1098,221,185,36
-
-[IBTARIFUPDWID]
-Coordinates=1098,276,115,36
 
 [DSDOM]
 Coordinates=450,1161,62,36
@@ -244,26 +226,17 @@ Coordinates=1105,606,173,36
 [IBTARIF_MESDATA]
 Coordinates=1105,661,132,36
 
-[IBTARIFUPDID_TARIF]
-Coordinates=1105,716,147,36
-
 [IBTARIF_DOMID]
 Coordinates=1105,771,113,36
 
 [IBDOMID_UL]
 Coordinates=736,1040,92,36
 
-[IBTARIFUPDFACT_BL]
-Coordinates=1105,826,146,36
-
 [IBDOMCH]
 Coordinates=736,1095,75,36
 
 [IBQuery2]
 Coordinates=736,309,69,58
-
-[IBTARIFUPDNORMA]
-Coordinates=1105,881,138,36
 
 [IBDOMDOM]
 Coordinates=736,1150,86,36
@@ -273,9 +246,6 @@ Coordinates=293,1,54,58
 
 [cxButton9]
 Coordinates=736,540,72,58
-
-[IBTARIFUPDTARIF_PLAN]
-Coordinates=1105,936,168,36
 
 [IBTARIF_MESTARIF_END]
 Coordinates=1105,991,169,36
@@ -301,9 +271,6 @@ Coordinates=162,1161,93,36
 [IBUL]
 Coordinates=55,820,74,168
 
-[IBTARIFUPDTARIF_RN]
-Coordinates=0,1125,153,36
-
 [cxGridLevel2]
 Coordinates=896,771,90,36
 
@@ -328,9 +295,6 @@ Coordinates=354,801,98,322
 [Main.DSTARIF_COMP]
 Coordinates=274,232,146,36
 
-[cxGrid1DBTableView1NOTE]
-Coordinates=1414,221,179,36
-
 [IBTARIF_COMPNAME]
 Coordinates=1414,276,145,36
 
@@ -348,9 +312,6 @@ Coordinates=1414,496,155,36
 
 [IBULID]
 Coordinates=458,779,56,36
-
-[IBTARIFUPDPOSL]
-Coordinates=837,1161,124,36
 
 [Main.IBQuery1]
 Coordinates=428,592,100,58
@@ -373,14 +334,8 @@ Coordinates=529,840,100,168
 [cxGridDBTableView1]
 Coordinates=1414,716,137,36
 
-[IBTARIFUPDDATA]
-Coordinates=1414,771,124,36
-
 [IBTARIF_DOMNAME]
 Coordinates=1414,826,137,36
-
-[IBQuery1]
-Coordinates=736,463,69,58
 
 [IBULKL]
 Coordinates=736,1205,59,36
@@ -390,9 +345,6 @@ Coordinates=125,320,76,36
 
 [IBDOMID_HOUSE]
 Coordinates=1414,881,121,36
-
-[IBTARIFUPDTARIF_END]
-Coordinates=1414,936,161,36
 
 [IBULVAL]
 Coordinates=896,826,67,36
@@ -409,6 +361,6 @@ Coordinates=529,763,100,58
 [DBLookupListBox1]
 Coordinates=1414,1046,124,36
 
-[cxGrid1DBTableView1Column1]
-Coordinates=1414,1101,195,36
+[IBQSoftproect1]
+Coordinates=736,463,69,58
 

@@ -80,6 +80,15 @@ type
     IBTARIF_DOMID_DOM: TIntegerField;
     IBTARIF_DOMNAME: TIBStringField;
     IBTARIF_DOMID_TARIFMES: TIntegerField;
+    cxButton1: TcxButton;
+    Label4: TLabel;
+    IBQuery2: TIBQuery;
+    IBPERIOD: TIBDataSet;
+    IBPERIODID: TIntegerField;
+    IBPERIODDATA: TDateField;
+    DІPERIOD: TDataSource;
+    IBTARIF_MESEND_BL: TIBBCDField;
+    IBTARIF_MESEND_L: TIBBCDField;
     procedure IBPOSLBeforePost(DataSet: TDataSet);
     procedure IBDOMBeforePost(DataSet: TDataSet);
     procedure IBULBeforePost(DataSet: TDataSet);
@@ -90,6 +99,7 @@ type
     procedure IBTARIF_COMPBeforePost(DataSet: TDataSet);
     procedure IBTARIF_DOMBeforePost(DataSet: TDataSet);
     procedure IBTARIF_MESBeforePost(DataSet: TDataSet);
+    procedure cxButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -99,12 +109,91 @@ type
 var
   ImpForm: TImpForm;
   FilePath, FileName: String;
+  LastPeriod:TDate;
 
 implementation
 
 {$R *.dfm}
 
-uses MainForm, mytools, Progress;
+uses MainForm, mytools, Progress, DataMod;
+
+procedure TImpForm.cxButton1Click(Sender: TObject);
+begin
+  inherited;
+IBTARIF_MES.Active:=false;
+IBTARIF_COMP.Active:=false;
+IBTARIF_DOM.Active:=false;
+IBPERIOD.Active:=false;
+IBTARIF_MES.Active:=true;
+IBTARIF_COMP.Active:=true;
+IBTARIF_DOM.Active:=true;
+IBPERIOD.Active:=true;
+      if DataM.IBDatabaseInfo1.UserNames.Count > 1 then
+      begin
+          ShowMessage('Програма відкрита іншим користувачем. Повернення місяця не можливий!!! Щоб повернути місяць треба закрити програму іншим користувачам ');
+          Exit;
+      end;
+
+
+
+Prores.Show;
+         Prores.Label1.Caption:='Повернення місяця';
+         Application.ProcessMessages;
+
+         Prores.cxProgressBar1.Visible:=true;
+         Prores.cxProgressBar1.Position:=0;
+         Prores.cxProgressBar1.Properties.Min:=0;
+         IBQuery1.Active:=false;
+         IBQuery1.SQL.Text:='select * from tarif_mes where tarif_mes.data=:dt';
+         IBQuery1.ParamByName('dt').Value:=IBPERIODDATA.Value;
+         IBQuery1.Active:=true;
+         IBQuery1.Last;
+         Prores.cxProgressBar1.Properties.Max:=IBQuery1.RecordCount-1;
+         Application.ProcessMessages;
+
+
+        IBQuery1.First;
+        while not IBQuery1.Eof do
+        begin
+          Prores.cxProgressBar1.Position:=Prores.cxProgressBar1.Position+1;
+          Application.ProcessMessages;
+          if not Prores.Showing then
+             Break;
+
+         IBQuery2.Active:=false;
+         IBQuery2.SQL.Text:='delete from tarif_dom where id_tarifmes=:idmes';
+         IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
+         IBQuery2.ExecSQL;
+
+         IBQuery2.Active:=false;
+         IBQuery2.SQL.Text:='delete from tarif_comp where id_tarifmes=:idmes';
+         IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
+         IBQuery2.ExecSQL;
+
+
+
+
+        IBQuery1.Next;
+        end;
+
+         IBQuery1.Active:=false;
+         IBQuery1.SQL.Text:='delete from tarif_mes where tarif_mes.data=:dt';
+         IBQuery1.ParamByName('dt').Value:=IBPERIODDATA.Value;
+         IBQuery1.ExecSQL;
+
+
+        Prores.cxProgressBar1.Position:=0;
+        Prores.Close;
+        IBPERIOD.Delete;
+        IBTransaction1.CommitRetaining;
+        main.IBPERIOD.Close;
+        main.IBPERIOD.Open;
+        main.Period:=main.IBPERIODDATA.Value;
+        main.cxBarEditItem4.Caption:='                    '+mon_slovoDt(main.IBPERIODDATA.Value);
+        ADOQuery1.Close;
+        ADOConnectionDBF.Connected:=false;
+      messagedlg('Повернення завершено!',mtInformation,[mbOK],0);
+end;
 
 procedure TImpForm.cxButton6Click(Sender: TObject);
 var     adostr:WideString;
@@ -409,22 +498,29 @@ procedure TImpForm.FormCreate(Sender: TObject);
 begin
   inherited;
 IBPOSL.Active:=true;
+IBPERIOD.Active:=true;
 IBUL.Active:=true;
 IBDOM.Active:=true;
 IBTARIF.Active:=true;
 IBTARIF_COMP.Active:=true;
 IBTARIF_DOM.Active:=true;
+LastPeriod:=IncMonth(main.IBPERIODDATA.Value,-1);
+Label4.Caption:='                    '+mon_slovoDt(LastPeriod);
 end;
 
 procedure TImpForm.FormShow(Sender: TObject);
 begin
   inherited;
 IBPOSL.Active:=true;
+IBPERIOD.Active:=true;
 IBUL.Active:=true;
 IBDOM.Active:=true;
 IBTARIF.Active:=true;
+IBTARIF_MES.Active:=true;
 IBTARIF_COMP.Active:=true;
 IBTARIF_DOM.Active:=true;
+LastPeriod:=IncMonth(main.IBPERIODDATA.Value,-1);
+Label4.Caption:='                    '+mon_slovoDt(LastPeriod);
 end;
 
 procedure TImpForm.IBDOMBeforePost(DataSet: TDataSet);

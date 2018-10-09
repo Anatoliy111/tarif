@@ -4,6 +4,7 @@ object DataM: TDataM
   Height = 341
   Width = 645
   object IBDatabase1: TIBDatabase
+    Connected = True
     DatabaseName = 'D:\WORK\KOMUN\TARIF\TARIF.FDB'
     Params.Strings = (
       'user_name=sysdba'
@@ -24,5 +25,10 @@ object DataM: TDataM
     AllowStreamedConnected = False
     Left = 128
     Top = 24
+  end
+  object IBDatabaseInfo1: TIBDatabaseInfo
+    Database = IBDatabase1
+    Left = 40
+    Top = 80
   end
 end

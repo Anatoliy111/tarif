@@ -1,11 +1,11 @@
-inherited ImpForm: TImpForm
+﻿inherited ImpForm: TImpForm
   Caption = 'ImpForm'
-  ClientHeight = 329
-  ClientWidth = 564
+  ClientHeight = 594
+  ClientWidth = 692
   OnCreate = FormCreate
   OnShow = FormShow
-  ExplicitWidth = 580
-  ExplicitHeight = 367
+  ExplicitWidth = 708
+  ExplicitHeight = 632
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel [0]
@@ -29,13 +29,20 @@ inherited ImpForm: TImpForm
     Height = 13
     Caption = ' '#1087#1086' '#1082#1083#1102#1095#1091' '#1074#1091#1083#1080#1094#1110' KL_UL '#1090#1072' '#8470#1073#1091#1076#1080#1085#1082#1091
   end
+  object Label4: TLabel [3]
+    Left = 223
+    Top = 306
+    Width = 18
+    Height = 13
+    Caption = '111'
+  end
   inherited Panel1: TPanel
-    Top = 291
-    Width = 564
+    Top = 556
+    Width = 692
     ExplicitTop = 291
     ExplicitWidth = 564
   end
-  object cxButton6: TcxButton [4]
+  object cxButton6: TcxButton [5]
     Left = 24
     Top = 154
     Width = 193
@@ -46,7 +53,7 @@ inherited ImpForm: TImpForm
     TabOrder = 1
     OnClick = cxButton6Click
   end
-  object cxCheckGroup1: TcxCheckGroup [5]
+  object cxCheckGroup1: TcxCheckGroup [6]
     Left = 32
     Top = 16
     Caption = 'cxCheckGroup1'
@@ -67,7 +74,19 @@ inherited ImpForm: TImpForm
     Height = 105
     Width = 257
   end
+  object cxButton1: TcxButton [7]
+    Left = 24
+    Top = 301
+    Width = 193
+    Height = 25
+    Caption = #1055#1086#1074#1077#1088#1085#1091#1090#1080' '#1084#1110#1089#1103#1094#1100' '#1085#1072#1079#1072#1076
+    LookAndFeel.Kind = lfUltraFlat
+    LookAndFeel.NativeStyle = False
+    TabOrder = 3
+    OnClick = cxButton1Click
+  end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Left = 384
     Top = 96
   end
@@ -586,12 +605,12 @@ inherited ImpForm: TImpForm
       
         '  (ID, ID_TARIF, DATA, TARIF_PLAN, TARIF_FACT, TARIF_RN, TARIF_R' +
         'K, NORMA, '
-      '   TARIF_END, PLAN_BL, FACT_BL)'
+      '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
         'TARIF_RK, '
-      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL)')
+      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -604,7 +623,9 @@ inherited ImpForm: TImpForm
       '  NORMA,'
       '  TARIF_END,'
       '  PLAN_BL,'
-      '  FACT_BL'
+      '  FACT_BL,'
+      '  END_BL,'
+      '  END_L'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -624,7 +645,9 @@ inherited ImpForm: TImpForm
       '  NORMA = :NORMA,'
       '  TARIF_END = :TARIF_END,'
       '  PLAN_BL = :PLAN_BL,'
-      '  FACT_BL = :FACT_BL'
+      '  FACT_BL = :FACT_BL,'
+      '  END_BL = :END_BL,'
+      '  END_L = :END_L'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -694,10 +717,82 @@ inherited ImpForm: TImpForm
       Precision = 18
       Size = 4
     end
+    object IBTARIF_MESEND_BL: TIBBCDField
+      FieldName = 'END_BL'
+      Origin = '"TARIF_MES"."END_BL"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESEND_L: TIBBCDField
+      FieldName = 'END_L'
+      Origin = '"TARIF_MES"."END_L"'
+      Precision = 18
+      Size = 2
+    end
   end
   object DataSource1: TDataSource
     DataSet = IBTARIF_MES
     Left = 216
     Top = 232
+  end
+  object IBQuery2: TIBQuery
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    Left = 528
+    Top = 192
+  end
+  object IBPERIOD: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from PERIOD'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into PERIOD'
+      '  (ID, DATA)'
+      'values'
+      '  (:ID, :DATA)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  DATA'
+      'from PERIOD '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select *  from PERIOD order by data desc')
+    ModifySQL.Strings = (
+      'update PERIOD'
+      'set'
+      '  ID = :ID,'
+      '  DATA = :DATA'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_PERIOD_ID'
+    Left = 288
+    Top = 288
+    object IBPERIODID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"PERIOD"."ID"'
+      Required = True
+    end
+    object IBPERIODDATA: TDateField
+      FieldName = 'DATA'
+      Origin = '"PERIOD"."DATA"'
+    end
+  end
+  object DІPERIOD: TDataSource
+    DataSet = IBPERIOD
+    Left = 288
+    Top = 336
   end
 end
