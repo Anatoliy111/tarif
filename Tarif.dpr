@@ -16,7 +16,8 @@ uses
   Ins in 'Ins.pas' {InsForm},
   Import in 'Import.pas' {ImpForm},
   Progress in 'Progress.pas' {Prores},
-  ReportForm in 'ReportForm.pas' {Report};
+  ReportForm in 'ReportForm.pas' {Report},
+  Info in 'Info.pas' {InfoForm};
 
 {$R *.res}
 
@@ -33,6 +34,7 @@ begin
   Application.CreateForm(TMain, Main);
   Application.CreateForm(TAbout, About);
   Application.CreateForm(TProres, Prores);
+  Application.CreateForm(TInfoForm, InfoForm);
   Start.Free;
   Application.Run;
 end.

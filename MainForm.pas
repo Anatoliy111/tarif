@@ -163,6 +163,8 @@ type
     IBSERVICEFL_RASH: TIntegerField;
     IBTARIF_MESEND_BL: TIBBCDField;
     IBTARIF_MESEND_L: TIBBCDField;
+    ADOQuery2: TADOQuery;
+    IBQuery3: TIBQuery;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -182,7 +184,7 @@ type
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
     procedure Newmes;
-    function OpenKvart :string;overload;
+    function OpenKvart(ff:string) :string;overload;
 //    function FFile(path:string):string;
 
     public
@@ -273,8 +275,8 @@ begin
             case MessageBox(handle,pchar('ўоб перейти на новий м≥с€ць треба закрити вс≥ форми!'),pchar(''),MB_OKCANCEL) of
               mrOK:begin
                       dxBarButton42.Click;
-        //            IBTransaction1.Active:=false;
-        //            IBTransaction1.Active:=true;
+        //            IBTransaction1.close;
+        //            IBTransaction1.open;
 
                    end;
               mrCANCEL:begin
@@ -289,8 +291,8 @@ begin
           Exit;
       end;
 
-      IBSERVICE.Active:=false;
-      IBSERVICE.Active:=true;
+      IBSERVICE.close;
+      IBSERVICE.open;
 
       if IBSERVICEFL_RASH.Value = 0 then
       begin
@@ -338,7 +340,7 @@ begin
 end;
 
 
-function TMain.OpenKvart: string;
+function TMain.OpenKvart(ff:string): string;
 var     adostr:WideString;
   F: TSearchRec;
   Path,ffile,mes: string;
@@ -357,7 +359,7 @@ begin
 
     ADOConnectionDBF.ConnectionString:=adostr;
     ADOConnectionDBF.Connected:=true;
-    ffile:= 'tr'+Date2Str(IBPERIODDATA.Value,'yyyyMM');
+    ffile:= ff+Date2Str(IBPERIODDATA.Value,'yyyyMM');
     Path:=DataM.dirKvart+ffile+'.dbf';
     Attr:=0;
     FindFirst(Path, Attr, F);
@@ -388,15 +390,30 @@ begin
 //ADOQuery1.SQL.Add('lift Numeric(1,0))');
 //ADOQuery1.ExecSQL;
 
-ADOCommand1.CommandText:='';
-ADOCommand1.CommandText:='create table '+ffile+' (id Numeric(10,0),'+
-                                               ' kl Numeric(5,0),'+
-                                               ' wid Character(2),'+
-                                               ' name Character(50),'+
-                                               ' tarif Numeric(9,4),'+
-                                               ' norma Numeric(9,3),'+
-                                               ' lift Numeric(1,0))';
-ADOCommand1.Execute;
+    if ff='tt' then
+    begin
+    ADOCommand1.CommandText:='';
+    ADOCommand1.CommandText:='create table '+ffile+' (id Numeric(10,0),'+
+                                                   ' kl Numeric(5,0),'+
+                                                   ' wid Character(2),'+
+                                                   ' name Character(50),'+
+                                                   ' tarif Numeric(9,4),'+
+                                                   ' norma Numeric(9,3),'+
+                                                   ' lift Numeric(1,0))';
+    ADOCommand1.Execute;
+    end;
+    if ff='in' then
+    begin
+    ADOCommand1.CommandText:='';
+    ADOCommand1.CommandText:='create table '+ffile+' (id_tr Numeric(10,0),'+
+                                                   ' code_ser Numeric(11),'+
+                                                   ' wid Character(2),'+
+                                                   ' name Character(254),'+
+                                                   ' plan Numeric(9,2),'+
+                                                   ' fact Numeric(9,4))';
+
+    ADOCommand1.Execute;
+    end;
 // ѕровайдер Microsoft.Jet.OLEDB.4.0, при создании таблици с полем Numeric,
 // ширина всегда будет 19,5 или 20,5 - особенность провайдера.
 
@@ -411,39 +428,49 @@ ADOCommand1.Execute;
 end;
 
 procedure TMain.Newmes;
-var ffile:string;
+var fftt,ffin:string;
 begin
-IBTARIF_MES.Active:=false;
-IBTARIF_COMP.Active:=false;
-IBTARIF_DOM.Active:=false;
-IBTARIF_MES.Active:=true;
-IBTARIF_COMP.Active:=true;
-IBTARIF_DOM.Active:=true;
+IBTARIF_MES.close;
+IBTARIF_COMP.close;
+IBTARIF_DOM.close;
+IBTARIF_MES.open;
+IBTARIF_COMP.open;
+IBTARIF_DOM.open;
 Prores.Show;
          Prores.Label1.Caption:='ѕерех≥д на новий м≥с€ць';
          Application.ProcessMessages;
-            ffile:=OpenKvart;
-            if ffile='' then
+            fftt:=OpenKvart('tt');
+            if fftt='' then
             begin
               Prores.Close;
               exit;
-            end
-            else
+            end;
+            ffin:=OpenKvart('in');
+            if ffin='' then
             begin
+              Prores.Close;
+              exit;
+            end;
+
              ADOQuery1.Close;
              ADOQuery1.SQL.Clear;
-             ADOQuery1.SQL.Add('select * from '+ffile);
+             ADOQuery1.SQL.Add('select * from '+fftt);
              ADOQuery1.Open;
-            end;
+
+             ADOQuery2.Close;
+             ADOQuery2.SQL.Clear;
+             ADOQuery2.SQL.Add('select * from '+ffin);
+             ADOQuery2.Open;
+
 
 
          Prores.cxProgressBar1.Visible:=true;
          Prores.cxProgressBar1.Position:=0;
          Prores.cxProgressBar1.Properties.Min:=0;
-         IBQuery1.Active:=false;
+         IBQuery1.close;
          IBQuery1.SQL.Text:='select * from tarif_mes where tarif_mes.data=:dt';
          IBQuery1.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
-         IBQuery1.Active:=true;
+         IBQuery1.open;
          IBQuery1.Last;
          Prores.cxProgressBar1.Properties.Max:=IBQuery1.RecordCount-1;
          Application.ProcessMessages;
@@ -465,10 +492,10 @@ Prores.Show;
           IBTARIF_MESTARIF_END.Value:=iif(IBQuery1.FieldByName('TARIF_END').Value=null,0,IBQuery1.FieldByName('TARIF_END').Value);
           IBTARIF_MES.Post;
 
-          IBQuery2.Active:=false;
+          IBQuery2.close;
          IBQuery2.SQL.Text:='select * from tarif_dom where id_tarifmes=:idmes';
          IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
-         IBQuery2.Active:=true;
+         IBQuery2.open;
          IBQuery2.First;
          while not IBQuery2.Eof do
          begin
@@ -483,11 +510,13 @@ Prores.Show;
 
 
 
-         IBQuery2.Active:=false;
+         IBQuery2.close;
          IBQuery2.SQL.Text:='select tarif_comp.*, tarif.name as nnn, posl.wid from tarif_comp, tarif,posl where id_tarifmes=:idmes and tarif_comp.id_tarif=tarif.id and posl.id=tarif.id_posl';
          IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
-         IBQuery2.Active:=true;
+         IBQuery2.open;
          IBQuery2.First;
+         ADOQuery1.Open;
+         ADOQuery2.Open;
          while not IBQuery2.Eof do
          begin
            IBTARIF_COMP.Insert;
@@ -508,6 +537,25 @@ Prores.Show;
            ADOQuery1.FieldByName('norma').Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
            ADOQuery1.FieldByName('tarif').Value:=iif(IBQuery2.FieldByName('SUMM').Value=null,0,IBQuery2.FieldByName('SUMM').Value);
            ADOQuery1.Post;
+
+             IBQuery3.close;
+             IBQuery3.SQL.Text:='select tarif_inf.*, tarif_vid.name as nnn, tarif_vid.code_servi from tarif_inf, tarif_vid where tarif_inf.id_tarifmes=:idmes and tarif_inf.id_tarvid=tarif_vid.id';
+             IBQuery3.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
+             IBQuery3.open;
+             IBQuery3.First;
+             while not IBQuery3.Eof do
+             begin
+               ADOQuery2.Insert;
+               ADOQuery2.FieldByName('id_tr').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
+               ADOQuery2.FieldByName('code_ser').Value:=IBQuery3.FieldByName('code_servi').Value;
+               ADOQuery2.FieldByName('name').Value:=StringReplace(IBQuery3.FieldByName('nnn').Value, '≥', 'i',[rfReplaceAll, rfIgnoreCase]);
+               ADOQuery2.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').Value;
+               ADOQuery2.FieldByName('plan').Value:=iif(IBQuery3.FieldByName('s_plan').Value=null,0,IBQuery3.FieldByName('s_plan').Value);
+               ADOQuery2.FieldByName('fact').Value:=iif(IBQuery3.FieldByName('s_fact').Value=null,0,IBQuery3.FieldByName('s_fact').Value);
+               ADOQuery2.Post;
+
+             IBQuery3.Next;
+             end;
 
          IBQuery2.Next;
          end;
@@ -624,11 +672,11 @@ end;
 
 procedure TMain.FormCreate(Sender: TObject);
 begin
-IBTransaction1.Active:=true;
-IBPERIOD.Active:=true;
+IBTransaction1.StartTransaction;
+IBPERIOD.open;
 cxBarEditItem4.Caption:='                    '+mon_slovoDt(IBPERIODDATA.Value);
 Period:=IBPERIODDATA.Value;
-IBSERVICE.Active:=true;
+IBSERVICE.open;
 end;
 
 end.

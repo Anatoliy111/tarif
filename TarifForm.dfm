@@ -5,7 +5,6 @@
   Position = poMainFormCenter
   WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitTop = -8
   ExplicitWidth = 806
   ExplicitHeight = 667
   PixelsPerInch = 96
@@ -45,8 +44,6 @@
     Height = 403
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 137
-    ExplicitTop = 83
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       OnFocusedRecordChanged = cxGrid1DBTableView1FocusedRecordChanged
@@ -109,6 +106,18 @@
         Caption = #1053#1072#1079#1074#1072
         DataBinding.FieldName = 'NAME'
         Width = 248
+      end
+      object cxGrid1DBTableView1Column1: TcxGridDBColumn
+        Caption = '...'
+        PropertiesClassName = 'TcxButtonEditProperties'
+        Properties.Buttons = <
+          item
+            Default = True
+            Kind = bkEllipsis
+          end>
+        Properties.OnButtonClick = cxGrid1DBTableView1Column1PropertiesButtonClick
+        Options.ShowEditButtons = isebAlways
+        Width = 20
       end
       object cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn
         Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
@@ -286,7 +295,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 164
+      Height = 148
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -302,13 +311,11 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 165
+      Top = 149
       Width = 167
-      Height = 237
+      Height = 253
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 101
-      ExplicitHeight = 301
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -330,7 +337,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -1177,7 +1183,6 @@
     object IBTARIF_MESTARIF_FACT: TIBBCDField
       FieldName = 'TARIF_FACT'
       Origin = '"TARIF_MES"."TARIF_FACT"'
-      OnChange = IBTARIF_MESTARIF_FACTChange
       Precision = 18
       Size = 4
     end
@@ -1220,6 +1225,7 @@
     object IBTARIF_MESNAME: TIBStringField
       FieldName = 'NAME'
       Origin = '"TARIF"."NAME"'
+      OnChange = IBTARIF_MESNAMEChange
       Size = 50
     end
     object IBTARIF_MESEND_BL: TIBBCDField
@@ -1363,85 +1369,6 @@
     Left = 368
     Top = 568
   end
-  object IBTARIF_INFO: TIBDataSet
-    Database = DataM.IBDatabase1
-    Transaction = IBTransaction1
-    BufferChunks = 1000
-    CachedUpdates = False
-    DeleteSQL.Strings = (
-      'delete from TARIF_INFO'
-      'where'
-      '  ID = :OLD_ID')
-    InsertSQL.Strings = (
-      'insert into TARIF_INFO'
-      '  (ID, ID_TARIF, ID_TARIFMES, ID_TARVID, SPLAN, SFACT)'
-      'values'
-      '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_TARVID, :SPLAN, :SFACT)')
-    RefreshSQL.Strings = (
-      'Select '
-      '  ID,'
-      '  ID_TARIF,'
-      '  ID_TARIFMES,'
-      '  ID_TARVID,'
-      '  SPLAN,'
-      '  SFACT'
-      'from TARIF_INFO '
-      'where'
-      '  ID = :ID')
-    SelectSQL.Strings = (
-      'select * from TARIF_INFO')
-    ModifySQL.Strings = (
-      'update TARIF_INFO'
-      'set'
-      '  ID = :ID,'
-      '  ID_TARIF = :ID_TARIF,'
-      '  ID_TARIFMES = :ID_TARIFMES,'
-      '  ID_TARVID = :ID_TARVID,'
-      '  SPLAN = :SPLAN,'
-      '  SFACT = :SFACT'
-      'where'
-      '  ID = :OLD_ID')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'ID'
-    GeneratorField.Generator = 'GEN_TARIF_INFO_ID'
-    Left = 304
-    Top = 520
-    object IBTARIF_INFOID: TIntegerField
-      FieldName = 'ID'
-      Origin = '"TARIF_INFO"."ID"'
-      Required = True
-    end
-    object IBTARIF_INFOID_TARIF: TIntegerField
-      FieldName = 'ID_TARIF'
-      Origin = '"TARIF_INFO"."ID_TARIF"'
-    end
-    object IBTARIF_INFOID_TARIFMES: TIntegerField
-      FieldName = 'ID_TARIFMES'
-      Origin = '"TARIF_INFO"."ID_TARIFMES"'
-    end
-    object IBTARIF_INFOID_TARVID: TIntegerField
-      FieldName = 'ID_TARVID'
-      Origin = '"TARIF_INFO"."ID_TARVID"'
-    end
-    object IBTARIF_INFOSPLAN: TIBBCDField
-      FieldName = 'SPLAN'
-      Origin = '"TARIF_INFO"."SPLAN"'
-      Precision = 18
-      Size = 2
-    end
-    object IBTARIF_INFOSFACT: TIBBCDField
-      FieldName = 'SFACT'
-      Origin = '"TARIF_INFO"."SFACT"'
-      Precision = 18
-      Size = 2
-    end
-  end
-  object DSTARIF_INFO: TDataSource
-    DataSet = IBTARIF_INFO
-    Left = 304
-    Top = 568
-  end
   object IBQSoftproect2: TIBQuery
     Database = DataM.IBDatabase2
     Transaction = IBTransaction2
@@ -1490,5 +1417,121 @@
     ParamCheck = True
     Left = 296
     Top = 176
+  end
+  object IBTARIF_INF: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF_INF'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF_INF'
+      '  (ID, ID_TARIF, ID_TARIFMES, ID_TARVID, S_PLAN, S_FACT)'
+      'values'
+      '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_TARVID, :S_PLAN, :S_FACT)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_TARIF,'
+      '  ID_TARIFMES,'
+      '  ID_TARVID,'
+      '  S_PLAN,'
+      '  S_FACT'
+      'from TARIF_INF '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select TARIF_INF.* from TARIF_INF')
+    ModifySQL.Strings = (
+      'update TARIF_INF'
+      'set'
+      '  ID = :ID,'
+      '  ID_TARIF = :ID_TARIF,'
+      '  ID_TARIFMES = :ID_TARIFMES,'
+      '  ID_TARVID = :ID_TARVID,'
+      '  S_PLAN = :S_PLAN,'
+      '  S_FACT = :S_FACT'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_INF_ID'
+    Left = 304
+    Top = 520
+  end
+  object DSTARIF_INF: TDataSource
+    DataSet = IBTARIF_INF
+    Left = 304
+    Top = 568
+  end
+  object IBTARIF: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BeforePost = IBTARIFBeforePost
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF'
+      '  (ID, NAME, ID_POSL, NOTE)'
+      'values'
+      '  (:ID, :NAME, :ID_POSL, :NOTE)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  NAME,'
+      '  ID_POSL,'
+      '  NOTE'
+      'from TARIF '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from TARIF')
+    ModifySQL.Strings = (
+      'update TARIF'
+      'set'
+      '  ID = :ID,'
+      '  NAME = :NAME,'
+      '  ID_POSL = :ID_POSL,'
+      '  NOTE = :NOTE'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_ID'
+    Left = 160
+    Top = 296
+    object IBTARIFID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF"."ID"'
+      Required = True
+    end
+    object IBTARIFNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"TARIF"."NAME"'
+      Size = 50
+    end
+    object IBTARIFID_POSL: TIntegerField
+      FieldName = 'ID_POSL'
+      Origin = '"TARIF"."ID_POSL"'
+    end
+    object IBTARIFNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"TARIF"."NOTE"'
+      Size = 100
+    end
+  end
+  object DSTARIF: TDataSource
+    DataSet = IBTARIF
+    Left = 160
+    Top = 344
   end
 end

@@ -10,7 +10,8 @@ uses
   cxLookAndFeelPainters, StdCtrls, cxButtons, cxStyles,
   cxCustomData, cxFilter, cxData, cxDataStorage, cxDBData,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
-  cxClasses, cxGridCustomView, cxGrid, cxCurrencyEdit, cxCalc, cxLookAndFeels;
+  cxClasses, cxGridCustomView, cxGrid, cxCurrencyEdit, cxCalc, cxLookAndFeels,
+  Vcl.ExtCtrls;
 
 type
   TSpecif = class(TAllMDICh)
@@ -22,7 +23,6 @@ type
     cxLabel4: TcxLabel;
     cxLabel5: TcxLabel;
     cxLabel6: TcxLabel;
-    cxButton3: TcxButton;
     cxButton1: TcxButton;
     IBNAIM: TIBDataSet;
     IBNAIMEDIZM: TIBStringField;

@@ -61,7 +61,7 @@ begin
     case MessageBox(handle,pchar('«берегти зм≥ни?'),pchar(''),MB_OKCANCEL) of
       mrOK:begin
             IBTransaction1.CommitRetaining;
-//            IBTransaction1.Active:=false;
+//            IBTransaction1.close;
 //            IBTransaction1.Active:=true;
             self.fl_post:=0;
            end;
