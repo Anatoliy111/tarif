@@ -295,7 +295,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 148
+      Height = 132
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -311,9 +311,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 149
+      Top = 133
       Width = 167
-      Height = 253
+      Height = 269
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -633,11 +633,13 @@
       'insert into TARIF_COMP'
       
         '  (ID, ID_TARIF, ID_TARIFMES, NAME, SUMM, KL_NTAR, FL_LIFT, NORM' +
-        'A)'
+        'A, SPLAN, '
+      '   SFACT, SUMM_BL, SUMM_L)'
       'values'
       
         '  (:ID, :ID_TARIF, :ID_TARIFMES, :NAME, :SUMM, :KL_NTAR, :FL_LIF' +
-        'T, :NORMA)')
+        'T, :NORMA, '
+      '   :SPLAN, :SFACT, :SUMM_BL, :SUMM_L)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -647,7 +649,11 @@
       '  SUMM,'
       '  KL_NTAR,'
       '  FL_LIFT,'
-      '  NORMA'
+      '  NORMA,'
+      '  SPLAN,'
+      '  SFACT,'
+      '  SUMM_BL,'
+      '  SUMM_L'
       'from TARIF_COMP '
       'where'
       '  ID = :ID')
@@ -663,7 +669,11 @@
       '  SUMM = :SUMM,'
       '  KL_NTAR = :KL_NTAR,'
       '  FL_LIFT = :FL_LIFT,'
-      '  NORMA = :NORMA'
+      '  NORMA = :NORMA,'
+      '  SPLAN = :SPLAN,'
+      '  SFACT = :SFACT,'
+      '  SUMM_BL = :SUMM_BL,'
+      '  SUMM_L = :SUMM_L'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -710,6 +720,30 @@
       Origin = '"TARIF_COMP"."NORMA"'
       Precision = 18
       Size = 3
+    end
+    object IBTARIF_COMPSPLAN: TIBBCDField
+      FieldName = 'SPLAN'
+      Origin = '"TARIF_COMP"."SPLAN"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_COMPSFACT: TIBBCDField
+      FieldName = 'SFACT'
+      Origin = '"TARIF_COMP"."SFACT"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_COMPSUMM_BL: TIBBCDField
+      FieldName = 'SUMM_BL'
+      Origin = '"TARIF_COMP"."SUMM_BL"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_COMPSUMM_L: TIBBCDField
+      FieldName = 'SUMM_L'
+      Origin = '"TARIF_COMP"."SUMM_L"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIF_COMP: TDataSource

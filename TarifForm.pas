@@ -104,14 +104,6 @@ type
     IBTARIF_MESFACT_BL: TIBBCDField;
     IBTARIF_MESNAME: TIBStringField;
     IBTARIF_DOMID_TARIFMES: TIntegerField;
-    IBTARIF_COMPID: TIntegerField;
-    IBTARIF_COMPID_TARIF: TIntegerField;
-    IBTARIF_COMPID_TARIFMES: TIntegerField;
-    IBTARIF_COMPNAME: TIBStringField;
-    IBTARIF_COMPSUMM: TIBBCDField;
-    IBTARIF_COMPKL_NTAR: TIntegerField;
-    IBTARIF_COMPFL_LIFT: TIntegerField;
-    IBTARIF_COMPNORMA: TIBBCDField;
     cxGrid1DBTableView1PLAN_BL: TcxGridDBColumn;
     cxGrid1DBTableView1FACT_BL: TcxGridDBColumn;
     IBSERVICE: TIBDataSet;
@@ -156,6 +148,18 @@ type
     IBTARIFID_POSL: TIntegerField;
     IBTARIFNOTE: TIBStringField;
     cxGrid1DBTableView1Column1: TcxGridDBColumn;
+    IBTARIF_COMPID: TIntegerField;
+    IBTARIF_COMPID_TARIF: TIntegerField;
+    IBTARIF_COMPID_TARIFMES: TIntegerField;
+    IBTARIF_COMPNAME: TIBStringField;
+    IBTARIF_COMPSUMM: TIBBCDField;
+    IBTARIF_COMPKL_NTAR: TIntegerField;
+    IBTARIF_COMPFL_LIFT: TIntegerField;
+    IBTARIF_COMPNORMA: TIBBCDField;
+    IBTARIF_COMPSPLAN: TIBBCDField;
+    IBTARIF_COMPSFACT: TIBBCDField;
+    IBTARIF_COMPSUMM_BL: TIBBCDField;
+    IBTARIF_COMPSUMM_L: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -287,66 +291,28 @@ begin
          IBTARIFUPDEND_L.Value:=res;
          IBTARIFUPD.Post;
 
-         if res>0 then
+         if res<>0 then
          begin
-           IBTARIF_COMP.First;
-           if IBTARIF_COMP.Locate('ID_TARIFMES;FL_LIFT', VarArrayOf([IBTARIFUPDID.Value,0]),[]) then
-           begin
-             IBTARIF_COMP.Edit;
-             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value-res;
-             IBTARIF_COMP.Post;
-           end
-           else
-           begin
-//             IBTARIF_COMP.Insert;
-//             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
-//             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
-//             IBTARIF_COMPNAME.Value:=IBTARIFUPDPOSL.Value+' '+IBTARIFUPDDOM.Value;
-//             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value-res;
-//             IBTARIF_COMPFL_LIFT.Value:=0;
-//             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
-//             IBTARIF_COMP.Post;
-           end;
            IBTARIF_COMP.First;
            if IBTARIF_COMP.Locate('ID_TARIFMES;FL_LIFT', VarArrayOf([IBTARIFUPDID.Value,1]),[]) then
            begin
            IBTARIF_COMP.Edit;
              IBTARIF_COMPSUMM.Value:=res;
              IBTARIF_COMP.Post;
-           end
-           else
-           begin
-//             IBTARIF_COMP.Insert;
-//             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
-//             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
-//             IBTARIF_COMPNAME.Value:='Ëiôò '+IBTARIFUPDDOM.Value;
-//             IBTARIF_COMPSUMM.Value:=res;
-//             IBTARIF_COMPFL_LIFT.Value:=1;
-//             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
-//             IBTARIF_COMP.Post;
            end;
-         end
-         else
-         begin
+         end;
            IBTARIF_COMP.First;
            if IBTARIF_COMP.Locate('ID_TARIFMES;FL_LIFT', VarArrayOf([IBTARIFUPDID.Value,0]),[]) then
            begin
              IBTARIF_COMP.Edit;
-             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value-res;
+             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value;
+             IBTARIF_COMPSPLAN.Value:=IBTARIFUPDTARIF_PLAN.Value;
+             IBTARIF_COMPSFACT.Value:=IBTARIFUPDTARIF_FACT.Value;
+             IBTARIF_COMPSUMM_BL.Value:=IBTARIFUPDTARIF_END.Value-res;
+             IBTARIF_COMPSUMM_L.Value:=res;
              IBTARIF_COMP.Post;
-           end
-           else
-           begin
-//             IBTARIF_COMP.Insert;
-//             IBTARIF_COMPID_TARIF.Value:=IBTARIFUPDID_TARIF.Value;
-//             IBTARIF_COMPID_TARIFMES.Value:=IBTARIFUPDID.Value;
-//             IBTARIF_COMPNAME.Value:=IBTARIFUPDPOSL.Value+' '+IBTARIFUPDDOM.Value;
-//             IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value;
-//             IBTARIF_COMPFL_LIFT.Value:=0;
-//             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
-//             IBTARIF_COMP.Post;
            end;
-         end;
+
 
 //      end;
 
@@ -358,6 +324,7 @@ begin
            begin
              IBTARIF_COMP.Edit;
              IBTARIF_COMPSUMM.Value:=IBTARIFUPDTARIF_END.Value;
+             IBTARIF_COMPNORMA.Value:=IBTARIFUPDNORMA.Value;
              IBTARIF_COMP.Post;
            end
            else

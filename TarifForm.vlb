@@ -36,7 +36,7 @@ Coordinates=355,10,54,58
 Coordinates=273,10,72,58
 
 []
-Coordinates=736,661,103,36
+Coordinates=736,771,122,36
 Visible=True
 
 [cxButton2]
@@ -97,14 +97,8 @@ Coordinates=736,716,88,36
 [IBDOM]
 Coordinates=293,485,70,190
 
-[IBTARIF_COMPID_TARIFMES]
-Coordinates=846,56,193,36
-
 [IBPERIOD]
 Coordinates=293,87,75,102
-
-[IBTARIF_COMPID]
-Coordinates=736,771,122,36
 
 [Panel3]
 Coordinates=458,496,54,58
@@ -138,9 +132,6 @@ Coordinates=736,875,90,36
 
 [IBTARIF_MESID]
 Coordinates=1098,1,111,36
-
-[IBTARIF_COMPFL_LIFT]
-Coordinates=831,441,157,36
 
 [cxButton5]
 Coordinates=704,78,72,58
@@ -202,9 +193,6 @@ Coordinates=736,232,72,58
 [Main.DSTARIF_MES]
 Coordinates=529,257,135,36
 
-[IBTARIF_COMPID_TARIF]
-Coordinates=1105,441,165,36
-
 [DSUL]
 Coordinates=273,820,48,36
 
@@ -250,9 +238,6 @@ Coordinates=736,540,72,58
 [IBTARIF_MESTARIF_END]
 Coordinates=1105,991,169,36
 
-[IBTARIF_COMPSUMM]
-Coordinates=1105,1046,147,36
-
 [IBTARIF_DOMID_DOM]
 Coordinates=1105,1101,150,36
 
@@ -295,17 +280,8 @@ Coordinates=354,801,98,322
 [Main.DSTARIF_COMP]
 Coordinates=274,232,146,36
 
-[IBTARIF_COMPNAME]
-Coordinates=1414,276,145,36
-
-[IBTARIF_COMPKL_NTAR]
-Coordinates=1414,331,166,36
-
 [IBTARIF_MESTARIF_FACT]
 Coordinates=1414,386,175,36
-
-[IBTARIF_COMPNORMA]
-Coordinates=1414,441,156,36
 
 [IBTARIF_MESID_TARIF]
 Coordinates=1414,496,155,36

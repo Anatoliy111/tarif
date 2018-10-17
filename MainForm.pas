@@ -11,7 +11,7 @@ uses
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
   cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm,
-  Data.Win.ADODB, dbf;
+  Data.Win.ADODB;
 
 type
   TMain = class(TForm)
@@ -120,14 +120,6 @@ type
     cxBarEditItem18: TcxBarEditItem;
     dxBarButton17: TdxBarButton;
     IBTARIF_COMP: TIBDataSet;
-    IBTARIF_COMPID: TIntegerField;
-    IBTARIF_COMPID_TARIF: TIntegerField;
-    IBTARIF_COMPID_TARIFMES: TIntegerField;
-    IBTARIF_COMPNAME: TIBStringField;
-    IBTARIF_COMPSUMM: TIBBCDField;
-    IBTARIF_COMPKL_NTAR: TIntegerField;
-    IBTARIF_COMPFL_LIFT: TIntegerField;
-    IBTARIF_COMPNORMA: TIBBCDField;
     DSTARIF_COMP: TDataSource;
     IBTARIF_DOM: TIBDataSet;
     IBTARIF_DOMID: TIntegerField;
@@ -155,7 +147,6 @@ type
     ADOQuery1: TADOQuery;
     ADOConnectionDBF: TADOConnection;
     ADOCommand1: TADOCommand;
-    Dbf1: TDbf;
     IBSERVICE: TIBDataSet;
     D²SERVICE: TDataSource;
     IBSERVICEID: TIntegerField;
@@ -165,6 +156,18 @@ type
     IBTARIF_MESEND_L: TIBBCDField;
     ADOQuery2: TADOQuery;
     IBQuery3: TIBQuery;
+    IBTARIF_COMPID: TIntegerField;
+    IBTARIF_COMPID_TARIF: TIntegerField;
+    IBTARIF_COMPID_TARIFMES: TIntegerField;
+    IBTARIF_COMPNAME: TIBStringField;
+    IBTARIF_COMPSUMM: TIBBCDField;
+    IBTARIF_COMPKL_NTAR: TIntegerField;
+    IBTARIF_COMPFL_LIFT: TIntegerField;
+    IBTARIF_COMPNORMA: TIBBCDField;
+    IBTARIF_COMPSPLAN: TIBBCDField;
+    IBTARIF_COMPSFACT: TIBBCDField;
+    IBTARIF_COMPSUMM_BL: TIBBCDField;
+    IBTARIF_COMPSUMM_L: TIBBCDField;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -398,6 +401,10 @@ begin
                                                    ' wid Character(2),'+
                                                    ' name Character(50),'+
                                                    ' tarif Numeric(9,4),'+
+                                                   ' tarif_bl Numeric(9,4),'+
+                                                   ' tarif_l Numeric(9,4),'+
+                                                   ' plan Numeric(9,4),'+
+                                                   ' fact Numeric(9,4),'+
                                                    ' norma Numeric(9,3),'+
                                                    ' lift Numeric(1,0))';
     ADOCommand1.Execute;
@@ -532,10 +539,15 @@ Prores.Show;
            ADOQuery1.FieldByName('id').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
            ADOQuery1.FieldByName('kl').Value:=iif(IBQuery2.FieldByName('KL_NTAR').Value=null,0,IBQuery2.FieldByName('KL_NTAR').Value);
            ADOQuery1.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').Value;
-           ADOQuery1.FieldByName('name').Value:=IBQuery2.FieldByName('nnn').Value;
+           ADOQuery1.FieldByName('name').Value:=StringReplace(IBQuery2.FieldByName('nnn').Value, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
            ADOQuery1.FieldByName('lift').Value:=iif(IBQuery2.FieldByName('FL_LIFT').Value=null,0,IBQuery2.FieldByName('FL_LIFT').Value);
            ADOQuery1.FieldByName('norma').Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
            ADOQuery1.FieldByName('tarif').Value:=iif(IBQuery2.FieldByName('SUMM').Value=null,0,IBQuery2.FieldByName('SUMM').Value);
+           ADOQuery1.FieldByName('plan').Value:=iif(IBQuery2.FieldByName('SPLAN').Value=null,0,IBQuery2.FieldByName('SPLAN').Value);
+           ADOQuery1.FieldByName('fact').Value:=iif(IBQuery2.FieldByName('SFACT').Value=null,0,IBQuery2.FieldByName('SFACT').Value);
+           ADOQuery1.FieldByName('tarif_bl').Value:=iif(IBQuery2.FieldByName('SUMM_BL').Value=null,0,IBQuery2.FieldByName('SUMM_BL').Value);
+           ADOQuery1.FieldByName('tarif_l').Value:=iif(IBQuery2.FieldByName('SUMM_L').Value=null,0,IBQuery2.FieldByName('SUMM_L').Value);
+
            ADOQuery1.Post;
 
              IBQuery3.close;
