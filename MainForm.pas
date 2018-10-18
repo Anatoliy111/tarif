@@ -362,7 +362,7 @@ begin
 
     ADOConnectionDBF.ConnectionString:=adostr;
     ADOConnectionDBF.Connected:=true;
-    ffile:= ff+Date2Str(IBPERIODDATA.Value,'yyyyMM');
+    ffile:= Date2Str(IBPERIODDATA.Value,'yyyyMM')+ff;
     Path:=DataM.dirKvart+ffile+'.dbf';
     Attr:=0;
     FindFirst(Path, Attr, F);
@@ -393,7 +393,7 @@ begin
 //ADOQuery1.SQL.Add('lift Numeric(1,0))');
 //ADOQuery1.ExecSQL;
 
-    if ff='tt' then
+    if ff='tr' then
     begin
     ADOCommand1.CommandText:='';
     ADOCommand1.CommandText:='create table '+ffile+' (id Numeric(10,0),'+
@@ -446,7 +446,7 @@ IBTARIF_DOM.open;
 Prores.Show;
          Prores.Label1.Caption:='Перехід на новий місяць';
          Application.ProcessMessages;
-            fftt:=OpenKvart('tt');
+            fftt:=OpenKvart('tr');
             if fftt='' then
             begin
               Prores.Close;
