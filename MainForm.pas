@@ -168,6 +168,7 @@ type
     IBTARIF_COMPSFACT: TIBBCDField;
     IBTARIF_COMPSUMM_BL: TIBBCDField;
     IBTARIF_COMPSUMM_L: TIBBCDField;
+    ADOQuery3: TADOQuery;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -393,10 +394,10 @@ begin
 //ADOQuery1.SQL.Add('lift Numeric(1,0))');
 //ADOQuery1.ExecSQL;
 
-    if ff='tr' then
+    if ff='kv' then
     begin
     ADOCommand1.CommandText:='';
-    ADOCommand1.CommandText:='create table '+ffile+' (id Numeric(10,0),'+
+    ADOCommand1.CommandText:='create table '+ffile+' (id_tarif Numeric(10,0),'+
                                                    ' kl Numeric(5,0),'+
                                                    ' wid Character(2),'+
                                                    ' name Character(50),'+
@@ -412,12 +413,34 @@ begin
     if ff='in' then
     begin
     ADOCommand1.CommandText:='';
-    ADOCommand1.CommandText:='create table '+ffile+' (id_tr Numeric(10,0),'+
+    ADOCommand1.CommandText:='create table '+ffile+' (id_tarif Numeric(10,0),'+
                                                    ' code_ser Numeric(11),'+
                                                    ' wid Character(2),'+
                                                    ' name Character(254),'+
                                                    ' plan Numeric(9,2),'+
                                                    ' fact Numeric(9,4))';
+
+    ADOCommand1.Execute;
+    end;
+
+    if ff='tr' then
+    begin
+    ADOCommand1.CommandText:='';
+    ADOCommand1.CommandText:='create table '+ffile+' (id_tarif Numeric(10,0),'+
+                                                   ' id_dom Numeric(10,0),'+
+                                                   ' id_house Numeric(10,0),'+
+                                                   ' wid Character(2),'+
+                                                   ' id_ul Numeric(10,0),'+
+                                                   ' ul Character(40),'+
+                                                   ' dom Character(5),'+
+                                                   ' id_street Numeric(10,0),'+
+                                                   ' kl_ul Numeric(10,0),'+
+                                                   ' tarif Numeric(9,4),'+
+                                                   ' tarif_bl Numeric(9,4),'+
+                                                   ' tarif_l Numeric(9,4),'+
+                                                   ' plan Numeric(9,4),'+
+                                                   ' fact Numeric(9,4),'+
+                                                   ' norma Numeric(9,3))';
 
     ADOCommand1.Execute;
     end;
@@ -435,7 +458,7 @@ begin
 end;
 
 procedure TMain.Newmes;
-var fftt,ffin:string;
+var fftt,ffin,ffdm:string;
 begin
 IBTARIF_MES.close;
 IBTARIF_COMP.close;
@@ -446,13 +469,19 @@ IBTARIF_DOM.open;
 Prores.Show;
          Prores.Label1.Caption:='Перехід на новий місяць';
          Application.ProcessMessages;
-            fftt:=OpenKvart('tr');
+            fftt:=OpenKvart('kv');
             if fftt='' then
             begin
               Prores.Close;
               exit;
             end;
             ffin:=OpenKvart('in');
+            if ffin='' then
+            begin
+              Prores.Close;
+              exit;
+            end;
+            ffdm:=OpenKvart('tr');
             if ffin='' then
             begin
               Prores.Close;
@@ -468,6 +497,11 @@ Prores.Show;
              ADOQuery2.SQL.Clear;
              ADOQuery2.SQL.Add('select * from '+ffin);
              ADOQuery2.Open;
+
+             ADOQuery3.Close;
+             ADOQuery3.SQL.Clear;
+             ADOQuery3.SQL.Add('select * from '+ffdm);
+             ADOQuery3.Open;
 
 
 
@@ -536,7 +570,7 @@ Prores.Show;
            IBTARIF_COMP.Post;
 
            ADOQuery1.Insert;
-           ADOQuery1.FieldByName('id').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
+           ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
            ADOQuery1.FieldByName('kl').Value:=iif(IBQuery2.FieldByName('KL_NTAR').Value=null,0,IBQuery2.FieldByName('KL_NTAR').Value);
            ADOQuery1.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').Value;
            ADOQuery1.FieldByName('name').Value:=StringReplace(IBQuery2.FieldByName('nnn').Value, 'і', 'i',[rfReplaceAll, rfIgnoreCase]);
@@ -558,7 +592,7 @@ Prores.Show;
              while not IBQuery3.Eof do
              begin
                ADOQuery2.Insert;
-               ADOQuery2.FieldByName('id_tr').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
+               ADOQuery2.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
                ADOQuery2.FieldByName('code_ser').Value:=IBQuery3.FieldByName('code_servi').Value;
                ADOQuery2.FieldByName('name').Value:=StringReplace(IBQuery3.FieldByName('nnn').Value, 'і', 'i',[rfReplaceAll, rfIgnoreCase]);
                ADOQuery2.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').Value;
@@ -569,12 +603,42 @@ Prores.Show;
              IBQuery3.Next;
              end;
 
+             IBQuery3.close;
+             IBQuery3.SQL.Text:='select tarif_dom.*, dom.id_house, dom.id_ul, dom.dom, ul.name as ul, ul.id_street, ul.kl as kl_ul from tarif_dom, dom, ul where tarif_dom.id_tarifmes=:idmes and tarif_dom.id_dom=dom.id and dom.id_ul=ul.id';
+             IBQuery3.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
+             IBQuery3.open;
+             IBQuery3.First;
+             while not IBQuery3.Eof do
+             begin
+               ADOQuery3.Insert;
+               ADOQuery3.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
+               ADOQuery3.FieldByName('id_dom').Value:=IBQuery3.FieldByName('id_dom').Value;
+               ADOQuery3.FieldByName('id_house').Value:=IBQuery3.FieldByName('id_house').Value;
+               ADOQuery3.FieldByName('dom').Value:=IBQuery3.FieldByName('dom').Value;
+               ADOQuery3.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').Value;
+               ADOQuery3.FieldByName('id_ul').Value:=IBQuery3.FieldByName('id_ul').Value;
+               ADOQuery3.FieldByName('ul').Value:=IBQuery3.FieldByName('ul').Value;
+               ADOQuery3.FieldByName('id_street').Value:=IBQuery3.FieldByName('id_street').Value;
+               ADOQuery3.FieldByName('kl_ul').Value:=IBQuery3.FieldByName('kl_ul').Value;
+               ADOQuery3.FieldByName('norma').Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
+               ADOQuery3.FieldByName('tarif').Value:=iif(IBQuery2.FieldByName('SUMM').Value=null,0,IBQuery2.FieldByName('SUMM').Value);
+               ADOQuery3.FieldByName('plan').Value:=iif(IBQuery2.FieldByName('SPLAN').Value=null,0,IBQuery2.FieldByName('SPLAN').Value);
+               ADOQuery3.FieldByName('fact').Value:=iif(IBQuery2.FieldByName('SFACT').Value=null,0,IBQuery2.FieldByName('SFACT').Value);
+               ADOQuery3.FieldByName('tarif_bl').Value:=iif(IBQuery2.FieldByName('SUMM_BL').Value=null,0,IBQuery2.FieldByName('SUMM_BL').Value);
+               ADOQuery3.FieldByName('tarif_l').Value:=iif(IBQuery2.FieldByName('SUMM_L').Value=null,0,IBQuery2.FieldByName('SUMM_L').Value);
+               ADOQuery3.Post;
+
+             IBQuery3.Next;
+             end;
+
+
          IBQuery2.Next;
          end;
 
 
         IBQuery1.Next;
         end;
+
         Prores.cxProgressBar1.Position:=0;
         Prores.Close;
         IBPERIOD.Insert;
