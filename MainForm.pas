@@ -169,6 +169,7 @@ type
     IBTARIF_COMPSUMM_BL: TIBBCDField;
     IBTARIF_COMPSUMM_L: TIBBCDField;
     ADOQuery3: TADOQuery;
+    IBQuery4: TIBQuery;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -414,6 +415,10 @@ begin
     begin
     ADOCommand1.CommandText:='';
     ADOCommand1.CommandText:='create table '+ffile+' (id_tarif Numeric(10,0),'+
+                                                   ' id_dom Numeric(10,0),'+
+                                                   ' id_ul Numeric(10,0),'+
+                                                   ' ul Character(40),'+
+                                                   ' dom Character(5),'+
                                                    ' code_ser Numeric(11),'+
                                                    ' wid Character(2),'+
                                                    ' name Character(254),'+
@@ -584,24 +589,7 @@ Prores.Show;
 
            ADOQuery1.Post;
 
-             IBQuery3.close;
-             IBQuery3.SQL.Text:='select tarif_inf.*, tarif_vid.name as nnn, tarif_vid.code_servi from tarif_inf, tarif_vid where tarif_inf.id_tarifmes=:idmes and tarif_inf.id_tarvid=tarif_vid.id';
-             IBQuery3.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
-             IBQuery3.open;
-             IBQuery3.First;
-             while not IBQuery3.Eof do
-             begin
-               ADOQuery2.Insert;
-               ADOQuery2.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
-               ADOQuery2.FieldByName('code_ser').Value:=IBQuery3.FieldByName('code_servi').Value;
-               ADOQuery2.FieldByName('name').Value:=StringReplace(IBQuery3.FieldByName('nnn').Value, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
-               ADOQuery2.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').Value;
-               ADOQuery2.FieldByName('plan').Value:=iif(IBQuery3.FieldByName('s_plan').Value=null,0,IBQuery3.FieldByName('s_plan').Value);
-               ADOQuery2.FieldByName('fact').Value:=iif(IBQuery3.FieldByName('s_fact').Value=null,0,IBQuery3.FieldByName('s_fact').Value);
-               ADOQuery2.Post;
 
-             IBQuery3.Next;
-             end;
 
              IBQuery3.close;
              IBQuery3.SQL.Text:='select tarif_dom.*, dom.id_house, dom.id_ul, dom.dom, ul.name as ul, ul.id_street, ul.kl as kl_ul from tarif_dom, dom, ul where tarif_dom.id_tarifmes=:idmes and tarif_dom.id_dom=dom.id and dom.id_ul=ul.id';
@@ -627,6 +615,31 @@ Prores.Show;
                ADOQuery3.FieldByName('tarif_bl').Value:=iif(IBQuery2.FieldByName('SUMM_BL').Value=null,0,IBQuery2.FieldByName('SUMM_BL').Value);
                ADOQuery3.FieldByName('tarif_l').Value:=iif(IBQuery2.FieldByName('SUMM_L').Value=null,0,IBQuery2.FieldByName('SUMM_L').Value);
                ADOQuery3.Post;
+
+
+                 IBQuery4.close;
+                 IBQuery4.SQL.Text:='select tarif_inf.*, tarif_vid.name as nnn, tarif_vid.code_servi from tarif_inf, tarif_vid where tarif_inf.id_tarifmes=:idmes and tarif_inf.id_tarvid=tarif_vid.id';
+                 IBQuery4.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
+                 IBQuery4.open;
+                 IBQuery4.First;
+                 while not IBQuery4.Eof do
+                 begin
+                   ADOQuery2.Insert;
+                   ADOQuery2.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').Value;
+                   ADOQuery2.FieldByName('code_ser').Value:=IBQuery4.FieldByName('code_servi').Value;
+                   ADOQuery2.FieldByName('name').Value:=StringReplace(IBQuery4.FieldByName('nnn').Value, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
+                   ADOQuery2.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').Value;
+                   ADOQuery2.FieldByName('plan').Value:=iif(IBQuery4.FieldByName('s_plan').Value=null,0,IBQuery4.FieldByName('s_plan').Value);
+                   ADOQuery2.FieldByName('fact').Value:=iif(IBQuery4.FieldByName('s_fact').Value=null,0,IBQuery4.FieldByName('s_fact').Value);
+                   ADOQuery2.FieldByName('id_dom').Value:=IBQuery3.FieldByName('id_dom').Value;
+                   ADOQuery2.FieldByName('dom').Value:=IBQuery3.FieldByName('dom').Value;
+                   ADOQuery2.FieldByName('id_ul').Value:=IBQuery3.FieldByName('id_ul').Value;
+                   ADOQuery2.FieldByName('ul').Value:=IBQuery3.FieldByName('ul').Value;
+
+                   ADOQuery2.Post;
+
+                 IBQuery4.Next;
+                 end;
 
              IBQuery3.Next;
              end;
