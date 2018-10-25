@@ -16,7 +16,7 @@ inherited Sprav: TSprav
     Height = 424
     Align = alClient
     TabOrder = 2
-    Properties.ActivePage = cxTabSheet3
+    Properties.ActivePage = cxTabSheet5
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
     ClientRectBottom = 420
@@ -108,7 +108,7 @@ inherited Sprav: TSprav
         Left = 0
         Top = 0
         Width = 759
-        Height = 129
+        Height = 97
         Align = alTop
         TabOrder = 0
         object cxLabel2: TcxLabel
@@ -155,11 +155,13 @@ inherited Sprav: TSprav
       end
       object cxGrid2: TcxGrid
         Left = 0
-        Top = 129
+        Top = 97
         Width = 759
-        Height = 267
+        Height = 299
         Align = alClient
         TabOrder = 1
+        ExplicitTop = 129
+        ExplicitHeight = 267
         object cxGridDBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSDOM
@@ -169,7 +171,7 @@ inherited Sprav: TSprav
           object cxGridDBTableView1NAME: TcxGridDBColumn
             Caption = #1053#1072#1081#1084#1077#1085#1091#1074#1072#1085#1085#1103
             DataBinding.FieldName = 'NAME'
-            Width = 265
+            Width = 193
           end
           object cxGridDBTableView1ID_UL: TcxGridDBColumn
             Caption = #1042#1091#1083#1080#1094#1103
@@ -191,6 +193,21 @@ inherited Sprav: TSprav
             PropertiesClassName = 'TcxTextEditProperties'
             Properties.ReadOnly = True
             Width = 54
+          end
+          object cxGridDBTableView1PLOS_OB: TcxGridDBColumn
+            Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
+            DataBinding.FieldName = 'PLOS_OB'
+            Width = 104
+          end
+          object cxGridDBTableView1PLOS_BB: TcxGridDBColumn
+            Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
+            DataBinding.FieldName = 'PLOS_BB'
+            Width = 124
+          end
+          object cxGridDBTableView1ID_VIDAB: TcxGridDBColumn
+            Caption = #1042#1080#1076' '#1072#1073#1086#1085#1077#1085#1090#1072
+            DataBinding.FieldName = 'ID_VIDAB'
+            Width = 116
           end
           object cxGridDBTableView1ID_HOUSE: TcxGridDBColumn
             Caption = #1050#1083#1102#1095' SoftProekt'
@@ -260,6 +277,58 @@ inherited Sprav: TSprav
           GridView = cxGridDBTableView2
         end
       end
+    end
+    object cxTabSheet4: TcxTabSheet
+      Caption = #1042#1080#1076#1080' '#1072#1073#1086#1085#1077#1085#1090#1110#1074
+      ImageIndex = 3
+      object Panel1: TPanel
+        Left = 0
+        Top = 0
+        Width = 759
+        Height = 65
+        Align = alTop
+        TabOrder = 0
+        object cxLabel1: TcxLabel
+          Left = 8
+          Top = 5
+          Caption = #1042#1080#1076
+        end
+        object cxTextEdit5: TcxTextEdit
+          Left = 7
+          Top = 28
+          TabOrder = 1
+          Width = 429
+        end
+      end
+      object cxGrid4: TcxGrid
+        Left = 0
+        Top = 65
+        Width = 759
+        Height = 331
+        Align = alClient
+        TabOrder = 1
+        ExplicitTop = 55
+        ExplicitHeight = 341
+        object cxGridDBTableView3: TcxGridDBTableView
+          Navigator.Buttons.CustomButtons = <>
+          DataController.DataSource = DSVIDAB
+          DataController.Summary.DefaultGroupSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.SummaryGroups = <>
+          object cxGridDBTableView3NAME: TcxGridDBColumn
+            Caption = #1042#1080#1076
+            DataBinding.FieldName = 'NAME'
+            Width = 273
+          end
+        end
+        object cxGridLevel3: TcxGridLevel
+          GridView = cxGridDBTableView3
+        end
+      end
+    end
+    object cxTabSheet5: TcxTabSheet
+      Caption = #1030#1085#1096#1110' '#1089#1087#1086#1078#1080#1074#1095#1110
+      ImageIndex = 4
     end
   end
   inherited Panel2: TPanel
@@ -378,9 +447,13 @@ inherited Sprav: TSprav
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into DOM'
-      '  (ID, NAME, ID_UL, DOM, ID_HOUSE)'
+      
+        '  (ID, NAME, ID_UL, DOM, CH, ID_HOUSE, PLOS_OB, PLOS_BB, ID_VIDA' +
+        'B)'
       'values'
-      '  (:ID, :NAME, :ID_UL, :DOM, :ID_HOUSE)')
+      
+        '  (:ID, :NAME, :ID_UL, :DOM, :CH, :ID_HOUSE, :PLOS_OB, :PLOS_BB,' +
+        ' :ID_VIDAB)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -388,7 +461,10 @@ inherited Sprav: TSprav
       '  ID_UL,'
       '  DOM,'
       '  CH,'
-      '  ID_HOUSE'
+      '  ID_HOUSE,'
+      '  PLOS_OB,'
+      '  PLOS_BB,'
+      '  ID_VIDAB'
       'from DOM '
       'where'
       '  ID = :ID')
@@ -401,7 +477,11 @@ inherited Sprav: TSprav
       '  NAME = :NAME,'
       '  ID_UL = :ID_UL,'
       '  DOM = :DOM,'
-      '  ID_HOUSE = :ID_HOUSE'
+      '  CH = :CH,'
+      '  ID_HOUSE = :ID_HOUSE,'
+      '  PLOS_OB = :PLOS_OB,'
+      '  PLOS_BB = :PLOS_BB,'
+      '  ID_VIDAB = :ID_VIDAB'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -432,6 +512,22 @@ inherited Sprav: TSprav
     object IBDOMID_HOUSE: TIntegerField
       FieldName = 'ID_HOUSE'
       Origin = '"DOM"."ID_HOUSE"'
+    end
+    object IBDOMCH: TSmallintField
+      FieldName = 'CH'
+      Origin = '"DOM"."CH"'
+    end
+    object IBDOMPLOS_OB: TIntegerField
+      FieldName = 'PLOS_OB'
+      Origin = '"DOM"."PLOS_OB"'
+    end
+    object IBDOMPLOS_BB: TIntegerField
+      FieldName = 'PLOS_BB'
+      Origin = '"DOM"."PLOS_BB"'
+    end
+    object IBDOMID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      Origin = '"DOM"."ID_VIDAB"'
     end
   end
   object DSDOM: TDataSource
@@ -509,6 +605,60 @@ inherited Sprav: TSprav
   object DSUL: TDataSource
     DataSet = IBUL
     Left = 96
+    Top = 496
+  end
+  object IBVIDAB: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BeforePost = IBULBeforePost
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from VIDAB'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into VIDAB'
+      '  (ID, NAME)'
+      'values'
+      '  (:ID, :NAME)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  NAME'
+      'from VIDAB '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'SELECT * from VIDAB'
+      '')
+    ModifySQL.Strings = (
+      'update VIDAB'
+      'set'
+      '  ID = :ID,'
+      '  NAME = :NAME'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_UL_ID'
+    Left = 128
+    Top = 464
+    object IBVIDABID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"VIDAB"."ID"'
+      Required = True
+    end
+    object IBVIDABNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"VIDAB"."NAME"'
+      Size = 10
+    end
+  end
+  object DSVIDAB: TDataSource
+    DataSet = IBVIDAB
+    Left = 128
     Top = 496
   end
 end
