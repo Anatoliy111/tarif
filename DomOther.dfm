@@ -2,6 +2,10 @@ inherited DomOthForm: TDomOthForm
   Caption = #1041#1091#1076#1080#1085#1086#1082
   PixelsPerInch = 96
   TextHeight = 13
+  inherited Panel1: TPanel
+    ExplicitTop = 510
+    ExplicitWidth = 562
+  end
   object Panel7: TPanel [1]
     Left = 0
     Top = 0
@@ -332,8 +336,6 @@ inherited DomOthForm: TDomOthForm
     Height = 389
     Align = alClient
     TabOrder = 2
-    ExplicitTop = 128
-    ExplicitHeight = 382
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = Sprav.DSDOM_OTHER

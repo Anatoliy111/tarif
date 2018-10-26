@@ -13,7 +13,7 @@ uses
   cxTextEdit, ExtCtrls, cxPC, cxDBLabel, cxCalendar, cxDBEdit,
   cxSchedulerStorage, cxSchedulerCustomControls, cxSchedulerDateNavigator,
   cxDateNavigator, dxBar, IBDatabase, IBCustomDataSet, cxLookAndFeels,
-  dxBarBuiltInMenu, cxNavigator, Vcl.Buttons, cxButtonEdit;
+  dxBarBuiltInMenu, cxNavigator, Vcl.Buttons, cxButtonEdit, cxCalc;
 
 type
   TSprav = class(TAllMDICh)
@@ -58,10 +58,6 @@ type
     cxGrid1DBTableView1FL_ROZRAH: TcxGridDBColumn;
     cxLabel7: TcxLabel;
     cxTextEdit1: TcxTextEdit;
-    IBDOMID: TIntegerField;
-    IBDOMNAME: TIBStringField;
-    IBDOMID_UL: TIntegerField;
-    IBDOMDOM: TIBStringField;
     cxGridDBTableView1NAME: TcxGridDBColumn;
     cxGridDBTableView1ID_UL: TcxGridDBColumn;
     cxGridDBTableView1DOM: TcxGridDBColumn;
@@ -76,12 +72,7 @@ type
     cxGridDBTableView2KL: TcxGridDBColumn;
     cxGridDBTableView2ID_STREET: TcxGridDBColumn;
     IBPOSLVAL: TIntegerField;
-    IBDOMID_HOUSE: TIntegerField;
     cxGridDBTableView1ID_HOUSE: TcxGridDBColumn;
-    IBDOMCH: TSmallintField;
-    IBDOMPLOS_OB: TIntegerField;
-    IBDOMPLOS_BB: TIntegerField;
-    IBDOMID_VIDAB: TIntegerField;
     cxGridDBTableView1PLOS_OB: TcxGridDBColumn;
     cxGridDBTableView1PLOS_BB: TcxGridDBColumn;
     cxGridDBTableView1ID_VIDAB: TcxGridDBColumn;
@@ -126,6 +117,45 @@ type
     IBDOM_OTHERPLOS_OB: TIBBCDField;
     IBDOM_OTHERPLOS_BB: TIBBCDField;
     IBDOM_OTHERID_TIPPR: TIntegerField;
+    cxLabel12: TcxLabel;
+    cxLabel13: TcxLabel;
+    Panel8: TPanel;
+    cxGrid6: TcxGrid;
+    cxGridDBTableView5: TcxGridDBTableView;
+    cxGridLevel5: TcxGridLevel;
+    cxGridDBTableView5ID_OTHER: TcxGridDBColumn;
+    cxGridDBTableView5PLOS_OB: TcxGridDBColumn;
+    cxGridDBTableView5PLOS_BB: TcxGridDBColumn;
+    cxGridDBTableView5ID_TIPPR: TcxGridDBColumn;
+    cxButton1: TcxButton;
+    cxButton2: TcxButton;
+    cxTabSheet6: TcxTabSheet;
+    IBTIPPR: TIBDataSet;
+    DІTIPPR: TDataSource;
+    IBTIPPRID: TIntegerField;
+    IBTIPPRNAIM: TIBStringField;
+    Panel10: TPanel;
+    cxLabel14: TcxLabel;
+    cxTextEdit11: TcxTextEdit;
+    cxGrid7: TcxGrid;
+    cxGridDBTableView6: TcxGridDBTableView;
+    cxGridLevel6: TcxGridLevel;
+    cxGridDBTableView6NAIM: TcxGridDBColumn;
+    cxLookupComboBox3: TcxLookupComboBox;
+    cxLabel15: TcxLabel;
+    cxCalcEdit1: TcxCalcEdit;
+    cxCalcEdit2: TcxCalcEdit;
+    IBDOMID: TIntegerField;
+    IBDOMNAME: TIBStringField;
+    IBDOMID_UL: TIntegerField;
+    IBDOMDOM: TIBStringField;
+    IBDOMCH: TSmallintField;
+    IBDOMID_HOUSE: TIntegerField;
+    IBDOMPLOS_OB: TIBBCDField;
+    IBDOMPLOS_BB: TIBBCDField;
+    IBDOMID_VIDAB: TIntegerField;
+    IBDOMSCHET1: TIBStringField;
+    IBDOMSCHET2: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);
@@ -145,6 +175,11 @@ type
     procedure cxTextEdit3PropertiesChange(Sender: TObject);
     procedure cxButton9Click(Sender: TObject);
     procedure cxButton7Click(Sender: TObject);
+    procedure cxGridDBTableView1FocusedRecordChanged(
+      Sender: TcxCustomGridTableView; APrevFocusedRecord,
+      AFocusedRecord: TcxCustomGridRecord;
+      ANewItemRecordFocusingChanged: Boolean);
+    procedure cxButton1Click(Sender: TObject);
   private
     { Private declarations }
 
@@ -172,6 +207,11 @@ IBDOM.Active:=true;
 IBUL.Active:=true;
 IBOTHER.Active:=true;
 IBVIDAB.Active:=true;
+IBTIPPR.Active:=true;
+  IBDOM_OTHER.close;
+  IBDOM_OTHER.SelectSQL.Text:='select * from dom_other where id_dom=:dom';
+  IBDOM_OTHER.ParamByName('dom').AsInteger:=IBDOMID.Value;
+  IBDOM_OTHER.open;
 
   inherited;
 end;
@@ -218,6 +258,16 @@ fl_post:=1;
 
 end;
 
+procedure TSprav.cxButton1Click(Sender: TObject);
+begin
+  inherited;
+IBDOM_OTHER.Insert;
+IBDOM_OTHER.Edit;
+IBDOM_OTHERID_DOM.Value:= IBDOMID.Value;
+IBDOM_OTHER.Post;
+
+end;
+
 procedure TSprav.cxButton2Click(Sender: TObject);
 begin
   inherited;
@@ -226,7 +276,7 @@ begin
     begin
       if cxPageControl1.ActivePageIndex=1 then
       begin
-         IBDOM.Delete;
+         IBDOM_OTHER.Delete;
       fl_post:=1;
       end;
 
@@ -273,6 +323,21 @@ begin
       else
         Application.MessageBox('Неможливо видалити вулицю так як вона використовується в довіднику будинків ','Помилка',16)
       end;
+      if cxPageControl1.ActivePageIndex=3 then
+      begin
+        IBVIDAB.Delete;
+        fl_post:=1;
+      end;
+     if cxPageControl1.ActivePageIndex=4 then
+      begin
+      if not IBDOM_OTHER.Locate('id_other',IBOTHERID.Value,[]) then
+        begin
+        IBOTHER.Delete;
+        fl_post:=1;
+      end
+      else
+        Application.MessageBox('Неможливо видалити іншого абонента так як він використовується в довіднику будинків ','Помилка',16)
+      end;
     end;
   end;
 end;
@@ -316,10 +381,16 @@ begin
          IBDOMNAME.Value:=cxTextEdit4.Text;
          IBDOMID_UL.Value:=cxLookupComboBox1.EditValue;
          IBDOMDOM.Value:=cxTextEdit3.Text;
+         IBDOMPLOS_OB.Value:=cxCalcEdit1.Value;
+         IBDOMPLOS_BB.Value:=cxCalcEdit2.Value;
+         IBDOMID_VIDAB.Value:=cxLookupComboBox3.EditValue;
          IBDOM.Post;
 
         cxTextEdit3.Text:='';
         cxLookupComboBox1.EditValue:=0;
+        cxCalcEdit1.Value:=0;
+        cxCalcEdit2.Value:=0;
+        cxLookupComboBox3.EditValue:=0;
       end
       else
         Application.MessageBox('Такий будинок вже існує','Ошибка',16)
@@ -395,8 +466,38 @@ begin
 
     end;
   end;
+  if cxPageControl1.ActivePageIndex=5 then
+  begin
+    if (cxTextEdit11.Text='') then
+    Application.MessageBox('Введіть Приміщення','Помилка',16)
+  else
+    begin
+      if not IBTIPPR.Locate('name',cxTextEdit11.Text,[]) then
+      begin
+        IBTIPPR.Insert;
+        IBTIPPR.Edit;
+        IBTIPPRNAIM.Value:=cxTextEdit11.Text;
+        IBTIPPR.Post;
+        cxTextEdit11.Text:='';
+      end
+      else
+        Application.MessageBox('Таке приміщення вже існує','Ошибка',16)
+
+    end;
+  end;
 
 
+end;
+
+procedure TSprav.cxGridDBTableView1FocusedRecordChanged(
+  Sender: TcxCustomGridTableView; APrevFocusedRecord,
+  AFocusedRecord: TcxCustomGridRecord; ANewItemRecordFocusingChanged: Boolean);
+begin
+  inherited;
+  IBDOM_OTHER.close;
+  IBDOM_OTHER.SelectSQL.Text:='select * from dom_other where id_dom=:dom';
+  IBDOM_OTHER.ParamByName('dom').AsInteger:=IBDOMID.Value;
+  IBDOM_OTHER.open;
 end;
 
 procedure TSprav.cxLookupComboBox1PropertiesChange(Sender: TObject);

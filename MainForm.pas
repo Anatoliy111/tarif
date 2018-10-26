@@ -170,6 +170,9 @@ type
     IBTARIF_COMPSUMM_L: TIBBCDField;
     ADOQuery3: TADOQuery;
     IBQuery4: TIBQuery;
+    dxBarButton20: TdxBarButton;
+    dxBarButton21: TdxBarButton;
+    dxBarButton22: TdxBarButton;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -185,6 +188,9 @@ type
     procedure dxBarButton11Click(Sender: TObject);
     procedure dxBarButton17Click(Sender: TObject);
     procedure dxBarButton18Click(Sender: TObject);
+    procedure dxBarButton20Click(Sender: TObject);
+    procedure dxBarButton21Click(Sender: TObject);
+    procedure dxBarButton22Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -676,6 +682,45 @@ end;
 procedure TMain.dxBarButton19Click(Sender: TObject);
 begin
 Close;
+end;
+
+procedure TMain.dxBarButton20Click(Sender: TObject);
+begin
+ if Sprav=nil then
+ begin
+ Application.CreateForm(TSprav,Sprav);
+ AddToolBar(Sprav);
+ end
+ else
+ Sprav.Show;
+ Sprav.SetFocus;
+ Sprav.cxPageControl1.ActivePageIndex:=3;
+end;
+
+procedure TMain.dxBarButton21Click(Sender: TObject);
+begin
+ if Sprav=nil then
+ begin
+ Application.CreateForm(TSprav,Sprav);
+ AddToolBar(Sprav);
+ end
+ else
+ Sprav.Show;
+ Sprav.SetFocus;
+ Sprav.cxPageControl1.ActivePageIndex:=4;
+end;
+
+procedure TMain.dxBarButton22Click(Sender: TObject);
+begin
+ if Sprav=nil then
+ begin
+ Application.CreateForm(TSprav,Sprav);
+ AddToolBar(Sprav);
+ end
+ else
+ Sprav.Show;
+ Sprav.SetFocus;
+ Sprav.cxPageControl1.ActivePageIndex:=5;
 end;
 
 procedure TMain.dxBarButton30Click(Sender: TObject);
