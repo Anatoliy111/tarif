@@ -205,13 +205,15 @@ var
   Main: TMain;
   ExB: WORD;
   HiForm:integer;
-  frm:TSprav;
+//  frm:TSprav;
+  Sprav:TSprav;
   Report1: tReport;
   Report2: tReport;
  // TB:TToolButton;
 implementation
 
-uses Aboutt ,TarifForm, DataMod, mytools, Import, Progress, UITypes;
+uses Aboutt ,TarifForm, DataMod, mytools, Import, Progress, UITypes, SpDom,
+  SpUl;
 
 {$R *.dfm}
 

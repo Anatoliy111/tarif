@@ -17,7 +17,11 @@ uses
   Import in 'Import.pas' {ImpForm},
   Progress in 'Progress.pas' {Prores},
   ReportForm in 'ReportForm.pas' {Report},
-  Info in 'Info.pas' {InfoForm};
+  Info in 'Info.pas' {InfoForm},
+  SpDom in 'SpDom.pas' {SpDomForm},
+  SpUl in 'SpUl.pas' {SpUlForm},
+  SpVidAB in 'SpVidAB.pas' {SpVidABForm},
+  DomOther in 'DomOther.pas' {DomOthForm};
 
 {$R *.res}
 
@@ -27,6 +31,7 @@ begin
   Start := TStart.Create(Application);
   Application.Title := 'Розрахунок тарифів';
   Application.CreateForm(TDataM, DataM);
+  Application.CreateForm(TDomOthForm, DomOthForm);
   application.ProcessMessages;
   Start.Show;
 //  for i:=1 to 1000000 do

@@ -13,7 +13,7 @@ uses
   cxTextEdit, ExtCtrls, cxPC, cxDBLabel, cxCalendar, cxDBEdit,
   cxSchedulerStorage, cxSchedulerCustomControls, cxSchedulerDateNavigator,
   cxDateNavigator, dxBar, IBDatabase, IBCustomDataSet, cxLookAndFeels,
-  dxBarBuiltInMenu, cxNavigator, Vcl.Buttons;
+  dxBarBuiltInMenu, cxNavigator, Vcl.Buttons, cxButtonEdit;
 
 type
   TSprav = class(TAllMDICh)
@@ -98,6 +98,34 @@ type
     cxGridDBTableView3: TcxGridDBTableView;
     cxGridLevel3: TcxGridLevel;
     cxGridDBTableView3NAME: TcxGridDBColumn;
+    Panel5: TPanel;
+    cxLabel6: TcxLabel;
+    cxTextEdit6: TcxTextEdit;
+    cxGrid5: TcxGrid;
+    cxGridDBTableView4: TcxGridDBTableView;
+    cxGridLevel4: TcxGridLevel;
+    cxLabel9: TcxLabel;
+    cxTextEdit8: TcxTextEdit;
+    cxLabel10: TcxLabel;
+    cxLabel11: TcxLabel;
+    cxLookupComboBox2: TcxLookupComboBox;
+    IBOTHER: TIBDataSet;
+    DSOTHER: TDataSource;
+    IBOTHERID: TIntegerField;
+    IBOTHERNAME: TIBStringField;
+    IBOTHEREDRPOU: TIBStringField;
+    IBOTHERID_VIDAB: TIntegerField;
+    cxGridDBTableView4NAME: TcxGridDBColumn;
+    cxGridDBTableView4EDRPOU: TcxGridDBColumn;
+    cxGridDBTableView4ID_VIDAB: TcxGridDBColumn;
+    IBDOM_OTHER: TIBDataSet;
+    DSDOM_OTHER: TDataSource;
+    IBDOM_OTHERID: TIntegerField;
+    IBDOM_OTHERID_DOM: TIntegerField;
+    IBDOM_OTHERID_OTHER: TIntegerField;
+    IBDOM_OTHERPLOS_OB: TIBBCDField;
+    IBDOM_OTHERPLOS_BB: TIBBCDField;
+    IBDOM_OTHERID_TIPPR: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);
@@ -122,12 +150,10 @@ type
 
   public
   fl_ins:integer;
+  Sprav:TSprav;
 //      procedure KeyF6(var Key: Word; Hint:string; var Hint1:string; SColor1:TColor);
     { Public declarations }
   end;
-
-var
-  Sprav: TSprav;
 
 {    Hint1:string;
     SColor1:TColor; }
@@ -140,10 +166,12 @@ uses MyLibrary, InsertForm;
 
 procedure TSprav.FormCreate(Sender: TObject);
 begin
-Sprav.IBTransaction1.Active:=true;
-Sprav.IBPOSL.Active:=true;
-Sprav.IBDOM.Active:=true;
-Sprav.IBUL.Active:=true;
+IBTransaction1.Active:=true;
+IBPOSL.Active:=true;
+IBDOM.Active:=true;
+IBUL.Active:=true;
+IBOTHER.Active:=true;
+IBVIDAB.Active:=true;
 
   inherited;
 end;
@@ -198,7 +226,7 @@ begin
     begin
       if cxPageControl1.ActivePageIndex=1 then
       begin
-      Sprav.IBDOM.Delete;
+         IBDOM.Delete;
       fl_post:=1;
       end;
 
@@ -227,19 +255,19 @@ begin
     begin
       if cxPageControl1.ActivePageIndex=0 then
       begin
-        Sprav.IBPOSL.Delete;
+        IBPOSL.Delete;
         fl_post:=1;
       end;
       if cxPageControl1.ActivePageIndex=1 then
       begin
-        Sprav.IBDOM.Delete;
+        IBDOM.Delete;
         fl_post:=1;
       end;
       if cxPageControl1.ActivePageIndex=2 then
       begin
-      if not Sprav.IBDOM.Locate('id_ul',IBDOMID_UL.Value,[]) then
+      if not IBDOM.Locate('id_ul',IBDOMID_UL.Value,[]) then
         begin
-        Sprav.IBUL.Delete;
+        IBUL.Delete;
         fl_post:=1;
       end
       else
@@ -262,13 +290,13 @@ begin
         Application.MessageBox('Введіть вид та наименування послуги ','Помилка',16)
       else
         begin
-        Sprav.IBPOSL.Insert;
-        Sprav.IBPOSL.Edit;
-        Sprav.IBPOSLWID.Value:=cxTextEdit7.Text;
-        Sprav.IBPOSLNAME.Value:=cxTextEdit1.Text;
-        Sprav.IBPOSLFL_ZAGR.Value:=0;
-        Sprav.IBPOSLFL_ROZRAH.Value:=0;
-        Sprav.IBPOSL.Post;
+          IBPOSL.Insert;
+          IBPOSL.Edit;
+          IBPOSLWID.Value:=cxTextEdit7.Text;
+          IBPOSLNAME.Value:=cxTextEdit1.Text;
+          IBPOSLFL_ZAGR.Value:=0;
+          IBPOSLFL_ROZRAH.Value:=0;
+          IBPOSL.Post;
 
        cxTextEdit7.Text:='';
        cxTextEdit1.Text:='';
@@ -281,14 +309,14 @@ begin
     Application.MessageBox('Введіть вулицю та будинок','Помилка',16)
   else
     begin
-      if not Sprav.IBDOM.Locate('id_ul;dom',VarArrayOf([cxLookupComboBox1.EditValue, cxTextEdit3.Text]),[]) then
+      if not IBDOM.Locate('id_ul;dom',VarArrayOf([cxLookupComboBox1.EditValue, cxTextEdit3.Text]),[]) then
       begin
-        Sprav.IBDOM.Insert;
-        Sprav.IBDOM.Edit;
-        Sprav.IBDOMNAME.Value:=cxTextEdit4.Text;
-        Sprav.IBDOMID_UL.Value:=cxLookupComboBox1.EditValue;
-        Sprav.IBDOMDOM.Value:=cxTextEdit3.Text;
-        Sprav.IBDOM.Post;
+         IBDOM.Insert;
+         IBDOM.Edit;
+         IBDOMNAME.Value:=cxTextEdit4.Text;
+         IBDOMID_UL.Value:=cxLookupComboBox1.EditValue;
+         IBDOMDOM.Value:=cxTextEdit3.Text;
+         IBDOM.Post;
 
         cxTextEdit3.Text:='';
         cxLookupComboBox1.EditValue:=0;
@@ -303,12 +331,12 @@ begin
     Application.MessageBox('Введіть вулицю','Помилка',16)
   else
     begin
-      if not Sprav.IBUL.Locate('name',cxTextEdit2.Text,[]) then
+      if not IBUL.Locate('name',cxTextEdit2.Text,[]) then
       begin
-        Sprav.IBUL.Insert;
-        Sprav.IBUL.Edit;
-        Sprav.IBULNAME.Value:=cxTextEdit2.Text;
-        Sprav.IBUL.Post;
+        IBUL.Insert;
+        IBUL.Edit;
+        IBULNAME.Value:=cxTextEdit2.Text;
+        IBUL.Post;
         cxTextEdit2.Text:='';
       end
       else
@@ -316,6 +344,58 @@ begin
 
     end;
   end;
+  if cxPageControl1.ActivePageIndex=3 then
+  begin
+    if (cxTextEdit5.Text='') then
+    Application.MessageBox('Введіть вид','Помилка',16)
+  else
+    begin
+      if not IBVIDAB.Locate('name',cxTextEdit5.Text,[]) then
+      begin
+        IBVIDAB.Insert;
+        IBVIDAB.Edit;
+        IBVIDABNAME.Value:=cxTextEdit5.Text;
+        IBVIDAB.Post;
+        cxTextEdit5.Text:='';
+      end
+      else
+        Application.MessageBox('Такий вид вже існує','Ошибка',16)
+
+    end;
+  end;
+  if cxPageControl1.ActivePageIndex=4 then
+  begin
+    if (cxTextEdit6.Text='') or (cxTextEdit8.Text='') or (cxLookupComboBox2.EditValue=0)then
+    Application.MessageBox('Неправильно введені дані','Помилка',16)
+  else
+    begin
+      if IBOTHER.Locate('name',cxTextEdit6.Text,[]) then
+      begin
+        Application.MessageBox('Такий абонент вже існує','Ошибка',16);
+        exit;
+      end;
+      if IBOTHER.Locate('EDRPOU',cxTextEdit8.Text,[]) then
+      begin
+        Application.MessageBox('Такий абонент вже існує','Ошибка',16);
+        exit;
+
+      end;
+
+        IBOTHER.Insert;
+        IBOTHER.Edit;
+        IBOTHERNAME.Value:=cxTextEdit6.Text;
+        IBOTHEREDRPOU.Value:=cxTextEdit8.Text;
+        IBOTHERID_VIDAB.Value:=cxLookupComboBox2.EditValue;
+
+        IBOTHER.Post;
+        cxTextEdit6.Text:='';
+        cxTextEdit8.Text:='';
+        cxLookupComboBox2.EditValue:=0;
+
+
+    end;
+  end;
+
 
 end;
 
@@ -332,16 +412,18 @@ begin
 end;
 
 procedure TSprav.FormClose(Sender: TObject; var Action: TCloseAction);
+var i: integer;
 begin
   Sprav:=nil;
+
   inherited;
 end;
 
 procedure TSprav.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  if Sprav.IBPOSL.State in [dsInsert,dsEdit] then Sprav.IBPOSL.Post;
-  if Sprav.IBDOM.State in [dsInsert,dsEdit] then IBDOM.Post;
-  if Sprav.IBUL.State in [dsInsert,dsEdit] then IBUL.Post;
+  if IBPOSL.State in [dsInsert,dsEdit] then IBPOSL.Post;
+  if IBDOM.State in [dsInsert,dsEdit] then IBDOM.Post;
+  if IBUL.State in [dsInsert,dsEdit] then IBUL.Post;
   inherited;
 end;
 
