@@ -29,7 +29,6 @@
       Caption = #1055#1086#1089#1083#1091#1075#1080
       DragMode = dmAutomatic
       ImageIndex = 0
-      ExplicitHeight = 390
       object Panel9: TPanel
         Left = 0
         Top = 0
@@ -107,7 +106,6 @@
     object cxTabSheet2: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1080
       ImageIndex = 1
-      ExplicitHeight = 396
       object Panel7: TPanel
         Left = 0
         Top = 0
@@ -115,7 +113,6 @@
         Height = 97
         Align = alTop
         TabOrder = 0
-        ExplicitTop = -6
         object cxLabel2: TcxLabel
           Left = 224
           Top = -5
@@ -630,7 +627,6 @@
     object cxTabSheet3: TcxTabSheet
       Caption = #1042#1091#1083#1080#1094#1110
       ImageIndex = 2
-      ExplicitHeight = 396
       object Panel6: TPanel
         Left = 0
         Top = 0
@@ -689,7 +685,6 @@
     object cxTabSheet4: TcxTabSheet
       Caption = #1042#1080#1076#1080' '#1072#1073#1086#1085#1077#1085#1090#1110#1074
       ImageIndex = 3
-      ExplicitHeight = 396
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -737,7 +732,6 @@
     object cxTabSheet5: TcxTabSheet
       Caption = #1030#1085#1096#1110' '#1072#1073#1086#1085#1077#1085#1090#1080
       ImageIndex = 4
-      ExplicitHeight = 396
       object Panel5: TPanel
         Left = 0
         Top = 0
@@ -835,7 +829,6 @@
     object cxTabSheet6: TcxTabSheet
       Caption = #1042#1080#1076#1080' '#1087#1088#1080#1084#1110#1097#1077#1085#1100
       ImageIndex = 5
-      ExplicitHeight = 582
       object Panel10: TPanel
         Left = 0
         Top = 0
@@ -843,7 +836,6 @@
         Height = 113
         Align = alTop
         TabOrder = 0
-        ExplicitTop = 16
         object cxLabel14: TcxLabel
           Left = 8
           Top = 5

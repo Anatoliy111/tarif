@@ -472,7 +472,7 @@ begin
     Application.MessageBox('Введіть Приміщення','Помилка',16)
   else
     begin
-      if not IBTIPPR.Locate('name',cxTextEdit11.Text,[]) then
+      if not IBTIPPR.Locate('NAIM',cxTextEdit11.Text,[]) then
       begin
         IBTIPPR.Insert;
         IBTIPPR.Edit;
