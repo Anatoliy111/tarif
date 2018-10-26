@@ -16,7 +16,7 @@
     Height = 598
     Align = alClient
     TabOrder = 2
-    Properties.ActivePage = cxTabSheet6
+    Properties.ActivePage = cxTabSheet2
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
     ClientRectBottom = 594
@@ -205,13 +205,12 @@
             Caption = #1042#1091#1083#1080#1094#1103
             DataBinding.FieldName = 'ID_UL'
             PropertiesClassName = 'TcxLookupComboBoxProperties'
-            Properties.DropDownListStyle = lsFixedList
+            Properties.KeyFieldNames = 'ID'
             Properties.ListColumns = <
               item
                 FieldName = 'NAME'
               end>
             Properties.ListSource = DSUL
-            Options.Editing = False
             Width = 153
           end
           object cxGridDBTableView1DOM: TcxGridDBColumn
