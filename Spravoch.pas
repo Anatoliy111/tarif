@@ -338,6 +338,11 @@ begin
       else
         Application.MessageBox('Неможливо видалити іншого абонента так як він використовується в довіднику будинків ','Помилка',16)
       end;
+      if cxPageControl1.ActivePageIndex=5 then
+      begin
+        IBTIPPR.Delete;
+        fl_post:=1;
+      end;
     end;
   end;
 end;
@@ -525,6 +530,10 @@ begin
   if IBPOSL.State in [dsInsert,dsEdit] then IBPOSL.Post;
   if IBDOM.State in [dsInsert,dsEdit] then IBDOM.Post;
   if IBUL.State in [dsInsert,dsEdit] then IBUL.Post;
+  if IBDOM_OTHER.State in [dsInsert,dsEdit] then IBDOM_OTHER.Post;
+  if IBVIDAB.State in [dsInsert,dsEdit] then IBVIDAB.Post;
+  if IBOTHER.State in [dsInsert,dsEdit] then IBOTHER.Post;
+  if IBTIPPR.State in [dsInsert,dsEdit] then IBTIPPR.Post;
   inherited;
 end;
 

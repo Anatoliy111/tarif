@@ -19,7 +19,6 @@
     Properties.ActivePage = cxTabSheet6
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
-    ExplicitHeight = 424
     ClientRectBottom = 594
     ClientRectLeft = 4
     ClientRectRight = 763
@@ -67,7 +66,6 @@
         Height = 467
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 293
         object cxGrid1DBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSPOSL
@@ -190,7 +188,6 @@
         Height = 275
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 224
         object cxGridDBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           OnFocusedRecordChanged = cxGridDBTableView1FocusedRecordChanged
@@ -264,7 +261,6 @@
         Height = 30
         Align = alBottom
         TabOrder = 2
-        ExplicitTop = 328
         object cxButton1: TcxButton
           Left = 1
           Top = 1
@@ -407,8 +403,6 @@
           OptionsImage.Layout = blGlyphRight
           TabOrder = 0
           OnClick = cxButton1Click
-          ExplicitLeft = 9
-          ExplicitTop = 2
         end
         object cxButton2: TcxButton
           Left = 41
@@ -552,8 +546,6 @@
           OptionsImage.Layout = blGlyphRight
           TabOrder = 1
           OnClick = cxButton2Click
-          ExplicitLeft = 49
-          ExplicitTop = 2
         end
       end
       object cxGrid6: TcxGrid
@@ -563,7 +555,6 @@
         Height = 168
         Align = alBottom
         TabOrder = 3
-        ExplicitTop = 414
         object cxGridDBTableView5: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSDOM_OTHER
@@ -653,7 +644,6 @@
         Height = 457
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 283
         object cxGridDBTableView2: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSUL
@@ -711,7 +701,6 @@
         Height = 505
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 331
         object cxGridDBTableView3: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSVIDAB
@@ -792,7 +781,6 @@
         Height = 473
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 299
         object cxGridDBTableView4: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSOTHER
@@ -855,7 +843,6 @@
         Height = 457
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 283
         object cxGridDBTableView6: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DІTIPPR
@@ -888,7 +875,7 @@
   inherited Panel4: TPanel
     Top = 639
     Width = 767
-    ExplicitTop = 465
+    ExplicitTop = 639
     ExplicitWidth = 767
     inherited Panel3: TPanel
       Left = 610
