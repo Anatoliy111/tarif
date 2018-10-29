@@ -211,8 +211,8 @@ var
   Main: TMain;
   ExB: WORD;
   HiForm:integer;
-//  frm:TSprav;
-  Sprav:TSprav;
+  frm:TSprav;
+
   Report1: tReport;
   Report2: tReport;
  // TB:TToolButton;

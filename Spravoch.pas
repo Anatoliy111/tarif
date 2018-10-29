@@ -185,10 +185,14 @@ type
 
   public
   fl_ins:integer;
-  Sprav:TSprav;
+
 //      procedure KeyF6(var Key: Word; Hint:string; var Hint1:string; SColor1:TColor);
     { Public declarations }
   end;
+
+var
+  Sprav: TSprav;
+
 
 {    Hint1:string;
     SColor1:TColor; }
