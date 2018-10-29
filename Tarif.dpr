@@ -21,7 +21,8 @@ uses
   SpDom in 'SpDom.pas' {SpDomForm},
   SpUl in 'SpUl.pas' {SpUlForm},
   SpVidAB in 'SpVidAB.pas' {SpVidABForm},
-  DomOther in 'DomOther.pas' {DomOthForm};
+  DomOther in 'DomOther.pas' {DomOthForm},
+  SpView in 'SpView.pas' {SpViewForm};
 
 {$R *.res}
 

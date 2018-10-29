@@ -109,14 +109,6 @@ type
     cxGridDBTableView4NAME: TcxGridDBColumn;
     cxGridDBTableView4EDRPOU: TcxGridDBColumn;
     cxGridDBTableView4ID_VIDAB: TcxGridDBColumn;
-    IBDOM_OTHER: TIBDataSet;
-    DSDOM_OTHER: TDataSource;
-    IBDOM_OTHERID: TIntegerField;
-    IBDOM_OTHERID_DOM: TIntegerField;
-    IBDOM_OTHERID_OTHER: TIntegerField;
-    IBDOM_OTHERPLOS_OB: TIBBCDField;
-    IBDOM_OTHERPLOS_BB: TIBBCDField;
-    IBDOM_OTHERID_TIPPR: TIntegerField;
     cxLabel12: TcxLabel;
     cxLabel13: TcxLabel;
     Panel8: TPanel;
@@ -152,12 +144,19 @@ type
     IBDOMID_VIDAB: TIntegerField;
     IBDOMSCHET1: TIBStringField;
     IBDOMSCHET2: TIBStringField;
-    cxGridDBTableView5ID: TcxGridDBColumn;
-    cxGridDBTableView5ID_DOM: TcxGridDBColumn;
     cxGridDBTableView5ID_OTHER: TcxGridDBColumn;
     cxGridDBTableView5PLOS_OB: TcxGridDBColumn;
     cxGridDBTableView5PLOS_BB: TcxGridDBColumn;
     cxGridDBTableView5ID_TIPPR: TcxGridDBColumn;
+    IBDOM_OTHER: TIBDataSet;
+    DSDOM_OTHER: TDataSource;
+    IBDOM_OTHERID: TIntegerField;
+    IBDOM_OTHERID_DOM: TIntegerField;
+    IBDOM_OTHERID_OTHER: TIntegerField;
+    IBDOM_OTHERPLOS_OB: TIBBCDField;
+    IBDOM_OTHERPLOS_BB: TIBBCDField;
+    IBDOM_OTHERID_TIPPR: TIntegerField;
+    cxGridDBTableView1ID: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);
@@ -186,6 +185,7 @@ type
     procedure IBOTHERBeforePost(DataSet: TDataSet);
     procedure IBDOM_OTHERBeforePost(DataSet: TDataSet);
     procedure IBTIPPRBeforePost(DataSet: TDataSet);
+    procedure IBDOM_OTHERAfterEdit(DataSet: TDataSet);
   private
     { Private declarations }
 
@@ -211,16 +211,17 @@ uses MyLibrary, InsertForm;
 
 procedure TSprav.FormCreate(Sender: TObject);
 begin
-IBTransaction1.Active:=true;
-IBPOSL.Active:=true;
-IBDOM.Active:=true;
-IBUL.Active:=true;
-IBOTHER.Active:=true;
-IBVIDAB.Active:=true;
-IBTIPPR.Active:=true;
+  if not IBTransaction1.Active then
+     IBTransaction1.StartTransaction;
+IBPOSL.open;
+IBDOM.open;
+IBUL.open;
+IBOTHER.open;
+IBVIDAB.open;
+IBTIPPR.open;
   IBDOM_OTHER.close;
-  IBDOM_OTHER.SelectSQL.Text:='select * from dom_other where id_dom=:dom';
-  IBDOM_OTHER.ParamByName('dom').AsInteger:=IBDOMID.Value;
+  IBDOM_OTHER.SelectSQL.Text:='select * from dom_other where id_dom=:idddom';
+  IBDOM_OTHER.ParamByName('idddom').AsInteger:=IBDOMID.Value;
   IBDOM_OTHER.open;
 
   inherited;
@@ -245,6 +246,12 @@ begin
 fl_post:=1;
   inherited;
 
+end;
+
+procedure TSprav.IBDOM_OTHERAfterEdit(DataSet: TDataSet);
+begin
+  inherited;
+self.fl_post:=1;
 end;
 
 procedure TSprav.IBDOM_OTHERBeforePost(DataSet: TDataSet);
@@ -536,11 +543,12 @@ procedure TSprav.cxGridDBTableView1FocusedRecordChanged(
   Sender: TcxCustomGridTableView; APrevFocusedRecord,
   AFocusedRecord: TcxCustomGridRecord; ANewItemRecordFocusingChanged: Boolean);
 begin
-  inherited;
   IBDOM_OTHER.close;
-  IBDOM_OTHER.SelectSQL.Text:='select * from dom_other where id_dom=:dom';
-  IBDOM_OTHER.ParamByName('dom').AsInteger:=IBDOMID.Value;
+  IBDOM_OTHER.SelectSQL.Text:='select * from dom_other where id_dom=:idddom';
+  IBDOM_OTHER.ParamByName('idddom').AsInteger:=IBDOMID.Value;
   IBDOM_OTHER.open;
+  inherited;
+
 end;
 
 procedure TSprav.cxLookupComboBox1PropertiesChange(Sender: TObject);

@@ -36,6 +36,7 @@ type
  //номер документа
         ABar: TdxBar;
         fl_post:integer;
+        constructor Create(Sender: TComponent); virtual;
 
   end;
 
@@ -47,6 +48,12 @@ implementation
 uses DataMod, InsertForm;
 
 {$R *.dfm}
+
+constructor TAllMDICh.Create(Sender: TComponent);
+begin
+    inherited Create(Sender);
+    // do other
+end;
 
 
 procedure TAllMDICh.cxButton3Click(Sender: TObject);

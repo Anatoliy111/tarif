@@ -11,7 +11,7 @@ uses
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
   cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm,
-  Data.Win.ADODB;
+  Data.Win.ADODB,SpView;
 
 type
   TMain = class(TForm)
@@ -173,6 +173,8 @@ type
     dxBarButton20: TdxBarButton;
     dxBarButton21: TdxBarButton;
     dxBarButton22: TdxBarButton;
+    dxBarButton23: TdxBarButton;
+    dxBarButton24: TdxBarButton;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -191,6 +193,7 @@ type
     procedure dxBarButton20Click(Sender: TObject);
     procedure dxBarButton21Click(Sender: TObject);
     procedure dxBarButton22Click(Sender: TObject);
+    procedure dxBarButton23Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -215,6 +218,7 @@ var
 
   Report1: tReport;
   Report2: tReport;
+
  // TB:TToolButton;
 implementation
 
@@ -721,6 +725,49 @@ begin
  Sprav.Show;
  Sprav.SetFocus;
  Sprav.cxPageControl1.ActivePageIndex:=5;
+end;
+
+procedure TMain.dxBarButton23Click(Sender: TObject);
+var SpDOM1 : tSpViewForm;
+begin
+// if SpDom=nil then
+// begin
+// Application.CreateForm(TSpViewForm,SpDom);
+// AddToolBar(SpDom);
+// end
+// else
+//   SpDom.Show;
+// SpDom.SetFocus;
+// SpDom.cxPageControl1.ActivePageIndex:=0;
+
+//    SpDom:= TSpViewForm.Create(nil);
+//    try
+//      SpDom.Show;
+//    finally
+//      SpDom.Free;
+//    end;
+
+
+//     SpDOM1:=TSpViewForm.Create(Application.MainForm);
+//     SpDOM1.Show;
+//     AddToolBar(SpDOM1);
+
+//  with TSpViewForm.Create (nil) do
+//    try
+//      Show;
+//    finally
+////      Free;
+//    end;
+
+
+//      if not Assigned(SpDOM1) then
+      if Screen.ActiveForm = SpDOM1 then
+        SpDOM1:= TSpViewForm.Create(nil);
+  SpDOM1.Show;
+//  FreeAndNil(Form2);
+
+
+
 end;
 
 procedure TMain.dxBarButton30Click(Sender: TObject);

@@ -5,7 +5,6 @@
   Position = poMainFormCenter
   WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitTop = -87
   ExplicitWidth = 783
   ExplicitHeight = 746
   PixelsPerInch = 96
@@ -197,6 +196,9 @@
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
           OptionsView.GroupByBox = False
+          object cxGridDBTableView1ID: TcxGridDBColumn
+            DataBinding.FieldName = 'ID'
+          end
           object cxGridDBTableView1NAME: TcxGridDBColumn
             Caption = #1053#1072#1081#1084#1077#1085#1091#1074#1072#1085#1085#1103
             DataBinding.FieldName = 'NAME'
@@ -218,7 +220,7 @@
             Caption = #1041#1091#1076#1080#1085#1086#1082
             DataBinding.FieldName = 'DOM'
             PropertiesClassName = 'TcxTextEditProperties'
-            Properties.ReadOnly = True
+            Properties.ReadOnly = False
             Width = 54
           end
           object cxGridDBTableView1PLOS_OB: TcxGridDBColumn
@@ -558,29 +560,46 @@
         object cxGridDBTableView5: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSDOM_OTHER
-          DataController.DetailKeyFieldNames = 'ID'
+          DataController.KeyFieldNames = 'ID'
+          DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
+          OptionsSelection.HideFocusRectOnExit = False
+          OptionsView.CellEndEllipsis = True
+          OptionsView.CellAutoHeight = True
           OptionsView.GroupByBox = False
-          object cxGridDBTableView5ID: TcxGridDBColumn
-            DataBinding.FieldName = 'ID'
-          end
-          object cxGridDBTableView5ID_DOM: TcxGridDBColumn
-            DataBinding.FieldName = 'ID_DOM'
-          end
           object cxGridDBTableView5ID_OTHER: TcxGridDBColumn
+            Caption = #1030#1085#1096#1110' '#1072#1073#1086#1085#1077#1085#1090#1080
             DataBinding.FieldName = 'ID_OTHER'
-            Width = 230
+            PropertiesClassName = 'TcxLookupComboBoxProperties'
+            Properties.KeyFieldNames = 'ID'
+            Properties.ListColumns = <
+              item
+                FieldName = 'NAME'
+              end>
+            Properties.ListSource = DSOTHER
+            Width = 234
           end
           object cxGridDBTableView5PLOS_OB: TcxGridDBColumn
+            Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
             DataBinding.FieldName = 'PLOS_OB'
           end
           object cxGridDBTableView5PLOS_BB: TcxGridDBColumn
+            Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
             DataBinding.FieldName = 'PLOS_BB'
           end
           object cxGridDBTableView5ID_TIPPR: TcxGridDBColumn
+            Caption = #1055#1088#1080#1084#1110#1097#1077#1085#1085#1103
             DataBinding.FieldName = 'ID_TIPPR'
+            PropertiesClassName = 'TcxLookupComboBoxProperties'
+            Properties.KeyFieldNames = 'ID'
+            Properties.ListColumns = <
+              item
+                FieldName = 'NAIM'
+              end>
+            Properties.ListSource = DІTIPPR
+            Width = 139
           end
         end
         object cxGridLevel5: TcxGridLevel
@@ -1010,6 +1029,7 @@
     Top = 640
     object IBDOMID: TIntegerField
       FieldName = 'ID'
+      KeyFields = 'ID'
       Origin = '"DOM"."ID"'
       Required = True
     end
@@ -1023,9 +1043,10 @@
       Origin = '"DOM"."ID_UL"'
     end
     object IBDOMDOM: TIBStringField
+      DisplayWidth = 10
       FieldName = 'DOM'
       Origin = '"DOM"."DOM"'
-      Size = 5
+      Size = 10
     end
     object IBDOMCH: TSmallintField
       FieldName = 'CH'
@@ -1063,7 +1084,6 @@
     end
   end
   object DSDOM: TDataSource
-    AutoEdit = False
     DataSet = IBDOM
     Left = 64
     Top = 672
@@ -1136,6 +1156,7 @@
     end
   end
   object DSUL: TDataSource
+    AutoEdit = False
     DataSet = IBUL
     Left = 96
     Top = 672
@@ -1260,87 +1281,6 @@
     Left = 160
     Top = 672
   end
-  object IBDOM_OTHER: TIBDataSet
-    Database = DataM.IBDatabase1
-    Transaction = IBTransaction1
-    BeforePost = IBDOM_OTHERBeforePost
-    BufferChunks = 1000
-    CachedUpdates = False
-    DeleteSQL.Strings = (
-      'delete from DOM_OTHER'
-      'where'
-      '  ID = :OLD_ID')
-    InsertSQL.Strings = (
-      'insert into DOM_OTHER'
-      '  (ID, ID_DOM, ID_OTHER, PLOS_OB, PLOS_BB, ID_TIPPR)'
-      'values'
-      '  (:ID, :ID_DOM, :ID_OTHER, :PLOS_OB, :PLOS_BB, :ID_TIPPR)')
-    RefreshSQL.Strings = (
-      'Select '
-      '  ID,'
-      '  ID_DOM,'
-      '  ID_OTHER,'
-      '  PLOS_OB,'
-      '  PLOS_BB,'
-      '  ID_TIPPR'
-      'from DOM_OTHER '
-      'where'
-      '  ID = :ID')
-    SelectSQL.Strings = (
-      'SELECT * from DOM_OTHER'
-      '')
-    ModifySQL.Strings = (
-      'update DOM_OTHER'
-      'set'
-      '  ID = :ID,'
-      '  ID_DOM = :ID_DOM,'
-      '  ID_OTHER = :ID_OTHER,'
-      '  PLOS_OB = :PLOS_OB,'
-      '  PLOS_BB = :PLOS_BB,'
-      '  ID_TIPPR = :ID_TIPPR'
-      'where'
-      '  ID = :OLD_ID')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'ID'
-    GeneratorField.Generator = 'GEN_DOM_OTHER_ID'
-    Left = 192
-    Top = 640
-    object IBDOM_OTHERID: TIntegerField
-      FieldName = 'ID'
-      Origin = '"DOM_OTHER"."ID"'
-      Required = True
-    end
-    object IBDOM_OTHERID_DOM: TIntegerField
-      FieldName = 'ID_DOM'
-      Origin = '"DOM_OTHER"."ID_DOM"'
-    end
-    object IBDOM_OTHERID_OTHER: TIntegerField
-      FieldName = 'ID_OTHER'
-      Origin = '"DOM_OTHER"."ID_OTHER"'
-    end
-    object IBDOM_OTHERPLOS_OB: TIBBCDField
-      FieldName = 'PLOS_OB'
-      Origin = '"DOM_OTHER"."PLOS_OB"'
-      Precision = 18
-      Size = 2
-    end
-    object IBDOM_OTHERPLOS_BB: TIBBCDField
-      FieldName = 'PLOS_BB'
-      Origin = '"DOM_OTHER"."PLOS_BB"'
-      Precision = 18
-      Size = 2
-    end
-    object IBDOM_OTHERID_TIPPR: TIntegerField
-      FieldName = 'ID_TIPPR'
-      Origin = '"DOM_OTHER"."ID_TIPPR"'
-    end
-  end
-  object DSDOM_OTHER: TDataSource
-    DataSet = IBDOM_OTHER
-    Left = 192
-    Top = 672
-  end
   object IBTIPPR: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
@@ -1378,7 +1318,7 @@
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_OTHER_ID'
     Left = 224
-    Top = 640
+    Top = 624
     object IBTIPPRID: TIntegerField
       FieldName = 'ID'
       Origin = '"TIPPR"."ID"'
@@ -1392,6 +1332,88 @@
   object DІTIPPR: TDataSource
     DataSet = IBTIPPR
     Left = 224
+    Top = 672
+  end
+  object IBDOM_OTHER: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    AfterEdit = IBDOM_OTHERAfterEdit
+    BeforePost = IBDOM_OTHERBeforePost
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from DOM_OTHER'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into DOM_OTHER'
+      '  (ID, ID_DOM, ID_OTHER, PLOS_OB, PLOS_BB, ID_TIPPR)'
+      'values'
+      '  (:ID, :ID_DOM, :ID_OTHER, :PLOS_OB, :PLOS_BB, :ID_TIPPR)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_DOM,'
+      '  ID_OTHER,'
+      '  PLOS_OB,'
+      '  PLOS_BB,'
+      '  ID_TIPPR'
+      'from DOM_OTHER '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from DOM_OTHER')
+    ModifySQL.Strings = (
+      'update DOM_OTHER'
+      'set'
+      '  ID = :ID,'
+      '  ID_DOM = :ID_DOM,'
+      '  ID_OTHER = :ID_OTHER,'
+      '  PLOS_OB = :PLOS_OB,'
+      '  PLOS_BB = :PLOS_BB,'
+      '  ID_TIPPR = :ID_TIPPR'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_DOM_OTHER_ID'
+    DataSource = DSPOSL
+    Left = 296
+    Top = 624
+    object IBDOM_OTHERID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"DOM_OTHER"."ID"'
+      Required = True
+    end
+    object IBDOM_OTHERID_DOM: TIntegerField
+      FieldName = 'ID_DOM'
+      Origin = '"DOM_OTHER"."ID_DOM"'
+    end
+    object IBDOM_OTHERID_OTHER: TIntegerField
+      FieldName = 'ID_OTHER'
+      Origin = '"DOM_OTHER"."ID_OTHER"'
+    end
+    object IBDOM_OTHERPLOS_OB: TIBBCDField
+      FieldName = 'PLOS_OB'
+      Origin = '"DOM_OTHER"."PLOS_OB"'
+      Precision = 18
+      Size = 2
+    end
+    object IBDOM_OTHERPLOS_BB: TIBBCDField
+      FieldName = 'PLOS_BB'
+      Origin = '"DOM_OTHER"."PLOS_BB"'
+      Precision = 18
+      Size = 2
+    end
+    object IBDOM_OTHERID_TIPPR: TIntegerField
+      FieldName = 'ID_TIPPR'
+      Origin = '"DOM_OTHER"."ID_TIPPR"'
+    end
+  end
+  object DSDOM_OTHER: TDataSource
+    DataSet = IBDOM_OTHER
+    Left = 296
     Top = 672
   end
 end
