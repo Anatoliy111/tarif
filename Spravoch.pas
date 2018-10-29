@@ -123,10 +123,6 @@ type
     cxGrid6: TcxGrid;
     cxGridDBTableView5: TcxGridDBTableView;
     cxGridLevel5: TcxGridLevel;
-    cxGridDBTableView5ID_OTHER: TcxGridDBColumn;
-    cxGridDBTableView5PLOS_OB: TcxGridDBColumn;
-    cxGridDBTableView5PLOS_BB: TcxGridDBColumn;
-    cxGridDBTableView5ID_TIPPR: TcxGridDBColumn;
     cxButton1: TcxButton;
     cxButton2: TcxButton;
     cxTabSheet6: TcxTabSheet;
@@ -156,6 +152,12 @@ type
     IBDOMID_VIDAB: TIntegerField;
     IBDOMSCHET1: TIBStringField;
     IBDOMSCHET2: TIBStringField;
+    cxGridDBTableView5ID: TcxGridDBColumn;
+    cxGridDBTableView5ID_DOM: TcxGridDBColumn;
+    cxGridDBTableView5ID_OTHER: TcxGridDBColumn;
+    cxGridDBTableView5PLOS_OB: TcxGridDBColumn;
+    cxGridDBTableView5PLOS_BB: TcxGridDBColumn;
+    cxGridDBTableView5ID_TIPPR: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);
@@ -180,6 +182,10 @@ type
       AFocusedRecord: TcxCustomGridRecord;
       ANewItemRecordFocusingChanged: Boolean);
     procedure cxButton1Click(Sender: TObject);
+    procedure IBVIDABBeforePost(DataSet: TDataSet);
+    procedure IBOTHERBeforePost(DataSet: TDataSet);
+    procedure IBDOM_OTHERBeforePost(DataSet: TDataSet);
+    procedure IBTIPPRBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
 
@@ -227,7 +233,21 @@ fl_post:=1;
 
 end;
 
+procedure TSprav.IBTIPPRBeforePost(DataSet: TDataSet);
+begin
+fl_post:=1;
+  inherited;
+
+end;
+
 procedure TSprav.IBDOMBeforePost(DataSet: TDataSet);
+begin
+fl_post:=1;
+  inherited;
+
+end;
+
+procedure TSprav.IBDOM_OTHERBeforePost(DataSet: TDataSet);
 begin
 fl_post:=1;
   inherited;
@@ -255,7 +275,21 @@ fl_post:=1;
 
 end;
 
+procedure TSprav.IBVIDABBeforePost(DataSet: TDataSet);
+begin
+fl_post:=1;
+  inherited;
+
+end;
+
 procedure TSprav.IBMATSOTRBeforePost(DataSet: TDataSet);
+begin
+fl_post:=1;
+  inherited;
+
+end;
+
+procedure TSprav.IBOTHERBeforePost(DataSet: TDataSet);
 begin
 fl_post:=1;
   inherited;

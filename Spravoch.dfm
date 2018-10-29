@@ -5,6 +5,7 @@
   Position = poMainFormCenter
   WindowState = wsMaximized
   OnCreate = FormCreate
+  ExplicitTop = -87
   ExplicitWidth = 783
   ExplicitHeight = 746
   PixelsPerInch = 96
@@ -562,37 +563,24 @@
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
           OptionsView.GroupByBox = False
+          object cxGridDBTableView5ID: TcxGridDBColumn
+            DataBinding.FieldName = 'ID'
+          end
+          object cxGridDBTableView5ID_DOM: TcxGridDBColumn
+            DataBinding.FieldName = 'ID_DOM'
+          end
           object cxGridDBTableView5ID_OTHER: TcxGridDBColumn
-            Caption = #1030#1085#1096#1110' '#1072#1073#1086#1085#1077#1085#1090#1080
             DataBinding.FieldName = 'ID_OTHER'
-            PropertiesClassName = 'TcxLookupComboBoxProperties'
-            Properties.KeyFieldNames = 'ID'
-            Properties.ListColumns = <
-              item
-                FieldName = 'NAME'
-              end>
-            Properties.ListSource = DSOTHER
-            Width = 276
+            Width = 230
           end
           object cxGridDBTableView5PLOS_OB: TcxGridDBColumn
-            Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
             DataBinding.FieldName = 'PLOS_OB'
           end
           object cxGridDBTableView5PLOS_BB: TcxGridDBColumn
-            Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
             DataBinding.FieldName = 'PLOS_BB'
           end
           object cxGridDBTableView5ID_TIPPR: TcxGridDBColumn
-            Caption = #1055#1088#1080#1084#1110#1097#1077#1085#1085#1103
             DataBinding.FieldName = 'ID_TIPPR'
-            PropertiesClassName = 'TcxLookupComboBoxProperties'
-            Properties.KeyFieldNames = 'ID'
-            Properties.ListColumns = <
-              item
-                FieldName = 'NAIM'
-              end>
-            Properties.ListSource = DІTIPPR
-            Width = 109
           end
         end
         object cxGridLevel5: TcxGridLevel
@@ -886,7 +874,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 696
   end
   object IBPOSL: TIBDataSet
@@ -1076,6 +1063,7 @@
     end
   end
   object DSDOM: TDataSource
+    AutoEdit = False
     DataSet = IBDOM
     Left = 64
     Top = 672
@@ -1155,7 +1143,7 @@
   object IBVIDAB: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
-    BeforePost = IBULBeforePost
+    BeforePost = IBVIDABBeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
@@ -1209,7 +1197,7 @@
   object IBOTHER: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
-    BeforePost = IBULBeforePost
+    BeforePost = IBOTHERBeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
@@ -1275,7 +1263,7 @@
   object IBDOM_OTHER: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
-    BeforePost = IBULBeforePost
+    BeforePost = IBDOM_OTHERBeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
@@ -1316,7 +1304,6 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_DOM_OTHER_ID'
-    DataSource = DSDOM
     Left = 192
     Top = 640
     object IBDOM_OTHERID: TIntegerField
@@ -1357,7 +1344,7 @@
   object IBTIPPR: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
-    BeforePost = IBULBeforePost
+    BeforePost = IBTIPPRBeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
