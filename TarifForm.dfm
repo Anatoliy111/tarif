@@ -1,23 +1,27 @@
 ﻿inherited Tarifs: TTarifs
+  BorderStyle = bsSizeable
   Caption = #1058#1072#1088#1080#1092#1080
-  ClientHeight = 629
-  ClientWidth = 790
-  Position = poMainFormCenter
-  WindowState = wsMaximized
+  ClientHeight = 661
+  ClientWidth = 928
+  PopupMode = pmAuto
+  Position = poDefaultSizeOnly
   OnCreate = FormCreate
-  ExplicitWidth = 806
-  ExplicitHeight = 667
+  ExplicitWidth = 944
+  ExplicitHeight = 699
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
-    Width = 790
+    Width = 928
     TabOrder = 3
-    ExplicitWidth = 790
+    ExplicitWidth = 928
     inherited cxButton6: TcxButton
       OnClick = cxButton6Click
     end
     inherited cxButton7: TcxButton
       OnClick = cxButton7Click
+    end
+    inherited cxButton9: TcxButton
+      OnClick = cxButton9Click
     end
     object cxButton1: TcxButton [4]
       Left = 211
@@ -35,17 +39,16 @@
     end
     inherited cxButton5: TcxButton
       TabOrder = 5
+      OnClick = cxButton5Click
     end
   end
   object cxGrid1: TcxGrid [1]
     Left = 169
     Top = 89
-    Width = 621
-    Height = 403
+    Width = 759
+    Height = 435
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 175
-    ExplicitTop = 95
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       OnFocusedRecordChanged = cxGrid1DBTableView1FocusedRecordChanged
@@ -175,7 +178,7 @@
   object Panel1: TPanel [2]
     Left = 0
     Top = 41
-    Width = 790
+    Width = 928
     Height = 48
     Align = alTop
     TabOrder = 2
@@ -214,17 +217,17 @@
     end
   end
   inherited Panel4: TPanel
-    Top = 576
-    Width = 790
+    Top = 608
+    Width = 928
     Height = 53
     TabOrder = 0
-    ExplicitTop = 576
-    ExplicitWidth = 790
+    ExplicitTop = 608
+    ExplicitWidth = 928
     ExplicitHeight = 53
     inherited Panel3: TPanel
-      Left = 633
+      Left = 771
       Height = 28
-      ExplicitLeft = 633
+      ExplicitLeft = 771
       ExplicitHeight = 28
       inherited cxButton4: TcxButton
         Top = 3
@@ -237,17 +240,17 @@
     end
     inherited dxStatusBar1: TdxStatusBar
       Top = 32
-      Width = 782
+      Width = 920
       Height = 17
       ExplicitTop = 32
-      ExplicitWidth = 782
+      ExplicitWidth = 920
       ExplicitHeight = 17
     end
   end
   object cxGrid2: TcxGrid [4]
     Left = 0
-    Top = 492
-    Width = 790
+    Top = 524
+    Width = 928
     Height = 84
     Align = alBottom
     TabOrder = 4
@@ -290,7 +293,7 @@
     Left = 0
     Top = 89
     Width = 169
-    Height = 403
+    Height = 435
     Align = alLeft
     TabOrder = 9
     object DBLookupListBox1: TDBLookupListBox
@@ -315,7 +318,7 @@
       Left = 1
       Top = 117
       Width = 167
-      Height = 285
+      Height = 317
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -328,9 +331,18 @@
         OptionsData.Editing = False
         OptionsSelection.CellSelect = False
         OptionsView.GroupByBox = False
-        object cxGridDBTableView2NAME: TcxGridDBColumn
+        object cxGridDBTableView2ID_DOM: TcxGridDBColumn
           Caption = #1041#1091#1076#1080#1085#1082#1080
-          DataBinding.FieldName = 'NAME'
+          DataBinding.FieldName = 'ID_DOM'
+          PropertiesClassName = 'TcxLookupComboBoxProperties'
+          Properties.KeyFieldNames = 'ID'
+          Properties.ListColumns = <
+            item
+              FieldName = 'NAME'
+            end>
+          Properties.ListSource = DSDOM
+          Properties.ReadOnly = True
+          Width = 166
         end
       end
       object cxGridLevel2: TcxGridLevel
@@ -403,12 +415,18 @@
       
         '  (ID, ID_TARIF, DATA, TARIF_PLAN, TARIF_FACT, TARIF_RN, TARIF_R' +
         'K, NORMA, '
-      '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L)'
+      
+        '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
+        ' NOTE, '
+      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
         'TARIF_RK, '
-      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L)')
+      
+        '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
+        'H_PN, :LICH_PK, '
+      '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -423,7 +441,14 @@
       '  PLAN_BL,'
       '  FACT_BL,'
       '  END_BL,'
-      '  END_L'
+      '  END_L,'
+      '  LICH_PN,'
+      '  LICH_PK,'
+      '  NOTE,'
+      '  PLOS_BBI,'
+      '  NSER_LICH,'
+      '  ID_KOTEL,'
+      '  PLOS_BB'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -448,7 +473,14 @@
       '  PLAN_BL = :PLAN_BL,'
       '  FACT_BL = :FACT_BL,'
       '  END_BL = :END_BL,'
-      '  END_L = :END_L'
+      '  END_L = :END_L,'
+      '  LICH_PN = :LICH_PN,'
+      '  LICH_PK = :LICH_PK,'
+      '  NOTE = :NOTE,'
+      '  PLOS_BBI = :PLOS_BBI,'
+      '  NSER_LICH = :NSER_LICH,'
+      '  ID_KOTEL = :ID_KOTEL,'
+      '  PLOS_BB = :PLOS_BB'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1144,12 +1176,18 @@
       
         '  (ID, ID_TARIF, DATA, TARIF_PLAN, TARIF_FACT, TARIF_RN, TARIF_R' +
         'K, NORMA, '
-      '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L)'
+      
+        '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
+        ' NOTE, '
+      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
         'TARIF_RK, '
-      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L)')
+      
+        '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
+        'H_PN, :LICH_PK, '
+      '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1164,7 +1202,14 @@
       '  PLAN_BL,'
       '  FACT_BL,'
       '  END_BL,'
-      '  END_L'
+      '  END_L,'
+      '  LICH_PN,'
+      '  LICH_PK,'
+      '  NOTE,'
+      '  PLOS_BBI,'
+      '  NSER_LICH,'
+      '  ID_KOTEL,'
+      '  PLOS_BB'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1187,7 +1232,14 @@
       '  PLAN_BL = :PLAN_BL,'
       '  FACT_BL = :FACT_BL,'
       '  END_BL = :END_BL,'
-      '  END_L = :END_L'
+      '  END_L = :END_L,'
+      '  LICH_PN = :LICH_PN,'
+      '  LICH_PK = :LICH_PK,'
+      '  NOTE = :NOTE,'
+      '  PLOS_BBI = :PLOS_BBI,'
+      '  NSER_LICH = :NSER_LICH,'
+      '  ID_KOTEL = :ID_KOTEL,'
+      '  PLOS_BB = :PLOS_BB'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1273,6 +1325,43 @@
     object IBTARIF_MESEND_L: TIBBCDField
       FieldName = 'END_L'
       Origin = '"TARIF_MES"."END_L"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESLICH_PN: TIBBCDField
+      FieldName = 'LICH_PN'
+      Origin = '"TARIF_MES"."LICH_PN"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESLICH_PK: TIBBCDField
+      FieldName = 'LICH_PK'
+      Origin = '"TARIF_MES"."LICH_PK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"TARIF_MES"."NOTE"'
+      Size = 200
+    end
+    object IBTARIF_MESPLOS_BBI: TIBBCDField
+      FieldName = 'PLOS_BBI'
+      Origin = '"TARIF_MES"."PLOS_BBI"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESNSER_LICH: TIBStringField
+      FieldName = 'NSER_LICH'
+      Origin = '"TARIF_MES"."NSER_LICH"'
+    end
+    object IBTARIF_MESID_KOTEL: TIntegerField
+      FieldName = 'ID_KOTEL'
+      Origin = '"TARIF_MES"."ID_KOTEL"'
+    end
+    object IBTARIF_MESPLOS_BB: TIBBCDField
+      FieldName = 'PLOS_BB'
+      Origin = '"TARIF_MES"."PLOS_BB"'
       Precision = 18
       Size = 2
     end
@@ -1516,15 +1605,14 @@
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into TARIF'
-      '  (ID, NAME, ID_POSL, NOTE)'
+      '  (ID, NAME, ID_POSL)'
       'values'
-      '  (:ID, :NAME, :ID_POSL, :NOTE)')
+      '  (:ID, :NAME, :ID_POSL)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  NAME,'
-      '  ID_POSL,'
-      '  NOTE'
+      '  ID_POSL'
       'from TARIF '
       'where'
       '  ID = :ID')
@@ -1535,8 +1623,7 @@
       'set'
       '  ID = :ID,'
       '  NAME = :NAME,'
-      '  ID_POSL = :ID_POSL,'
-      '  NOTE = :NOTE'
+      '  ID_POSL = :ID_POSL'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1559,15 +1646,128 @@
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
     end
-    object IBTARIFNOTE: TIBStringField
-      FieldName = 'NOTE'
-      Origin = '"TARIF"."NOTE"'
-      Size = 100
-    end
   end
   object DSTARIF: TDataSource
     DataSet = IBTARIF
     Left = 160
     Top = 344
+  end
+  object IBVIDAB: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BeforePost = IBDOMBeforePost
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from VIDAB'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into VIDAB'
+      '  (ID, NAME)'
+      'values'
+      '  (:ID, :NAME)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  NAME'
+      'from VIDAB '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select *  from VIDAB')
+    ModifySQL.Strings = (
+      'update VIDAB'
+      'set'
+      '  ID = :ID,'
+      '  NAME = :NAME'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_VIDAB_ID'
+    Left = 560
+    Top = 520
+    object IBVIDABID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"VIDAB"."ID"'
+      Required = True
+    end
+    object IBVIDABNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"VIDAB"."NAME"'
+      Size = 10
+    end
+  end
+  object DSVIDAB: TDataSource
+    DataSet = IBVIDAB
+    Left = 560
+    Top = 576
+  end
+  object IBOTHER: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BeforePost = IBDOMBeforePost
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from OTHER'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into OTHER'
+      '  (ID, NAME, EDRPOU, ID_VIDAB)'
+      'values'
+      '  (:ID, :NAME, :EDRPOU, :ID_VIDAB)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  NAME,'
+      '  EDRPOU,'
+      '  ID_VIDAB'
+      'from OTHER '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select *   from OTHER')
+    ModifySQL.Strings = (
+      'update OTHER'
+      'set'
+      '  ID = :ID,'
+      '  NAME = :NAME,'
+      '  EDRPOU = :EDRPOU,'
+      '  ID_VIDAB = :ID_VIDAB'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_OTHER_ID'
+    Left = 616
+    Top = 520
+    object IBOTHERID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"OTHER"."ID"'
+      Required = True
+    end
+    object IBOTHERNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"OTHER"."NAME"'
+      Size = 50
+    end
+    object IBOTHEREDRPOU: TIBStringField
+      FieldName = 'EDRPOU'
+      Origin = '"OTHER"."EDRPOU"'
+    end
+    object IBOTHERID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      Origin = '"OTHER"."ID_VIDAB"'
+    end
+  end
+  object DSOTHER: TDataSource
+    DataSet = IBOTHER
+    Left = 616
+    Top = 576
   end
 end

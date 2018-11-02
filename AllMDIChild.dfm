@@ -1,6 +1,7 @@
 object AllMDICh: TAllMDICh
   Left = 0
   Top = 0
+  BorderStyle = bsNone
   Caption = 'AllMDICh'
   ClientHeight = 517
   ClientWidth = 791

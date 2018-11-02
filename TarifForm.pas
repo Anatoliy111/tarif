@@ -54,7 +54,6 @@ type
     DBLookupListBox1: TDBLookupListBox;
     cxGrid3: TcxGrid;
     cxGridDBTableView2: TcxGridDBTableView;
-    cxGridDBTableView2NAME: TcxGridDBColumn;
     cxGridLevel2: TcxGridLevel;
     cxGridDBTableView1NAME: TcxGridDBColumn;
     cxGridDBTableView1SUMM: TcxGridDBColumn;
@@ -146,7 +145,6 @@ type
     IBTARIFID: TIntegerField;
     IBTARIFNAME: TIBStringField;
     IBTARIFID_POSL: TIntegerField;
-    IBTARIFNOTE: TIBStringField;
     cxGrid1DBTableView1Column1: TcxGridDBColumn;
     IBTARIF_COMPID: TIntegerField;
     IBTARIF_COMPID_TARIF: TIntegerField;
@@ -160,6 +158,24 @@ type
     IBTARIF_COMPSFACT: TIBBCDField;
     IBTARIF_COMPSUMM_BL: TIBBCDField;
     IBTARIF_COMPSUMM_L: TIBBCDField;
+    cxGridDBTableView2ID_DOM: TcxGridDBColumn;
+    IBVIDAB: TIBDataSet;
+    DSVIDAB: TDataSource;
+    IBVIDABID: TIntegerField;
+    IBVIDABNAME: TIBStringField;
+    IBOTHER: TIBDataSet;
+    DSOTHER: TDataSource;
+    IBOTHERID: TIntegerField;
+    IBOTHERNAME: TIBStringField;
+    IBOTHEREDRPOU: TIBStringField;
+    IBOTHERID_VIDAB: TIntegerField;
+    IBTARIF_MESLICH_PN: TIBBCDField;
+    IBTARIF_MESLICH_PK: TIBBCDField;
+    IBTARIF_MESNOTE: TIBStringField;
+    IBTARIF_MESPLOS_BBI: TIBBCDField;
+    IBTARIF_MESNSER_LICH: TIBStringField;
+    IBTARIF_MESID_KOTEL: TIntegerField;
+    IBTARIF_MESPLOS_BB: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -188,6 +204,8 @@ type
     procedure IBTARIFBeforePost(DataSet: TDataSet);
     procedure cxGrid1DBTableView1Column1PropertiesButtonClick(Sender: TObject;
       AButtonIndex: Integer);
+    procedure cxButton9Click(Sender: TObject);
+    procedure cxButton5Click(Sender: TObject);
   private
   procedure Enables(val:boolean);
   procedure Visible;
@@ -207,7 +225,7 @@ var
 implementation
 
 uses registry, cxGridExportLink, comobj, MainForm, InsertForm, Ins, mytools, DataMod, Progress, math,
-  Info;
+  Info, InsTarif;
 
 {$R *.dfm}
 
@@ -611,6 +629,25 @@ begin
 
 end;
 
+procedure TTarifs.cxButton5Click(Sender: TObject);
+begin
+ if ChangeTar=nil then
+ begin
+ Application.CreateForm(TInsTar,ChangeTar);
+ ChangeTar.Caption:='Змінити тариф';
+ ChangeTar.Update(IBTARIF_MESID.Value,IBTARIF_DOMID_DOM.Value);
+ Main.AddToolBar(ChangeTar);
+ end
+ else
+ ChangeTar.Show;
+
+ ChangeTar.SetFocus;
+
+
+  inherited;
+
+end;
+
 procedure TTarifs.cxButton6Click(Sender: TObject);
 begin
   inherited;
@@ -618,7 +655,10 @@ begin
 end;
 
 procedure TTarifs.cxButton7Click(Sender: TObject);
+var idd:Integer;
 begin
+idd:=IBTARIF_MESID.Value;
+self.fl_post:=1;
   inherited;
   IBPOSL.close;
   IBPERIOD.close;
@@ -637,6 +677,29 @@ begin
   IBTARIF_COMP.open;
   IBTARIF_DOM.open;
   IBTARIF_MES.open;
+
+  IBTARIF_MES.Locate('id',idd,[]);
+
+
+end;
+
+procedure TTarifs.cxButton9Click(Sender: TObject);
+begin
+ if InsertTar=nil then
+ begin
+ Application.CreateForm(TInsTar,InsertTar);
+ InsertTar.Caption:='Додати тариф';
+ InsertTar.cxButton1.Click;
+ Main.AddToolBar(InsertTar);
+ end
+ else
+ InsertTar.Show;
+
+ InsertTar.SetFocus;
+
+
+  inherited;
+
 end;
 
 procedure TTarifs.Enables(val:boolean);
@@ -830,6 +893,8 @@ begin
   IBTARIF_INF.open;
   IBTARIF_VID.open;
   IBTARIF.Open;
+  IBVIDAB.Open;
+  IBOTHER.Open;
 
 
   InfoForm.cxDBTextEdit1.DataBinding.DataSource:=DSTARIF_MES;
