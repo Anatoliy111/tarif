@@ -176,6 +176,9 @@ type
     IBTARIF_MESNSER_LICH: TIBStringField;
     IBTARIF_MESID_KOTEL: TIntegerField;
     IBTARIF_MESPLOS_BB: TIBBCDField;
+    IBTARIF_MESID_POSL: TIntegerField;
+    cxGrid1DBTableView1ID_POSL: TcxGridDBColumn;
+    IBTARIFID_VIDAB: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -689,7 +692,7 @@ begin
  begin
  Application.CreateForm(TInsTar,InsertTar);
  InsertTar.Caption:='Додати тариф';
- InsertTar.cxButton1.Click;
+ InsertTar.cxButton9.Click;
  Main.AddToolBar(InsertTar);
  end
  else
@@ -758,7 +761,7 @@ begin
       Enables(false);
    end;
     IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
   IBTARIF_MES.open;
@@ -789,7 +792,7 @@ begin
   inherited;
 //  UpdateGrids;
     IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
   IBTARIF_MES.open;
@@ -902,7 +905,7 @@ begin
   cxLookupComboBox1.EditValue:= IBPERIODDATA.Value;
 
   IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
   IBTARIF_MES.open;

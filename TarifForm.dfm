@@ -107,6 +107,9 @@
         DataBinding.FieldName = 'ID'
         Visible = False
       end
+      object cxGrid1DBTableView1ID_POSL: TcxGridDBColumn
+        DataBinding.FieldName = 'ID_POSL'
+      end
       object cxGrid1DBTableView1NAME: TcxGridDBColumn
         Caption = #1053#1072#1079#1074#1072
         DataBinding.FieldName = 'NAME'
@@ -300,7 +303,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 116
+      Height = 100
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -316,9 +319,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 117
+      Top = 101
       Width = 167
-      Height = 317
+      Height = 333
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -351,6 +354,7 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -1215,8 +1219,8 @@
       '  ID = :ID')
     SelectSQL.Strings = (
       
-        'select TARIF_MES.*, TARIF.NAME from TARIF_MES, TARIF WHERE TARIF' +
-        '_MES.ID_TARIF=TARIF.ID ')
+        'select TARIF_MES.*, TARIF.NAME, TARIF.id_posl from TARIF_MES, TA' +
+        'RIF WHERE TARIF_MES.ID_TARIF=TARIF.ID ')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'
@@ -1364,6 +1368,10 @@
       Origin = '"TARIF_MES"."PLOS_BB"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIF_MESID_POSL: TIntegerField
+      FieldName = 'ID_POSL'
+      Origin = '"TARIF"."ID_POSL"'
     end
   end
   object DSTARIF_MES: TDataSource
@@ -1605,14 +1613,15 @@
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into TARIF'
-      '  (ID, NAME, ID_POSL)'
+      '  (ID, NAME, ID_POSL, ID_VIDAB)'
       'values'
-      '  (:ID, :NAME, :ID_POSL)')
+      '  (:ID, :NAME, :ID_POSL, :ID_VIDAB)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  NAME,'
-      '  ID_POSL'
+      '  ID_POSL,'
+      '  ID_VIDAB'
       'from TARIF '
       'where'
       '  ID = :ID')
@@ -1623,7 +1632,8 @@
       'set'
       '  ID = :ID,'
       '  NAME = :NAME,'
-      '  ID_POSL = :ID_POSL'
+      '  ID_POSL = :ID_POSL,'
+      '  ID_VIDAB = :ID_VIDAB'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1645,6 +1655,10 @@
     object IBTARIFID_POSL: TIntegerField
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
+    end
+    object IBTARIFID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      Origin = '"TARIF"."ID_VIDAB"'
     end
   end
   object DSTARIF: TDataSource
