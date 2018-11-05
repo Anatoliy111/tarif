@@ -75,8 +75,6 @@ inherited InsTar: TInsTar
     Height = 325
     Align = alRight
     TabOrder = 2
-    ExplicitTop = 297
-    ExplicitHeight = 276
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -153,8 +151,6 @@ inherited InsTar: TInsTar
     Height = 325
     Align = alClient
     TabOrder = 3
-    ExplicitTop = 297
-    ExplicitHeight = 276
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -269,7 +265,6 @@ inherited InsTar: TInsTar
       Color = clGradientInactiveCaption
       ParentBackground = False
       TabOrder = 1
-      ExplicitHeight = 63
       object cxLabel6: TcxLabel
         Left = 5
         Top = -1
@@ -284,7 +279,6 @@ inherited InsTar: TInsTar
     Height = 119
     Align = alTop
     TabOrder = 6
-    ExplicitTop = 106
     object cxDBMemo1: TcxDBMemo
       Left = 760
       Top = 1
@@ -403,7 +397,6 @@ inherited InsTar: TInsTar
     Height = 72
     Align = alTop
     TabOrder = 7
-    ExplicitTop = 225
     object cxLabel3: TcxLabel
       Left = 8
       Top = 51
@@ -1006,6 +999,7 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = False
     Left = 16
     Top = 520
   end
@@ -1208,7 +1202,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1270,8 +1264,9 @@ inherited InsTar: TInsTar
       '  ID = :ID')
     SelectSQL.Strings = (
       
-        'select TARIF_MES.* ,TARIF.* from TARIF_MES, TARIF where tarif_me' +
-        's.id=:idmes and tarif.id=tarif_mes.id_tarif')
+        'select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL, TARIF.ID_VIDAB fr' +
+        'om TARIF_MES, TARIF where tarif_mes.id=:idmes and tarif.id=tarif' +
+        '_mes.id_tarif')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'

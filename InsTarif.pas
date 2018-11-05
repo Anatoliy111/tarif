@@ -229,7 +229,7 @@ begin
   if (poslwid='ot') and (iddom<>0) then
   begin
   IBTARIF_MES.Close;
-  IBTARIF_MES.SelectSQL.Text:='select TARIF_MES.* ,TARIF.* from TARIF_MES, TARIF, TARIF_DOM'+
+  IBTARIF_MES.SelectSQL.Text:='select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL, TARIF.ID_VIDAB from TARIF_MES, TARIF, TARIF_DOM'+
                          ' where tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif and tarif_mes.id=tarif_dom.id_tarifmes and tarif.id_posl=:posl and tarif_dom.id_dom=:iddom';
 
     IBTARIF_MES.ParamByName('iddom').Value:=iddom;
@@ -244,6 +244,7 @@ begin
   begin
 
   IBTARIF_MES.Close;
+  IBTARIF_MES.SelectSQL.Text:='select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL, TARIF.ID_VIDAB from TARIF_MES, TARIF where tarif_mes.id=:idmes and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('idmes').Value:=idmes;
   IBTARIF_MES.Open;
   end;
@@ -360,7 +361,16 @@ procedure TInsTar.cxButton13Click(Sender: TObject);
 begin
   inherited;
   case MessageBox(handle,pchar('Ви дійсно бажаєте видалити будинок?'),pchar(''),36) of
-  IDYES: IBTARIF_DOM1.Delete;
+  IDYES:begin
+  if IBTARIF_DOM1.RecordCount=1 then
+  begin
+    IBTARIF_DOM1.Edit;
+    IBTARIF_DOM1ID_DOM.Value:=1;
+    IBTARIF_DOM1.Post;
+  end
+  else
+    IBTARIF_DOM1.Delete;
+  end;
   end;
 
 end;
@@ -467,7 +477,7 @@ procedure TInsTar.cxGrid1DBTableView1ID_DOMPropertiesEditValueChanged(
   Sender: TObject);
 begin
   inherited;
-  if IBTARIF_DOM1ID_DOM.AsInteger<>0 then
+  if IBTARIF_DOM1ID_DOM.AsInteger>1 then
   begin
     case MessageBox(handle,pchar('Ви дійсно бажаєте змінити будинок? Інші абоненти по цьому тарифу буде видалено!'),pchar(''),36) of
     IDNO: IBTARIF_DOM1.Cancel;
@@ -502,7 +512,10 @@ begin
   IBTARIF_OTHER.Last;
   while not IBTARIF_OTHER.Bof do
   begin
-  IBTARIF_OTHER.Delete;
+  if IBTARIF_OTHERID_DOM.Value=ress then
+    IBTARIF_OTHER.Delete
+  else
+    IBTARIF_OTHER.Next;
   end;
 end;
 
@@ -617,7 +630,6 @@ begin
   fl_postt:=1;
   if iddom<>0then
   begin
-
     if trim(IBTARIF_MESNAME.Value)=trim(poslname) then
     begin
       IBTARIF.Locate('id',IBTARIF_MESID_TARIF.Value,[]);
@@ -633,6 +645,7 @@ begin
       end;
       end;
     end;
+
 
     if (poslwid='ot') then
     begin
@@ -668,7 +681,7 @@ var idmes,idvid,iddom:integer;
 begin
   inherited;
 
-  if (IBTARIF_DOM1.RecordCount<>0) and (IBTARIF_DOM1ID_DOM.AsInteger<>0) then
+  if (IBTARIF_DOM1.RecordCount>1) or (IBTARIF_DOM1ID_DOM.AsInteger>1) then
   begin
      Application.MessageBox('Неможливо змінити вид так як вже додані будинки до тарифу! Видаліть будинки, змініть вид, додайте будинки з відповідним видом','Помилка',16);
      IBTARIF_MES.Cancel;
