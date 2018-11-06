@@ -16,7 +16,7 @@
     Height = 598
     Align = alClient
     TabOrder = 2
-    Properties.ActivePage = cxTabSheet2
+    Properties.ActivePage = cxTabSheet7
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
     ClientRectBottom = 594
@@ -867,6 +867,107 @@
         end
       end
     end
+    object cxTabSheet7: TcxTabSheet
+      Caption = #1062#1110#1085#1080
+      ImageIndex = 6
+      object Panel11: TPanel
+        Left = 0
+        Top = 0
+        Width = 759
+        Height = 57
+        Align = alTop
+        TabOrder = 0
+        object cxLabel16: TcxLabel
+          Left = 629
+          Top = 5
+          Caption = #1055#1077#1088#1110#1086#1076
+        end
+        object cxLookupComboBox4: TcxLookupComboBox
+          Left = 597
+          Top = 23
+          Properties.KeyFieldNames = 'DATE_MES'
+          Properties.ListColumns = <
+            item
+              FieldName = 'DATE_MES'
+            end>
+          Properties.ListSource = DSQuery1
+          Properties.ReadOnly = False
+          Properties.OnChange = cxLookupComboBox4PropertiesChange
+          TabOrder = 1
+          Width = 132
+        end
+      end
+      object cxGrid8: TcxGrid
+        Left = 0
+        Top = 57
+        Width = 759
+        Height = 513
+        Align = alClient
+        TabOrder = 1
+        ExplicitTop = 113
+        ExplicitHeight = 457
+        object cxGridDBTableView7: TcxGridDBTableView
+          Navigator.Buttons.CustomButtons = <>
+          DataController.DataSource = DSTARIF_DATA
+          DataController.DetailKeyFieldNames = 'ID'
+          DataController.Summary.DefaultGroupSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.SummaryGroups = <>
+          object cxGridDBTableView7DATE_MES: TcxGridDBColumn
+            Caption = #1055#1077#1088#1110#1086#1076
+            DataBinding.FieldName = 'DATE_MES'
+            Options.Editing = False
+            Width = 103
+          end
+          object cxGridDBTableView7ID_VIDAB: TcxGridDBColumn
+            Caption = #1042#1080#1076
+            DataBinding.FieldName = 'ID_VIDAB'
+            PropertiesClassName = 'TcxLookupComboBoxProperties'
+            Properties.KeyFieldNames = 'ID'
+            Properties.ListColumns = <
+              item
+                FieldName = 'NAME'
+              end>
+            Properties.ListSource = DSVIDAB
+            Options.Editing = False
+            Width = 139
+          end
+          object cxGridDBTableView7TARIF_SUM1: TcxGridDBColumn
+            Caption = #1058#1072#1088#1080#1092' 1'
+            DataBinding.FieldName = 'TARIF_SUM1'
+            Width = 164
+          end
+          object cxGridDBTableView7DATE_N1: TcxGridDBColumn
+            Caption = #1044#1072#1090#1072' '#1087#1077#1088#1077#1093#1110#1076#1085#1086#1075#1086' '#1090#1072#1088#1080#1092#1091
+            DataBinding.FieldName = 'DATE_N1'
+            Options.Editing = False
+            Width = 148
+          end
+          object cxGridDBTableView7TARIF_SUM2: TcxGridDBColumn
+            Caption = #1058#1072#1088#1080#1092' 2'
+            DataBinding.FieldName = 'TARIF_SUM2'
+            Width = 188
+          end
+        end
+        object cxGridLevel7: TcxGridLevel
+          GridView = cxGridDBTableView7
+        end
+      end
+      object cxCheckBox1: TcxCheckBox
+        Left = 16
+        Top = 19
+        Caption = #1055#1077#1088#1077#1093#1110#1076#1085#1080#1081' '#1090#1072#1088#1080#1092
+        Properties.OnChange = cxCheckBox1PropertiesChange
+        TabOrder = 2
+      end
+      object cxDateEdit1: TcxDateEdit
+        Left = 161
+        Top = 19
+        TabOrder = 3
+        Visible = False
+        Width = 121
+      end
+    end
   end
   inherited Panel2: TPanel
     Width = 767
@@ -893,6 +994,7 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Top = 696
   end
   object IBPOSL: TIBDataSet
@@ -938,8 +1040,8 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_POSL_ID'
-    Left = 32
-    Top = 640
+    Left = 16
+    Top = 616
     object IBPOSLID: TIntegerField
       FieldName = 'ID'
       Origin = '"POSL"."ID"'
@@ -1025,8 +1127,8 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_DOM_ID'
-    Left = 64
-    Top = 640
+    Left = 56
+    Top = 616
     object IBDOMID: TIntegerField
       FieldName = 'ID'
       KeyFields = 'ID'
@@ -1131,7 +1233,7 @@
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_UL_ID'
     Left = 96
-    Top = 640
+    Top = 616
     object IBULID: TIntegerField
       FieldName = 'ID'
       Origin = '"UL"."ID"'
@@ -1198,7 +1300,7 @@
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_VIDAB_ID'
     Left = 128
-    Top = 640
+    Top = 616
     object IBVIDABID: TIntegerField
       FieldName = 'ID'
       Origin = '"VIDAB"."ID"'
@@ -1255,8 +1357,8 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_OTHER_ID'
-    Left = 160
-    Top = 640
+    Left = 168
+    Top = 616
     object IBOTHERID: TIntegerField
       FieldName = 'ID'
       Origin = '"OTHER"."ID"'
@@ -1415,5 +1517,131 @@
     DataSet = IBDOM_OTHER
     Left = 296
     Top = 672
+  end
+  object IBTARIF_DATA: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BeforePost = IBTARIF_DATABeforePost
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF_DATA'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF_DATA'
+      
+        '  (ID, ID_VIDAB, DATE_MES, ID_POSL, DATE_N1, TARIF_SUM1, DATE_N2' +
+        ', TARIF_SUM2, '
+      '   FL_2DATE)'
+      'values'
+      
+        '  (:ID, :ID_VIDAB, :DATE_MES, :ID_POSL, :DATE_N1, :TARIF_SUM1, :' +
+        'DATE_N2, '
+      '   :TARIF_SUM2, :FL_2DATE)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_VIDAB,'
+      '  DATE_MES,'
+      '  ID_POSL,'
+      '  DATE_N1,'
+      '  TARIF_SUM1,'
+      '  DATE_N2,'
+      '  TARIF_SUM2,'
+      '  FL_2DATE'
+      'from TARIF_DATA '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from TARIF_DATA where DATE_MES=:dt')
+    ModifySQL.Strings = (
+      'update TARIF_DATA'
+      'set'
+      '  ID = :ID,'
+      '  ID_VIDAB = :ID_VIDAB,'
+      '  DATE_MES = :DATE_MES,'
+      '  ID_POSL = :ID_POSL,'
+      '  DATE_N1 = :DATE_N1,'
+      '  TARIF_SUM1 = :TARIF_SUM1,'
+      '  DATE_N2 = :DATE_N2,'
+      '  TARIF_SUM2 = :TARIF_SUM2,'
+      '  FL_2DATE = :FL_2DATE'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_DATA_ID'
+    Left = 352
+    Top = 560
+    object IBTARIF_DATAID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF_DATA"."ID"'
+      Required = True
+    end
+    object IBTARIF_DATAID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      Origin = '"TARIF_DATA"."ID_VIDAB"'
+    end
+    object IBTARIF_DATADATE_MES: TDateField
+      FieldName = 'DATE_MES'
+      Origin = '"TARIF_DATA"."DATE_MES"'
+    end
+    object IBTARIF_DATAID_POSL: TIntegerField
+      FieldName = 'ID_POSL'
+      Origin = '"TARIF_DATA"."ID_POSL"'
+    end
+    object IBTARIF_DATADATE_N1: TDateField
+      FieldName = 'DATE_N1'
+      Origin = '"TARIF_DATA"."DATE_N1"'
+    end
+    object IBTARIF_DATATARIF_SUM1: TIBBCDField
+      FieldName = 'TARIF_SUM1'
+      Origin = '"TARIF_DATA"."TARIF_SUM1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_DATADATE_N2: TDateField
+      FieldName = 'DATE_N2'
+      Origin = '"TARIF_DATA"."DATE_N2"'
+    end
+    object IBTARIF_DATATARIF_SUM2: TIBBCDField
+      FieldName = 'TARIF_SUM2'
+      Origin = '"TARIF_DATA"."TARIF_SUM2"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_DATAFL_2DATE: TIntegerField
+      FieldName = 'FL_2DATE'
+      Origin = '"TARIF_DATA"."FL_2DATE"'
+    end
+  end
+  object DSTARIF_DATA: TDataSource
+    DataSet = IBTARIF_DATA
+    Left = 352
+    Top = 608
+  end
+  object IBQuery1: TIBQuery
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      
+        'select DATE_MES from TARIF_DATA group by DATE_MES order by DATE_' +
+        'MES desc')
+    Left = 540
+    Top = 265
+    object IBQuery1DATE_MES: TDateField
+      FieldName = 'DATE_MES'
+      Origin = '"TARIF_DATA"."DATE_MES"'
+    end
+  end
+  object DSQuery1: TDataSource
+    DataSet = IBQuery1
+    Left = 544
+    Top = 320
   end
 end

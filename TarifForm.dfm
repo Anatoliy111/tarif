@@ -20,6 +20,9 @@
     inherited cxButton7: TcxButton
       OnClick = cxButton7Click
     end
+    inherited cxButton8: TcxButton
+      OnClick = cxButton8Click
+    end
     inherited cxButton9: TcxButton
       OnClick = cxButton9Click
     end
@@ -46,9 +49,10 @@
     Left = 169
     Top = 89
     Width = 759
-    Height = 435
+    Height = 399
     Align = alClient
     TabOrder = 1
+    ExplicitHeight = 376
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       OnFocusedRecordChanged = cxGrid1DBTableView1FocusedRecordChanged
@@ -109,10 +113,12 @@
       end
       object cxGrid1DBTableView1ID_POSL: TcxGridDBColumn
         DataBinding.FieldName = 'ID_POSL'
+        Visible = False
       end
       object cxGrid1DBTableView1NAME: TcxGridDBColumn
         Caption = #1053#1072#1079#1074#1072
         DataBinding.FieldName = 'NAME'
+        Options.Editing = False
         Width = 248
       end
       object cxGrid1DBTableView1Column1: TcxGridDBColumn
@@ -127,10 +133,23 @@
         Options.ShowEditButtons = isebAlways
         Width = 20
       end
+      object cxGrid1DBTableView1PLOS_BBI: TcxGridDBColumn
+        Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
+        DataBinding.FieldName = 'PLOS_BBI'
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1LICH_PN: TcxGridDBColumn
+        Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1087#1086#1095#1072#1090#1086#1082
+        DataBinding.FieldName = 'LICH_PN'
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1LICH_PK: TcxGridDBColumn
+        Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1082#1110#1085#1077#1094#1100
+        DataBinding.FieldName = 'LICH_PK'
+      end
       object cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn
         Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF_PLAN'
-        Options.Editing = False
       end
       object cxGrid1DBTableView1TARIF_FACT: TcxGridDBColumn
         Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
@@ -168,10 +187,40 @@
         DataBinding.FieldName = 'END_BL'
         Options.Editing = False
       end
+      object cxGrid1DBTableView1MZK: TcxGridDBColumn
+        Caption = #1052#1047#1050
+        DataBinding.FieldName = 'MZK'
+        Options.Editing = False
+      end
       object cxGrid1DBTableView1END_L: TcxGridDBColumn
         Caption = #1051#1110#1092#1090
         DataBinding.FieldName = 'END_L'
         Options.Editing = False
+      end
+      object cxGrid1DBTableView1ID_KOTEL: TcxGridDBColumn
+        Caption = #1050#1086#1090#1077#1083#1100#1085#1103
+        DataBinding.FieldName = 'ID_KOTEL'
+        PropertiesClassName = 'TcxLookupComboBoxProperties'
+        Properties.KeyFieldNames = 'ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'NAME'
+          end>
+        Properties.ListSource = DSKOTEL
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn
+        Caption = #1042#1080#1076
+        DataBinding.FieldName = 'ID_VIDAB'
+        PropertiesClassName = 'TcxLookupComboBoxProperties'
+        Properties.KeyFieldNames = 'ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'NAME'
+          end>
+        Properties.ListSource = DSVIDAB
+        Options.Editing = False
+        Width = 115
       end
     end
     object cxGrid1Level1: TcxGridLevel
@@ -252,40 +301,103 @@
   end
   object cxGrid2: TcxGrid [4]
     Left = 0
-    Top = 524
+    Top = 488
     Width = 928
-    Height = 84
+    Height = 120
     Align = alBottom
     TabOrder = 4
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
-      DataController.DataSource = DSTARIF_COMP
+      DataController.DataSource = DSTARIF_OTHER
       DataController.KeyFieldNames = 'ID'
       DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1PLOS_BB
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1SPLAN
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1SFACT
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1MZK
+        end>
       DataController.Summary.SummaryGroups = <>
       OptionsData.Editing = False
       OptionsSelection.CellSelect = False
+      OptionsView.ColumnAutoWidth = True
+      OptionsView.Footer = True
       OptionsView.GroupByBox = False
-      object cxGridDBTableView1NAME: TcxGridDBColumn
-        Caption = #1058#1072#1088#1080#1092' '#1076#1083#1103' '#1082#1074#1072#1088#1090#1087#1083#1072#1090#1080
-        DataBinding.FieldName = 'NAME'
-        Width = 217
+      object cxGridDBTableView1ID_DOM: TcxGridDBColumn
+        Caption = #1041#1091#1076#1080#1085#1086#1082
+        DataBinding.FieldName = 'ID_DOM'
+        PropertiesClassName = 'TcxLookupComboBoxProperties'
+        Properties.KeyFieldNames = 'ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'NAME'
+          end>
+        Properties.ListSource = DSDOM
+        Width = 215
       end
-      object cxGridDBTableView1SUMM: TcxGridDBColumn
-        Caption = #1058#1072#1088#1080#1092
-        DataBinding.FieldName = 'SUMM'
+      object cxGridDBTableView1ID_OTHER: TcxGridDBColumn
+        Caption = #1053#1072#1079#1074#1072
+        DataBinding.FieldName = 'ID_OTHER'
+        PropertiesClassName = 'TcxLookupComboBoxProperties'
+        Properties.KeyFieldNames = 'ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'NAME'
+          end>
+        Properties.ListSource = DSOTHER
+        Width = 186
+      end
+      object cxGridDBTableView1PLOS_BB: TcxGridDBColumn
+        Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
+        DataBinding.FieldName = 'PLOS_BB'
+        Width = 94
+      end
+      object cxGridDBTableView1SPLAN: TcxGridDBColumn
+        Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
+        DataBinding.FieldName = 'SPLAN'
+        Width = 96
+      end
+      object cxGridDBTableView1SFACT: TcxGridDBColumn
+        Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
+        DataBinding.FieldName = 'SFACT'
+        Width = 95
+      end
+      object cxGridDBTableView1SEND: TcxGridDBColumn
+        Caption = #1053#1072#1088#1072#1093#1086#1074#1072#1085#1080#1081' '#1090#1072#1088#1080#1092
+        DataBinding.FieldName = 'SEND'
+      end
+      object cxGridDBTableView1MZK: TcxGridDBColumn
+        Caption = #1052#1079#1082
+        DataBinding.FieldName = 'MZK'
+        Width = 94
       end
       object cxGridDBTableView1NORMA: TcxGridDBColumn
         Caption = #1053#1086#1088#1084#1072
         DataBinding.FieldName = 'NORMA'
+        Width = 95
       end
-      object cxGridDBTableView1KL_NTAR: TcxGridDBColumn
-        DataBinding.FieldName = 'KL_NTAR'
-      end
-      object cxGridDBTableView1FL_LIFT: TcxGridDBColumn
-        Caption = #1051#1110#1092#1090
-        DataBinding.FieldName = 'FL_LIFT'
+      object cxGridDBTableView1ID_VIDAB: TcxGridDBColumn
+        Caption = #1042#1080#1076
+        DataBinding.FieldName = 'ID_VIDAB'
+        PropertiesClassName = 'TcxLookupComboBoxProperties'
+        Properties.KeyFieldNames = 'ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'NAME'
+          end>
+        Properties.ListSource = DSVIDAB
+        Width = 51
       end
     end
     object cxGridLevel1: TcxGridLevel
@@ -296,14 +408,15 @@
     Left = 0
     Top = 89
     Width = 169
-    Height = 435
+    Height = 399
     Align = alLeft
     TabOrder = 9
+    ExplicitHeight = 435
     object DBLookupListBox1: TDBLookupListBox
       Left = 1
       Top = 1
       Width = 167
-      Height = 100
+      Height = 180
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -319,11 +432,13 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 101
+      Top = 181
       Width = 167
-      Height = 333
+      Height = 217
       Align = alClient
       TabOrder = 1
+      ExplicitTop = 85
+      ExplicitHeight = 349
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -492,7 +607,7 @@
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_TARIF_MES_ID'
     Left = 48
-    Top = 520
+    Top = 544
     object IBTARIFUPDID: TIntegerField
       FieldName = 'ID'
       Origin = '"TARIF_MES"."ID"'
@@ -584,7 +699,7 @@
   object DSTARIFUPD: TDataSource
     DataSet = IBTARIFUPD
     Left = 48
-    Top = 568
+    Top = 592
   end
   object IBPOSL: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1183,7 +1298,7 @@
       
         '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
         ' NOTE, '
-      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB)'
+      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1191,7 +1306,7 @@
       
         '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
         'H_PN, :LICH_PK, '
-      '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB)')
+      '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1213,14 +1328,15 @@
       '  PLOS_BBI,'
       '  NSER_LICH,'
       '  ID_KOTEL,'
-      '  PLOS_BB'
+      '  PLOS_BB,'
+      '  MZK'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
       
-        'select TARIF_MES.*, TARIF.NAME, TARIF.id_posl from TARIF_MES, TA' +
-        'RIF WHERE TARIF_MES.ID_TARIF=TARIF.ID ')
+        'select TARIF_MES.*, TARIF.NAME, TARIF.id_posl, TARIF.id_vidab fr' +
+        'om TARIF_MES, TARIF WHERE TARIF_MES.ID_TARIF=TARIF.ID ')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'
@@ -1243,7 +1359,8 @@
       '  PLOS_BBI = :PLOS_BBI,'
       '  NSER_LICH = :NSER_LICH,'
       '  ID_KOTEL = :ID_KOTEL,'
-      '  PLOS_BB = :PLOS_BB'
+      '  PLOS_BB = :PLOS_BB,'
+      '  MZK = :MZK'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1372,6 +1489,16 @@
     object IBTARIF_MESID_POSL: TIntegerField
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
+    end
+    object IBTARIF_MESID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      Origin = '"TARIF"."ID_VIDAB"'
+    end
+    object IBTARIF_MESMZK: TIBBCDField
+      FieldName = 'MZK'
+      Origin = '"TARIF_MES"."MZK"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIF_MES: TDataSource
@@ -1783,5 +1910,187 @@
     DataSet = IBOTHER
     Left = 616
     Top = 576
+  end
+  object IBTARIF_OTHER: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF_OTHER'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF_OTHER'
+      
+        '  (ID, ID_TARIF, ID_TARIFMES, ID_DOMOTHER, SPLAN, SFACT, NORMA, ' +
+        'SEND, MZK)'
+      'values'
+      
+        '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
+        'NORMA, '
+      '   :SEND, :MZK)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_TARIF,'
+      '  ID_TARIFMES,'
+      '  ID_DOMOTHER,'
+      '  SPLAN,'
+      '  SFACT,'
+      '  NORMA,'
+      '  SEND,'
+      '  MZK'
+      'from TARIF_OTHER '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      
+        'select TARIF_OTHER.*, DOM_OTHER.id_other, DOM_OTHER.plos_bb, DOM' +
+        '_OTHER.id_dom, OTHER.id_vidab from TARIF_OTHER, DOM_OTHER, OTHER' +
+        ' where TARIF_OTHER.id_tarifmes=:idmes and TARIF_OTHER.id_domothe' +
+        'r=DOM_OTHER.id and DOM_OTHER.id_other=OTHER.id')
+    ModifySQL.Strings = (
+      'update TARIF_OTHER'
+      'set'
+      '  ID = :ID,'
+      '  ID_TARIF = :ID_TARIF,'
+      '  ID_TARIFMES = :ID_TARIFMES,'
+      '  ID_DOMOTHER = :ID_DOMOTHER,'
+      '  SPLAN = :SPLAN,'
+      '  SFACT = :SFACT,'
+      '  NORMA = :NORMA,'
+      '  SEND = :SEND,'
+      '  MZK = :MZK'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_OTHER_ID'
+    Left = 680
+    Top = 518
+    object IBTARIF_OTHERID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF_OTHER"."ID"'
+      Required = True
+    end
+    object IBTARIF_OTHERID_TARIF: TIntegerField
+      FieldName = 'ID_TARIF'
+      Origin = '"TARIF_OTHER"."ID_TARIF"'
+    end
+    object IBTARIF_OTHERID_TARIFMES: TIntegerField
+      FieldName = 'ID_TARIFMES'
+      Origin = '"TARIF_OTHER"."ID_TARIFMES"'
+    end
+    object IBTARIF_OTHERID_DOMOTHER: TIntegerField
+      FieldName = 'ID_DOMOTHER'
+      Origin = '"TARIF_OTHER"."ID_DOMOTHER"'
+    end
+    object IBTARIF_OTHERSPLAN: TIBBCDField
+      FieldName = 'SPLAN'
+      Origin = '"TARIF_OTHER"."SPLAN"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERSFACT: TIBBCDField
+      FieldName = 'SFACT'
+      Origin = '"TARIF_OTHER"."SFACT"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_OTHERNORMA: TIBBCDField
+      FieldName = 'NORMA'
+      Origin = '"TARIF_OTHER"."NORMA"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERSEND: TIBBCDField
+      FieldName = 'SEND'
+      Origin = '"TARIF_OTHER"."SEND"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERMZK: TIBBCDField
+      FieldName = 'MZK'
+      Origin = '"TARIF_OTHER"."MZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERID_OTHER: TIntegerField
+      FieldName = 'ID_OTHER'
+      Origin = '"DOM_OTHER"."ID_OTHER"'
+    end
+    object IBTARIF_OTHERPLOS_BB: TIBBCDField
+      FieldName = 'PLOS_BB'
+      Origin = '"DOM_OTHER"."PLOS_BB"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERID_DOM: TIntegerField
+      FieldName = 'ID_DOM'
+      Origin = '"DOM_OTHER"."ID_DOM"'
+    end
+    object IBTARIF_OTHERID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      Origin = '"OTHER"."ID_VIDAB"'
+    end
+  end
+  object DSTARIF_OTHER: TDataSource
+    DataSet = IBTARIF_OTHER
+    Left = 680
+    Top = 566
+  end
+  object IBKOTEL: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BeforePost = IBTARIFBeforePost
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from KOTEL'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into KOTEL'
+      '  (ID, NAME)'
+      'values'
+      '  (:ID, :NAME)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  NAME'
+      'from KOTEL '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from KOTEL')
+    ModifySQL.Strings = (
+      'update KOTEL'
+      'set'
+      '  ID = :ID,'
+      '  NAME = :NAME'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_KOTEL_ID'
+    Left = 640
+    Top = 424
+    object IBKOTELID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"KOTEL"."ID"'
+      Required = True
+    end
+    object IBKOTELNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"KOTEL"."NAME"'
+    end
+  end
+  object DSKOTEL: TDataSource
+    DataSet = IBKOTEL
+    Left = 640
+    Top = 472
   end
 end

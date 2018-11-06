@@ -172,9 +172,6 @@ Coordinates=736,386,72,58
 [cxGrid1DBTableView1TARIF_FACT]
 Coordinates=846,661,221,36
 
-[cxGridDBTableView1SUMM]
-Coordinates=1105,331,175,36
-
 [IBTransaction2]
 Coordinates=1037,386,101,36
 
@@ -204,9 +201,6 @@ Coordinates=458,669,59,36
 
 [cxGrid3]
 Coordinates=458,724,59,36
-
-[cxGridDBTableView1NAME]
-Coordinates=1105,606,173,36
 
 [IBTARIF_MESDATA]
 Coordinates=1105,661,132,36
@@ -243,9 +237,6 @@ Coordinates=1105,1156,140,36
 
 [IBTARIF_MESNAME]
 Coordinates=966,1161,135,36
-
-[cxGridDBTableView1FL_LIFT]
-Coordinates=261,1161,185,36
 
 [IBDOMNAME]
 Coordinates=162,1161,93,36
@@ -298,9 +289,6 @@ Coordinates=704,1,72,58
 [IBTARIF_MESTARIF_PLAN]
 Coordinates=1414,606,175,36
 
-[cxGridDBTableView1NORMA]
-Coordinates=1414,661,184,36
-
 [IBTARIF_DOM]
 Coordinates=529,840,100,168
 
@@ -321,9 +309,6 @@ Coordinates=1414,881,121,36
 
 [IBULVAL]
 Coordinates=896,826,67,36
-
-[cxGridDBTableView1KL_NTAR]
-Coordinates=1414,991,194,36
 
 [Panel4]
 Coordinates=458,1,54,58

@@ -13,7 +13,8 @@ uses
   cxTextEdit, ExtCtrls, cxPC, cxDBLabel, cxCalendar, cxDBEdit,
   cxSchedulerStorage, cxSchedulerCustomControls, cxSchedulerDateNavigator,
   cxDateNavigator, dxBar, IBDatabase, IBCustomDataSet, cxLookAndFeels,
-  dxBarBuiltInMenu, cxNavigator, Vcl.Buttons, cxButtonEdit, cxCalc;
+  dxBarBuiltInMenu, cxNavigator, Vcl.Buttons, cxButtonEdit, cxCalc,
+  Vcl.ComCtrls, dxCore, cxDateUtils, IBX.IBQuery;
 
 type
   TSprav = class(TAllMDICh)
@@ -157,6 +158,34 @@ type
     IBDOM_OTHERPLOS_BB: TIBBCDField;
     IBDOM_OTHERID_TIPPR: TIntegerField;
     cxGridDBTableView1ID: TcxGridDBColumn;
+    cxTabSheet7: TcxTabSheet;
+    Panel11: TPanel;
+    cxGrid8: TcxGrid;
+    cxGridDBTableView7: TcxGridDBTableView;
+    cxGridLevel7: TcxGridLevel;
+    IBTARIF_DATA: TIBDataSet;
+    DSTARIF_DATA: TDataSource;
+    IBTARIF_DATAID: TIntegerField;
+    IBTARIF_DATAID_VIDAB: TIntegerField;
+    IBTARIF_DATADATE_MES: TDateField;
+    IBTARIF_DATAID_POSL: TIntegerField;
+    IBTARIF_DATADATE_N1: TDateField;
+    IBTARIF_DATATARIF_SUM1: TIBBCDField;
+    IBTARIF_DATADATE_N2: TDateField;
+    IBTARIF_DATATARIF_SUM2: TIBBCDField;
+    IBTARIF_DATAFL_2DATE: TIntegerField;
+    cxGridDBTableView7DATE_N1: TcxGridDBColumn;
+    cxGridDBTableView7TARIF_SUM1: TcxGridDBColumn;
+    cxGridDBTableView7TARIF_SUM2: TcxGridDBColumn;
+    cxGridDBTableView7DATE_MES: TcxGridDBColumn;
+    cxCheckBox1: TcxCheckBox;
+    cxDateEdit1: TcxDateEdit;
+    cxLabel16: TcxLabel;
+    cxLookupComboBox4: TcxLookupComboBox;
+    IBQuery1: TIBQuery;
+    DSQuery1: TDataSource;
+    IBQuery1DATE_MES: TDateField;
+    cxGridDBTableView7ID_VIDAB: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);
@@ -186,6 +215,9 @@ type
     procedure IBDOM_OTHERBeforePost(DataSet: TDataSet);
     procedure IBTIPPRBeforePost(DataSet: TDataSet);
     procedure IBDOM_OTHERAfterEdit(DataSet: TDataSet);
+    procedure cxCheckBox1PropertiesChange(Sender: TObject);
+    procedure cxLookupComboBox4PropertiesChange(Sender: TObject);
+    procedure IBTARIF_DATABeforePost(DataSet: TDataSet);
   private
     { Private declarations }
 
@@ -205,12 +237,13 @@ var
 
 implementation
 
-uses MyLibrary, InsertForm;
+uses MyLibrary, InsertForm, MainForm;
 
 {$R *.dfm}
 
 procedure TSprav.FormCreate(Sender: TObject);
 begin
+  inherited;
   if not IBTransaction1.Active then
      IBTransaction1.StartTransaction;
 IBPOSL.open;
@@ -224,10 +257,34 @@ IBTIPPR.open;
   IBDOM_OTHER.ParamByName('idddom').AsInteger:=IBDOMID.Value;
   IBDOM_OTHER.open;
 
-  inherited;
+IBQuery1.open;
+cxLookupComboBox1.EditValue:= IBQuery1DATE_MES.Value;
+  IBTARIF_DATA.close;
+  IBTARIF_DATA.ParamByName('dt').Value:=IBQuery1DATE_MES.Value;
+  IBTARIF_DATA.open;
+
+  if IBTARIF_DATAFL_2DATE.Value=1 then
+  begin
+    cxGridDBTableView7DATE_N1.Visible:=true;
+    cxGridDBTableView7TARIF_SUM2.Visible:=true;
+  end
+  else
+  begin
+    cxGridDBTableView7DATE_N1.Visible:=false;
+    cxGridDBTableView7TARIF_SUM2.Visible:=false;
+  end;
+
+
 end;
 
 procedure TSprav.IBPOSLBeforePost(DataSet: TDataSet);
+begin
+fl_post:=1;
+  inherited;
+
+end;
+
+procedure TSprav.IBTARIF_DATABeforePost(DataSet: TDataSet);
 begin
 fl_post:=1;
   inherited;
@@ -388,6 +445,15 @@ begin
         IBTIPPR.Delete;
         fl_post:=1;
       end;
+      if cxPageControl1.ActivePageIndex=6 then
+      begin
+        IBTARIF_DATA.Last;
+        while not IBTARIF_DATA.Bof do
+        begin
+          IBTARIF_DATA.Delete;
+        end;
+        fl_post:=1;
+      end;
     end;
   end;
 end;
@@ -535,8 +601,61 @@ begin
 
     end;
   end;
+  if cxPageControl1.ActivePageIndex=6 then
+  begin
+    if not IBTARIF_DATA.Locate('DATE_MES',main.IBPERIODDATA.Value,[]) then
+    begin
+        if cxCheckBox1.Checked and cxDateEdit1.EditValue=null then
+        begin
+           Application.MessageBox('Виберіть перехідний період','Ошибка',16);
+           exit;
+        end;
+
+        IBVIDAB.First;
+        while not IBVIDAB.Eof do
+        begin
+          IBTARIF_DATA.Insert;
+          IBTARIF_DATA.Edit;
+          IBTARIF_DATADATE_MES.Value:=main.IBPERIODDATA.Value;
+          IBTARIF_DATAID_VIDAB.Value:=IBVIDABID.Value;
+          if cxCheckBox1.Checked then
+          begin
+            IBTARIF_DATAFL_2DATE.Value:=1;
+            IBTARIF_DATADATE_N1.Value:=cxDateEdit1.EditValue;
+          end;
+          IBTARIF_DATA.Post;
+          IBVIDAB.Next;
+        end;
+    IBQuery1.Close;
+    IBQuery1.Open;
+      if IBTARIF_DATAFL_2DATE.Value=1 then
+          begin
+            cxGridDBTableView7DATE_N1.Visible:=true;
+            cxGridDBTableView7TARIF_SUM2.Visible:=true;
+          end
+          else
+          begin
+            cxGridDBTableView7DATE_N1.Visible:=false;
+            cxGridDBTableView7TARIF_SUM2.Visible:=false;
+          end;
+    end;
 
 
+
+
+
+  end;
+
+
+end;
+
+procedure TSprav.cxCheckBox1PropertiesChange(Sender: TObject);
+begin
+  inherited;
+  if cxCheckBox1.Checked then
+     cxDateEdit1.Visible:=true
+  else
+     cxDateEdit1.Visible:=false;
 end;
 
 procedure TSprav.cxGridDBTableView1FocusedRecordChanged(
@@ -555,6 +674,27 @@ procedure TSprav.cxLookupComboBox1PropertiesChange(Sender: TObject);
 begin
   inherited;
   cxTextEdit4.Text:=cxLookupComboBox1.EditText+' '+cxTextEdit3.Text;
+end;
+
+procedure TSprav.cxLookupComboBox4PropertiesChange(Sender: TObject);
+begin
+  inherited;
+  IBTARIF_DATA.close;
+  IBTARIF_DATA.ParamByName('dt').Value:=IBQuery1DATE_MES.Value;
+  IBTARIF_DATA.open;
+
+  if IBTARIF_DATAFL_2DATE.Value=1 then
+  begin
+    cxGridDBTableView7DATE_N1.Visible:=true;
+    cxGridDBTableView7TARIF_SUM2.Visible:=true;
+  end
+  else
+  begin
+    cxGridDBTableView7DATE_N1.Visible:=false;
+    cxGridDBTableView7TARIF_SUM2.Visible:=false;
+  end;
+
+
 end;
 
 procedure TSprav.cxTextEdit3PropertiesChange(Sender: TObject);

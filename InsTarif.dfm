@@ -14,6 +14,9 @@ inherited InsTar: TInsTar
     inherited cxButton6: TcxButton
       Visible = False
     end
+    inherited cxButton7: TcxButton
+      OnClick = cxButton7Click
+    end
     inherited cxButton8: TcxButton
       OnClick = cxButton8Click
     end
@@ -364,6 +367,8 @@ inherited InsTar: TInsTar
         object cxGridDBTableView2PLOS_BB: TcxGridDBColumn
           Caption = #1054#1087'.'#1087#1083#1086#1097#1072' '#1087#1086' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1091
           DataBinding.FieldName = 'PLOS_BB'
+          PropertiesClassName = 'TcxCalcEditProperties'
+          Properties.OnEditValueChanged = cxGridDBTableView2PLOS_BBPropertiesEditValueChanged
           Width = 119
         end
         object cxGridDBTableView2PLOS_OBL: TcxGridDBColumn
@@ -999,7 +1004,6 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = False
     Left = 16
     Top = 520
   end
@@ -1041,7 +1045,7 @@ inherited InsTar: TInsTar
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'ID'
-    GeneratorField.Generator = 'GEN_TARIF_MES_ID'
+    GeneratorField.Generator = 'GEN_TARIF_ID'
     Left = 104
     Top = 520
     object IBTARIFID: TIntegerField
@@ -1126,7 +1130,7 @@ inherited InsTar: TInsTar
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'ID'
-    GeneratorField.Generator = 'GEN_DOM_OTHER_ID'
+    GeneratorField.Generator = 'GEN_TARIF_OTHER_ID'
     Left = 248
     Top = 518
     object IBTARIF_OTHERID: TIntegerField
@@ -1202,7 +1206,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1214,6 +1218,7 @@ inherited InsTar: TInsTar
   object IBTARIF_MES: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = Tarifs.IBTransaction1
+    BeforePost = IBTARIF_MESBeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
@@ -1462,7 +1467,7 @@ inherited InsTar: TInsTar
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'ID'
-    GeneratorField.Generator = 'GEN_TARIF_MES_ID'
+    GeneratorField.Generator = 'GEN_KOTEL_ID'
     Left = 544
     Top = 520
     object IBKOTELID: TIntegerField
@@ -1484,6 +1489,7 @@ inherited InsTar: TInsTar
     Database = DataM.IBDatabase1
     Transaction = Tarifs.IBTransaction1
     AfterPost = IBTARIF_DOM1AfterPost
+    BeforePost = IBTARIF_DOM1BeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
@@ -1574,6 +1580,7 @@ inherited InsTar: TInsTar
   object IBUPDTDOM: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = Tarifs.IBTransaction1
+    BeforePost = IBUPDTDOMBeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (

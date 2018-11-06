@@ -55,11 +55,6 @@ type
     cxGrid3: TcxGrid;
     cxGridDBTableView2: TcxGridDBTableView;
     cxGridLevel2: TcxGridLevel;
-    cxGridDBTableView1NAME: TcxGridDBColumn;
-    cxGridDBTableView1SUMM: TcxGridDBColumn;
-    cxGridDBTableView1KL_NTAR: TcxGridDBColumn;
-    cxGridDBTableView1FL_LIFT: TcxGridDBColumn;
-    cxGridDBTableView1NORMA: TcxGridDBColumn;
     cxGrid1DBTableView1NAME: TcxGridDBColumn;
     cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn;
     cxGrid1DBTableView1TARIF_FACT: TcxGridDBColumn;
@@ -179,6 +174,42 @@ type
     IBTARIF_MESID_POSL: TIntegerField;
     cxGrid1DBTableView1ID_POSL: TcxGridDBColumn;
     IBTARIFID_VIDAB: TIntegerField;
+    IBTARIF_OTHER: TIBDataSet;
+    IBTARIF_OTHERID: TIntegerField;
+    IBTARIF_OTHERID_TARIF: TIntegerField;
+    IBTARIF_OTHERID_TARIFMES: TIntegerField;
+    IBTARIF_OTHERID_DOMOTHER: TIntegerField;
+    IBTARIF_OTHERSPLAN: TIBBCDField;
+    IBTARIF_OTHERSFACT: TIBBCDField;
+    IBTARIF_OTHERNORMA: TIBBCDField;
+    IBTARIF_OTHERSEND: TIBBCDField;
+    IBTARIF_OTHERMZK: TIBBCDField;
+    IBTARIF_OTHERID_OTHER: TIntegerField;
+    IBTARIF_OTHERPLOS_BB: TIBBCDField;
+    IBTARIF_OTHERID_DOM: TIntegerField;
+    IBTARIF_OTHERID_VIDAB: TIntegerField;
+    DSTARIF_OTHER: TDataSource;
+    cxGridDBTableView1SPLAN: TcxGridDBColumn;
+    cxGridDBTableView1SFACT: TcxGridDBColumn;
+    cxGridDBTableView1NORMA: TcxGridDBColumn;
+    cxGridDBTableView1MZK: TcxGridDBColumn;
+    cxGridDBTableView1ID_OTHER: TcxGridDBColumn;
+    cxGridDBTableView1PLOS_BB: TcxGridDBColumn;
+    cxGridDBTableView1ID_DOM: TcxGridDBColumn;
+    cxGridDBTableView1ID_VIDAB: TcxGridDBColumn;
+    cxGrid1DBTableView1LICH_PN: TcxGridDBColumn;
+    cxGrid1DBTableView1LICH_PK: TcxGridDBColumn;
+    cxGrid1DBTableView1PLOS_BBI: TcxGridDBColumn;
+    cxGrid1DBTableView1ID_KOTEL: TcxGridDBColumn;
+    IBKOTEL: TIBDataSet;
+    IBKOTELID: TIntegerField;
+    IBKOTELNAME: TIBStringField;
+    DSKOTEL: TDataSource;
+    IBTARIF_MESID_VIDAB: TIntegerField;
+    cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn;
+    IBTARIF_MESMZK: TIBBCDField;
+    cxGrid1DBTableView1MZK: TcxGridDBColumn;
+    cxGridDBTableView1SEND: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -209,6 +240,7 @@ type
       AButtonIndex: Integer);
     procedure cxButton9Click(Sender: TObject);
     procedure cxButton5Click(Sender: TObject);
+    procedure cxButton8Click(Sender: TObject);
   private
   procedure Enables(val:boolean);
   procedure Visible;
@@ -483,7 +515,7 @@ begin
           end;
 
           IBQuery2.close;
-          IBQuery2.SQL.Text:='select tarif_mes.id, tarif.id_posl, tarif_dom.id_dom from tarif, tarif_dom, tarif_mes where tarif_mes.id=tarif_dom.id_tarifmes and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+          IBQuery2.SQL.Text:='select tarif_mes.id, tarif.id_posl, tarif_dom.id_dom, tarif.id_vidab from tarif, tarif_dom, tarif_mes where tarif_mes.id=tarif_dom.id_tarifmes and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
           IBQuery2.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
           IBQuery2.open;
           if IBQuery2.Locate('id_posl;id_dom', VarArrayOf([IBPOSLID.Value,IBDOMID.Value]),[]) then
@@ -510,7 +542,7 @@ begin
       Application.ProcessMessages;
 
           IBQuery2.close;
-          IBQuery2.SQL.Text:='select tarif_mes.id, tarif_mes.id_tarif, tarif.id_posl, tarif_dom.id_dom from tarif, tarif_dom, tarif_mes where tarif_mes.id=tarif_dom.id_tarifmes and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+          IBQuery2.SQL.Text:='select tarif_mes.id, tarif_mes.id_tarif, tarif.id_posl, tarif.id_vidab, tarif_dom.id_dom from tarif, tarif_dom, tarif_mes where tarif_mes.id=tarif_dom.id_tarifmes and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
           IBQuery2.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
           IBQuery2.open;
 
@@ -671,6 +703,7 @@ self.fl_post:=1;
   IBTARIF_COMP.close;
   IBTARIF_DOM.close;
   IBTARIF_MES.close;
+  IBTARIF_OTHER.close;
 
   IBPOSL.open;
   IBPERIOD.open;
@@ -680,10 +713,22 @@ self.fl_post:=1;
   IBTARIF_COMP.open;
   IBTARIF_DOM.open;
   IBTARIF_MES.open;
+  IBTARIF_OTHER.open;
 
   IBTARIF_MES.Locate('id',idd,[]);
 
 
+end;
+
+procedure TTarifs.cxButton8Click(Sender: TObject);
+begin
+  inherited;
+  case MessageBox(handle,pchar('Ви дійсно бажаєте видалити тариф?'),pchar(''),36) of
+  IDYES:begin
+  IBTARIF_MES.Delete;
+  self.fl_post:=1;
+  end;
+  end;
 end;
 
 procedure TTarifs.cxButton9Click(Sender: TObject);
@@ -743,6 +788,9 @@ begin
   IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_tarifmes=:tar';
   IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
   IBTARIF_DOM.open;
+  IBTARIF_OTHER.close;
+  IBTARIF_OTHER.ParamByName('idmes').AsInteger:=IBTARIF_MESID.Value;
+  IBTARIF_OTHER.open;
 end;
 
 procedure TTarifs.cxLookupComboBox1PropertiesChange(Sender: TObject);
@@ -761,7 +809,7 @@ begin
       Enables(false);
    end;
     IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, tarif.id_vidab from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
   IBTARIF_MES.open;
@@ -792,7 +840,7 @@ begin
   inherited;
 //  UpdateGrids;
     IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, tarif.id_vidab from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
   IBTARIF_MES.open;
@@ -805,6 +853,9 @@ begin
   IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_tarifmes=:tar';
   IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
   IBTARIF_DOM.open;
+  IBTARIF_OTHER.close;
+  IBTARIF_OTHER.ParamByName('idmes').AsInteger:=IBTARIF_MESID.Value;
+  IBTARIF_OTHER.open;
 end;
 
 procedure TTarifs.FormActivate(Sender: TObject);
@@ -850,8 +901,31 @@ end;
 
 procedure TTarifs.Visible;
 begin
+
+    cxGrid1DBTableView1TARIF_FACT.Visible:=false;
+    cxGrid1DBTableView1TARIF_RN.Visible:=false;
+    cxGrid1DBTableView1TARIF_RK.Visible:=false;
+    cxGrid1DBTableView1NORMA.Visible:=true;
+    cxGrid1DBTableView1END_BL.Visible:=false;
+    cxGrid1DBTableView1END_L.Visible:=false;
+    cxGrid1DBTableView1Column1.Visible:=false;
+    cxGrid1DBTableView1TARIF_END.Editing:=true;
+    cxGrid1DBTableView1TARIF_END.Options.Editing:=true;
+    cxButton2.Visible:=false;
+    cxGrid1DBTableView1ID_KOTEL.Visible:=false;
+    cxGrid1DBTableView1PLOS_BBI.Visible:=false;
+    cxGrid1DBTableView1LICH_PN.Visible:=false;
+    cxGrid1DBTableView1LICH_PK.Visible:=false;
+    cxGrid1DBTableView1TARIF_PLAN.Editing:=true;
+    cxGridDBTableView1PLOS_BB.Visible:=false;
+    cxGridDBTableView1MZK.Visible:=false;
+    cxGrid1DBTableView1MZK.Visible:=false;
+    cxGridDBTableView1SFACT.Visible:=false;
+
+
   if IBPOSLWID.Value='ub' then
   begin
+    cxGrid1DBTableView1TARIF_PLAN.Editing:=false;
     cxGrid1DBTableView1TARIF_FACT.Visible:=true;
     cxGrid1DBTableView1TARIF_RN.Visible:=true;
     cxGrid1DBTableView1TARIF_RK.Visible:=true;
@@ -863,21 +937,22 @@ begin
     cxGrid1DBTableView1TARIF_END.Options.Editing:=false;
     cxGrid1DBTableView1Column1.Visible:=true;
     cxButton2.Visible:=true;
-  end
-  else
-  begin
-    cxGrid1DBTableView1TARIF_FACT.Visible:=false;
-    cxGrid1DBTableView1TARIF_RN.Visible:=false;
-    cxGrid1DBTableView1TARIF_RK.Visible:=false;
-    cxGrid1DBTableView1NORMA.Visible:=true;
-    cxGrid1DBTableView1END_BL.Visible:=false;
-    cxGrid1DBTableView1END_L.Visible:=false;
-    cxGrid1DBTableView1Column1.Visible:=false;
-    cxGrid1DBTableView1TARIF_FACT.Editing:=true;
-    cxGrid1DBTableView1TARIF_END.Editing:=true;
-    cxGrid1DBTableView1TARIF_END.Options.Editing:=true;
-    cxButton2.Visible:=false;
+    cxGridDBTableView1SFACT.Visible:=true;
   end;
+
+  if IBPOSLWID.Value='ot' then
+  begin
+    cxGrid1DBTableView1ID_KOTEL.Visible:=true;
+    cxGrid1DBTableView1PLOS_BBI.Visible:=true;
+    cxGrid1DBTableView1LICH_PN.Visible:=true;
+    cxGrid1DBTableView1LICH_PK.Visible:=true;
+    cxGrid1DBTableView1TARIF_END.Editing:=false;
+    cxGridDBTableView1PLOS_BB.Visible:=true;
+    cxGridDBTableView1MZK.Visible:=true;
+    cxGrid1DBTableView1MZK.Visible:=true;
+  end;
+
+
 end;
 
 
@@ -898,6 +973,7 @@ begin
   IBTARIF.Open;
   IBVIDAB.Open;
   IBOTHER.Open;
+  IBKOTEL.Open;
 
 
   InfoForm.cxDBTextEdit1.DataBinding.DataSource:=DSTARIF_MES;
@@ -905,7 +981,7 @@ begin
   cxLookupComboBox1.EditValue:= IBPERIODDATA.Value;
 
   IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, tarif.id_vidab from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
   IBTARIF_MES.open;
@@ -918,6 +994,10 @@ begin
   IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_tarifmes=:tar';
   IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
   IBTARIF_DOM.open;
+  IBTARIF_OTHER.close;
+  IBTARIF_OTHER.ParamByName('idmes').AsInteger:=IBTARIF_MESID.Value;
+  IBTARIF_OTHER.open;
+
 
 
 

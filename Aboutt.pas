@@ -5,11 +5,15 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons, cxGraphics,
-  cxLookAndFeels;
+  cxLookAndFeels, cxControls, cxContainer, cxEdit, cxLabel;
 
 type
   TAbout = class(TForm)
     cxButton1: TcxButton;
+    cxLabel1: TcxLabel;
+    cxLabel2: TcxLabel;
+    cxLabel3: TcxLabel;
+    cxLabel4: TcxLabel;
     procedure cxButton1Click(Sender: TObject);
   private
     { Private declarations }

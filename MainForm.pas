@@ -728,46 +728,16 @@ begin
 end;
 
 procedure TMain.dxBarButton23Click(Sender: TObject);
-var SpDOM1 : tSpViewForm;
 begin
-// if SpDom=nil then
-// begin
-// Application.CreateForm(TSpViewForm,SpDom);
-// AddToolBar(SpDom);
-// end
-// else
-//   SpDom.Show;
-// SpDom.SetFocus;
-// SpDom.cxPageControl1.ActivePageIndex:=0;
-
-//    SpDom:= TSpViewForm.Create(nil);
-//    try
-//      SpDom.Show;
-//    finally
-//      SpDom.Free;
-//    end;
-
-
-//     SpDOM1:=TSpViewForm.Create(Application.MainForm);
-//     SpDOM1.Show;
-//     AddToolBar(SpDOM1);
-
-//  with TSpViewForm.Create (nil) do
-//    try
-//      Show;
-//    finally
-////      Free;
-//    end;
-
-
-//      if not Assigned(SpDOM1) then
-      if Screen.ActiveForm = SpDOM1 then
-        SpDOM1:= TSpViewForm.Create(nil);
-  SpDOM1.Show;
-//  FreeAndNil(Form2);
-
-
-
+ if Sprav=nil then
+ begin
+ Application.CreateForm(TSprav,Sprav);
+ AddToolBar(Sprav);
+ end
+ else
+ Sprav.Show;
+ Sprav.SetFocus;
+ Sprav.cxPageControl1.ActivePageIndex:=6;
 end;
 
 procedure TMain.dxBarButton30Click(Sender: TObject);
