@@ -1009,7 +1009,7 @@ inherited InsTar: TInsTar
   end
   object IBTARIF: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BeforePost = IBTARIFBeforePost
     BufferChunks = 1000
     CachedUpdates = False
@@ -1074,7 +1074,7 @@ inherited InsTar: TInsTar
   end
   object IBTARIF_OTHER: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     AfterPost = IBTARIF_OTHERAfterPost
     BeforePost = IBTARIF_OTHERBeforePost
     BufferChunks = 1000
@@ -1206,7 +1206,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1217,7 +1217,7 @@ inherited InsTar: TInsTar
   end
   object IBTARIF_MES: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BeforePost = IBTARIF_MESBeforePost
     BufferChunks = 1000
     CachedUpdates = False
@@ -1435,7 +1435,7 @@ inherited InsTar: TInsTar
   end
   object IBKOTEL: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BeforePost = IBTARIFBeforePost
     BufferChunks = 1000
     CachedUpdates = False
@@ -1487,7 +1487,7 @@ inherited InsTar: TInsTar
   end
   object IBTARIF_DOM1: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     AfterPost = IBTARIF_DOM1AfterPost
     BeforePost = IBTARIF_DOM1BeforePost
     BufferChunks = 1000
@@ -1579,7 +1579,7 @@ inherited InsTar: TInsTar
   end
   object IBUPDTDOM: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BeforePost = IBUPDTDOMBeforePost
     BufferChunks = 1000
     CachedUpdates = False
@@ -1653,7 +1653,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery2: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1746,7 +1746,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery3: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True

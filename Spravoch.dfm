@@ -1,25 +1,25 @@
 ﻿inherited Sprav: TSprav
   Caption = #1044#1086#1074#1110#1076#1085#1080#1082
-  ClientHeight = 708
+  ClientHeight = 706
   ClientWidth = 767
   Position = poMainFormCenter
   WindowState = wsMaximized
   OnCreate = FormCreate
   ExplicitWidth = 783
-  ExplicitHeight = 746
+  ExplicitHeight = 744
   PixelsPerInch = 96
   TextHeight = 13
   object cxPageControl1: TcxPageControl [0]
     Left = 0
     Top = 41
     Width = 767
-    Height = 598
+    Height = 596
     Align = alClient
     TabOrder = 2
-    Properties.ActivePage = cxTabSheet7
+    Properties.ActivePage = cxTabSheet8
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
-    ClientRectBottom = 594
+    ClientRectBottom = 592
     ClientRectLeft = 4
     ClientRectRight = 763
     ClientRectTop = 24
@@ -63,7 +63,7 @@
         Left = 0
         Top = 97
         Width = 753
-        Height = 467
+        Height = 465
         Align = alClient
         TabOrder = 1
         object cxGrid1DBTableView1: TcxGridDBTableView
@@ -185,7 +185,7 @@
         Left = 0
         Top = 97
         Width = 759
-        Height = 275
+        Height = 273
         Align = alClient
         TabOrder = 1
         object cxGridDBTableView1: TcxGridDBTableView
@@ -226,11 +226,13 @@
           object cxGridDBTableView1PLOS_OB: TcxGridDBColumn
             Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
             DataBinding.FieldName = 'PLOS_OB'
+            PropertiesClassName = 'TcxCalcEditProperties'
             Width = 104
           end
           object cxGridDBTableView1PLOS_BB: TcxGridDBColumn
             Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
             DataBinding.FieldName = 'PLOS_BB'
+            PropertiesClassName = 'TcxCalcEditProperties'
             Width = 124
           end
           object cxGridDBTableView1ID_VIDAB: TcxGridDBColumn
@@ -258,7 +260,7 @@
       end
       object Panel8: TPanel
         Left = 0
-        Top = 372
+        Top = 370
         Width = 759
         Height = 30
         Align = alBottom
@@ -552,7 +554,7 @@
       end
       object cxGrid6: TcxGrid
         Left = 0
-        Top = 402
+        Top = 400
         Width = 759
         Height = 168
         Align = alBottom
@@ -584,10 +586,12 @@
           object cxGridDBTableView5PLOS_OB: TcxGridDBColumn
             Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
             DataBinding.FieldName = 'PLOS_OB'
+            PropertiesClassName = 'TcxCalcEditProperties'
           end
           object cxGridDBTableView5PLOS_BB: TcxGridDBColumn
             Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
             DataBinding.FieldName = 'PLOS_BB'
+            PropertiesClassName = 'TcxCalcEditProperties'
           end
           object cxGridDBTableView5ID_TIPPR: TcxGridDBColumn
             Caption = #1055#1088#1080#1084#1110#1097#1077#1085#1085#1103
@@ -647,7 +651,7 @@
         Left = 0
         Top = 113
         Width = 759
-        Height = 457
+        Height = 455
         Align = alClient
         TabOrder = 1
         object cxGridDBTableView2: TcxGridDBTableView
@@ -704,7 +708,7 @@
         Left = 0
         Top = 65
         Width = 759
-        Height = 505
+        Height = 503
         Align = alClient
         TabOrder = 1
         object cxGridDBTableView3: TcxGridDBTableView
@@ -784,7 +788,7 @@
         Left = 0
         Top = 97
         Width = 759
-        Height = 473
+        Height = 471
         Align = alClient
         TabOrder = 1
         object cxGridDBTableView4: TcxGridDBTableView
@@ -846,7 +850,7 @@
         Left = 0
         Top = 113
         Width = 759
-        Height = 457
+        Height = 455
         Align = alClient
         TabOrder = 1
         object cxGridDBTableView6: TcxGridDBTableView
@@ -901,11 +905,9 @@
         Left = 0
         Top = 57
         Width = 759
-        Height = 513
+        Height = 511
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 113
-        ExplicitHeight = 457
         object cxGridDBTableView7: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSTARIF_DATA
@@ -935,6 +937,7 @@
           object cxGridDBTableView7TARIF_SUM1: TcxGridDBColumn
             Caption = #1058#1072#1088#1080#1092' 1'
             DataBinding.FieldName = 'TARIF_SUM1'
+            PropertiesClassName = 'TcxCalcEditProperties'
             Width = 164
           end
           object cxGridDBTableView7DATE_N1: TcxGridDBColumn
@@ -946,6 +949,7 @@
           object cxGridDBTableView7TARIF_SUM2: TcxGridDBColumn
             Caption = #1058#1072#1088#1080#1092' 2'
             DataBinding.FieldName = 'TARIF_SUM2'
+            PropertiesClassName = 'TcxCalcEditProperties'
             Width = 188
           end
         end
@@ -968,6 +972,53 @@
         Width = 121
       end
     end
+    object cxTabSheet8: TcxTabSheet
+      Caption = #1050#1086#1090#1077#1083#1100#1085#1110
+      ImageIndex = 7
+      object Panel12: TPanel
+        Left = 0
+        Top = 0
+        Width = 759
+        Height = 113
+        Align = alTop
+        TabOrder = 0
+        object cxLabel17: TcxLabel
+          Left = 8
+          Top = 5
+          Caption = #1050#1086#1090#1077#1083#1100#1085#1103
+        end
+        object cxTextEdit9: TcxTextEdit
+          Left = 7
+          Top = 28
+          TabOrder = 1
+          Width = 429
+        end
+      end
+      object cxGrid9: TcxGrid
+        Left = 0
+        Top = 113
+        Width = 759
+        Height = 455
+        Align = alClient
+        TabOrder = 1
+        object cxGridDBTableView8: TcxGridDBTableView
+          Navigator.Buttons.CustomButtons = <>
+          DataController.DataSource = DSKOTEL
+          DataController.DetailKeyFieldNames = 'ID'
+          DataController.Summary.DefaultGroupSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.SummaryGroups = <>
+          object cxGridDBTableView8NAME: TcxGridDBColumn
+            Caption = #1050#1086#1090#1077#1083#1100#1085#1103
+            DataBinding.FieldName = 'NAME'
+            Width = 228
+          end
+        end
+        object cxGridLevel8: TcxGridLevel
+          GridView = cxGridDBTableView8
+        end
+      end
+    end
   end
   inherited Panel2: TPanel
     Width = 767
@@ -980,9 +1031,9 @@
     end
   end
   inherited Panel4: TPanel
-    Top = 639
+    Top = 637
     Width = 767
-    ExplicitTop = 639
+    ExplicitTop = 637
     ExplicitWidth = 767
     inherited Panel3: TPanel
       Left = 610
@@ -1041,7 +1092,7 @@
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_POSL_ID'
     Left = 16
-    Top = 616
+    Top = 352
     object IBPOSLID: TIntegerField
       FieldName = 'ID'
       Origin = '"POSL"."ID"'
@@ -1071,8 +1122,8 @@
   end
   object DSPOSL: TDataSource
     DataSet = IBPOSL
-    Left = 32
-    Top = 672
+    Left = 16
+    Top = 408
   end
   object IBDOM: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1128,7 +1179,7 @@
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_DOM_ID'
     Left = 56
-    Top = 616
+    Top = 352
     object IBDOMID: TIntegerField
       FieldName = 'ID'
       KeyFields = 'ID'
@@ -1187,8 +1238,8 @@
   end
   object DSDOM: TDataSource
     DataSet = IBDOM
-    Left = 64
-    Top = 672
+    Left = 56
+    Top = 408
   end
   object IBUL: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1233,7 +1284,7 @@
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_UL_ID'
     Left = 96
-    Top = 616
+    Top = 352
     object IBULID: TIntegerField
       FieldName = 'ID'
       Origin = '"UL"."ID"'
@@ -1261,7 +1312,7 @@
     AutoEdit = False
     DataSet = IBUL
     Left = 96
-    Top = 672
+    Top = 408
   end
   object IBVIDAB: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1299,8 +1350,8 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_VIDAB_ID'
-    Left = 128
-    Top = 616
+    Left = 136
+    Top = 352
     object IBVIDABID: TIntegerField
       FieldName = 'ID'
       Origin = '"VIDAB"."ID"'
@@ -1314,8 +1365,8 @@
   end
   object DSVIDAB: TDataSource
     DataSet = IBVIDAB
-    Left = 128
-    Top = 672
+    Left = 136
+    Top = 408
   end
   object IBOTHER: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1357,8 +1408,8 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_OTHER_ID'
-    Left = 168
-    Top = 616
+    Left = 184
+    Top = 352
     object IBOTHERID: TIntegerField
       FieldName = 'ID'
       Origin = '"OTHER"."ID"'
@@ -1380,8 +1431,8 @@
   end
   object DSOTHER: TDataSource
     DataSet = IBOTHER
-    Left = 160
-    Top = 672
+    Left = 184
+    Top = 408
   end
   object IBTIPPR: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1419,8 +1470,8 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_OTHER_ID'
-    Left = 224
-    Top = 624
+    Left = 232
+    Top = 352
     object IBTIPPRID: TIntegerField
       FieldName = 'ID'
       Origin = '"TIPPR"."ID"'
@@ -1433,8 +1484,8 @@
   end
   object DІTIPPR: TDataSource
     DataSet = IBTIPPR
-    Left = 224
-    Top = 672
+    Left = 232
+    Top = 408
   end
   object IBDOM_OTHER: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1481,8 +1532,8 @@
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_DOM_OTHER_ID'
     DataSource = DSPOSL
-    Left = 296
-    Top = 624
+    Left = 288
+    Top = 352
     object IBDOM_OTHERID: TIntegerField
       FieldName = 'ID'
       Origin = '"DOM_OTHER"."ID"'
@@ -1516,7 +1567,7 @@
   object DSDOM_OTHER: TDataSource
     DataSet = IBDOM_OTHER
     Left = 296
-    Top = 672
+    Top = 408
   end
   object IBTARIF_DATA: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1573,8 +1624,8 @@
     UniDirectional = False
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_TARIF_DATA_ID'
-    Left = 352
-    Top = 560
+    Left = 360
+    Top = 352
     object IBTARIF_DATAID: TIntegerField
       FieldName = 'ID'
       Origin = '"TARIF_DATA"."ID"'
@@ -1619,8 +1670,8 @@
   end
   object DSTARIF_DATA: TDataSource
     DataSet = IBTARIF_DATA
-    Left = 352
-    Top = 608
+    Left = 360
+    Top = 408
   end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
@@ -1643,5 +1694,58 @@
     DataSet = IBQuery1
     Left = 544
     Top = 320
+  end
+  object IBKOTEL: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BeforePost = IBKOTELBeforePost
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from KOTEL'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into KOTEL'
+      '  (ID, NAME)'
+      'values'
+      '  (:ID, :NAME)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  NAME'
+      'from KOTEL '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'SELECT * from KOTEL'
+      '')
+    ModifySQL.Strings = (
+      'update KOTEL'
+      'set'
+      '  ID = :ID,'
+      '  NAME = :NAME'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_KOTEL_ID'
+    Left = 424
+    Top = 352
+    object IBKOTELID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"KOTEL"."ID"'
+      Required = True
+    end
+    object IBKOTELNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"KOTEL"."NAME"'
+    end
+  end
+  object DSKOTEL: TDataSource
+    DataSet = IBKOTEL
+    Left = 424
+    Top = 408
   end
 end

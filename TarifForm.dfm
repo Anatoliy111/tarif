@@ -52,7 +52,6 @@
     Height = 399
     Align = alClient
     TabOrder = 1
-    ExplicitHeight = 376
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       OnFocusedRecordChanged = cxGrid1DBTableView1FocusedRecordChanged
@@ -87,6 +86,14 @@
         item
           Kind = skSum
           Column = cxGrid1DBTableView1END_L
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1BORG_VIDH
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1PLOS_BBI
         end>
       DataController.Summary.SummaryGroups = <
         item
@@ -119,6 +126,8 @@
         Caption = #1053#1072#1079#1074#1072
         DataBinding.FieldName = 'NAME'
         Options.Editing = False
+        SortIndex = 0
+        SortOrder = soAscending
         Width = 248
       end
       object cxGrid1DBTableView1Column1: TcxGridDBColumn
@@ -133,6 +142,12 @@
         Options.ShowEditButtons = isebAlways
         Width = 20
       end
+      object cxGrid1DBTableView1NSER_LICH: TcxGridDBColumn
+        Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
+        DataBinding.FieldName = 'NSER_LICH'
+        Options.Editing = False
+        Width = 36
+      end
       object cxGrid1DBTableView1PLOS_BBI: TcxGridDBColumn
         Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
         DataBinding.FieldName = 'PLOS_BBI'
@@ -141,37 +156,49 @@
       object cxGrid1DBTableView1LICH_PN: TcxGridDBColumn
         Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1087#1086#1095#1072#1090#1086#1082
         DataBinding.FieldName = 'LICH_PN'
-        Options.Editing = False
+        PropertiesClassName = 'TcxCalcEditProperties'
       end
       object cxGrid1DBTableView1LICH_PK: TcxGridDBColumn
         Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1082#1110#1085#1077#1094#1100
         DataBinding.FieldName = 'LICH_PK'
+        PropertiesClassName = 'TcxCalcEditProperties'
       end
       object cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn
         Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF_PLAN'
+        PropertiesClassName = 'TcxCalcEditProperties'
       end
       object cxGrid1DBTableView1TARIF_FACT: TcxGridDBColumn
         Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF_FACT'
+        PropertiesClassName = 'TcxCalcEditProperties'
         Options.Editing = False
       end
       object cxGrid1DBTableView1TARIF_RN: TcxGridDBColumn
         Caption = #1042#1110#1076#1093'.'#1090#1072#1088'.'#1079#1072'.'#1087#1086#1087#1077#1088'.'#1084#1110#1089#1103#1094#1100' '
         DataBinding.FieldName = 'TARIF_RN'
+        PropertiesClassName = 'TcxCalcEditProperties'
       end
       object cxGrid1DBTableView1TARIF_RK: TcxGridDBColumn
         Caption = #1042#1110#1076#1093#1080#1083#1077#1085#1085#1103' '#1090#1072#1088#1080#1092#1091' '
         DataBinding.FieldName = 'TARIF_RK'
+        PropertiesClassName = 'TcxCalcEditProperties'
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1BORG_VIDH: TcxGridDBColumn
+        Caption = #1041#1086#1088#1075' '#1085#1072' '#1074#1110#1076#1093#1080#1083#1077#1085#1085#1103
+        DataBinding.FieldName = 'BORG_VIDH'
         Options.Editing = False
       end
       object cxGrid1DBTableView1TARIF_END: TcxGridDBColumn
         Caption = #1053#1072#1088#1072#1093#1086#1074#1072#1085#1080#1081' '#1090#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF_END'
+        PropertiesClassName = 'TcxCalcEditProperties'
       end
       object cxGrid1DBTableView1NORMA: TcxGridDBColumn
         Caption = #1053#1086#1088#1084#1072
         DataBinding.FieldName = 'NORMA'
+        PropertiesClassName = 'TcxCalcEditProperties'
         Width = 106
       end
       object cxGrid1DBTableView1PLAN_BL: TcxGridDBColumn
@@ -411,12 +438,11 @@
     Height = 399
     Align = alLeft
     TabOrder = 9
-    ExplicitHeight = 435
     object DBLookupListBox1: TDBLookupListBox
       Left = 1
       Top = 1
       Width = 167
-      Height = 180
+      Height = 132
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -432,13 +458,11 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 181
+      Top = 133
       Width = 167
-      Height = 217
+      Height = 265
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 85
-      ExplicitHeight = 349
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -537,7 +561,7 @@
       
         '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
         ' NOTE, '
-      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB)'
+      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -545,7 +569,9 @@
       
         '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
         'H_PN, :LICH_PK, '
-      '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB)')
+      
+        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
+        'G_VIDH)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -567,16 +593,18 @@
       '  PLOS_BBI,'
       '  NSER_LICH,'
       '  ID_KOTEL,'
-      '  PLOS_BB'
+      '  PLOS_BB,'
+      '  MZK,'
+      '  BORG_VIDH'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
       
         'select tarif_mes.*,posl.wid, posl.name as posl, tarif_dom.name a' +
-        's dom from TARIF, TARIF_MES, POSL, TARIF_DOM where tarif_mes.dat' +
-        'a=:dt and tarif.id_posl=posl.id and tarif_mes.id_tarif=tarif.id ' +
-        'and tarif_mes.id=tarif_dom.id_tarifmes')
+        's dom, tarif_dom.id_dom from TARIF, TARIF_MES, POSL, TARIF_DOM w' +
+        'here tarif_mes.data=:dt and tarif.id_posl=posl.id and tarif_mes.' +
+        'id_tarif=tarif.id and tarif_mes.id=tarif_dom.id_tarifmes')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'
@@ -599,7 +627,9 @@
       '  PLOS_BBI = :PLOS_BBI,'
       '  NSER_LICH = :NSER_LICH,'
       '  ID_KOTEL = :ID_KOTEL,'
-      '  PLOS_BB = :PLOS_BB'
+      '  PLOS_BB = :PLOS_BB,'
+      '  MZK = :MZK,'
+      '  BORG_VIDH = :BORG_VIDH'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -694,6 +724,59 @@
       FieldName = 'DOM'
       Origin = '"TARIF_DOM"."NAME"'
       Size = 50
+    end
+    object IBTARIFUPDLICH_PN: TIBBCDField
+      FieldName = 'LICH_PN'
+      Origin = '"TARIF_MES"."LICH_PN"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDLICH_PK: TIBBCDField
+      FieldName = 'LICH_PK'
+      Origin = '"TARIF_MES"."LICH_PK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"TARIF_MES"."NOTE"'
+      Size = 200
+    end
+    object IBTARIFUPDPLOS_BBI: TIBBCDField
+      FieldName = 'PLOS_BBI'
+      Origin = '"TARIF_MES"."PLOS_BBI"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDNSER_LICH: TIBStringField
+      FieldName = 'NSER_LICH'
+      Origin = '"TARIF_MES"."NSER_LICH"'
+    end
+    object IBTARIFUPDID_KOTEL: TIntegerField
+      FieldName = 'ID_KOTEL'
+      Origin = '"TARIF_MES"."ID_KOTEL"'
+    end
+    object IBTARIFUPDPLOS_BB: TIBBCDField
+      FieldName = 'PLOS_BB'
+      Origin = '"TARIF_MES"."PLOS_BB"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDMZK: TIBBCDField
+      FieldName = 'MZK'
+      Origin = '"TARIF_MES"."MZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDBORG_VIDH: TIBBCDField
+      FieldName = 'BORG_VIDH'
+      Origin = '"TARIF_MES"."BORG_VIDH"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDID_DOM: TIntegerField
+      FieldName = 'ID_DOM'
+      Origin = '"TARIF_DOM"."ID_DOM"'
     end
   end
   object DSTARIFUPD: TDataSource
@@ -1298,7 +1381,7 @@
       
         '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
         ' NOTE, '
-      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK)'
+      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1306,7 +1389,9 @@
       
         '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
         'H_PN, :LICH_PK, '
-      '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK)')
+      
+        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
+        'G_VIDH)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1329,7 +1414,8 @@
       '  NSER_LICH,'
       '  ID_KOTEL,'
       '  PLOS_BB,'
-      '  MZK'
+      '  MZK,'
+      '  BORG_VIDH'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1360,7 +1446,8 @@
       '  NSER_LICH = :NSER_LICH,'
       '  ID_KOTEL = :ID_KOTEL,'
       '  PLOS_BB = :PLOS_BB,'
-      '  MZK = :MZK'
+      '  MZK = :MZK,'
+      '  BORG_VIDH = :BORG_VIDH'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1497,6 +1584,12 @@
     object IBTARIF_MESMZK: TIBBCDField
       FieldName = 'MZK'
       Origin = '"TARIF_MES"."MZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESBORG_VIDH: TIBBCDField
+      FieldName = 'BORG_VIDH'
+      Origin = '"TARIF_MES"."BORG_VIDH"'
       Precision = 18
       Size = 2
     end

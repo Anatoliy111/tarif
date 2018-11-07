@@ -181,10 +181,11 @@ type
     procedure cxGridDBTableView2PLOS_BBPropertiesEditValueChanged(
       Sender: TObject);
   private
-  procedure Calcplos;
+
     { Private declarations }
   public
   procedure Update(idmes,iddom:integer);
+  procedure Calcplos(idmes:integer);
     { Public declarations }
   end;
 
@@ -201,25 +202,68 @@ implementation
 
 uses TarifForm, MainForm;
 
-procedure TInsTar.Calcplos;
+procedure TInsTar.Calcplos(idmes:integer);
 var sumplos:Double;
 begin
 
   sumplos:=0;
   if poslwid='ot' then
   begin
-      sumplos:=sumplos+IBTARIF_MESPLOS_BB.AsFloat;
+    if IBTARIF_MES.RecordCount>1 then
+    begin
+         IBTARIF_MES.First;
+        while not IBTARIF_MES.Eof do
+        begin
+          sumplos:=sumplos+IBTARIF_MESPLOS_BB.AsFloat;
+          IBTARIF_MES.Edit;
+          IBQuery1.Close;
+          IBQuery1.SQL.Text:='select sum(DOM_OTHER.PLOS_BB) from TARIF_OTHER ,DOM_OTHER where TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.id_tarifmes=:idmes';
+          IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
+          IBQuery1.Open;
+          IBQuery1.First;
+          if (IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat)>0 then
+             IBTARIF_MESPLOS_BBI.Value:=IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat
+          else IBTARIF_MESPLOS_BBI.Value:=0;
+          IBTARIF_MES.Post;
+        IBTARIF_MES.Next;
+        end;
+      IBQuery1.Close;
+      IBQuery1.SQL.Text:='select sum(DOM.PLOS_BB) from TARIF_DOM ,DOM where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes';
+      IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
+      IBQuery1.Open;
+      IBQuery1.First;
+      if sumplos<>IBQuery1.FieldByName('sum').AsFloat then
+         Application.MessageBox('Опалювальна площа по лічильникам не сходиться з опалювальной площею по будинку. Треба розділити опалювальну площу по будинку між лічильниками щоб їхня сума збігалася','Помилка',16);
+
+
+    end
+    else
+    begin
+
+      IBQuery1.Close;
+      IBQuery1.SQL.Text:='select sum(DOM.PLOS_BB) from TARIF_DOM ,DOM where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes';
+      IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
+      IBQuery1.Open;
+      IBQuery1.First;
+      if IBTARIF_MESPLOS_BB.Value<>IBQuery1.FieldByName('sum').AsFloat then
+      begin
       IBTARIF_MES.Edit;
-//      IBTARIF_MESPLOS_BB.Value:=IBTARIF_DOM1PLOS_BB.AsFloat;
+      IBTARIF_MESPLOS_BB.Value:=IBQuery1.FieldByName('sum').AsFloat;
+      IBTARIF_MES.Post;
+      end;
       IBQuery1.Close;
       IBQuery1.SQL.Text:='select sum(DOM_OTHER.PLOS_BB) from TARIF_OTHER ,DOM_OTHER where TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.id_tarifmes=:idmes';
       IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
       IBQuery1.Open;
       IBQuery1.First;
-      if (IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat)>0 then
-         IBTARIF_MESPLOS_BBI.Value:=IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat
-      else IBTARIF_MESPLOS_BBI.Value:=0;
+      if IBTARIF_MESPLOS_BBI.Value<>IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat then
+      begin
+      IBTARIF_MES.Edit;
+      IBTARIF_MESPLOS_BBI.Value:=IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat;
       IBTARIF_MES.Post;
+      end;
+
+    end;
 
   end;
 
@@ -227,6 +271,7 @@ end;
 
 procedure TInsTar.Visible;
 begin
+
 
     cxGridDBTableView2NSER_LICH.Visible:=false;
     cxGridDBTableView2PLOS_BB.Visible:=false;
@@ -245,6 +290,8 @@ begin
     cxGrid1DBTableView1PLOS_BB.Visible:=true;
   end;
 
+
+
 end;
 
 procedure TInsTar.Update(idmes,iddom:integer);
@@ -257,53 +304,6 @@ begin
     IBTARIF_DOM1.Close;
     IBTARIF_DOM1.ParamByName('idmes').Value:=idmes;
     IBTARIF_DOM1.Open;
-
-  sumplos:=0;
-  if poslwid='ot' then
-  begin
-    if IBTARIF_MES.RecordCount>1 then
-    begin
-         IBTARIF_MES.First;
-        while not IBTARIF_MES.Eof do
-        begin
-          IBTARIF_MES.Edit;
-          IBQuery1.Close;
-          IBQuery1.SQL.Text:='select sum(DOM_OTHER.PLOS_BB) from TARIF_OTHER ,DOM_OTHER where TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.id_tarifmes=:idmes';
-          IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
-          IBQuery1.Open;
-          IBQuery1.First;
-          if (IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat)>0 then
-             IBTARIF_MESPLOS_BBI.Value:=IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat
-          else IBTARIF_MESPLOS_BBI.Value:=0;
-          IBTARIF_MES.Post;
-        IBTARIF_MES.Next;
-        end;
-    end
-    else
-    begin
-      IBTARIF_MES.Edit;
-      IBTARIF_MESPLOS_BB.Value:=IBTARIF_DOM1PLOS_BB.AsFloat;
-      IBQuery1.Close;
-      IBQuery1.SQL.Text:='select sum(DOM_OTHER.PLOS_BB) from TARIF_OTHER ,DOM_OTHER where TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.id_tarifmes=:idmes';
-      IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
-      IBQuery1.Open;
-      IBQuery1.First;
-      if (IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat)>0 then
-         IBTARIF_MESPLOS_BBI.Value:=IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat
-      else IBTARIF_MESPLOS_BBI.Value:=0;
-      IBTARIF_MES.Post;
-
-    end;
-//    if sumplos<>IBTARIF_DOM1PLOS_BB.AsFloat then
-//      Application.MessageBox('Опалювальна площа по тарифу не сходиться з опалювальной площею по будинку','Помилка',16);
-
-
-  end;
-
-
-
-
-
 
 
   if (poslwid='ot') and (iddom<>0) then
@@ -325,6 +325,31 @@ begin
   IBTARIF_MES.ParamByName('idmes').Value:=idmes;
   IBTARIF_MES.Open;
   end;
+
+//  sumplos:=0;
+//  if poslwid='ot' then
+//  begin
+//    if IBTARIF_MES.RecordCount>1 then
+//    begin
+//         IBTARIF_MES.First;
+//        while not IBTARIF_MES.Eof do
+//        begin
+//          sumplos:=sumplos+IBTARIF_MESPLOS_BB.AsFloat;
+//        IBTARIF_MES.Next;
+//        end;
+//      IBQuery1.Close;
+//      IBQuery1.SQL.Text:='select sum(DOM.PLOS_BB) from TARIF_DOM ,DOM where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes';
+//      IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
+//      IBQuery1.Open;
+//      IBQuery1.First;
+//      if sumplos<>IBQuery1.FieldByName('sum').AsFloat then
+//         Application.MessageBox('Опалювальна площа по лічильникам не сходиться з опалювальной площею по будинку. Треба розділити опалювальну площу по будинку між лічильниками щоб їхня сума збігалася','Помилка',16);
+//
+//
+//    end;
+//  end;
+
+
 
   IBTARIF.Open;
 
@@ -384,6 +409,7 @@ begin
   case MessageBox(handle,pchar('Ви дійсно бажаєте видалити іншого?'),pchar(''),36) of
   IDYES: begin
   IBTARIF_OTHER.Delete;
+  fl_postt:=1;
   Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
   end;
   end;
@@ -446,7 +472,7 @@ begin
           else
             IBTARIF_DOM1.Delete;
 
-
+          fl_postt:=1;
 
 
 
@@ -519,7 +545,7 @@ begin
   case MessageBox(handle,pchar('Ви дійсно бажаєте видалити тариф?'),pchar(''),36) of
   IDYES: begin
   IBTARIF_MES.Delete;
-
+  fl_postt:=1;
   end;
 
   end;
@@ -689,7 +715,7 @@ procedure TInsTar.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 if fl_postt=1 then
 begin
-  Tarifs.cxButton7.Click;
+  Tarifs.Update;
   Tarifs.IBTARIF_MES.Locate('id',IBTARIF_MESID.Value,[]);
 end;
 
@@ -721,7 +747,19 @@ begin
   poslname:=Tarifs.IBPOSLNAME.Value;
   poslwid:=Tarifs.IBPOSLWID.Value;
   cxDBLabel2.Caption:=poslname;
+
+IBTARIF.Transaction:=Tarifs.IBTransaction1;
+IBTARIF_OTHER.Transaction:=Tarifs.IBTransaction1;
+IBTARIF_MES.Transaction:=Tarifs.IBTransaction1;
+IBTARIF_DOM1.Transaction:=Tarifs.IBTransaction1;
+IBUPDTDOM.Transaction:=Tarifs.IBTransaction1;
+IBKOTEL.Transaction:=Tarifs.IBTransaction1;
+IBQuery1.Transaction:=Tarifs.IBTransaction1;
+IBQuery2.Transaction:=Tarifs.IBTransaction1;
+IBQuery3.Transaction:=Tarifs.IBTransaction1;
+
 IBTARIF.Open;
+IBKOTEL.Open;
 IBTARIF_MES.Open;
 IBTARIF_DOM1.Open;
 IBTARIF_OTHER.Open;
@@ -811,9 +849,9 @@ var idmes,idvid,iddom:integer;
 begin
   inherited;
 
-  if (IBTARIF_DOM1.RecordCount>1) or (IBTARIF_DOM1ID_DOM.AsInteger>1) then
+  if (IBTARIF_MESID_VIDAB.Value<>IBTARIF_DOM1ID_VIDAB.Value) and (IBTARIF_DOM1ID_VIDAB.Value<>0) then
   begin
-     Application.MessageBox('Неможливо змінити вид так як вже додані будинки до тарифу! Видаліть будинки, змініть вид, додайте будинки з відповідним видом','Помилка',16);
+     Application.MessageBox('Неможливо змінити вид так як вже додані будинки мають інший вид','Помилка',16);
      IBTARIF_MES.Cancel;
      exit;
   end;

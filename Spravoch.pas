@@ -186,6 +186,18 @@ type
     DSQuery1: TDataSource;
     IBQuery1DATE_MES: TDateField;
     cxGridDBTableView7ID_VIDAB: TcxGridDBColumn;
+    cxTabSheet8: TcxTabSheet;
+    Panel12: TPanel;
+    cxLabel17: TcxLabel;
+    cxTextEdit9: TcxTextEdit;
+    cxGrid9: TcxGrid;
+    cxGridDBTableView8: TcxGridDBTableView;
+    cxGridLevel8: TcxGridLevel;
+    IBKOTEL: TIBDataSet;
+    DSKOTEL: TDataSource;
+    IBKOTELID: TIntegerField;
+    IBKOTELNAME: TIBStringField;
+    cxGridDBTableView8NAME: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);
@@ -218,6 +230,7 @@ type
     procedure cxCheckBox1PropertiesChange(Sender: TObject);
     procedure cxLookupComboBox4PropertiesChange(Sender: TObject);
     procedure IBTARIF_DATABeforePost(DataSet: TDataSet);
+    procedure IBKOTELBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
 
@@ -249,6 +262,7 @@ begin
 IBPOSL.open;
 IBDOM.open;
 IBUL.open;
+IBKOTEL.open;
 IBOTHER.open;
 IBVIDAB.open;
 IBTIPPR.open;
@@ -319,6 +333,13 @@ fl_post:=1;
 end;
 
 procedure TSprav.IBKLIENTBeforePost(DataSet: TDataSet);
+begin
+fl_post:=1;
+  inherited;
+
+end;
+
+procedure TSprav.IBKOTELBeforePost(DataSet: TDataSet);
 begin
 fl_post:=1;
   inherited;
@@ -452,6 +473,11 @@ begin
         begin
           IBTARIF_DATA.Delete;
         end;
+        fl_post:=1;
+      end;
+      if cxPageControl1.ActivePageIndex=7 then
+      begin
+        IBKOTEL.Delete;
         fl_post:=1;
       end;
     end;
@@ -638,6 +664,25 @@ begin
             cxGridDBTableView7DATE_N1.Visible:=false;
             cxGridDBTableView7TARIF_SUM2.Visible:=false;
           end;
+    end;
+  end;
+  if cxPageControl1.ActivePageIndex=7 then
+  begin
+    if (cxTextEdit9.Text='') then
+    Application.MessageBox('Введіть котельню','Помилка',16)
+  else
+    begin
+      if not IBKOTEL.Locate('NAME',cxTextEdit9.Text,[]) then
+      begin
+        IBKOTEL.Insert;
+        IBKOTEL.Edit;
+        IBKOTELNAME.Value:=cxTextEdit9.Text;
+        IBKOTEL.Post;
+        cxTextEdit9.Text:='';
+      end
+      else
+        Application.MessageBox('Така котельня вже існує','Ошибка',16)
+
     end;
 
 

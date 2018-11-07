@@ -92,34 +92,7 @@ end;
 procedure TAllMDICh.FormClose(Sender: TObject; var Action: TCloseAction);
 var i:integer;
 begin//  ExB:=MessageBox(handle,pchar('Сохранить все изменения?'),pchar(''),65);
-  if ModalResult=mrYES then
-  begin
-    IBTransaction1.Commit;
-    self.fl_post:=0;
-    if ABar<>nil then
-      for I := 0 to ABar.ItemLinks.Count - 1 do
-        if ABar.ItemLinks[i].Item.Data=Self then
-        begin
-          TdxBarButton(ABar.ItemLinks[i].Item).free;
-          break;
-        end;
-    Action := caFree;
-    AllMDICh := nil;
-  end;
-  if ModalResult=mrNO then
-  begin
-    IBTransaction1.Rollback;
-    self.fl_post:=0;
-    if ABar<>nil then
-      for I := 0 to ABar.ItemLinks.Count - 1 do
-        if ABar.ItemLinks[i].Item.Data=Self then
-        begin
-          TdxBarButton(ABar.ItemLinks[i].Item).free;
-          break;
-        end;
-    Action := caFree;
-    AllMDICh := nil;
-  end;
+
 //  AllMDICh.Cascade;
 
     if ABar<>nil then
@@ -135,6 +108,8 @@ begin//  ExB:=MessageBox(handle,pchar('Сохранить все изменения?'),pchar(''),65);
 end;
 
 procedure TAllMDICh.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+var i:integer;
+Action: TCloseAction;
 begin
   CanClose:=true;
   if self.fl_post=1 then
@@ -143,6 +118,32 @@ begin
     IDNO:ModalResult:=mrNo;
     IDCANCEL:CanClose:=false;
   end;
+
+  if ModalResult=mrYES then
+  begin
+    IBTransaction1.Commit;
+    self.fl_post:=0;
+    if ABar<>nil then
+      for I := 0 to ABar.ItemLinks.Count - 1 do
+        if ABar.ItemLinks[i].Item.Data=Self then
+        begin
+          TdxBarButton(ABar.ItemLinks[i].Item).free;
+          break;
+        end;
+  end;
+  if ModalResult=mrNO then
+  begin
+    IBTransaction1.Rollback;
+    self.fl_post:=0;
+    if ABar<>nil then
+      for I := 0 to ABar.ItemLinks.Count - 1 do
+        if ABar.ItemLinks[i].Item.Data=Self then
+        begin
+          TdxBarButton(ABar.ItemLinks[i].Item).free;
+          break;
+        end;
+  end;
+
 
 end;
 

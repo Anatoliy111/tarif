@@ -175,6 +175,7 @@ type
     dxBarButton22: TdxBarButton;
     dxBarButton23: TdxBarButton;
     dxBarButton24: TdxBarButton;
+    dxBarButton25: TdxBarButton;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -194,6 +195,7 @@ type
     procedure dxBarButton21Click(Sender: TObject);
     procedure dxBarButton22Click(Sender: TObject);
     procedure dxBarButton23Click(Sender: TObject);
+    procedure dxBarButton25Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -740,6 +742,19 @@ begin
  Sprav.cxPageControl1.ActivePageIndex:=6;
 end;
 
+procedure TMain.dxBarButton25Click(Sender: TObject);
+begin
+ if Sprav=nil then
+ begin
+ Application.CreateForm(TSprav,Sprav);
+ AddToolBar(Sprav);
+ end
+ else
+ Sprav.Show;
+ Sprav.SetFocus;
+ Sprav.cxPageControl1.ActivePageIndex:=7;
+end;
+
 procedure TMain.dxBarButton30Click(Sender: TObject);
 begin
  if Sprav=nil then
@@ -810,8 +825,8 @@ end;
 procedure TMain.FormClose(Sender: TObject; var Action: TCloseAction);
 var i: integer;
 begin
-for i:= 0 to MdiChildCount - 1 do
-  MDIChildren[i].Close;
+//for i:= 0 to MdiChildCount - 1 do
+//  MDIChildren[i].Close;
 end;
 
 procedure TMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);

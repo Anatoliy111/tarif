@@ -12,7 +12,7 @@ uses
   cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst, Vcl.Menus,
   cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit,
   cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons, IBX.IBQuery, inifiles,
-  cxButtonEdit;
+  cxButtonEdit, cxCalc;
 
 type
   TTarifs = class(TAllMDICh)
@@ -210,6 +210,19 @@ type
     IBTARIF_MESMZK: TIBBCDField;
     cxGrid1DBTableView1MZK: TcxGridDBColumn;
     cxGridDBTableView1SEND: TcxGridDBColumn;
+    IBTARIF_MESBORG_VIDH: TIBBCDField;
+    IBTARIFUPDLICH_PN: TIBBCDField;
+    IBTARIFUPDLICH_PK: TIBBCDField;
+    IBTARIFUPDNOTE: TIBStringField;
+    IBTARIFUPDPLOS_BBI: TIBBCDField;
+    IBTARIFUPDNSER_LICH: TIBStringField;
+    IBTARIFUPDID_KOTEL: TIntegerField;
+    IBTARIFUPDPLOS_BB: TIBBCDField;
+    IBTARIFUPDMZK: TIBBCDField;
+    IBTARIFUPDBORG_VIDH: TIBBCDField;
+    cxGrid1DBTableView1BORG_VIDH: TcxGridDBColumn;
+    IBTARIFUPDID_DOM: TIntegerField;
+    cxGrid1DBTableView1NSER_LICH: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -249,8 +262,10 @@ type
     { Private declarations }
   public
     { Public declarations }
+
     Glavna:Tform;
      iniFile:TIniFile;
+     procedure Update;
   end;
 
 var
@@ -368,7 +383,18 @@ begin
 
 
 //      end;
+      if IBTARIFUPDTARIF_RK.Value<0 then
+      begin
+      IBQuery1.Close;
+      IBQuery1.SQL.Text:='select sum(DOM.PLOS_OB) from TARIF_DOM ,DOM where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes';
+      IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
+      IBQuery1.Open;
+      IBQuery1.First;
 
+      IBTARIFUPD.Edit;
+      IBTARIFUPDBORG_VIDH.Value:=(IBQuery1.FieldByName('sum').AsFloat*IBTARIFUPDTARIF_RK.Value)*-1;
+      IBTARIFUPD.post;
+      end;
     end
     else
     begin
@@ -671,6 +697,7 @@ begin
  Application.CreateForm(TInsTar,ChangeTar);
  ChangeTar.Caption:='Змінити тариф';
  ChangeTar.Update(IBTARIF_MESID.Value,IBTARIF_DOMID_DOM.Value);
+ ChangeTar.Calcplos(IBTARIF_MESID.Value);
  Main.AddToolBar(ChangeTar);
  end
  else
@@ -692,9 +719,55 @@ end;
 procedure TTarifs.cxButton7Click(Sender: TObject);
 var idd:Integer;
 begin
+  Update;
+end;
+
+procedure TTarifs.Update;
+var idd:Integer;
+begin
 idd:=IBTARIF_MESID.Value;
 self.fl_post:=1;
   inherited;
+//  if IBPOSLWID='ot' then
+//  begin
+//    IBTARIFUPD.close;
+//    IBTARIFUPD.ParamByName('dt').Value:=IBPERIODDATA.Value;
+//    IBTARIFUPD.Open;
+//    IBTARIFUPD.First;
+//    while IBTARIFUPD.eof do
+//    begin
+//    if IBTARIFUPDWID.Value='ot' then
+//    begin
+////      IBQuery1.Close;
+////      IBQuery1.SQL.Text:='select sum(DOM.PLOS_BB) from TARIF_DOM ,DOM where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes';
+////      IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
+////      IBQuery1.Open;
+////      IBQuery1.First;
+////      if IBTARIFUPDPLOS_BB.Value<>IBQuery1.FieldByName('sum').AsFloat then
+////      begin
+////      IBTARIFUPD.Edit;
+////      IBTARIFUPDPLOS_BB.Value:=IBQuery1.FieldByName('sum').AsFloat;
+////      IBTARIFUPD.Post;
+////      end;
+////      IBQuery1.Close;
+////      IBQuery1.SQL.Text:='select sum(DOM_OTHER.PLOS_BB) from TARIF_OTHER ,DOM_OTHER where TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.id_tarifmes=:idmes';
+////      IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
+////      IBQuery1.Open;
+////      IBQuery1.First;
+////      if IBTARIFUPDPLOS_BBI.Value<>IBQuery1.FieldByName('sum').AsFloat then
+////      begin
+////      IBTARIFUPD.Edit;
+////      IBTARIFUPDPLOS_BBI.Value:=IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat;
+////      IBTARIFUPD.Post;
+////      end;
+//    end;
+//
+//
+//    IBTARIFUPD.Next;
+//    end;
+//  end;
+
+
   IBPOSL.close;
   IBPERIOD.close;
   IBUL.close;
@@ -716,8 +789,6 @@ self.fl_post:=1;
   IBTARIF_OTHER.open;
 
   IBTARIF_MES.Locate('id',idd,[]);
-
-
 end;
 
 procedure TTarifs.cxButton8Click(Sender: TObject);
@@ -902,6 +973,9 @@ end;
 procedure TTarifs.Visible;
 begin
 
+    DSTARIF_MES.Enabled:=false;
+
+
     cxGrid1DBTableView1TARIF_FACT.Visible:=false;
     cxGrid1DBTableView1TARIF_RN.Visible:=false;
     cxGrid1DBTableView1TARIF_RK.Visible:=false;
@@ -909,6 +983,8 @@ begin
     cxGrid1DBTableView1END_BL.Visible:=false;
     cxGrid1DBTableView1END_L.Visible:=false;
     cxGrid1DBTableView1Column1.Visible:=false;
+    cxGrid1DBTableView1TARIF_PLAN.Editing:=true;
+    cxGrid1DBTableView1TARIF_PLAN.Options.Editing:=true;
     cxGrid1DBTableView1TARIF_END.Editing:=true;
     cxGrid1DBTableView1TARIF_END.Options.Editing:=true;
     cxButton2.Visible:=false;
@@ -921,11 +997,14 @@ begin
     cxGridDBTableView1MZK.Visible:=false;
     cxGrid1DBTableView1MZK.Visible:=false;
     cxGridDBTableView1SFACT.Visible:=false;
+    cxGrid1DBTableView1BORG_VIDH.Visible:=false;
+    cxGrid1DBTableView1NSER_LICH.Visible:=false;
 
 
   if IBPOSLWID.Value='ub' then
   begin
     cxGrid1DBTableView1TARIF_PLAN.Editing:=false;
+    cxGrid1DBTableView1TARIF_PLAN.Options.Editing:=false;
     cxGrid1DBTableView1TARIF_FACT.Visible:=true;
     cxGrid1DBTableView1TARIF_RN.Visible:=true;
     cxGrid1DBTableView1TARIF_RK.Visible:=true;
@@ -938,10 +1017,12 @@ begin
     cxGrid1DBTableView1Column1.Visible:=true;
     cxButton2.Visible:=true;
     cxGridDBTableView1SFACT.Visible:=true;
+    cxGrid1DBTableView1BORG_VIDH.Visible:=true;
   end;
 
   if IBPOSLWID.Value='ot' then
   begin
+    cxGrid1DBTableView1NSER_LICH.Visible:=true;
     cxGrid1DBTableView1ID_KOTEL.Visible:=true;
     cxGrid1DBTableView1PLOS_BBI.Visible:=true;
     cxGrid1DBTableView1LICH_PN.Visible:=true;
@@ -952,6 +1033,7 @@ begin
     cxGrid1DBTableView1MZK.Visible:=true;
   end;
 
+  DSTARIF_MES.Enabled:=true;
 
 end;
 
