@@ -176,6 +176,26 @@ type
     dxBarButton23: TdxBarButton;
     dxBarButton24: TdxBarButton;
     dxBarButton25: TdxBarButton;
+    IBTARIF_OTHER: TIBDataSet;
+    DSTARIF_OTHER: TDataSource;
+    IBTARIF_OTHERID: TIntegerField;
+    IBTARIF_OTHERID_TARIF: TIntegerField;
+    IBTARIF_OTHERID_TARIFMES: TIntegerField;
+    IBTARIF_OTHERID_DOMOTHER: TIntegerField;
+    IBTARIF_OTHERSPLAN: TIBBCDField;
+    IBTARIF_OTHERSFACT: TIBBCDField;
+    IBTARIF_OTHERNORMA: TIBBCDField;
+    IBTARIF_OTHERSEND: TIBBCDField;
+    IBTARIF_OTHERMZK: TIBBCDField;
+    IBTARIF_MESLICH_PN: TIBBCDField;
+    IBTARIF_MESLICH_PK: TIBBCDField;
+    IBTARIF_MESNOTE: TIBStringField;
+    IBTARIF_MESPLOS_BBI: TIBBCDField;
+    IBTARIF_MESNSER_LICH: TIBStringField;
+    IBTARIF_MESID_KOTEL: TIntegerField;
+    IBTARIF_MESPLOS_BB: TIBBCDField;
+    IBTARIF_MESMZK: TIBBCDField;
+    IBTARIF_MESBORG_VIDH: TIBBCDField;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -482,9 +502,12 @@ begin
 IBTARIF_MES.close;
 IBTARIF_COMP.close;
 IBTARIF_DOM.close;
+IBTARIF_OTHER.close;
+
 IBTARIF_MES.open;
 IBTARIF_COMP.open;
 IBTARIF_DOM.open;
+IBTARIF_OTHER.open;
 Prores.Show;
          Prores.Label1.Caption:='Перехід на новий місяць';
          Application.ProcessMessages;
@@ -550,6 +573,12 @@ Prores.Show;
           IBTARIF_MESTARIF_RN.Value:=iif(IBQuery1.FieldByName('TARIF_RK').Value=null,0,IBQuery1.FieldByName('TARIF_RK').Value);
           IBTARIF_MESNORMA.Value:=iif(IBQuery1.FieldByName('NORMA').Value=null,0,IBQuery1.FieldByName('NORMA').Value);
           IBTARIF_MESTARIF_END.Value:=iif(IBQuery1.FieldByName('TARIF_END').Value=null,0,IBQuery1.FieldByName('TARIF_END').Value);
+          IBTARIF_MESLICH_PN.Value:=iif(IBQuery1.FieldByName('LICH_PK').Value=null,0,IBQuery1.FieldByName('LICH_PK').Value);
+          IBTARIF_MESNOTE.AsString:=IBQuery1.FieldByName('NOTE').AsString;
+          IBTARIF_MESPLOS_BBI.AsFloat:=IBQuery1.FieldByName('PLOS_BBI').AsFloat;
+          IBTARIF_MESNSER_LICH.AsString:=IBQuery1.FieldByName('NSER_LICH').AsString;
+          IBTARIF_MESID_KOTEL.AsInteger:=IBQuery1.FieldByName('ID_KOTEL').AsInteger;
+          IBTARIF_MESPLOS_BB.AsFloat:=IBQuery1.FieldByName('PLOS_BB').AsFloat;
           IBTARIF_MES.Post;
 
           IBQuery2.close;
@@ -565,6 +594,21 @@ Prores.Show;
            IBTARIF_DOMNAME.Value:=IBQuery2.FieldByName('NAME').Value;
            IBTARIF_DOMID_TARIFMES.Value:=IBTARIF_MESID.Value;
            IBTARIF_DOM.Post;
+         IBQuery2.Next;
+         end;
+
+          IBQuery2.close;
+         IBQuery2.SQL.Text:='select * from tarif_other where id_tarifmes=:idmes';
+         IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
+         IBQuery2.open;
+         IBQuery2.First;
+         while not IBQuery2.Eof do
+         begin
+           IBTARIF_OTHER.Insert;
+           IBTARIF_OTHERID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').Value;
+           IBTARIF_OTHERID_DOMOTHER.Value:=IBQuery2.FieldByName('ID_DOMOTHER').Value;
+           IBTARIF_OTHERID_TARIFMES.Value:=IBTARIF_MESID.Value;
+           IBTARIF_OTHER.Post;
          IBQuery2.Next;
          end;
 
@@ -661,6 +705,7 @@ Prores.Show;
 
          IBQuery2.Next;
          end;
+
 
 
         IBQuery1.Next;
@@ -840,7 +885,9 @@ end;
 
 procedure TMain.FormCreate(Sender: TObject);
 begin
+if not IBTransaction1.Active then
 IBTransaction1.StartTransaction;
+
 IBPERIOD.open;
 cxBarEditItem4.Caption:='                    '+mon_slovoDt(IBPERIODDATA.Value);
 Period:=IBPERIODDATA.Value;

@@ -12,7 +12,7 @@ uses
   cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst, Vcl.Menus,
   cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit,
   cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons, IBX.IBQuery, inifiles,
-  cxButtonEdit, cxCalc;
+  cxButtonEdit, cxCalc, cxMemo, cxDBEdit;
 
 type
   TTarifs = class(TAllMDICh)
@@ -41,9 +41,6 @@ type
     cxButton1: TcxButton;
     IBQSoftproect1: TIBQuery;
     IBTransaction2: TIBTransaction;
-    cxGrid2: TcxGrid;
-    cxGridDBTableView1: TcxGridDBTableView;
-    cxGridLevel1: TcxGridLevel;
     IBTARIF_DOM: TIBDataSet;
     DSTARIF_DOM: TDataSource;
     IBTARIF_DOMID: TIntegerField;
@@ -189,14 +186,6 @@ type
     IBTARIF_OTHERID_DOM: TIntegerField;
     IBTARIF_OTHERID_VIDAB: TIntegerField;
     DSTARIF_OTHER: TDataSource;
-    cxGridDBTableView1SPLAN: TcxGridDBColumn;
-    cxGridDBTableView1SFACT: TcxGridDBColumn;
-    cxGridDBTableView1NORMA: TcxGridDBColumn;
-    cxGridDBTableView1MZK: TcxGridDBColumn;
-    cxGridDBTableView1ID_OTHER: TcxGridDBColumn;
-    cxGridDBTableView1PLOS_BB: TcxGridDBColumn;
-    cxGridDBTableView1ID_DOM: TcxGridDBColumn;
-    cxGridDBTableView1ID_VIDAB: TcxGridDBColumn;
     cxGrid1DBTableView1LICH_PN: TcxGridDBColumn;
     cxGrid1DBTableView1LICH_PK: TcxGridDBColumn;
     cxGrid1DBTableView1PLOS_BBI: TcxGridDBColumn;
@@ -209,7 +198,6 @@ type
     cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn;
     IBTARIF_MESMZK: TIBBCDField;
     cxGrid1DBTableView1MZK: TcxGridDBColumn;
-    cxGridDBTableView1SEND: TcxGridDBColumn;
     IBTARIF_MESBORG_VIDH: TIBBCDField;
     IBTARIFUPDLICH_PN: TIBBCDField;
     IBTARIFUPDLICH_PK: TIBBCDField;
@@ -223,6 +211,20 @@ type
     cxGrid1DBTableView1BORG_VIDH: TcxGridDBColumn;
     IBTARIFUPDID_DOM: TIntegerField;
     cxGrid1DBTableView1NSER_LICH: TcxGridDBColumn;
+    Panel6: TPanel;
+    cxGrid2: TcxGrid;
+    cxGridDBTableView1: TcxGridDBTableView;
+    cxGridDBTableView1ID_DOM: TcxGridDBColumn;
+    cxGridDBTableView1ID_OTHER: TcxGridDBColumn;
+    cxGridDBTableView1PLOS_BB: TcxGridDBColumn;
+    cxGridDBTableView1SPLAN: TcxGridDBColumn;
+    cxGridDBTableView1SFACT: TcxGridDBColumn;
+    cxGridDBTableView1SEND: TcxGridDBColumn;
+    cxGridDBTableView1MZK: TcxGridDBColumn;
+    cxGridDBTableView1NORMA: TcxGridDBColumn;
+    cxGridDBTableView1ID_VIDAB: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    cxDBMemo1: TcxDBMemo;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

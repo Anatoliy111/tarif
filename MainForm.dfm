@@ -22,7 +22,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C0101050009008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -1211,7 +1211,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C0101120014008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2059,7 +2059,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C0101070009008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2606,12 +2606,20 @@
       
         '  (ID, ID_TARIF, DATA, TARIF_PLAN, TARIF_FACT, TARIF_RN, TARIF_R' +
         'K, NORMA, '
-      '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L)'
+      
+        '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
+        ' NOTE, '
+      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
         'TARIF_RK, '
-      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L)')
+      
+        '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
+        'H_PN, :LICH_PK, '
+      
+        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
+        'G_VIDH)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -2626,7 +2634,16 @@
       '  PLAN_BL,'
       '  FACT_BL,'
       '  END_BL,'
-      '  END_L'
+      '  END_L,'
+      '  LICH_PN,'
+      '  LICH_PK,'
+      '  NOTE,'
+      '  PLOS_BBI,'
+      '  NSER_LICH,'
+      '  ID_KOTEL,'
+      '  PLOS_BB,'
+      '  MZK,'
+      '  BORG_VIDH'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -2647,7 +2664,16 @@
       '  PLAN_BL = :PLAN_BL,'
       '  FACT_BL = :FACT_BL,'
       '  END_BL = :END_BL,'
-      '  END_L = :END_L'
+      '  END_L = :END_L,'
+      '  LICH_PN = :LICH_PN,'
+      '  LICH_PK = :LICH_PK,'
+      '  NOTE = :NOTE,'
+      '  PLOS_BBI = :PLOS_BBI,'
+      '  NSER_LICH = :NSER_LICH,'
+      '  ID_KOTEL = :ID_KOTEL,'
+      '  PLOS_BB = :PLOS_BB,'
+      '  MZK = :MZK,'
+      '  BORG_VIDH = :BORG_VIDH'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2726,6 +2752,55 @@
     object IBTARIF_MESEND_L: TIBBCDField
       FieldName = 'END_L'
       Origin = '"TARIF_MES"."END_L"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESLICH_PN: TIBBCDField
+      FieldName = 'LICH_PN'
+      Origin = '"TARIF_MES"."LICH_PN"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESLICH_PK: TIBBCDField
+      FieldName = 'LICH_PK'
+      Origin = '"TARIF_MES"."LICH_PK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"TARIF_MES"."NOTE"'
+      Size = 200
+    end
+    object IBTARIF_MESPLOS_BBI: TIBBCDField
+      FieldName = 'PLOS_BBI'
+      Origin = '"TARIF_MES"."PLOS_BBI"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESNSER_LICH: TIBStringField
+      FieldName = 'NSER_LICH'
+      Origin = '"TARIF_MES"."NSER_LICH"'
+    end
+    object IBTARIF_MESID_KOTEL: TIntegerField
+      FieldName = 'ID_KOTEL'
+      Origin = '"TARIF_MES"."ID_KOTEL"'
+    end
+    object IBTARIF_MESPLOS_BB: TIBBCDField
+      FieldName = 'PLOS_BB'
+      Origin = '"TARIF_MES"."PLOS_BB"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK: TIBBCDField
+      FieldName = 'MZK'
+      Origin = '"TARIF_MES"."MZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESBORG_VIDH: TIBBCDField
+      FieldName = 'BORG_VIDH'
+      Origin = '"TARIF_MES"."BORG_VIDH"'
       Precision = 18
       Size = 2
     end
@@ -2873,5 +2948,113 @@
     ParamCheck = True
     Left = 192
     Top = 128
+  end
+  object IBTARIF_OTHER: TIBDataSet
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'delete from TARIF_OTHER'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into TARIF_OTHER'
+      
+        '  (ID, ID_TARIF, ID_TARIFMES, ID_DOMOTHER, SPLAN, SFACT, NORMA, ' +
+        'SEND, MZK)'
+      'values'
+      
+        '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
+        'NORMA, '
+      '   :SEND, :MZK)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_TARIF,'
+      '  ID_TARIFMES,'
+      '  ID_DOMOTHER,'
+      '  SPLAN,'
+      '  SFACT,'
+      '  NORMA,'
+      '  SEND,'
+      '  MZK'
+      'from TARIF_OTHER '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select TARIF_OTHER.* from TARIF_OTHER')
+    ModifySQL.Strings = (
+      'update TARIF_OTHER'
+      'set'
+      '  ID = :ID,'
+      '  ID_TARIF = :ID_TARIF,'
+      '  ID_TARIFMES = :ID_TARIFMES,'
+      '  ID_DOMOTHER = :ID_DOMOTHER,'
+      '  SPLAN = :SPLAN,'
+      '  SFACT = :SFACT,'
+      '  NORMA = :NORMA,'
+      '  SEND = :SEND,'
+      '  MZK = :MZK'
+      'where'
+      '  ID = :OLD_ID')
+    ParamCheck = True
+    UniDirectional = False
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_TARIF_OTHER_ID'
+    Left = 416
+    Top = 315
+    object IBTARIF_OTHERID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"TARIF_OTHER"."ID"'
+      Required = True
+    end
+    object IBTARIF_OTHERID_TARIF: TIntegerField
+      FieldName = 'ID_TARIF'
+      Origin = '"TARIF_OTHER"."ID_TARIF"'
+    end
+    object IBTARIF_OTHERID_TARIFMES: TIntegerField
+      FieldName = 'ID_TARIFMES'
+      Origin = '"TARIF_OTHER"."ID_TARIFMES"'
+    end
+    object IBTARIF_OTHERID_DOMOTHER: TIntegerField
+      FieldName = 'ID_DOMOTHER'
+      Origin = '"TARIF_OTHER"."ID_DOMOTHER"'
+    end
+    object IBTARIF_OTHERSPLAN: TIBBCDField
+      FieldName = 'SPLAN'
+      Origin = '"TARIF_OTHER"."SPLAN"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERSFACT: TIBBCDField
+      FieldName = 'SFACT'
+      Origin = '"TARIF_OTHER"."SFACT"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_OTHERNORMA: TIBBCDField
+      FieldName = 'NORMA'
+      Origin = '"TARIF_OTHER"."NORMA"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERSEND: TIBBCDField
+      FieldName = 'SEND'
+      Origin = '"TARIF_OTHER"."SEND"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERMZK: TIBBCDField
+      FieldName = 'MZK'
+      Origin = '"TARIF_OTHER"."MZK"'
+      Precision = 18
+      Size = 2
+    end
+  end
+  object DSTARIF_OTHER: TDataSource
+    DataSet = IBTARIF_OTHER
+    Left = 416
+    Top = 371
   end
 end

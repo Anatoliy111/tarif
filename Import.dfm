@@ -39,8 +39,8 @@
   inherited Panel1: TPanel
     Top = 556
     Width = 692
-    ExplicitTop = 291
-    ExplicitWidth = 564
+    ExplicitTop = 556
+    ExplicitWidth = 692
   end
   object cxButton6: TcxButton [5]
     Left = 24
@@ -86,7 +86,6 @@
     OnClick = cxButton1Click
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Left = 384
     Top = 96
   end
@@ -356,15 +355,15 @@
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into TARIF'
-      '  (ID, NAME, ID_POSL, NOTE)'
+      '  (ID, NAME, ID_POSL, ID_VIDAB)'
       'values'
-      '  (:ID, :NAME, :ID_POSL, :NOTE)')
+      '  (:ID, :NAME, :ID_POSL, :ID_VIDAB)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  NAME,'
       '  ID_POSL,'
-      '  NOTE'
+      '  ID_VIDAB'
       'from TARIF '
       'where'
       '  ID = :ID')
@@ -377,7 +376,7 @@
       '  ID = :ID,'
       '  NAME = :NAME,'
       '  ID_POSL = :ID_POSL,'
-      '  NOTE = :NOTE'
+      '  ID_VIDAB = :ID_VIDAB'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -400,10 +399,9 @@
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
     end
-    object IBTARIFNOTE: TIBStringField
-      FieldName = 'NOTE'
-      Origin = '"TARIF"."NOTE"'
-      Size = 100
+    object IBTARIFID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      Origin = '"TARIF"."ID_VIDAB"'
     end
   end
   object DSTARIF: TDataSource

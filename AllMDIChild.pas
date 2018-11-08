@@ -113,10 +113,13 @@ Action: TCloseAction;
 begin
   CanClose:=true;
   if self.fl_post=1 then
+  begin
+  self.SetFocus;
   case MessageBox(handle,pchar('«берегти вс≥ зм≥ни? (‘орма буде закрита)'),pchar(''),51) of
     IDYES:ModalResult:=mrYes;
     IDNO:ModalResult:=mrNo;
     IDCANCEL:CanClose:=false;
+  end;
   end;
 
   if ModalResult=mrYES then

@@ -154,6 +154,8 @@ inherited InsTar: TInsTar
     Height = 325
     Align = alClient
     TabOrder = 3
+    ExplicitLeft = 8
+    ExplicitTop = 250
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -1819,5 +1821,16 @@ inherited InsTar: TInsTar
     DataSet = IBQuery3
     Left = 688
     Top = 398
+  end
+  object IBQuery4: TIBQuery
+    Database = DataM.IBDatabase1
+    Transaction = AllMDICh.IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      '')
+    Left = 72
+    Top = 280
   end
 end

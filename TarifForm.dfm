@@ -49,9 +49,10 @@
     Left = 169
     Top = 89
     Width = 759
-    Height = 399
+    Height = 367
     Align = alClient
     TabOrder = 1
+    ExplicitHeight = 296
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       OnFocusedRecordChanged = cxGrid1DBTableView1FocusedRecordChanged
@@ -326,123 +327,19 @@
       ExplicitHeight = 17
     end
   end
-  object cxGrid2: TcxGrid [4]
-    Left = 0
-    Top = 488
-    Width = 928
-    Height = 120
-    Align = alBottom
-    TabOrder = 4
-    object cxGridDBTableView1: TcxGridDBTableView
-      Navigator.Buttons.CustomButtons = <>
-      DataController.DataSource = DSTARIF_OTHER
-      DataController.KeyFieldNames = 'ID'
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <
-        item
-          Kind = skSum
-          Column = cxGridDBTableView1PLOS_BB
-        end
-        item
-          Kind = skSum
-          Column = cxGridDBTableView1SPLAN
-        end
-        item
-          Kind = skSum
-          Column = cxGridDBTableView1SFACT
-        end
-        item
-          Kind = skSum
-          Column = cxGridDBTableView1MZK
-        end>
-      DataController.Summary.SummaryGroups = <>
-      OptionsData.Editing = False
-      OptionsSelection.CellSelect = False
-      OptionsView.ColumnAutoWidth = True
-      OptionsView.Footer = True
-      OptionsView.GroupByBox = False
-      object cxGridDBTableView1ID_DOM: TcxGridDBColumn
-        Caption = #1041#1091#1076#1080#1085#1086#1082
-        DataBinding.FieldName = 'ID_DOM'
-        PropertiesClassName = 'TcxLookupComboBoxProperties'
-        Properties.KeyFieldNames = 'ID'
-        Properties.ListColumns = <
-          item
-            FieldName = 'NAME'
-          end>
-        Properties.ListSource = DSDOM
-        Width = 215
-      end
-      object cxGridDBTableView1ID_OTHER: TcxGridDBColumn
-        Caption = #1053#1072#1079#1074#1072
-        DataBinding.FieldName = 'ID_OTHER'
-        PropertiesClassName = 'TcxLookupComboBoxProperties'
-        Properties.KeyFieldNames = 'ID'
-        Properties.ListColumns = <
-          item
-            FieldName = 'NAME'
-          end>
-        Properties.ListSource = DSOTHER
-        Width = 186
-      end
-      object cxGridDBTableView1PLOS_BB: TcxGridDBColumn
-        Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
-        DataBinding.FieldName = 'PLOS_BB'
-        Width = 94
-      end
-      object cxGridDBTableView1SPLAN: TcxGridDBColumn
-        Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
-        DataBinding.FieldName = 'SPLAN'
-        Width = 96
-      end
-      object cxGridDBTableView1SFACT: TcxGridDBColumn
-        Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
-        DataBinding.FieldName = 'SFACT'
-        Width = 95
-      end
-      object cxGridDBTableView1SEND: TcxGridDBColumn
-        Caption = #1053#1072#1088#1072#1093#1086#1074#1072#1085#1080#1081' '#1090#1072#1088#1080#1092
-        DataBinding.FieldName = 'SEND'
-      end
-      object cxGridDBTableView1MZK: TcxGridDBColumn
-        Caption = #1052#1079#1082
-        DataBinding.FieldName = 'MZK'
-        Width = 94
-      end
-      object cxGridDBTableView1NORMA: TcxGridDBColumn
-        Caption = #1053#1086#1088#1084#1072
-        DataBinding.FieldName = 'NORMA'
-        Width = 95
-      end
-      object cxGridDBTableView1ID_VIDAB: TcxGridDBColumn
-        Caption = #1042#1080#1076
-        DataBinding.FieldName = 'ID_VIDAB'
-        PropertiesClassName = 'TcxLookupComboBoxProperties'
-        Properties.KeyFieldNames = 'ID'
-        Properties.ListColumns = <
-          item
-            FieldName = 'NAME'
-          end>
-        Properties.ListSource = DSVIDAB
-        Width = 51
-      end
-    end
-    object cxGridLevel1: TcxGridLevel
-      GridView = cxGridDBTableView1
-    end
-  end
-  object Panel5: TPanel [5]
+  object Panel5: TPanel [4]
     Left = 0
     Top = 89
     Width = 169
-    Height = 399
+    Height = 367
     Align = alLeft
-    TabOrder = 9
+    TabOrder = 8
+    ExplicitHeight = 399
     object DBLookupListBox1: TDBLookupListBox
       Left = 1
       Top = 1
       Width = 167
-      Height = 132
+      Height = 180
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -458,11 +355,13 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 133
+      Top = 181
       Width = 167
-      Height = 265
+      Height = 185
       Align = alClient
       TabOrder = 1
+      ExplicitTop = 117
+      ExplicitHeight = 281
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -492,8 +391,134 @@
       end
     end
   end
+  object Panel6: TPanel [5]
+    Left = 0
+    Top = 456
+    Width = 928
+    Height = 152
+    Align = alBottom
+    Caption = 'Panel6'
+    TabOrder = 9
+    object cxGrid2: TcxGrid
+      Left = 1
+      Top = 1
+      Width = 722
+      Height = 150
+      Align = alClient
+      TabOrder = 0
+      ExplicitTop = 24
+      ExplicitHeight = 127
+      object cxGridDBTableView1: TcxGridDBTableView
+        Navigator.Buttons.CustomButtons = <>
+        DataController.DataSource = DSTARIF_OTHER
+        DataController.KeyFieldNames = 'ID'
+        DataController.Summary.DefaultGroupSummaryItems = <>
+        DataController.Summary.FooterSummaryItems = <
+          item
+            Kind = skSum
+            Column = cxGridDBTableView1PLOS_BB
+          end
+          item
+            Kind = skSum
+            Column = cxGridDBTableView1SPLAN
+          end
+          item
+            Kind = skSum
+            Column = cxGridDBTableView1SFACT
+          end
+          item
+            Kind = skSum
+            Column = cxGridDBTableView1MZK
+          end>
+        DataController.Summary.SummaryGroups = <>
+        OptionsData.Editing = False
+        OptionsSelection.CellSelect = False
+        OptionsView.ColumnAutoWidth = True
+        OptionsView.Footer = True
+        OptionsView.GroupByBox = False
+        object cxGridDBTableView1ID_DOM: TcxGridDBColumn
+          Caption = #1041#1091#1076#1080#1085#1086#1082
+          DataBinding.FieldName = 'ID_DOM'
+          PropertiesClassName = 'TcxLookupComboBoxProperties'
+          Properties.KeyFieldNames = 'ID'
+          Properties.ListColumns = <
+            item
+              FieldName = 'NAME'
+            end>
+          Properties.ListSource = DSDOM
+          Width = 215
+        end
+        object cxGridDBTableView1ID_OTHER: TcxGridDBColumn
+          Caption = #1053#1072#1079#1074#1072
+          DataBinding.FieldName = 'ID_OTHER'
+          PropertiesClassName = 'TcxLookupComboBoxProperties'
+          Properties.KeyFieldNames = 'ID'
+          Properties.ListColumns = <
+            item
+              FieldName = 'NAME'
+            end>
+          Properties.ListSource = DSOTHER
+          Width = 186
+        end
+        object cxGridDBTableView1PLOS_BB: TcxGridDBColumn
+          Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
+          DataBinding.FieldName = 'PLOS_BB'
+          Width = 94
+        end
+        object cxGridDBTableView1SPLAN: TcxGridDBColumn
+          Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
+          DataBinding.FieldName = 'SPLAN'
+          Width = 96
+        end
+        object cxGridDBTableView1SFACT: TcxGridDBColumn
+          Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
+          DataBinding.FieldName = 'SFACT'
+          Width = 95
+        end
+        object cxGridDBTableView1SEND: TcxGridDBColumn
+          Caption = #1053#1072#1088#1072#1093#1086#1074#1072#1085#1080#1081' '#1090#1072#1088#1080#1092
+          DataBinding.FieldName = 'SEND'
+        end
+        object cxGridDBTableView1MZK: TcxGridDBColumn
+          Caption = #1052#1079#1082
+          DataBinding.FieldName = 'MZK'
+          Width = 94
+        end
+        object cxGridDBTableView1NORMA: TcxGridDBColumn
+          Caption = #1053#1086#1088#1084#1072
+          DataBinding.FieldName = 'NORMA'
+          Width = 95
+        end
+        object cxGridDBTableView1ID_VIDAB: TcxGridDBColumn
+          Caption = #1042#1080#1076
+          DataBinding.FieldName = 'ID_VIDAB'
+          PropertiesClassName = 'TcxLookupComboBoxProperties'
+          Properties.KeyFieldNames = 'ID'
+          Properties.ListColumns = <
+            item
+              FieldName = 'NAME'
+            end>
+          Properties.ListSource = DSVIDAB
+          Width = 51
+        end
+      end
+      object cxGridLevel1: TcxGridLevel
+        GridView = cxGridDBTableView1
+      end
+    end
+    object cxDBMemo1: TcxDBMemo
+      Left = 723
+      Top = 1
+      Align = alRight
+      DataBinding.DataField = 'NOTE'
+      DataBinding.DataSource = DSTARIF_MES
+      TabOrder = 1
+      ExplicitLeft = 760
+      Height = 150
+      Width = 204
+    end
+  end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager

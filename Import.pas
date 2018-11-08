@@ -52,10 +52,6 @@ type
     IBQuery1: TIBQuery;
     IBTARIF_MES: TIBDataSet;
     DataSource1: TDataSource;
-    IBTARIFID: TIntegerField;
-    IBTARIFNAME: TIBStringField;
-    IBTARIFID_POSL: TIntegerField;
-    IBTARIFNOTE: TIBStringField;
     IBTARIF_MESID: TIntegerField;
     IBTARIF_MESID_TARIF: TIntegerField;
     IBTARIF_MESDATA: TDateField;
@@ -89,6 +85,10 @@ type
     D²PERIOD: TDataSource;
     IBTARIF_MESEND_BL: TIBBCDField;
     IBTARIF_MESEND_L: TIBBCDField;
+    IBTARIFID: TIntegerField;
+    IBTARIFNAME: TIBStringField;
+    IBTARIFID_POSL: TIntegerField;
+    IBTARIFID_VIDAB: TIntegerField;
     procedure IBPOSLBeforePost(DataSet: TDataSet);
     procedure IBDOMBeforePost(DataSet: TDataSet);
     procedure IBULBeforePost(DataSet: TDataSet);
@@ -167,6 +167,11 @@ Prores.Show;
 
          IBQuery2.Active:=false;
          IBQuery2.SQL.Text:='delete from tarif_comp where id_tarifmes=:idmes';
+         IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
+         IBQuery2.ExecSQL;
+
+         IBQuery2.Active:=false;
+         IBQuery2.SQL.Text:='delete from tarif_other where id_tarifmes=:idmes';
          IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
          IBQuery2.ExecSQL;
 

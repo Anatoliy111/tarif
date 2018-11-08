@@ -36,7 +36,7 @@ Coordinates=355,10,54,58
 Coordinates=273,10,72,58
 
 []
-Coordinates=736,771,122,36
+Coordinates=458,669,59,36
 Visible=True
 
 [cxButton2]
@@ -127,9 +127,6 @@ Coordinates=704,155,72,58
 [IBTARIF_MESTARIF_RN]
 Coordinates=831,276,160,36
 
-[cxGridLevel1]
-Coordinates=736,875,90,36
-
 [IBTARIF_MESID]
 Coordinates=1098,1,111,36
 
@@ -195,9 +192,6 @@ Coordinates=1105,496,157,36
 
 [cxGrid1DBTableView1NORMA]
 Coordinates=1176,551,191,36
-
-[cxGrid2]
-Coordinates=458,669,59,36
 
 [cxGrid3]
 Coordinates=458,724,59,36
@@ -291,9 +285,6 @@ Coordinates=1414,606,175,36
 
 [IBTARIF_DOM]
 Coordinates=529,840,100,168
-
-[cxGridDBTableView1]
-Coordinates=1414,716,137,36
 
 [IBTARIF_DOMNAME]
 Coordinates=1414,826,137,36
