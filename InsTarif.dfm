@@ -40,6 +40,19 @@ inherited InsTar: TInsTar
       Height = 21
       Width = 121
     end
+    object cxDBCheckBox1: TcxDBCheckBox
+      Left = 795
+      Top = 7
+      Caption = #1041#1077#1079' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1110#1074
+      DataBinding.DataField = 'NO_LICH'
+      DataBinding.DataSource = DSTARIF_MES
+      Properties.NullStyle = nssUnchecked
+      Properties.ValueChecked = 1
+      Properties.ValueGrayed = 0
+      Properties.ValueUnchecked = 0
+      TabOrder = 6
+      OnClick = cxDBCheckBox1Click
+    end
   end
   inherited Panel4: TPanel
     Top = 573
@@ -154,8 +167,6 @@ inherited InsTar: TInsTar
     Height = 325
     Align = alClient
     TabOrder = 3
-    ExplicitLeft = 8
-    ExplicitTop = 250
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -341,9 +352,6 @@ inherited InsTar: TInsTar
         OptionsView.Footer = True
         OptionsView.FooterMultiSummaries = True
         OptionsView.GroupByBox = False
-        object cxGridDBTableView2ID_TARIF: TcxGridDBColumn
-          DataBinding.FieldName = 'ID_TARIF'
-        end
         object cxGridDBTableView2NAME: TcxGridDBColumn
           Caption = #1053#1072#1079#1074#1072' '#1090#1072#1088#1080#1092#1091
           DataBinding.FieldName = 'NAME'
@@ -1011,7 +1019,8 @@ inherited InsTar: TInsTar
   end
   object IBTARIF: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
+    AfterPost = IBTARIFAfterPost
     BeforePost = IBTARIFBeforePost
     BufferChunks = 1000
     CachedUpdates = False
@@ -1076,7 +1085,7 @@ inherited InsTar: TInsTar
   end
   object IBTARIF_OTHER: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
     AfterPost = IBTARIF_OTHERAfterPost
     BeforePost = IBTARIF_OTHERBeforePost
     BufferChunks = 1000
@@ -1112,9 +1121,12 @@ inherited InsTar: TInsTar
     SelectSQL.Strings = (
       
         'select TARIF_OTHER.*, DOM_OTHER.id_other, DOM_OTHER.plos_bb, DOM' +
-        '_OTHER.id_dom, OTHER.id_vidab from TARIF_OTHER, DOM_OTHER, OTHER' +
-        ' where TARIF_OTHER.id_tarifmes=:idmes and TARIF_OTHER.id_domothe' +
-        'r=DOM_OTHER.id and DOM_OTHER.id_other=OTHER.id')
+        '_OTHER.id_dom, OTHER.id_vidab '
+      'from TARIF_OTHER '
+      ' left join DOM_OTHER on (TARIF_OTHER.id_domother=DOM_OTHER.id)'
+      ' left join OTHER on (DOM_OTHER.id_other=OTHER.id) '
+      'where TARIF_OTHER.id_tarifmes=:idmes '
+      '')
     ModifySQL.Strings = (
       'update TARIF_OTHER'
       'set'
@@ -1208,7 +1220,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1219,7 +1231,8 @@ inherited InsTar: TInsTar
   end
   object IBTARIF_MES: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
+    AfterPost = IBTARIF_MESAfterPost
     BeforePost = IBTARIF_MESBeforePost
     BufferChunks = 1000
     CachedUpdates = False
@@ -1235,7 +1248,9 @@ inherited InsTar: TInsTar
       
         '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
         ' NOTE, '
-      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB)'
+      
+        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
+        'CH)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1243,7 +1258,10 @@ inherited InsTar: TInsTar
       
         '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
         'H_PN, :LICH_PK, '
-      '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB)')
+      
+        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
+        'G_VIDH, '
+      '   :NO_LICH)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1265,7 +1283,10 @@ inherited InsTar: TInsTar
       '  PLOS_BBI,'
       '  NSER_LICH,'
       '  ID_KOTEL,'
-      '  PLOS_BB'
+      '  PLOS_BB,'
+      '  MZK,'
+      '  BORG_VIDH,'
+      '  NO_LICH'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1296,7 +1317,10 @@ inherited InsTar: TInsTar
       '  PLOS_BBI = :PLOS_BBI,'
       '  NSER_LICH = :NSER_LICH,'
       '  ID_KOTEL = :ID_KOTEL,'
-      '  PLOS_BB = :PLOS_BB'
+      '  PLOS_BB = :PLOS_BB,'
+      '  MZK = :MZK,'
+      '  BORG_VIDH = :BORG_VIDH,'
+      '  NO_LICH = :NO_LICH'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1411,6 +1435,7 @@ inherited InsTar: TInsTar
     object IBTARIF_MESPLOS_BB: TIBBCDField
       FieldName = 'PLOS_BB'
       Origin = '"TARIF_MES"."PLOS_BB"'
+      OnChange = IBTARIF_MESPLOS_BBChange
       Precision = 18
       Size = 2
     end
@@ -1429,6 +1454,22 @@ inherited InsTar: TInsTar
       Origin = '"TARIF"."ID_VIDAB"'
       OnChange = IBTARIF_MESID_VIDABChange
     end
+    object IBTARIF_MESMZK: TIBBCDField
+      FieldName = 'MZK'
+      Origin = '"TARIF_MES"."MZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESBORG_VIDH: TIBBCDField
+      FieldName = 'BORG_VIDH'
+      Origin = '"TARIF_MES"."BORG_VIDH"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESNO_LICH: TIntegerField
+      FieldName = 'NO_LICH'
+      Origin = '"TARIF_MES"."NO_LICH"'
+    end
   end
   object DSTARIF_MES: TDataSource
     DataSet = IBTARIF_MES
@@ -1437,7 +1478,7 @@ inherited InsTar: TInsTar
   end
   object IBKOTEL: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
     BeforePost = IBTARIFBeforePost
     BufferChunks = 1000
     CachedUpdates = False
@@ -1489,7 +1530,7 @@ inherited InsTar: TInsTar
   end
   object IBTARIF_DOM1: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
     AfterPost = IBTARIF_DOM1AfterPost
     BeforePost = IBTARIF_DOM1BeforePost
     BufferChunks = 1000
@@ -1581,7 +1622,8 @@ inherited InsTar: TInsTar
   end
   object IBUPDTDOM: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
+    AfterPost = IBUPDTDOMAfterPost
     BeforePost = IBUPDTDOMBeforePost
     BufferChunks = 1000
     CachedUpdates = False
@@ -1655,7 +1697,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery2: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1748,7 +1790,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery3: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1824,13 +1866,24 @@ inherited InsTar: TInsTar
   end
   object IBQuery4: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = AllMDICh.IBTransaction1
+    Transaction = Tarifs.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
     SQL.Strings = (
       '')
     Left = 72
+    Top = 280
+  end
+  object IBQuery5: TIBQuery
+    Database = DataM.IBDatabase1
+    Transaction = Tarifs.IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      '')
+    Left = 128
     Top = 280
   end
 end

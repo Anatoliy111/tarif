@@ -10,7 +10,8 @@ uses
   cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, cxContainer,
   IBX.IBCustomDataSet, cxLabel, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, cxDBLabel,
-  cxTextEdit, cxMemo, cxDBEdit, cxDBLookupComboBox, IBX.IBQuery, cxCalc;
+  cxTextEdit, cxMemo, cxDBEdit, cxDBLookupComboBox, IBX.IBQuery, cxCalc,
+  cxCheckBox;
 
 type
   TInsTar = class(TAllMDICh)
@@ -133,7 +134,6 @@ type
     IBTARIF_MESID_VIDAB: TIntegerField;
     cxGridDBTableView2ID_VIDAB: TcxGridDBColumn;
     IBTARIFID_VIDAB: TIntegerField;
-    cxGridDBTableView2ID_TARIF: TcxGridDBColumn;
     IBQuery3: TIBQuery;
     DSQuery3: TDataSource;
     IBQuery3ID: TIntegerField;
@@ -148,6 +148,11 @@ type
     IBQuery3SCHET1: TIBStringField;
     IBQuery3SCHET2: TIBStringField;
     IBQuery4: TIBQuery;
+    IBQuery5: TIBQuery;
+    cxDBCheckBox1: TcxDBCheckBox;
+    IBTARIF_MESMZK: TIBBCDField;
+    IBTARIF_MESBORG_VIDH: TIBBCDField;
+    IBTARIF_MESNO_LICH: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -181,6 +186,11 @@ type
     procedure IBUPDTDOMBeforePost(DataSet: TDataSet);
     procedure cxGridDBTableView2PLOS_BBPropertiesEditValueChanged(
       Sender: TObject);
+    procedure IBTARIF_MESPLOS_BBChange(Sender: TField);
+    procedure IBTARIF_MESAfterPost(DataSet: TDataSet);
+    procedure cxDBCheckBox1Click(Sender: TObject);
+    procedure IBTARIFAfterPost(DataSet: TDataSet);
+    procedure IBUPDTDOMAfterPost(DataSet: TDataSet);
   private
 
     { Private declarations }
@@ -204,10 +214,10 @@ implementation
 uses TarifForm, MainForm;
 
 procedure TInsTar.Calcplos(idmes:integer);
-var sumplos,razn,sumother:Double;
+var razn,sumother:Double;
+    sumplos:Double;
 begin
 
-  sumplos:=0;
   if poslwid='ot' then
   begin
 
@@ -219,23 +229,40 @@ begin
       IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
       IBQuery1.Open;
       IBQuery1.First;
-      if IBTARIF_MESPLOS_BB.Value<>IBQuery1.FieldByName('sum').AsFloat then
-      begin
-      IBTARIF_MES.Edit;
-      IBTARIF_MESPLOS_BB.Value:=IBQuery1.FieldByName('sum').AsFloat;
-      IBTARIF_MES.Post;
-      end;
-      IBQuery1.Close;
-      IBQuery1.SQL.Text:='select sum(DOM_OTHER.PLOS_BB) from TARIF_OTHER ,DOM_OTHER where TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.id_tarifmes=:idmes';
-      IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
-      IBQuery1.Open;
-      IBQuery1.First;
-      if IBTARIF_MESPLOS_BBI.Value<>IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat then
-      begin
-      IBTARIF_MES.Edit;
-      IBTARIF_MESPLOS_BBI.Value:=IBTARIF_MESPLOS_BB.AsFloat-IBQuery1.FieldByName('sum').AsFloat;
-      IBTARIF_MES.Post;
-      end;
+      sumplos:=IBQuery1.FieldByName('sum').AsFloat;
+//      if IBTARIF_MESPLOS_BB.Value<>IBQuery1.FieldByName('sum').AsFloat then
+//      begin
+//      IBTARIF_MES.Edit;
+//      IBTARIF_MESPLOS_BB.Value:=IBQuery1.FieldByName('sum').AsFloat;
+//      IBTARIF_MES.Post;
+//      end;
+
+          IBQuery1.Close;
+//          IBQuery1.SQL.Text:='update TARIF_MES set PLOS_BBI=PLOS_BB-'+FloatToStrF(sumother, ffGeneral, 10, 2)+' where id=:idmes';
+          IBQuery1.SQL.Text:='update TARIF_MES set PLOS_BB=:sum where id=:idmes';
+          IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
+          IBQuery1.ParamByName('sum').Value:=sumplos;
+          IBQuery1.ExecSQL;
+          fl_postt:=1;
+
+
+
+
+
+
+          IBQuery1.Close;
+          IBQuery1.SQL.Text:='select sum(DOM_OTHER.PLOS_BB) from TARIF_OTHER ,DOM_OTHER where TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.id_tarifmes=:idmes';
+          IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
+          IBQuery1.Open;
+          IBQuery1.First;
+          sumother:=IBQuery1.FieldByName('sum').AsFloat;
+          IBQuery1.Close;
+//          IBQuery1.SQL.Text:='update TARIF_MES set PLOS_BBI=PLOS_BB-'+FloatToStrF(sumother, ffGeneral, 10, 2)+' where id=:idmes';
+          IBQuery1.SQL.Text:='update TARIF_MES set PLOS_BBI=PLOS_BB-:sum where id=:idmes';
+          IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
+          IBQuery1.ParamByName('sum').Value:=sumother;
+          IBQuery1.ExecSQL;
+          fl_postt:=1;
 
     end;
 
@@ -262,9 +289,12 @@ begin
           IBQuery1.First;
           sumother:=IBQuery1.FieldByName('sum').AsFloat;
           IBQuery1.Close;
-          IBQuery1.SQL.Text:='update TARIF_MES set PLOS_BBI=PLOS_BB-'+FloatToStrF(sumother, ffGeneral, 10, 2)+' where id='+IBQuery4.FieldByName('id').AsString;
+//          IBQuery1.SQL.Text:='update TARIF_MES set PLOS_BBI=PLOS_BB-'+FloatToStrF(sumother, ffGeneral, 10, 2)+' where id=:idmes';
+          IBQuery1.SQL.Text:='update TARIF_MES set PLOS_BBI=PLOS_BB-:sum where id=:idmes';
           IBQuery1.ParamByName('idmes').Value:=IBQuery4.FieldByName('id').Value;
+          IBQuery1.ParamByName('sum').Value:=sumother;
           IBQuery1.ExecSQL;
+          fl_postt:=1;
 
         IBQuery4.Next;
         end;
@@ -319,6 +349,7 @@ begin
     cxGridDBTableView2ID_KOTEL.Visible:=false;
     cxGridDBTableView1PLOS_BB.Visible:=false;
     cxGrid1DBTableView1PLOS_BB.Visible:=false;
+    cxDBCheckBox1.Visible:=false;
 
   if poslwid='ot' then
   begin
@@ -328,6 +359,7 @@ begin
     cxGridDBTableView2ID_KOTEL.Visible:=true;
     cxGridDBTableView1PLOS_BB.Visible:=true;
     cxGrid1DBTableView1PLOS_BB.Visible:=true;
+    cxDBCheckBox1.Visible:=true;
   end;
 
 
@@ -450,6 +482,7 @@ begin
   IDYES: begin
   IBTARIF_OTHER.Delete;
   fl_postt:=1;
+  Calcplos(IBTARIF_MESID.Value);
   Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
   end;
   end;
@@ -473,7 +506,7 @@ begin
   end;
 
 
-      if (poslwid='ot') and (IBTARIF_DOM1.RecordCount<>0) then
+      if (poslwid='ot') and (IBTARIF_DOM1.RecordCount<>0) and (IBTARIF_MESNO_LICH.Value=0) then
          exit;
 
       IBTARIF_DOM1.Insert;
@@ -485,7 +518,7 @@ begin
       IBTARIF_DOM1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
       IBTARIF_DOM1.Open;
 //      IBTARIF_DOM1.Locate('id',idd,[]);
-  Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
+//  Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
 end;
 
 procedure TInsTar.cxButton13Click(Sender: TObject);
@@ -510,7 +543,11 @@ begin
             IBTARIF_DOM1.Post;
           end
           else
+          begin
             IBTARIF_DOM1.Delete;
+            Calcplos(IBTARIF_MESID.Value);
+            Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
+          end;
 
           fl_postt:=1;
 
@@ -526,8 +563,8 @@ end;
 procedure TInsTar.cxButton14Click(Sender: TObject);
 begin
   inherited;
- IBQuery1.Close;
- IBQuery1.SQL.Text:='select * from'+
+ IBQuery5.Close;
+ IBQuery5.SQL.Text:='select * from'+
 ' (select '+
     'dom_other.id,'+
     'dom_other.id_other,'+
@@ -553,29 +590,29 @@ begin
 ' where TARIF_OTHER.id_domother=dom_other.ID and dom_other.id_other=other.id and TARIF_OTHER.id_tarif=tarif.id'+
 ' and tarif.id_posl=:idposl'+
 ' and tarif_other.id_tarifmes=tarif_mes.id and tarif_mes.data=:dt)';
- IBQuery1.ParamByName('dt').Value:=Main.IBPERIODDATA.Value;
- IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
- IBQuery1.ParamByName('idposl').Value:=IBTARIF_MESID_POSL.Value;
- IBQuery1.Open;
+ IBQuery5.ParamByName('dt').Value:=Main.IBPERIODDATA.Value;
+ IBQuery5.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
+ IBQuery5.ParamByName('idposl').Value:=IBTARIF_MESID_POSL.Value;
+ IBQuery5.Open;
 
- while not IBQuery1.Eof do
+ while not IBQuery5.Eof do
  begin
   IBTARIF_Other.Insert;
   IBTARIF_Other.Edit;
   IBTARIF_OtherID_TARIF.Value:=IBTARIF_MESID_TARIF.Value;
   IBTARIF_OtherID_TARIFMES.Value:=IBTARIF_MESID.Value;
-  IBTARIF_OTHERID_DOMOTHER.Value:=IBQuery1.FieldByName('id').Value;
+  IBTARIF_OTHERID_DOMOTHER.Value:=IBQuery5.FieldByName('id').Value;
   IBTARIF_Other.Post;
-  IBQuery1.Next;
+  IBQuery5.Next;
  end;
 
-  Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
 
 end;
 
 procedure TInsTar.cxButton7Click(Sender: TObject);
 begin
   inherited;
+  Calcplos(IBTARIF_MESID.Value);
   Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
 end;
 
@@ -586,6 +623,8 @@ begin
   IDYES: begin
   IBTARIF_MES.Delete;
   fl_postt:=1;
+  Calcplos(IBTARIF_MESID.Value);
+  Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
   end;
 
   end;
@@ -604,6 +643,11 @@ iddom:=0;
         Application.MessageBox('Виберіть будинок','Помилка',16);
         exit;
       end;
+      if (IBTARIF_MES.RecordCount<>0) and (poslwid='ot') and (IBTARIF_MESNO_LICH.Value=1) then
+      begin
+        Application.MessageBox('Тариф без лічильників неможе бути використаний в подвійному тарифі !!! ','Помилка',16);
+        exit;
+      end;
       if (IBTARIF_MES.RecordCount<>0) and (poslwid='ot') then
       begin
           iddom:=IBTARIF_DOM1ID_DOM.Value;
@@ -612,7 +656,7 @@ iddom:=0;
 
       IBTARIF.Insert;
       IBTARIF.Edit;
-      IBTARIFNAME.Value:=poslname+IBTARIF_DOM1NAME.AsString;
+      IBTARIFNAME.Value:=poslname+' '+IBTARIF_DOM1NAME.AsString;
       IBTARIFID_POSL.Value:=poslid;
       IBTARIFID_VIDAB.Value:=IBTARIF_DOM1ID_VIDAB.Value;
       IBTARIF.Post;
@@ -634,8 +678,29 @@ iddom:=0;
     //  end;
     //  if IBTARIF_DOM1.RecordCount=0 then
     //      Application.MessageBox('Щоб сформувати назву додайте будинок','Інфо',16)
-      Update(IBTARIF_MESID.Value,iddom);
+//      Update(IBTARIF_MESID.Value,iddom);
     end;
+end;
+
+procedure TInsTar.cxDBCheckBox1Click(Sender: TObject);
+begin
+  inherited;
+  if cxDBCheckBox1.Checked then
+  begin
+    if IBTARIF_MES.RecordCount>1 then
+    begin
+      cxDBCheckBox1.Checked:=false;
+      Application.MessageBox('Тариф без лічильників неможе бути використаний в подвійному тарифі !!! ','Ошибка',16)
+    end;
+  end;
+  if not cxDBCheckBox1.Checked then
+  begin
+    if IBTARIF_DOM1.RecordCount>1 then
+    begin
+      cxDBCheckBox1.Checked:=true;
+      Application.MessageBox('Тариф з лічильником використовує тільки один будинок. Видаліть лишні будинки !!! ','Ошибка',16)
+    end;
+  end;
 end;
 
 procedure TInsTar.cxGrid1DBTableView1ID_DOMPropertiesEditValueChanged(
@@ -714,8 +779,8 @@ begin
     'Щоб відмінити вибране значення натисніть ESC';
  end;
 
- if not Error then
-    Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
+// if not Error then
+//    Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
 
 end;
 
@@ -738,23 +803,14 @@ begin
   IBQuery3.ParamByName('idvidab').Value:=IBTARIF_MESID_VIDAB.Value;
   IBQuery3.Open;
 
-//      if IBTARIF_MES.RecordCount>1 then
-//        cxGridDBTableView2PLOS_BB.Editing:=true
-//      else
-//        cxGridDBTableView2PLOS_BB.Editing:=false;
-
-
-
-//  Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
-
 end;
 
 procedure TInsTar.cxGridDBTableView2PLOS_BBPropertiesEditValueChanged(
   Sender: TObject);
 begin
   inherited;
-Calcplos(IBTARIF_MESID.Value);
-Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
+//Calcplos(IBTARIF_MESID.Value);
+//Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
 end;
 
 procedure TInsTar.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -803,6 +859,8 @@ IBKOTEL.Transaction:=Tarifs.IBTransaction1;
 IBQuery1.Transaction:=Tarifs.IBTransaction1;
 IBQuery2.Transaction:=Tarifs.IBTransaction1;
 IBQuery3.Transaction:=Tarifs.IBTransaction1;
+IBQuery4.Transaction:=Tarifs.IBTransaction1;
+IBQuery5.Transaction:=Tarifs.IBTransaction1;
 
 IBTARIF.Open;
 IBKOTEL.Open;
@@ -814,6 +872,12 @@ IBTARIF_OTHER.Open;
 
 Visible;
 
+end;
+
+procedure TInsTar.IBTARIFAfterPost(DataSet: TDataSet);
+begin
+  inherited;
+fl_postt:=1;
 end;
 
 procedure TInsTar.IBTARIFBeforePost(DataSet: TDataSet);
@@ -850,7 +914,7 @@ begin
     end;
 
 
-    if (poslwid='ot') then
+    if (poslwid='ot') and (IBTARIF_MESNO_LICH.Value=0) then
     begin
       IBTARIF_MES.First;
       while not IBTARIF_MES.Eof do
@@ -875,6 +939,7 @@ begin
 
 
   end;
+  Calcplos(idmes);
   Update(idmes,iddom);
 end;
 
@@ -882,6 +947,14 @@ procedure TInsTar.IBTARIF_DOM1BeforePost(DataSet: TDataSet);
 begin
   inherited;
 fl_postt:=1;
+end;
+
+procedure TInsTar.IBTARIF_MESAfterPost(DataSet: TDataSet);
+begin
+  inherited;
+fl_postt:=1;
+Calcplos(IBTARIF_MESID.Value);
+Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
 end;
 
 procedure TInsTar.IBTARIF_MESBeforePost(DataSet: TDataSet);
@@ -918,7 +991,7 @@ begin
     end;
   IBTARIF_MES.Next;
   end;
-  Update(idmes,iddom);
+//  Update(idmes,iddom);
 end;
 
 procedure TInsTar.IBTARIF_MESNAMEChange(Sender: TField);
@@ -932,10 +1005,17 @@ begin
   end;
 end;
 
+procedure TInsTar.IBTARIF_MESPLOS_BBChange(Sender: TField);
+begin
+  inherited;
+//
+end;
+
 procedure TInsTar.IBTARIF_OTHERAfterPost(DataSet: TDataSet);
 var idd:integer;
 begin
   inherited;
+fl_postt:=1;
   if IBTARIF_OTHERID_DOMOTHER.AsInteger<>0 then
   begin
   idd:=IBTARIF_OTHERID.Value;
@@ -945,6 +1025,9 @@ begin
   IBTARIF_OTHER.Open;
   IBTARIF_OTHER.Locate('id',idd,[]);
   end;
+
+  Calcplos(IBTARIF_MESID.Value);
+  Update(IBTARIF_MESID.Value,IBTARIF_DOM1ID_DOM.Value);
 end;
 
 procedure TInsTar.IBTARIF_OTHERBeforePost(DataSet: TDataSet);
@@ -952,6 +1035,12 @@ begin
   inherited;
 fl_postt:=1;
 
+end;
+
+procedure TInsTar.IBUPDTDOMAfterPost(DataSet: TDataSet);
+begin
+  inherited;
+fl_postt:=1;
 end;
 
 procedure TInsTar.IBUPDTDOMBeforePost(DataSet: TDataSet);

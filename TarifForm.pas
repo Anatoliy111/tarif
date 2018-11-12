@@ -284,6 +284,7 @@ uses registry, cxGridExportLink, comobj, MainForm, InsertForm, Ins, mytools, Dat
 
 procedure TTarifs.cxButton1Click(Sender: TObject);
 var res,res1:CURRENCY;
+    fl_rasch:Boolean;
 begin
   inherited;
     Prores.Show;
@@ -309,6 +310,8 @@ begin
   IBTARIFUPD.First;
   while not IBTARIFUPD.Eof do
   begin
+  fl_rasch:=false;
+
   res:=0;
   res1:=0;
           Prores.cxProgressBar1.Position:=Prores.cxProgressBar1.Position+1;
@@ -324,6 +327,7 @@ begin
 
     if IBTARIFUPDWID.Value='ub' then
     begin
+    fl_rasch:=true;
 //      if IBTARIF_MESTARIF_FACT.Value>IBTARIF_MESTARIF_PLAN.Value then
 //      begin
 //         IBTARIF_MESTARIF_RK.Value:=IBTARIF_MESTARIF_PLAN.Value-IBTARIF_MESTARIF_FACT.Value-IBTARIF_MESTARIF_RN.Value;
@@ -397,8 +401,24 @@ begin
       IBTARIFUPDBORG_VIDH.Value:=(IBQuery1.FieldByName('sum').AsFloat*IBTARIFUPDTARIF_RK.Value)*-1;
       IBTARIFUPD.post;
       end;
-    end
-    else
+    end;
+
+    if IBTARIFUPDWID.Value='ot' then
+    begin
+    fl_rasch:=true;
+       IBQuery1.Close;
+       IBQuery1.SQL.Text:='select first 1 * from TARIF_data where id_posl=:idposl and id_vidab=:idvidab';
+//       IBQuery1.ParamByName('dt').Value:=Main.IBPERIODDATA.Value;
+       IBQuery1.ParamByName('idposl').Value:=IBTARIF_MESID_POSL.Value;
+       IBQuery1.ParamByName('idvidab').Value:=IBTARIF_MESID_VIDAB.Value;
+       IBQuery1.Open;
+
+
+    end;
+
+
+
+    if not fl_rasch then
     begin
            IBTARIF_COMP.First;
            if IBTARIF_COMP.Locate('ID_TARIFMES', IBTARIFUPDID.Value,[]) then
@@ -700,6 +720,7 @@ begin
  ChangeTar.Caption:='Змінити тариф';
  ChangeTar.Update(IBTARIF_MESID.Value,IBTARIF_DOMID_DOM.Value);
  ChangeTar.Calcplos(IBTARIF_MESID.Value);
+ ChangeTar.Update(IBTARIF_MESID.Value,IBTARIF_DOMID_DOM.Value);
  Main.AddToolBar(ChangeTar);
  end
  else

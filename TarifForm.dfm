@@ -52,7 +52,6 @@
     Height = 367
     Align = alClient
     TabOrder = 1
-    ExplicitHeight = 296
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       OnFocusedRecordChanged = cxGrid1DBTableView1FocusedRecordChanged
@@ -333,13 +332,12 @@
     Width = 169
     Height = 367
     Align = alLeft
-    TabOrder = 8
-    ExplicitHeight = 399
+    TabOrder = 7
     object DBLookupListBox1: TDBLookupListBox
       Left = 1
       Top = 1
       Width = 167
-      Height = 180
+      Height = 164
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -355,13 +353,11 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 181
+      Top = 165
       Width = 167
-      Height = 185
+      Height = 201
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 117
-      ExplicitHeight = 281
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -406,8 +402,6 @@
       Height = 150
       Align = alClient
       TabOrder = 0
-      ExplicitTop = 24
-      ExplicitHeight = 127
       object cxGridDBTableView1: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_OTHER
@@ -513,7 +507,6 @@
       DataBinding.DataField = 'NOTE'
       DataBinding.DataSource = DSTARIF_MES
       TabOrder = 1
-      ExplicitLeft = 760
       Height = 150
       Width = 204
     end
