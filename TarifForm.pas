@@ -309,9 +309,9 @@ uses registry, cxGridExportLink, comobj, MainForm, InsertForm, Ins, mytools, Dat
 
 
 procedure TTarifs.cxButton1Click(Sender: TObject);
-var res,res1,send,sinend,gkalm2in:CURRENCY;
+var res,res1:CURRENCY;
     fl_rasch:Boolean;
-    cenaosn,cenamzk,gkal,normaosn,normaother,plosallmzk,gkalkv,gkalmzk,gkalmzkco,gkalmzkin:double;
+    cenaosn,cenamzk,gkal,normaosn,normaother,plosallmzk,gkalkv,gkalmzk,gkalmzkco,gkalmzkin,send,sinend,gkalm2in:double;
 begin
   inherited;
     Prores.Show;
