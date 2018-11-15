@@ -182,9 +182,9 @@ type
     cxDateEdit1: TcxDateEdit;
     cxLabel16: TcxLabel;
     cxLookupComboBox4: TcxLookupComboBox;
-    IBQuery1: TIBQuery;
-    DSQuery1: TDataSource;
-    IBQuery1DATE_MES: TDateField;
+    IBQMES: TIBQuery;
+    DSQMES: TDataSource;
+    IBQMESDATE_MES: TDateField;
     cxGridDBTableView7ID_VIDAB: TcxGridDBColumn;
     cxTabSheet8: TcxTabSheet;
     Panel12: TPanel;
@@ -198,6 +198,10 @@ type
     IBKOTELID: TIntegerField;
     IBKOTELNAME: TIBStringField;
     cxGridDBTableView8NAME: TcxGridDBColumn;
+    IBTARIF_DATATARIF_MZK1: TIBBCDField;
+    IBTARIF_DATATARIF_MZK2: TIBBCDField;
+    cxGridDBTableView7TARIF_MZK1: TcxGridDBColumn;
+    cxGridDBTableView7TARIF_MZK2: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);
@@ -271,21 +275,23 @@ IBTIPPR.open;
   IBDOM_OTHER.ParamByName('idddom').AsInteger:=IBDOMID.Value;
   IBDOM_OTHER.open;
 
-IBQuery1.open;
-cxLookupComboBox1.EditValue:= IBQuery1DATE_MES.Value;
+IBQMES.open;
+cxLookupComboBox4.EditValue:= IBQMESDATE_MES.Value;
   IBTARIF_DATA.close;
-  IBTARIF_DATA.ParamByName('dt').Value:=IBQuery1DATE_MES.Value;
+  IBTARIF_DATA.ParamByName('dt').Value:=IBQMESDATE_MES.Value;
   IBTARIF_DATA.open;
 
   if IBTARIF_DATAFL_2DATE.Value=1 then
   begin
     cxGridDBTableView7DATE_N1.Visible:=true;
     cxGridDBTableView7TARIF_SUM2.Visible:=true;
+    cxGridDBTableView7TARIF_MZK2.Visible:=true;
   end
   else
   begin
     cxGridDBTableView7DATE_N1.Visible:=false;
     cxGridDBTableView7TARIF_SUM2.Visible:=false;
+    cxGridDBTableView7TARIF_MZK2.Visible:=false;
   end;
 
 
@@ -474,6 +480,10 @@ begin
           IBTARIF_DATA.Delete;
         end;
         fl_post:=1;
+        IBQMES.Close;
+        IBQMES.Open;
+        cxLookupComboBox4.EditValue:= IBQMESDATE_MES.Value;
+
       end;
       if cxPageControl1.ActivePageIndex=7 then
       begin
@@ -629,7 +639,7 @@ begin
   end;
   if cxPageControl1.ActivePageIndex=6 then
   begin
-    if not IBTARIF_DATA.Locate('DATE_MES',main.IBPERIODDATA.Value,[]) then
+    if not IBQMES.Locate('DATE_MES',main.IBPERIODDATA.Value,[]) then
     begin
         if cxCheckBox1.Checked and cxDateEdit1.EditValue=null then
         begin
@@ -652,8 +662,9 @@ begin
           IBTARIF_DATA.Post;
           IBVIDAB.Next;
         end;
-    IBQuery1.Close;
-    IBQuery1.Open;
+
+    IBQMES.Close;
+    IBQMES.Open;
       if IBTARIF_DATAFL_2DATE.Value=1 then
           begin
             cxGridDBTableView7DATE_N1.Visible:=true;
@@ -664,6 +675,10 @@ begin
             cxGridDBTableView7DATE_N1.Visible:=false;
             cxGridDBTableView7TARIF_SUM2.Visible:=false;
           end;
+    IBTARIF_DATA.Close;
+    IBTARIF_DATA.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
+    IBTARIF_DATA.Open;
+    cxLookupComboBox4.EditValue:=main.IBPERIODDATA.Value;
     end;
   end;
   if cxPageControl1.ActivePageIndex=7 then
@@ -725,18 +740,20 @@ procedure TSprav.cxLookupComboBox4PropertiesChange(Sender: TObject);
 begin
   inherited;
   IBTARIF_DATA.close;
-  IBTARIF_DATA.ParamByName('dt').Value:=IBQuery1DATE_MES.Value;
+  IBTARIF_DATA.ParamByName('dt').Value:=cxLookupComboBox4.EditValue;
   IBTARIF_DATA.open;
 
   if IBTARIF_DATAFL_2DATE.Value=1 then
   begin
     cxGridDBTableView7DATE_N1.Visible:=true;
     cxGridDBTableView7TARIF_SUM2.Visible:=true;
+    cxGridDBTableView7TARIF_MZK2.Visible:=true;
   end
   else
   begin
     cxGridDBTableView7DATE_N1.Visible:=false;
     cxGridDBTableView7TARIF_SUM2.Visible:=false;
+    cxGridDBTableView7TARIF_MZK2.Visible:=false;
   end;
 
 

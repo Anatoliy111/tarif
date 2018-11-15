@@ -1,50 +1,51 @@
 ﻿inherited ImpForm: TImpForm
   Caption = 'ImpForm'
-  ClientHeight = 594
+  ClientHeight = 578
   ClientWidth = 692
+  Visible = True
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 708
-  ExplicitHeight = 632
+  ExplicitHeight = 616
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel [0]
     Left = 312
-    Top = 32
+    Top = 16
     Width = 65
     Height = 13
     Caption = ' '#1087#1086' '#1082#1083#1102#1095#1091' KL'
   end
   object Label2: TLabel [1]
     Left = 312
-    Top = 51
+    Top = 35
     Width = 62
     Height = 13
     Caption = ' '#1087#1086' '#1074#1080#1076#1091' wid'
   end
   object Label3: TLabel [2]
     Left = 312
-    Top = 70
+    Top = 54
     Width = 192
     Height = 13
     Caption = ' '#1087#1086' '#1082#1083#1102#1095#1091' '#1074#1091#1083#1080#1094#1110' KL_UL '#1090#1072' '#8470#1073#1091#1076#1080#1085#1082#1091
   end
   object Label4: TLabel [3]
     Left = 223
-    Top = 306
+    Top = 290
     Width = 18
     Height = 13
     Caption = '111'
   end
   inherited Panel1: TPanel
-    Top = 556
+    Top = 540
     Width = 692
-    ExplicitTop = 556
+    ExplicitTop = 540
     ExplicitWidth = 692
   end
   object cxButton6: TcxButton [5]
     Left = 24
-    Top = 154
+    Top = 138
     Width = 193
     Height = 25
     Caption = #1030#1084#1087#1086#1088#1090
@@ -55,7 +56,7 @@
   end
   object cxCheckGroup1: TcxCheckGroup [6]
     Left = 32
-    Top = 16
+    Top = 0
     Caption = 'cxCheckGroup1'
     Properties.Items = <
       item
@@ -76,7 +77,7 @@
   end
   object cxButton1: TcxButton [7]
     Left = 24
-    Top = 301
+    Top = 285
     Width = 193
     Height = 25
     Caption = #1055#1086#1074#1077#1088#1085#1091#1090#1080' '#1084#1110#1089#1103#1094#1100' '#1085#1072#1079#1072#1076

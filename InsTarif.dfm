@@ -86,11 +86,13 @@ inherited InsTar: TInsTar
   end
   object cxGrid1: TcxGrid [2]
     Left = 584
-    Top = 248
+    Top = 321
     Width = 381
-    Height = 325
+    Height = 252
     Align = alRight
     TabOrder = 2
+    ExplicitTop = 336
+    ExplicitHeight = 237
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -162,11 +164,13 @@ inherited InsTar: TInsTar
   end
   object cxGrid2: TcxGrid [3]
     Left = 0
-    Top = 248
+    Top = 321
     Width = 584
-    Height = 325
+    Height = 252
     Align = alClient
     TabOrder = 3
+    ExplicitTop = 336
+    ExplicitHeight = 237
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -260,58 +264,31 @@ inherited InsTar: TInsTar
     Top = 89
     Caption = #1055#1088#1080#1084#1110#1090#1082#1080
   end
-  object Panel1: TPanel [5]
+  object Panel5: TPanel [5]
     Left = 0
     Top = 41
     Width = 965
-    Height = 16
+    Height = 208
     Align = alTop
     TabOrder = 5
-    object cxLabel2: TcxLabel
-      Left = 8
-      Top = 0
-      Caption = #1058#1072#1088#1080#1092#1080
-    end
-    object Panel8: TPanel
-      Left = 760
-      Top = 1
-      Width = 204
-      Height = 14
-      Align = alRight
-      Color = clGradientInactiveCaption
-      ParentBackground = False
-      TabOrder = 1
-      object cxLabel6: TcxLabel
-        Left = 5
-        Top = -1
-        Caption = #1055#1088#1080#1084#1110#1090#1082#1072
-      end
-    end
-  end
-  object Panel5: TPanel [6]
-    Left = 0
-    Top = 57
-    Width = 965
-    Height = 119
-    Align = alTop
-    TabOrder = 6
     object cxDBMemo1: TcxDBMemo
-      Left = 760
-      Top = 1
-      Align = alRight
+      Left = 1
+      Top = 152
+      Align = alBottom
       DataBinding.DataField = 'NOTE'
       DataBinding.DataSource = DSTARIF_MES
       TabOrder = 0
-      Height = 117
-      Width = 204
+      Height = 55
+      Width = 963
     end
     object cxGrid3: TcxGrid
       Left = 1
       Top = 1
-      Width = 759
-      Height = 117
+      Width = 963
+      Height = 151
       Align = alClient
       TabOrder = 1
+      ExplicitHeight = 96
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         Navigator.Buttons.First.Visible = True
@@ -343,6 +320,14 @@ inherited InsTar: TInsTar
           item
             Kind = skSum
             Column = cxGridDBTableView2PLOS_OBL
+          end
+          item
+            Kind = skSum
+            Column = cxGridDBTableView2PLOS_IN
+          end
+          item
+            Kind = skSum
+            Column = cxGridDBTableView2PLOS_MZK
           end>
         DataController.Summary.SummaryGroups = <>
         OptionsSelection.HideFocusRectOnExit = False
@@ -387,6 +372,16 @@ inherited InsTar: TInsTar
           Options.Editing = False
           Width = 112
         end
+        object cxGridDBTableView2PLOS_IN: TcxGridDBColumn
+          Caption = #1055#1083#1086#1097#1072' '#1110#1085#1076#1080#1074#1110#1076'.'#1086#1087#1072#1083
+          DataBinding.FieldName = 'PLOS_IN'
+          PropertiesClassName = 'TcxCalcEditProperties'
+        end
+        object cxGridDBTableView2PLOS_MZK: TcxGridDBColumn
+          Caption = #1055#1083#1086#1097#1072' '#1052#1047#1050
+          DataBinding.FieldName = 'PLOS_MZK'
+          PropertiesClassName = 'TcxCalcEditProperties'
+        end
         object cxGridDBTableView2ID_KOTEL: TcxGridDBColumn
           Caption = #1050#1086#1090#1077#1083#1100#1085#1103
           DataBinding.FieldName = 'ID_KOTEL'
@@ -405,13 +400,15 @@ inherited InsTar: TInsTar
       end
     end
   end
-  object Panel6: TPanel [7]
+  object Panel6: TPanel [6]
     Left = 0
-    Top = 176
+    Top = 249
     Width = 965
     Height = 72
     Align = alTop
-    TabOrder = 7
+    TabOrder = 6
+    ExplicitLeft = -8
+    ExplicitTop = 200
     object cxLabel3: TcxLabel
       Left = 8
       Top = 51
@@ -1250,7 +1247,8 @@ inherited InsTar: TInsTar
         ' NOTE, '
       
         '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
-        'CH)'
+        'CH, PLOS_IN, '
+      '   PLOS_MZK)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1261,7 +1259,7 @@ inherited InsTar: TInsTar
       
         '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
         'G_VIDH, '
-      '   :NO_LICH)')
+      '   :NO_LICH, :PLOS_IN, :PLOS_MZK)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1286,7 +1284,9 @@ inherited InsTar: TInsTar
       '  PLOS_BB,'
       '  MZK,'
       '  BORG_VIDH,'
-      '  NO_LICH'
+      '  NO_LICH,'
+      '  PLOS_IN,'
+      '  PLOS_MZK'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1320,7 +1320,9 @@ inherited InsTar: TInsTar
       '  PLOS_BB = :PLOS_BB,'
       '  MZK = :MZK,'
       '  BORG_VIDH = :BORG_VIDH,'
-      '  NO_LICH = :NO_LICH'
+      '  NO_LICH = :NO_LICH,'
+      '  PLOS_IN = :PLOS_IN,'
+      '  PLOS_MZK = :PLOS_MZK'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1405,13 +1407,13 @@ inherited InsTar: TInsTar
       FieldName = 'LICH_PN'
       Origin = '"TARIF_MES"."LICH_PN"'
       Precision = 18
-      Size = 2
+      Size = 3
     end
     object IBTARIF_MESLICH_PK: TIBBCDField
       FieldName = 'LICH_PK'
       Origin = '"TARIF_MES"."LICH_PK"'
       Precision = 18
-      Size = 2
+      Size = 3
     end
     object IBTARIF_MESNOTE: TIBStringField
       FieldName = 'NOTE'
@@ -1469,6 +1471,18 @@ inherited InsTar: TInsTar
     object IBTARIF_MESNO_LICH: TIntegerField
       FieldName = 'NO_LICH'
       Origin = '"TARIF_MES"."NO_LICH"'
+    end
+    object IBTARIF_MESPLOS_IN: TIBBCDField
+      FieldName = 'PLOS_IN'
+      Origin = '"TARIF_MES"."PLOS_IN"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESPLOS_MZK: TIBBCDField
+      FieldName = 'PLOS_MZK'
+      Origin = '"TARIF_MES"."PLOS_MZK"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIF_MES: TDataSource

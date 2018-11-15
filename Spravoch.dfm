@@ -894,7 +894,7 @@
             item
               FieldName = 'DATE_MES'
             end>
-          Properties.ListSource = DSQuery1
+          Properties.ListSource = DSQMES
           Properties.ReadOnly = False
           Properties.OnChange = cxLookupComboBox4PropertiesChange
           TabOrder = 1
@@ -912,6 +912,7 @@
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSTARIF_DATA
           DataController.DetailKeyFieldNames = 'ID'
+          DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
@@ -940,6 +941,11 @@
             PropertiesClassName = 'TcxCalcEditProperties'
             Width = 164
           end
+          object cxGridDBTableView7TARIF_MZK1: TcxGridDBColumn
+            Caption = #1058#1072#1088#1080#1092' '#1052#1047#1050'1'
+            DataBinding.FieldName = 'TARIF_MZK1'
+            PropertiesClassName = 'TcxCalcEditProperties'
+          end
           object cxGridDBTableView7DATE_N1: TcxGridDBColumn
             Caption = #1044#1072#1090#1072' '#1087#1077#1088#1077#1093#1110#1076#1085#1086#1075#1086' '#1090#1072#1088#1080#1092#1091
             DataBinding.FieldName = 'DATE_N1'
@@ -951,6 +957,11 @@
             DataBinding.FieldName = 'TARIF_SUM2'
             PropertiesClassName = 'TcxCalcEditProperties'
             Width = 188
+          end
+          object cxGridDBTableView7TARIF_MZK2: TcxGridDBColumn
+            Caption = #1058#1072#1088#1080#1092' '#1052#1047#1050'2'
+            DataBinding.FieldName = 'TARIF_MZK2'
+            PropertiesClassName = 'TcxCalcEditProperties'
           end
         end
         object cxGridLevel7: TcxGridLevel
@@ -1045,7 +1056,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 696
   end
   object IBPOSL: TIBDataSet
@@ -1584,12 +1594,12 @@
       
         '  (ID, ID_VIDAB, DATE_MES, ID_POSL, DATE_N1, TARIF_SUM1, DATE_N2' +
         ', TARIF_SUM2, '
-      '   FL_2DATE)'
+      '   FL_2DATE, TARIF_MZK1, TARIF_MZK2)'
       'values'
       
         '  (:ID, :ID_VIDAB, :DATE_MES, :ID_POSL, :DATE_N1, :TARIF_SUM1, :' +
         'DATE_N2, '
-      '   :TARIF_SUM2, :FL_2DATE)')
+      '   :TARIF_SUM2, :FL_2DATE, :TARIF_MZK1, :TARIF_MZK2)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1600,7 +1610,9 @@
       '  TARIF_SUM1,'
       '  DATE_N2,'
       '  TARIF_SUM2,'
-      '  FL_2DATE'
+      '  FL_2DATE,'
+      '  TARIF_MZK1,'
+      '  TARIF_MZK2'
       'from TARIF_DATA '
       'where'
       '  ID = :ID')
@@ -1617,7 +1629,9 @@
       '  TARIF_SUM1 = :TARIF_SUM1,'
       '  DATE_N2 = :DATE_N2,'
       '  TARIF_SUM2 = :TARIF_SUM2,'
-      '  FL_2DATE = :FL_2DATE'
+      '  FL_2DATE = :FL_2DATE,'
+      '  TARIF_MZK1 = :TARIF_MZK1,'
+      '  TARIF_MZK2 = :TARIF_MZK2'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1667,13 +1681,25 @@
       FieldName = 'FL_2DATE'
       Origin = '"TARIF_DATA"."FL_2DATE"'
     end
+    object IBTARIF_DATATARIF_MZK1: TIBBCDField
+      FieldName = 'TARIF_MZK1'
+      Origin = '"TARIF_DATA"."TARIF_MZK1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_DATATARIF_MZK2: TIBBCDField
+      FieldName = 'TARIF_MZK2'
+      Origin = '"TARIF_DATA"."TARIF_MZK2"'
+      Precision = 18
+      Size = 4
+    end
   end
   object DSTARIF_DATA: TDataSource
     DataSet = IBTARIF_DATA
     Left = 360
     Top = 408
   end
-  object IBQuery1: TIBQuery
+  object IBQMES: TIBQuery
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
     BufferChunks = 1000
@@ -1685,13 +1711,13 @@
         'MES desc')
     Left = 540
     Top = 265
-    object IBQuery1DATE_MES: TDateField
+    object IBQMESDATE_MES: TDateField
       FieldName = 'DATE_MES'
       Origin = '"TARIF_DATA"."DATE_MES"'
     end
   end
-  object DSQuery1: TDataSource
-    DataSet = IBQuery1
+  object DSQMES: TDataSource
+    DataSet = IBQMES
     Left = 544
     Top = 320
   end

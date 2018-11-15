@@ -86,8 +86,6 @@ type
     IBTARIF_DOM1ID_VIDAB: TIntegerField;
     cxGrid1DBTableView1PLOS_BB: TcxGridDBColumn;
     cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn;
-    Panel1: TPanel;
-    cxLabel2: TcxLabel;
     Panel5: TPanel;
     cxDBMemo1: TcxDBMemo;
     cxGrid3: TcxGrid;
@@ -107,8 +105,6 @@ type
     cxButton12: TcxButton;
     cxButton13: TcxButton;
     cxLabel1: TcxLabel;
-    Panel8: TPanel;
-    cxLabel6: TcxLabel;
     IBUPDTDOM: TIBDataSet;
     DSUPDTDOM: TDataSource;
     IBUPDTDOMID: TIntegerField;
@@ -153,6 +149,10 @@ type
     IBTARIF_MESMZK: TIBBCDField;
     IBTARIF_MESBORG_VIDH: TIBBCDField;
     IBTARIF_MESNO_LICH: TIntegerField;
+    IBTARIF_MESPLOS_IN: TIBBCDField;
+    IBTARIF_MESPLOS_MZK: TIBBCDField;
+    cxGridDBTableView2PLOS_IN: TcxGridDBColumn;
+    cxGridDBTableView2PLOS_MZK: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -322,14 +322,23 @@ begin
 //        IBTARIF_MES.Next;
 //        end;
 
+      IBQuery4.Close;
+      IBQuery4.SQL.Text:='select sum(TARIF_MES.PLOS_BB) from TARIF_MES, TARIF, TARIF_DOM'+
+                             ' where tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif and tarif_mes.id=tarif_dom.id_tarifmes and tarif.id_posl=:posl and tarif_dom.id_dom=:iddom';
 
+      IBQuery4.ParamByName('iddom').Value:=IBTARIF_DOM1ID_DOM.AsInteger;
+      IBQuery4.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
+      IBQuery4.ParamByName('posl').Value:=poslid;
+      IBQuery4.Open;
+      IBQuery4.First;
 
       IBQuery1.Close;
-      IBQuery1.SQL.Text:='select sum(DOM.PLOS_BB) from TARIF_DOM ,DOM where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes';
+      IBQuery1.SQL.Text:='select DOM.PLOS_BB from TARIF_DOM ,DOM where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes';
       IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
       IBQuery1.Open;
       IBQuery1.First;
-      if sumplos<>IBQuery1.FieldByName('sum').AsFloat then
+//      if sumplos<>IBQuery1.FieldByName('PLOS_BB').AsFloat then
+      if IBQuery4.FieldByName('sum').AsFloat<>IBQuery1.FieldByName('PLOS_BB').AsFloat then
          Application.MessageBox('Опалювальна площа по лічильникам не сходиться з опалювальной площею по будинку. Треба розділити опалювальну площу по будинку між лічильниками щоб їхня сума збігалася','Помилка',16);
 
 
@@ -991,7 +1000,7 @@ begin
     end;
   IBTARIF_MES.Next;
   end;
-//  Update(idmes,iddom);
+  Update(idmes,iddom);
 end;
 
 procedure TInsTar.IBTARIF_MESNAMEChange(Sender: TField);

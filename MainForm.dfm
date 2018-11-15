@@ -22,7 +22,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -1211,7 +1211,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2059,7 +2059,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2382,6 +2382,7 @@
     Top = 368
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultDatabase = DataM.IBDatabase1
     Params.Strings = (
       'read_committed'
@@ -2609,7 +2610,10 @@
       
         '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
         ' NOTE, '
-      '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH)'
+      
+        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
+        'CH, PLOS_IN, '
+      '   PLOS_MZK, SUMOT, SUMOTPDV)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -2619,7 +2623,8 @@
         'H_PN, :LICH_PK, '
       
         '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
-        'G_VIDH)')
+        'G_VIDH, '
+      '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -2643,7 +2648,12 @@
       '  ID_KOTEL,'
       '  PLOS_BB,'
       '  MZK,'
-      '  BORG_VIDH'
+      '  BORG_VIDH,'
+      '  NO_LICH,'
+      '  PLOS_IN,'
+      '  PLOS_MZK,'
+      '  SUMOT,'
+      '  SUMOTPDV'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -2673,7 +2683,12 @@
       '  ID_KOTEL = :ID_KOTEL,'
       '  PLOS_BB = :PLOS_BB,'
       '  MZK = :MZK,'
-      '  BORG_VIDH = :BORG_VIDH'
+      '  BORG_VIDH = :BORG_VIDH,'
+      '  NO_LICH = :NO_LICH,'
+      '  PLOS_IN = :PLOS_IN,'
+      '  PLOS_MZK = :PLOS_MZK,'
+      '  SUMOT = :SUMOT,'
+      '  SUMOTPDV = :SUMOTPDV'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2759,13 +2774,13 @@
       FieldName = 'LICH_PN'
       Origin = '"TARIF_MES"."LICH_PN"'
       Precision = 18
-      Size = 2
+      Size = 3
     end
     object IBTARIF_MESLICH_PK: TIBBCDField
       FieldName = 'LICH_PK'
       Origin = '"TARIF_MES"."LICH_PK"'
       Precision = 18
-      Size = 2
+      Size = 3
     end
     object IBTARIF_MESNOTE: TIBStringField
       FieldName = 'NOTE'
@@ -2801,6 +2816,34 @@
     object IBTARIF_MESBORG_VIDH: TIBBCDField
       FieldName = 'BORG_VIDH'
       Origin = '"TARIF_MES"."BORG_VIDH"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESNO_LICH: TIntegerField
+      FieldName = 'NO_LICH'
+      Origin = '"TARIF_MES"."NO_LICH"'
+    end
+    object IBTARIF_MESPLOS_IN: TIBBCDField
+      FieldName = 'PLOS_IN'
+      Origin = '"TARIF_MES"."PLOS_IN"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESPLOS_MZK: TIBBCDField
+      FieldName = 'PLOS_MZK'
+      Origin = '"TARIF_MES"."PLOS_MZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESSUMOT: TIBBCDField
+      FieldName = 'SUMOT'
+      Origin = '"TARIF_MES"."SUMOT"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESSUMOTPDV: TIBBCDField
+      FieldName = 'SUMOTPDV'
+      Origin = '"TARIF_MES"."SUMOTPDV"'
       Precision = 18
       Size = 2
     end

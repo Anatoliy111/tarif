@@ -196,6 +196,11 @@ type
     IBTARIF_MESPLOS_BB: TIBBCDField;
     IBTARIF_MESMZK: TIBBCDField;
     IBTARIF_MESBORG_VIDH: TIBBCDField;
+    IBTARIF_MESNO_LICH: TIntegerField;
+    IBTARIF_MESPLOS_IN: TIBBCDField;
+    IBTARIF_MESPLOS_MZK: TIBBCDField;
+    IBTARIF_MESSUMOT: TIBBCDField;
+    IBTARIF_MESSUMOTPDV: TIBBCDField;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -572,13 +577,16 @@ Prores.Show;
           IBTARIF_MESDATA.Value:=IncMonth(Period);
           IBTARIF_MESTARIF_RN.Value:=iif(IBQuery1.FieldByName('TARIF_RK').Value=null,0,IBQuery1.FieldByName('TARIF_RK').Value);
           IBTARIF_MESNORMA.Value:=iif(IBQuery1.FieldByName('NORMA').Value=null,0,IBQuery1.FieldByName('NORMA').Value);
-          IBTARIF_MESTARIF_END.Value:=iif(IBQuery1.FieldByName('TARIF_END').Value=null,0,IBQuery1.FieldByName('TARIF_END').Value);
+          IBTARIF_MESTARIF_END.AsCurrency:=IBQuery1.FieldByName('TARIF_END').AsCurrency;
           IBTARIF_MESLICH_PN.Value:=iif(IBQuery1.FieldByName('LICH_PK').Value=null,0,IBQuery1.FieldByName('LICH_PK').Value);
           IBTARIF_MESNOTE.AsString:=IBQuery1.FieldByName('NOTE').AsString;
           IBTARIF_MESPLOS_BBI.AsFloat:=IBQuery1.FieldByName('PLOS_BBI').AsFloat;
           IBTARIF_MESNSER_LICH.AsString:=IBQuery1.FieldByName('NSER_LICH').AsString;
           IBTARIF_MESID_KOTEL.AsInteger:=IBQuery1.FieldByName('ID_KOTEL').AsInteger;
           IBTARIF_MESPLOS_BB.AsFloat:=IBQuery1.FieldByName('PLOS_BB').AsFloat;
+          IBTARIF_MESPLOS_IN.AsFloat:=IBQuery1.FieldByName('PLOS_IN').AsFloat;
+          IBTARIF_MESPLOS_MZK.AsFloat:=IBQuery1.FieldByName('PLOS_MZK').AsFloat;
+
           IBTARIF_MES.Post;
 
           IBQuery2.close;
@@ -589,10 +597,10 @@ Prores.Show;
          while not IBQuery2.Eof do
          begin
            IBTARIF_DOM.Insert;
-           IBTARIF_DOMID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').Value;
-           IBTARIF_DOMID_DOM.Value:=IBQuery2.FieldByName('ID_DOM').Value;
-           IBTARIF_DOMNAME.Value:=IBQuery2.FieldByName('NAME').Value;
-           IBTARIF_DOMID_TARIFMES.Value:=IBTARIF_MESID.Value;
+           IBTARIF_DOMID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
+           IBTARIF_DOMID_DOM.Value:=IBQuery2.FieldByName('ID_DOM').AsInteger;
+           IBTARIF_DOMNAME.Value:=IBQuery2.FieldByName('NAME').AsString;
+           IBTARIF_DOMID_TARIFMES.Value:=IBTARIF_MESID.AsInteger;
            IBTARIF_DOM.Post;
          IBQuery2.Next;
          end;
