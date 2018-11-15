@@ -5,6 +5,7 @@
   ClientWidth = 928
   PopupMode = pmAuto
   Position = poDefaultSizeOnly
+  WindowState = wsMaximized
   OnCreate = FormCreate
   ExplicitWidth = 944
   ExplicitHeight = 699

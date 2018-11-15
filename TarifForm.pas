@@ -453,12 +453,12 @@ begin
             gkalm2in:=gkalmzkin/IBTARIFUPDPLOS_IN.AsFloat
          else gkalm2in:=0;
 
-          IBQuery1.Close;
-          IBQuery1.SQL.Text:='select DOM.PLOS_BB as PLOSBB from TARIF_DOM ,DOM where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes';
-          IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
-          IBQuery1.Open;
-          IBQuery1.First;
-         normaosn:=(gkal-gkalmzkin)/IBQuery1.FieldByName('PLOSBB').AsFloat;
+//          IBQuery1.Close;
+//         IBQuery1.SQL.Text:='select DOM.PLOS_BB as PLOSBB from TARIF_DOM ,DOM where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes';
+//          IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
+//          IBQuery1.Open;
+//          IBQuery1.First;
+         normaosn:=(gkal-gkalmzkin)/IBTARIFUPDPLOS_BB.AsFloat;
          send:=normaosn*cenaosn;
          IBTARIFUPD.Edit;
 //         IBTARIFUPDNORMA.Value:=normaosn;
