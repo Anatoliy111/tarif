@@ -1600,7 +1600,7 @@ var
   sd:TSaveDialog;
   Excel: Variant;
   Reg: TRegistry;
-  path:string;
+  path,fdata:string;
   i:integer;
 begin
   Reg := TRegistry.Create;
@@ -1621,10 +1621,11 @@ begin
   try
     if FileName='Table.xls' then
     begin
-//      DateTimeToString(Filename,'mmddhhmm',now);
+      DateTimeToString(fdata,'mmddhhmm',now);
 //      DateTimeToString(Filename,'dd mm yyyy',now);
         DateTimeToString(Filename,'dd mm yyyy',cxLookupComboBox1.EditValue);
-      Filename:=IBPOSLNAME.Value+' '+Filename+'.xls'
+
+      Filename:=IBPOSLNAME.Value+' '+Filename+' ('+fdata+').xls'
     end;
     sd.FileName := path + Filename;
     sd.Filter := 'Excel files (*.xls)|*.XLS';

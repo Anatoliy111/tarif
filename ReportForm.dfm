@@ -210,7 +210,35 @@
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = DSQuery2
       DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1SEND
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1SENDPDV
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1SUMOT
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1SUMOTPDV
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1MZK
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1SPLAN
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1SFACT
+        end>
       DataController.Summary.SummaryGroups = <>
       OptionsData.Editing = False
       OptionsView.Footer = True
@@ -270,9 +298,6 @@
     object cxGridLevel1: TcxGridLevel
       GridView = cxGridDBTableView1
     end
-  end
-  inherited IBTransaction1: TIBTransaction
-    Active = True
   end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1

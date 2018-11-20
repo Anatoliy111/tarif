@@ -253,7 +253,10 @@ end;
 procedure TReport.cxButton6Click(Sender: TObject);
 begin
   inherited;
-  ExportGrid(cxGrid1);
+  if IBQuery1.Active then
+     ExportGrid(cxGrid1);
+  if IBQuery2.Active then
+     ExportGrid(cxGrid2);
 end;
 
 procedure TReport.cxButton7Click(Sender: TObject);
@@ -301,7 +304,7 @@ var
   sd:TSaveDialog;
   Excel: Variant;
   Reg: TRegistry;
-  path:string;
+  path,fdata:string;
   i:integer;
 begin
   Reg := TRegistry.Create;
@@ -322,13 +325,13 @@ begin
   try
     if FileName='Table.xls' then
     begin
-//      DateTimeToString(Filename,'mmddhhmm',now);
+      DateTimeToString(fdata,'mmddhhmm',now);
 //      DateTimeToString(Filename,'dd mm yyyy',now);
-        DateTimeToString(Filename,'dd mm yyyy',cxLookupComboBox1.EditValue);
+        DateTimeToString(Filename,'mm yyyy',cxLookupComboBox1.EditValue);
   if  (Report <> nil) and (Report.Active) then Filename:=Report.Caption+' '+Filename;
   if  (Report1 <> nil) and (Report1.Active) then Filename:=Report1.Caption+' '+Filename;
   if  (Report2 <> nil) and (Report2.Active) then Filename:=Report2.Caption+' '+Filename;
-      Filename:=Filename+'.xls'
+      Filename:=Filename+' ('+fdata+').xls'
     end;
     sd.FileName := path + Filename;
     sd.Filter := 'Excel files (*.xls)|*.XLS';
