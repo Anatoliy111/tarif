@@ -91,8 +91,6 @@ inherited InsTar: TInsTar
     Height = 252
     Align = alRight
     TabOrder = 2
-    ExplicitTop = 336
-    ExplicitHeight = 237
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -145,7 +143,7 @@ inherited InsTar: TInsTar
         Options.Editing = False
       end
       object cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn
-        Caption = #1042#1080#1076
+        Caption = #1042#1080#1076' '#1072#1073#1086#1085'.'
         DataBinding.FieldName = 'ID_VIDAB'
         PropertiesClassName = 'TcxLookupComboBoxProperties'
         Properties.KeyFieldNames = 'ID'
@@ -169,8 +167,6 @@ inherited InsTar: TInsTar
     Height = 252
     Align = alClient
     TabOrder = 3
-    ExplicitTop = 336
-    ExplicitHeight = 237
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -204,7 +200,10 @@ inherited InsTar: TInsTar
       OptionsView.ColumnAutoWidth = True
       OptionsView.Footer = True
       OptionsView.FooterMultiSummaries = True
+      OptionsView.GridLineColor = clLime
+      OptionsView.GridLines = glVertical
       OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
       object cxGridDBTableView1ID_DOM: TcxGridDBColumn
         Caption = #1041#1091#1076#1080#1085#1086#1082
         DataBinding.FieldName = 'ID_DOM'
@@ -240,8 +239,19 @@ inherited InsTar: TInsTar
         DataBinding.FieldName = 'PLOS_BB'
         Options.Editing = False
       end
+      object cxGridDBTableView1ID_VIDCENA: TcxGridDBColumn
+        Caption = #1042#1080#1076' '#1094#1110#1085#1080
+        DataBinding.FieldName = 'ID_VIDCENA'
+        PropertiesClassName = 'TcxLookupComboBoxProperties'
+        Properties.KeyFieldNames = 'ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'NAME'
+          end>
+        Properties.ListSource = Tarifs.DSVIDAB
+      end
       object cxGridDBTableView1ID_VIDAB: TcxGridDBColumn
-        Caption = #1042#1080#1076
+        Caption = #1042#1080#1076' '#1072#1073#1086#1085'.'
         DataBinding.FieldName = 'ID_VIDAB'
         PropertiesClassName = 'TcxLookupComboBoxProperties'
         Properties.KeyFieldNames = 'ID'
@@ -251,8 +261,15 @@ inherited InsTar: TInsTar
           end>
         Properties.ListSource = Tarifs.DSVIDAB
         Properties.ReadOnly = True
-        Options.Editing = False
         Width = 124
+      end
+      object cxGridDBTableView1FL_LICH: TcxGridDBColumn
+        Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
+        DataBinding.FieldName = 'FL_LICH'
+        PropertiesClassName = 'TcxCheckBoxProperties'
+        Properties.NullStyle = nssUnchecked
+        Properties.ValueChecked = 1
+        Properties.ValueUnchecked = 0
       end
     end
     object cxGridLevel1: TcxGridLevel
@@ -288,7 +305,6 @@ inherited InsTar: TInsTar
       Height = 151
       Align = alClient
       TabOrder = 1
-      ExplicitHeight = 96
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         Navigator.Buttons.First.Visible = True
@@ -342,9 +358,9 @@ inherited InsTar: TInsTar
           DataBinding.FieldName = 'NAME'
           Width = 219
         end
-        object cxGridDBTableView2ID_VIDAB: TcxGridDBColumn
-          Caption = #1042#1080#1076
-          DataBinding.FieldName = 'ID_VIDAB'
+        object cxGridDBTableView2ID_VIDCENA: TcxGridDBColumn
+          Caption = #1042#1080#1076' '#1094#1110#1085#1080
+          DataBinding.FieldName = 'ID_VIDCENA'
           PropertiesClassName = 'TcxLookupComboBoxProperties'
           Properties.KeyFieldNames = 'ID'
           Properties.ListColumns = <
@@ -352,7 +368,6 @@ inherited InsTar: TInsTar
               FieldName = 'NAME'
             end>
           Properties.ListSource = Tarifs.DSVIDAB
-          Width = 106
         end
         object cxGridDBTableView2NSER_LICH: TcxGridDBColumn
           Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
@@ -407,8 +422,6 @@ inherited InsTar: TInsTar
     Height = 72
     Align = alTop
     TabOrder = 6
-    ExplicitLeft = -8
-    ExplicitTop = 200
     object cxLabel3: TcxLabel
       Left = 8
       Top = 51
@@ -1011,12 +1024,13 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = False
     Left = 16
     Top = 520
   end
   object IBTARIF: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     AfterPost = IBTARIFAfterPost
     BeforePost = IBTARIFBeforePost
     BufferChunks = 1000
@@ -1027,15 +1041,14 @@ inherited InsTar: TInsTar
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into TARIF'
-      '  (ID, NAME, ID_POSL, ID_VIDAB)'
+      '  (ID, NAME, ID_POSL)'
       'values'
-      '  (:ID, :NAME, :ID_POSL, :ID_VIDAB)')
+      '  (:ID, :NAME, :ID_POSL)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  NAME,'
-      '  ID_POSL,'
-      '  ID_VIDAB'
+      '  ID_POSL'
       'from TARIF '
       'where'
       '  ID = :ID')
@@ -1046,8 +1059,7 @@ inherited InsTar: TInsTar
       'set'
       '  ID = :ID,'
       '  NAME = :NAME,'
-      '  ID_POSL = :ID_POSL,'
-      '  ID_VIDAB = :ID_VIDAB'
+      '  ID_POSL = :ID_POSL'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1070,10 +1082,6 @@ inherited InsTar: TInsTar
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
     end
-    object IBTARIFID_VIDAB: TIntegerField
-      FieldName = 'ID_VIDAB'
-      Origin = '"TARIF"."ID_VIDAB"'
-    end
   end
   object DSTARIF: TDataSource
     DataSet = IBTARIF
@@ -1082,7 +1090,7 @@ inherited InsTar: TInsTar
   end
   object IBTARIF_OTHER: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     AfterPost = IBTARIF_OTHERAfterPost
     BeforePost = IBTARIF_OTHERBeforePost
     BufferChunks = 1000
@@ -1095,12 +1103,13 @@ inherited InsTar: TInsTar
       'insert into TARIF_OTHER'
       
         '  (ID, ID_TARIF, ID_TARIFMES, ID_DOMOTHER, SPLAN, SFACT, NORMA, ' +
-        'SEND, MZK)'
+        'SEND, MZK, '
+      '   FL_LICH, ID_VIDCENA)'
       'values'
       
         '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
         'NORMA, '
-      '   :SEND, :MZK)')
+      '   :SEND, :MZK, :FL_LICH, :ID_VIDCENA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1111,7 +1120,18 @@ inherited InsTar: TInsTar
       '  SFACT,'
       '  NORMA,'
       '  SEND,'
-      '  MZK'
+      '  MZK,'
+      '  SUMOT,'
+      '  SUMOTPDV,'
+      '  SENDPDV,'
+      '  LICH_PN,'
+      '  LICH_PK,'
+      '  LICH_GK,'
+      '  LICH_PN2,'
+      '  LICH_PK2,'
+      '  LICH_GK2,'
+      '  FL_LICH,'
+      '  ID_VIDCENA'
       'from TARIF_OTHER '
       'where'
       '  ID = :ID')
@@ -1135,7 +1155,9 @@ inherited InsTar: TInsTar
       '  SFACT = :SFACT,'
       '  NORMA = :NORMA,'
       '  SEND = :SEND,'
-      '  MZK = :MZK'
+      '  MZK = :MZK,'
+      '  FL_LICH = :FL_LICH,'
+      '  ID_VIDCENA = :ID_VIDCENA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1209,6 +1231,68 @@ inherited InsTar: TInsTar
       FieldName = 'ID_VIDAB'
       Origin = '"OTHER"."ID_VIDAB"'
     end
+    object IBTARIF_OTHERSUMOT: TIBBCDField
+      FieldName = 'SUMOT'
+      Origin = '"TARIF_OTHER"."SUMOT"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERSUMOTPDV: TIBBCDField
+      FieldName = 'SUMOTPDV'
+      Origin = '"TARIF_OTHER"."SUMOTPDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERSENDPDV: TIBBCDField
+      FieldName = 'SENDPDV'
+      Origin = '"TARIF_OTHER"."SENDPDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERLICH_PN: TIBBCDField
+      FieldName = 'LICH_PN'
+      Origin = '"TARIF_OTHER"."LICH_PN"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_PK: TIBBCDField
+      FieldName = 'LICH_PK'
+      Origin = '"TARIF_OTHER"."LICH_PK"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_GK: TIBBCDField
+      FieldName = 'LICH_GK'
+      Origin = '"TARIF_OTHER"."LICH_GK"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_PN2: TIBBCDField
+      FieldName = 'LICH_PN2'
+      Origin = '"TARIF_OTHER"."LICH_PN2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_PK2: TIBBCDField
+      FieldName = 'LICH_PK2'
+      Origin = '"TARIF_OTHER"."LICH_PK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_GK2: TIBBCDField
+      FieldName = 'LICH_GK2'
+      Origin = '"TARIF_OTHER"."LICH_GK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERFL_LICH: TIntegerField
+      FieldName = 'FL_LICH'
+      Origin = '"TARIF_OTHER"."FL_LICH"'
+    end
+    object IBTARIF_OTHERID_VIDCENA: TIntegerField
+      FieldName = 'ID_VIDCENA'
+      Origin = '"TARIF_OTHER"."ID_VIDCENA"'
+    end
   end
   object DSTARIF_OTHER: TDataSource
     DataSet = IBTARIF_OTHER
@@ -1217,7 +1301,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1228,7 +1312,7 @@ inherited InsTar: TInsTar
   end
   object IBTARIF_MES: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     AfterPost = IBTARIF_MESAfterPost
     BeforePost = IBTARIF_MESBeforePost
     BufferChunks = 1000
@@ -1248,7 +1332,7 @@ inherited InsTar: TInsTar
       
         '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
         'CH, PLOS_IN, '
-      '   PLOS_MZK)'
+      '   PLOS_MZK, ID_VIDCENA)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1259,7 +1343,7 @@ inherited InsTar: TInsTar
       
         '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
         'G_VIDH, '
-      '   :NO_LICH, :PLOS_IN, :PLOS_MZK)')
+      '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :ID_VIDCENA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1286,15 +1370,22 @@ inherited InsTar: TInsTar
       '  BORG_VIDH,'
       '  NO_LICH,'
       '  PLOS_IN,'
-      '  PLOS_MZK'
+      '  PLOS_MZK,'
+      '  SUMOT,'
+      '  SUMOTPDV,'
+      '  LICH_GK,'
+      '  TARIF_ENDPDV,'
+      '  LICH_PN2,'
+      '  LICH_PK2,'
+      '  LICH_GK2,'
+      '  ID_VIDCENA'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
       
-        'select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL, TARIF.ID_VIDAB fr' +
-        'om TARIF_MES, TARIF where tarif_mes.id=:idmes and tarif.id=tarif' +
-        '_mes.id_tarif')
+        'select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL from TARIF_MES, TA' +
+        'RIF where tarif_mes.id=:idmes and tarif.id=tarif_mes.id_tarif')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'
@@ -1322,7 +1413,8 @@ inherited InsTar: TInsTar
       '  BORG_VIDH = :BORG_VIDH,'
       '  NO_LICH = :NO_LICH,'
       '  PLOS_IN = :PLOS_IN,'
-      '  PLOS_MZK = :PLOS_MZK'
+      '  PLOS_MZK = :PLOS_MZK,'
+      '  ID_VIDCENA = :ID_VIDCENA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1451,11 +1543,6 @@ inherited InsTar: TInsTar
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
     end
-    object IBTARIF_MESID_VIDAB: TIntegerField
-      FieldName = 'ID_VIDAB'
-      Origin = '"TARIF"."ID_VIDAB"'
-      OnChange = IBTARIF_MESID_VIDABChange
-    end
     object IBTARIF_MESMZK: TIBBCDField
       FieldName = 'MZK'
       Origin = '"TARIF_MES"."MZK"'
@@ -1484,6 +1571,52 @@ inherited InsTar: TInsTar
       Precision = 18
       Size = 2
     end
+    object IBTARIF_MESSUMOT: TIBBCDField
+      FieldName = 'SUMOT'
+      Origin = '"TARIF_MES"."SUMOT"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESSUMOTPDV: TIBBCDField
+      FieldName = 'SUMOTPDV'
+      Origin = '"TARIF_MES"."SUMOTPDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESLICH_GK: TIBBCDField
+      FieldName = 'LICH_GK'
+      Origin = '"TARIF_MES"."LICH_GK"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESTARIF_ENDPDV: TIBBCDField
+      FieldName = 'TARIF_ENDPDV'
+      Origin = '"TARIF_MES"."TARIF_ENDPDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESLICH_PN2: TIBBCDField
+      FieldName = 'LICH_PN2'
+      Origin = '"TARIF_MES"."LICH_PN2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESLICH_PK2: TIBBCDField
+      FieldName = 'LICH_PK2'
+      Origin = '"TARIF_MES"."LICH_PK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESLICH_GK2: TIBBCDField
+      FieldName = 'LICH_GK2'
+      Origin = '"TARIF_MES"."LICH_GK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESID_VIDCENA: TIntegerField
+      FieldName = 'ID_VIDCENA'
+      Origin = '"TARIF_MES"."ID_VIDCENA"'
+    end
   end
   object DSTARIF_MES: TDataSource
     DataSet = IBTARIF_MES
@@ -1492,7 +1625,7 @@ inherited InsTar: TInsTar
   end
   object IBKOTEL: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BeforePost = IBTARIFBeforePost
     BufferChunks = 1000
     CachedUpdates = False
@@ -1544,7 +1677,7 @@ inherited InsTar: TInsTar
   end
   object IBTARIF_DOM1: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     AfterPost = IBTARIF_DOM1AfterPost
     BeforePost = IBTARIF_DOM1BeforePost
     BufferChunks = 1000
@@ -1636,7 +1769,7 @@ inherited InsTar: TInsTar
   end
   object IBUPDTDOM: TIBDataSet
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     AfterPost = IBUPDTDOMAfterPost
     BeforePost = IBUPDTDOMBeforePost
     BufferChunks = 1000
@@ -1711,7 +1844,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery2: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1804,20 +1937,14 @@ inherited InsTar: TInsTar
   end
   object IBQuery3: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
     SQL.Strings = (
-      'select * from DOM where id_vidab=:idvidab')
+      'select * from DOM')
     Left = 688
     Top = 344
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'idvidab'
-        ParamType = ptUnknown
-      end>
     object IBQuery3ID: TIntegerField
       FieldName = 'ID'
       Origin = '"DOM"."ID"'
@@ -1880,7 +2007,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery4: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1891,7 +2018,7 @@ inherited InsTar: TInsTar
   end
   object IBQuery5: TIBQuery
     Database = DataM.IBDatabase1
-    Transaction = Tarifs.IBTransaction1
+    Transaction = AllMDICh.IBTransaction1
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True

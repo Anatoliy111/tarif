@@ -87,6 +87,7 @@
     OnClick = cxButton1Click
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Left = 384
     Top = 96
   end
@@ -356,15 +357,14 @@
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into TARIF'
-      '  (ID, NAME, ID_POSL, ID_VIDAB)'
+      '  (ID, NAME, ID_POSL)'
       'values'
-      '  (:ID, :NAME, :ID_POSL, :ID_VIDAB)')
+      '  (:ID, :NAME, :ID_POSL)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  NAME,'
-      '  ID_POSL,'
-      '  ID_VIDAB'
+      '  ID_POSL'
       'from TARIF '
       'where'
       '  ID = :ID')
@@ -376,8 +376,7 @@
       'set'
       '  ID = :ID,'
       '  NAME = :NAME,'
-      '  ID_POSL = :ID_POSL,'
-      '  ID_VIDAB = :ID_VIDAB'
+      '  ID_POSL = :ID_POSL'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -399,10 +398,6 @@
     object IBTARIFID_POSL: TIntegerField
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
-    end
-    object IBTARIFID_VIDAB: TIntegerField
-      FieldName = 'ID_VIDAB'
-      Origin = '"TARIF"."ID_VIDAB"'
     end
   end
   object DSTARIF: TDataSource
@@ -604,12 +599,30 @@
       
         '  (ID, ID_TARIF, DATA, TARIF_PLAN, TARIF_FACT, TARIF_RN, TARIF_R' +
         'K, NORMA, '
-      '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L)'
+      
+        '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
+        ' NOTE, '
+      
+        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
+        'CH, PLOS_IN, '
+      
+        '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
+        'ICH_PK2, '
+      '   LICH_GK2, ID_VIDCENA)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
         'TARIF_RK, '
-      '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L)')
+      
+        '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
+        'H_PN, :LICH_PK, '
+      
+        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
+        'G_VIDH, '
+      
+        '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
+        'TARIF_ENDPDV, '
+      '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -624,7 +637,27 @@
       '  PLAN_BL,'
       '  FACT_BL,'
       '  END_BL,'
-      '  END_L'
+      '  END_L,'
+      '  LICH_PN,'
+      '  LICH_PK,'
+      '  NOTE,'
+      '  PLOS_BBI,'
+      '  NSER_LICH,'
+      '  ID_KOTEL,'
+      '  PLOS_BB,'
+      '  MZK,'
+      '  BORG_VIDH,'
+      '  NO_LICH,'
+      '  PLOS_IN,'
+      '  PLOS_MZK,'
+      '  SUMOT,'
+      '  SUMOTPDV,'
+      '  LICH_GK,'
+      '  TARIF_ENDPDV,'
+      '  LICH_PN2,'
+      '  LICH_PK2,'
+      '  LICH_GK2,'
+      '  ID_VIDCENA'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -646,7 +679,27 @@
       '  PLAN_BL = :PLAN_BL,'
       '  FACT_BL = :FACT_BL,'
       '  END_BL = :END_BL,'
-      '  END_L = :END_L'
+      '  END_L = :END_L,'
+      '  LICH_PN = :LICH_PN,'
+      '  LICH_PK = :LICH_PK,'
+      '  NOTE = :NOTE,'
+      '  PLOS_BBI = :PLOS_BBI,'
+      '  NSER_LICH = :NSER_LICH,'
+      '  ID_KOTEL = :ID_KOTEL,'
+      '  PLOS_BB = :PLOS_BB,'
+      '  MZK = :MZK,'
+      '  BORG_VIDH = :BORG_VIDH,'
+      '  NO_LICH = :NO_LICH,'
+      '  PLOS_IN = :PLOS_IN,'
+      '  PLOS_MZK = :PLOS_MZK,'
+      '  SUMOT = :SUMOT,'
+      '  SUMOTPDV = :SUMOTPDV,'
+      '  LICH_GK = :LICH_GK,'
+      '  TARIF_ENDPDV = :TARIF_ENDPDV,'
+      '  LICH_PN2 = :LICH_PN2,'
+      '  LICH_PK2 = :LICH_PK2,'
+      '  LICH_GK2 = :LICH_GK2,'
+      '  ID_VIDCENA = :ID_VIDCENA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True

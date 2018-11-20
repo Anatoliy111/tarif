@@ -12,7 +12,7 @@ uses
   cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst, Vcl.Menus,
   cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit,
   cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons, IBX.IBQuery, inifiles,
-  cxButtonEdit, cxCalc, cxMemo, cxDBEdit;
+  cxButtonEdit, cxCalc, cxMemo, cxDBEdit, cxCheckBox;
 
 type
   TTarifs = class(TAllMDICh)
@@ -170,7 +170,6 @@ type
     IBTARIF_MESPLOS_BB: TIBBCDField;
     IBTARIF_MESID_POSL: TIntegerField;
     cxGrid1DBTableView1ID_POSL: TcxGridDBColumn;
-    IBTARIFID_VIDAB: TIntegerField;
     IBTARIF_OTHER: TIBDataSet;
     IBTARIF_OTHERID: TIntegerField;
     IBTARIF_OTHERID_TARIF: TIntegerField;
@@ -194,7 +193,6 @@ type
     IBKOTELID: TIntegerField;
     IBKOTELNAME: TIBStringField;
     DSKOTEL: TDataSource;
-    IBTARIF_MESID_VIDAB: TIntegerField;
     cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn;
     IBTARIF_MESMZK: TIBBCDField;
     cxGrid1DBTableView1MZK: TcxGridDBColumn;
@@ -240,7 +238,6 @@ type
     IBTARIF_OTHERSUMOTPDV: TIBBCDField;
     cxGridDBTableView1SUMOT: TcxGridDBColumn;
     cxGridDBTableView1SUMOTPDV: TcxGridDBColumn;
-    IBTARIFUPDID_VIDAB: TIntegerField;
     IBTARIF_MESLICH_GK: TIBBCDField;
     IBTARIFUPDLICH_GK: TIBBCDField;
     cxGrid1DBTableView1LICH_GK: TcxGridDBColumn;
@@ -249,6 +246,34 @@ type
     IBTARIFUPDTARIF_ENDPDV: TIBBCDField;
     IBTARIF_MESTARIF_ENDPDV: TIBBCDField;
     cxGridDBTableView1SENDPDV: TcxGridDBColumn;
+    cxButton10: TcxButton;
+    IBTARIF_OTHERLICH_PN: TIBBCDField;
+    IBTARIF_OTHERLICH_PK: TIBBCDField;
+    IBTARIF_OTHERLICH_GK: TIBBCDField;
+    IBTARIF_OTHERLICH_PN2: TIBBCDField;
+    IBTARIF_OTHERLICH_PK2: TIBBCDField;
+    IBTARIF_OTHERLICH_GK2: TIBBCDField;
+    IBTARIF_OTHERFL_LICH: TIntegerField;
+    cxGridDBTableView1LICH_PN: TcxGridDBColumn;
+    cxGridDBTableView1LICH_PK: TcxGridDBColumn;
+    cxGridDBTableView1LICH_GK: TcxGridDBColumn;
+    cxGridDBTableView1LICH_PN2: TcxGridDBColumn;
+    cxGridDBTableView1LICH_PK2: TcxGridDBColumn;
+    cxGridDBTableView1LICH_GK2: TcxGridDBColumn;
+    IBTARIF_MESLICH_PN2: TIBBCDField;
+    IBTARIF_MESLICH_PK2: TIBBCDField;
+    IBTARIF_MESLICH_GK2: TIBBCDField;
+    IBTARIFUPDLICH_PN2: TIBBCDField;
+    IBTARIFUPDLICH_PK2: TIBBCDField;
+    IBTARIFUPDLICH_GK2: TIBBCDField;
+    cxGrid1DBTableView1LICH_PN2: TcxGridDBColumn;
+    cxGrid1DBTableView1LICH_PK2: TcxGridDBColumn;
+    cxGrid1DBTableView1LICH_GK2: TcxGridDBColumn;
+    cxGridDBTableView1FL_LICH: TcxGridDBColumn;
+    IBTARIF_MESID_VIDCENA: TIntegerField;
+    IBTARIFUPDID_VIDCENA: TIntegerField;
+    IBTARIF_OTHERID_VIDCENA: TIntegerField;
+    cxGridDBTableView1ID_VIDCENA: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -282,6 +307,15 @@ type
     procedure cxButton8Click(Sender: TObject);
     procedure IBTARIF_MESLICH_PNChange(Sender: TField);
     procedure IBTARIF_MESLICH_PKChange(Sender: TField);
+    procedure cxButton10Click(Sender: TObject);
+    procedure IBTARIF_MESLICH_PN2Change(Sender: TField);
+    procedure IBTARIF_MESLICH_PK2Change(Sender: TField);
+    procedure IBTARIF_OTHERLICH_PNChange(Sender: TField);
+    procedure IBTARIF_OTHERLICH_PN2Change(Sender: TField);
+    procedure IBTARIF_OTHERLICH_PK2Change(Sender: TField);
+    procedure IBTARIF_OTHERLICH_PKChange(Sender: TField);
+    procedure IBTARIF_OTHERLICH_GKChange(Sender: TField);
+    procedure IBTARIF_OTHERLICH_GK2Change(Sender: TField);
   private
   procedure Enables(val:boolean);
   procedure Visible;
@@ -294,6 +328,7 @@ type
     Glavna:Tform;
      iniFile:TIniFile;
      procedure Update;
+     procedure WMWindowPosChanging(var Msg: TMessage); message WM_WINDOWPOSCHANGING;
   end;
 
 var
@@ -307,11 +342,29 @@ uses registry, cxGridExportLink, comobj, MainForm, InsertForm, Ins, mytools, Dat
 
 {$R *.dfm}
 
+procedure TTarifs.WMWindowPosChanging(var Msg: TMessage);
+begin
+//   with PWindowPos(Msg.LParam)^ do
+//   begin
+//      X := EnsureRange(X, 10, Main.Width - Self.Width - 50);
+//      Y := EnsureRange(Y, 10, Main.Height - Self.Height - 50);
+//   end;
+end;
+
+
+procedure TTarifs.cxButton10Click(Sender: TObject);
+var ddate:TDate;
+begin
+  inherited;
+  ddate:=cxLookupComboBox1.EditValue;
+Main.Newmes(false,ddate);
+end;
 
 procedure TTarifs.cxButton1Click(Sender: TObject);
-var res,res1:CURRENCY;
+var res,res1,res2:currency;
+    rrr:Variant;
     fl_rasch:Boolean;
-    cenaosn,cenamzk,gkal,normaosn,normaother,plosallmzk,gkalkv,gkalmzk,gkalmzkco,gkalmzkin,send,sinend,gkalm2in:double;
+    cenaosn,cenamzk,gkal,normaosn,normaother,plosallmzk,gkalkv,gkalmzk,gkalmzkco,gkalmzkin,send,sotend,sinend,gkalm2in,plosothlich,gkalothlich:double;
 begin
   inherited;
     Prores.Show;
@@ -436,13 +489,13 @@ begin
        if IBTARIFUPDNO_LICH.Value=0 then
        begin
          IBQuery1.Close;
-         IBQuery1.SQL.Text:='select first 1 * from TARIF_data where id_vidab=:idvidab order by date_mes desc';
-         IBQuery1.ParamByName('idvidab').Value:=IBTARIFUPDID_VIDAB.Value;
+         IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where id_vidab=:idvidcena order by date_mes desc';
+         IBQuery1.ParamByName('idvidcena').Value:=IBTARIFUPDID_VIDCENA.Value;
          IBQuery1.Open;
          IBQuery1.First;
          cenaosn:=IBQuery1.FieldByName('TARIF_SUM1').AsFloat;
          cenamzk:=IBQuery1.FieldByName('TARIF_MZK1').AsFloat;
-         gkal:=IBTARIFUPDLICH_GK.AsFloat;
+         gkal:=IBTARIFUPDLICH_GK.AsFloat+IBTARIFUPDLICH_GK2.AsFloat;
          plosallmzk:=IBTARIFUPDPLOS_BBI.AsFloat+IBTARIFUPDPLOS_IN.AsFloat+IBTARIFUPDPLOS_MZK.AsFloat;
          gkalkv:=gkal/plosallmzk*(IBTARIFUPDPLOS_BBI.AsFloat+IBTARIFUPDPLOS_IN.AsFloat);
          gkalmzk:=gkal-gkalkv;
@@ -453,38 +506,70 @@ begin
             gkalm2in:=gkalmzkin/IBTARIFUPDPLOS_IN.AsFloat
          else gkalm2in:=0;
 
-//          IBQuery1.Close;
-//         IBQuery1.SQL.Text:='select DOM.PLOS_BB as PLOSBB from TARIF_DOM ,DOM where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes';
-//          IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
-//          IBQuery1.Open;
-//          IBQuery1.First;
-         normaosn:=(gkal-gkalmzkin)/IBTARIFUPDPLOS_BB.AsFloat;
+          IBQuery1.Close;
+          IBQuery1.SQL.Text:='select sum(DOM_OTHER.plos_bb) as plos from TARIF_OTHER, DOM_OTHER where TARIF_OTHER.id_tarifmes=:idmes and TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.fl_lich=1';
+          IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
+          IBQuery1.Open;
+          IBQuery1.First;
+          plosothlich:=IBQuery1.FieldByName('plos').AsFloat;
+
+          IBQuery1.Close;
+          IBQuery1.SQL.Text:='select sum(TARIF_OTHER.LICH_GK) as LICH_GK from TARIF_OTHER, DOM_OTHER where TARIF_OTHER.id_tarifmes=:idmes and TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.fl_lich=1';
+          IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
+          IBQuery1.Open;
+          IBQuery1.First;
+
+          gkalothlich:=IBQuery1.FieldByName('LICH_GK').AsFloat;
+
+          IBQuery1.Close;
+          IBQuery1.SQL.Text:='select sum(TARIF_OTHER.LICH_GK2) as LICH_GK2 from TARIF_OTHER, DOM_OTHER where TARIF_OTHER.id_tarifmes=:idmes and TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.fl_lich=1';
+          IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
+          IBQuery1.Open;
+          IBQuery1.First;
+
+          gkalothlich:=gkalothlich+IBQuery1.FieldByName('LICH_GK2').AsFloat;
+
+
+          normaosn:=(gkal-gkalmzkin-gkalothlich)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
+
+
+
          send:=normaosn*cenaosn;
+
          IBTARIFUPD.Edit;
 //         IBTARIFUPDNORMA.Value:=normaosn;
 
-         IBTARIFUPDTARIF_END.Value:=send;
-         IBTARIFUPDTARIF_ENDPDV.Value:=send*1.2;
-         IBTARIFUPDMZK.Value:=(gkalm2in*cenamzk)*1.2;
-         IBTARIFUPDSUMOT.Value:=send*IBTARIFUPDPLOS_BBI.AsFloat;
-         IBTARIFUPDSUMOTPDV.Value:=(send*IBTARIFUPDPLOS_BBI.AsFloat)*1.2;
+
+         IBTARIFUPDTARIF_END.Value:=SimpleRoundTo(send,-2);
+         IBTARIFUPDTARIF_ENDPDV.AsCurrency:=SimpleRoundTo(send,-2)*1.2;
+         IBTARIFUPDMZK.AsCurrency:=(gkalm2in*cenamzk)*1.2;
+         IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(send,-2)*IBTARIFUPDPLOS_BBI.AsFloat;
+         IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(send,-2)*IBTARIFUPDPLOS_BBI.AsFloat)*1.2;
          IBTARIFUPD.Post;
          IBTARIF_OTHER.Close;
          IBTARIF_OTHER.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
          IBTARIF_OTHER.Open;
          while not IBTARIF_OTHER.eof do
          begin
-           gkal:=normaosn*IBTARIF_OTHERPLOS_BB.AsFloat;
+//         gkal:=normaosn*IBTARIF_OTHERPLOS_BB.AsFloat;
            IBQuery1.Close;
-           IBQuery1.SQL.Text:='select first 1 * from TARIF_data where id_vidab=:idvidab order by date_mes desc';
-           IBQuery1.ParamByName('idvidab').Value:=IBTARIF_OTHERID_VIDAB.Value;
+           IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where id_vidab=:idvidcena order by date_mes desc';
+           IBQuery1.ParamByName('idvidcena').Value:=IBTARIF_OTHERID_VIDCENA.Value;
            IBQuery1.Open;
            IBQuery1.First;
+
+           if IBTARIF_OTHERFL_LICH.Value=1 then
+              normaother:=(IBTARIF_OTHERLICH_GK.AsFloat+IBTARIF_OTHERLICH_GK2.AsFloat)/IBTARIF_OTHERPLOS_BB.AsFloat
+           else
+              normaother:=normaosn;
+
+           sotend:=normaother*IBQuery1.FieldByName('TARIF_SUM1').AsFloat;
            IBTARIF_OTHER.Edit;
-           IBTARIF_OTHERSEND.Value:=(normaosn*IBQuery1.FieldByName('TARIF_SUM1').AsFloat);
-           IBTARIF_OTHERSENDPDV.Value:=(normaosn*IBQuery1.FieldByName('TARIF_SUM1').AsFloat)*1.2;
-           IBTARIF_OTHERSUMOT.Value:=(normaosn*IBQuery1.FieldByName('TARIF_SUM1').AsFloat)*IBTARIF_OTHERPLOS_BB.AsFloat;
-           IBTARIF_OTHERSUMOTPDV.Value:=((normaosn*IBQuery1.FieldByName('TARIF_SUM1').AsFloat)*IBTARIF_OTHERPLOS_BB.AsFloat)*1.2;
+           IBTARIF_OTHERSEND.Value:=SimpleRoundTo(sotend,-2);
+           IBTARIF_OTHERSENDPDV.Value:=SimpleRoundTo(sotend,-2)*1.2;
+           IBTARIF_OTHERMZK.Value:=IBTARIFUPDMZK.AsCurrency;
+           IBTARIF_OTHERSUMOT.Value:=SimpleRoundTo(sotend,-2)*IBTARIF_OTHERPLOS_BB.AsFloat;
+           IBTARIF_OTHERSUMOTPDV.Value:=(SimpleRoundTo(sotend,-2)*IBTARIF_OTHERPLOS_BB.AsFloat)*1.2;
            IBTARIF_OTHER.Post;
          IBTARIF_OTHER.Next;
          end;
@@ -643,7 +728,7 @@ begin
           end;
 
           IBQuery2.close;
-          IBQuery2.SQL.Text:='select tarif_mes.id, tarif.id_posl, tarif_dom.id_dom, tarif.id_vidab from tarif, tarif_dom, tarif_mes where tarif_mes.id=tarif_dom.id_tarifmes and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+          IBQuery2.SQL.Text:='select tarif_mes.id, tarif.id_posl, tarif_dom.id_dom from tarif, tarif_dom, tarif_mes where tarif_mes.id=tarif_dom.id_tarifmes and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
           IBQuery2.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
           IBQuery2.open;
           if IBQuery2.Locate('id_posl;id_dom', VarArrayOf([IBPOSLID.Value,IBDOMID.Value]),[]) then
@@ -670,7 +755,7 @@ begin
       Application.ProcessMessages;
 
           IBQuery2.close;
-          IBQuery2.SQL.Text:='select tarif_mes.id, tarif_mes.id_tarif, tarif.id_posl, tarif.id_vidab, tarif_dom.id_dom from tarif, tarif_dom, tarif_mes where tarif_mes.id=tarif_dom.id_tarifmes and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+          IBQuery2.SQL.Text:='select tarif_mes.id, tarif_mes.id_tarif, tarif.id_posl, tarif_dom.id_dom from tarif, tarif_dom, tarif_mes where tarif_mes.id=tarif_dom.id_tarifmes and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
           IBQuery2.ParamByName('dt').Value:=main.IBPERIODDATA.Value;
           IBQuery2.open;
 
@@ -891,6 +976,9 @@ self.fl_post:=1;
   IBTARIF_MES.open;
   IBTARIF_OTHER.open;
 
+  Visible;
+
+
   IBTARIF_MES.Locate('id',idd,[]);
 end;
 
@@ -952,6 +1040,7 @@ end;
 procedure TTarifs.cxGrid1DBTableView1FocusedRecordChanged(
   Sender: TcxCustomGridTableView; APrevFocusedRecord,
   AFocusedRecord: TcxCustomGridRecord; ANewItemRecordFocusingChanged: Boolean);
+var FL_2DATE, FL_OTHERLICH:integer;
 begin
   inherited;
   IBTARIF_COMP.close;
@@ -965,6 +1054,68 @@ begin
   IBTARIF_OTHER.close;
   IBTARIF_OTHER.ParamByName('idmes').AsInteger:=IBTARIF_MESID.Value;
   IBTARIF_OTHER.open;
+
+
+
+  if IBPOSLWID.Value='ot' then
+  begin
+    DSTARIF_OTHER.Enabled:=false;
+         IBQuery1.Close;
+         IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA order by date_mes desc';
+         IBQuery1.Open;
+         IBQuery1.First;
+         FL_2DATE:=IBQuery1.FieldByName('FL_2DATE').AsInteger;
+
+         IBQuery1.Close;
+         IBQuery1.SQL.Text:='select max(fl_lich) as flich from TARIF_OTHER where TARIF_OTHER.id_tarifmes=:idmes';
+         IBQuery1.ParamByName('idmes').AsInteger:=IBTARIF_MESID.Value;
+         IBQuery1.Open;
+         IBQuery1.First;
+         FL_OTHERLICH:=IBQuery1.FieldByName('flich').AsInteger;
+
+   if FL_OTHERLICH=1 then
+    begin
+      cxGridDBTableView1LICH_PN.Visible:=true;
+      cxGridDBTableView1LICH_PK.Visible:=true;
+      cxGridDBTableView1LICH_GK.Visible:=true;
+      cxGridDBTableView1LICH_PN2.Visible:=true;
+      cxGridDBTableView1LICH_PK2.Visible:=true;
+      cxGridDBTableView1LICH_GK2.Visible:=true;
+    end
+    else
+    begin
+      cxGridDBTableView1LICH_PN.Visible:=false;
+      cxGridDBTableView1LICH_PK.Visible:=false;
+      cxGridDBTableView1LICH_GK.Visible:=false;
+      cxGridDBTableView1LICH_PN2.Visible:=false;
+      cxGridDBTableView1LICH_PK2.Visible:=false;
+      cxGridDBTableView1LICH_GK2.Visible:=false;
+    end;
+
+    if FL_2DATE=1 then
+    begin
+      cxGrid1DBTableView1LICH_PN2.Visible:=true;
+      cxGrid1DBTableView1LICH_PK2.Visible:=true;
+      cxGrid1DBTableView1LICH_GK2.Visible:=true;
+      cxGridDBTableView1LICH_PN2.Visible:=true;
+      cxGridDBTableView1LICH_PK2.Visible:=true;
+      cxGridDBTableView1LICH_GK2.Visible:=true;
+    end
+    else
+    begin
+      cxGrid1DBTableView1LICH_PN2.Visible:=false;
+      cxGrid1DBTableView1LICH_PK2.Visible:=false;
+      cxGrid1DBTableView1LICH_GK2.Visible:=false;
+      cxGridDBTableView1LICH_PN2.Visible:=false;
+      cxGridDBTableView1LICH_PK2.Visible:=false;
+      cxGridDBTableView1LICH_GK2.Visible:=false;
+    end;
+
+      DSTARIF_OTHER.Enabled:=true;
+
+  end;
+
+
 end;
 
 procedure TTarifs.cxLookupComboBox1PropertiesChange(Sender: TObject);
@@ -983,7 +1134,7 @@ begin
       Enables(false);
    end;
     IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, tarif.id_vidab from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
   IBTARIF_MES.open;
@@ -1014,7 +1165,7 @@ begin
   inherited;
 //  UpdateGrids;
     IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, tarif.id_vidab from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
   IBTARIF_MES.open;
@@ -1074,10 +1225,10 @@ begin
 end;
 
 procedure TTarifs.Visible;
+var FL_2DATE, FL_OTHERLICH:integer;
 begin
 
     DSTARIF_MES.Enabled:=false;
-
 
     cxGrid1DBTableView1TARIF_FACT.Visible:=false;
     cxGrid1DBTableView1TARIF_RN.Visible:=false;
@@ -1132,6 +1283,21 @@ begin
 
   if IBPOSLWID.Value='ot' then
   begin
+
+         IBQuery1.Close;
+         IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA order by date_mes desc';
+         IBQuery1.Open;
+         IBQuery1.First;
+         FL_2DATE:=IBQuery1.FieldByName('FL_2DATE').AsInteger;
+
+         IBQuery1.Close;
+         IBQuery1.SQL.Text:='select max(fl_lich) as flich from TARIF_OTHER where TARIF_OTHER.id_tarifmes=:idmes';
+         IBQuery1.ParamByName('idmes').AsInteger:=IBTARIF_MESID.Value;
+         IBQuery1.Open;
+         IBQuery1.First;
+         FL_OTHERLICH:=IBQuery1.FieldByName('flich').AsInteger;
+
+
     cxGrid1DBTableView1NSER_LICH.Visible:=true;
     cxGrid1DBTableView1ID_KOTEL.Visible:=true;
     cxGrid1DBTableView1PLOS_BBI.Visible:=true;
@@ -1149,6 +1315,46 @@ begin
     cxGridDBTableView1SENDPDV.Visible:=true;
     cxGrid1DBTableView1LICH_GK.Visible:=true;
     cxGrid1DBTableView1TARIF_ENDPDV.Visible:=true;
+
+
+   if FL_OTHERLICH=1 then
+    begin
+      cxGridDBTableView1LICH_PN.Visible:=true;
+      cxGridDBTableView1LICH_PK.Visible:=true;
+      cxGridDBTableView1LICH_GK.Visible:=true;
+      cxGridDBTableView1LICH_PN2.Visible:=true;
+      cxGridDBTableView1LICH_PK2.Visible:=true;
+      cxGridDBTableView1LICH_GK2.Visible:=true;
+    end
+    else
+    begin
+      cxGridDBTableView1LICH_PN.Visible:=false;
+      cxGridDBTableView1LICH_PK.Visible:=false;
+      cxGridDBTableView1LICH_GK.Visible:=false;
+      cxGridDBTableView1LICH_PN2.Visible:=false;
+      cxGridDBTableView1LICH_PK2.Visible:=false;
+      cxGridDBTableView1LICH_GK2.Visible:=false;
+    end;
+
+    if FL_2DATE=1 then
+    begin
+      cxGrid1DBTableView1LICH_PN2.Visible:=true;
+      cxGrid1DBTableView1LICH_PK2.Visible:=true;
+      cxGrid1DBTableView1LICH_GK2.Visible:=true;
+      cxGridDBTableView1LICH_PN2.Visible:=true;
+      cxGridDBTableView1LICH_PK2.Visible:=true;
+      cxGridDBTableView1LICH_GK2.Visible:=true;
+    end
+    else
+    begin
+      cxGrid1DBTableView1LICH_PN2.Visible:=false;
+      cxGrid1DBTableView1LICH_PK2.Visible:=false;
+      cxGrid1DBTableView1LICH_GK2.Visible:=false;
+      cxGridDBTableView1LICH_PN2.Visible:=false;
+      cxGridDBTableView1LICH_PK2.Visible:=false;
+      cxGridDBTableView1LICH_GK2.Visible:=false;
+    end;
+
   end;
 
   DSTARIF_MES.Enabled:=true;
@@ -1181,7 +1387,7 @@ begin
   cxLookupComboBox1.EditValue:= IBPERIODDATA.Value;
 
   IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, tarif.id_vidab from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
   IBTARIF_MES.open;
@@ -1274,11 +1480,27 @@ self.fl_post:=1;
 
 end;
 
+procedure TTarifs.IBTARIF_MESLICH_PK2Change(Sender: TField);
+begin
+  inherited;
+  IBTARIF_MES.edit;
+  IBTARIF_MESLICH_GK2.AsFloat:= IBTARIF_MESLICH_PK2.AsFloat-IBTARIF_MESLICH_PN2.AsFloat;
+  IBTARIF_MES.post;
+end;
+
 procedure TTarifs.IBTARIF_MESLICH_PKChange(Sender: TField);
 begin
   inherited;
   IBTARIF_MES.edit;
   IBTARIF_MESLICH_GK.AsFloat:= IBTARIF_MESLICH_PK.AsFloat-IBTARIF_MESLICH_PN.AsFloat;
+  IBTARIF_MES.post;
+end;
+
+procedure TTarifs.IBTARIF_MESLICH_PN2Change(Sender: TField);
+begin
+  inherited;
+  IBTARIF_MES.edit;
+  IBTARIF_MESLICH_GK2.AsFloat:= IBTARIF_MESLICH_PK2.AsFloat-IBTARIF_MESLICH_PN2.AsFloat;
   IBTARIF_MES.post;
 end;
 
@@ -1300,6 +1522,70 @@ begin
     IBTARIFNAME.Value:=IBTARIF_MESNAME.Value;
     IBTARIF.Post;
   end;
+end;
+
+procedure TTarifs.IBTARIF_OTHERLICH_GK2Change(Sender: TField);
+begin
+  inherited;
+  if IBTARIF_OTHERFL_LICH.Value=0 then IBTARIF_OTHER.Cancel;
+end;
+
+procedure TTarifs.IBTARIF_OTHERLICH_GKChange(Sender: TField);
+begin
+  inherited;
+  if IBTARIF_OTHERFL_LICH.Value=0 then IBTARIF_OTHER.Cancel;
+end;
+
+procedure TTarifs.IBTARIF_OTHERLICH_PK2Change(Sender: TField);
+begin
+  inherited;
+  if IBTARIF_OTHERFL_LICH.Value=1 then
+  begin
+  IBTARIF_OTHER.edit;
+  IBTARIF_OTHERLICH_GK2.AsFloat:= IBTARIF_OTHERLICH_PK2.AsFloat-IBTARIF_OTHERLICH_PN2.AsFloat;
+  IBTARIF_OTHER.post;
+  end
+  else
+    IBTARIF_OTHER.Cancel;
+end;
+
+procedure TTarifs.IBTARIF_OTHERLICH_PKChange(Sender: TField);
+begin
+  inherited;
+    if IBTARIF_OTHERFL_LICH.Value=1 then
+  begin
+  IBTARIF_OTHER.edit;
+  IBTARIF_OTHERLICH_GK.AsFloat:= IBTARIF_OTHERLICH_PK.AsFloat-IBTARIF_OTHERLICH_PN.AsFloat;
+  IBTARIF_OTHER.post;
+  end
+  else
+    IBTARIF_OTHER.Cancel;
+end;
+
+procedure TTarifs.IBTARIF_OTHERLICH_PN2Change(Sender: TField);
+begin
+  inherited;
+ if IBTARIF_OTHERFL_LICH.Value=1 then
+  begin
+  IBTARIF_OTHER.edit;
+  IBTARIF_OTHERLICH_GK2.AsFloat:= IBTARIF_OTHERLICH_PK2.AsFloat-IBTARIF_OTHERLICH_PN2.AsFloat;
+  IBTARIF_OTHER.post;
+  end
+  else
+    IBTARIF_OTHER.Cancel;
+end;
+
+procedure TTarifs.IBTARIF_OTHERLICH_PNChange(Sender: TField);
+begin
+  inherited;
+    if IBTARIF_OTHERFL_LICH.Value=1 then
+  begin
+  IBTARIF_OTHER.edit;
+  IBTARIF_OTHERLICH_GK.AsFloat:= IBTARIF_OTHERLICH_PK.AsFloat-IBTARIF_OTHERLICH_PN.AsFloat;
+  IBTARIF_OTHER.post;
+  end
+  else
+    IBTARIF_OTHER.Cancel;
 end;
 
 procedure TTarifs.IBULBeforePost(DataSet: TDataSet);

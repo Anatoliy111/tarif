@@ -22,7 +22,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -482,10 +482,6 @@
       ItemLinks = <
         item
           Visible = True
-          ItemName = 'dxBarButton17'
-        end
-        item
-          Visible = True
           ItemName = 'dxBarButton18'
         end>
     end
@@ -790,6 +786,14 @@
         item
           Visible = True
           ItemName = 'dxBarButton10'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton17'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton26'
         end>
     end
     object dxBarSubItem9: TdxBarSubItem
@@ -1119,9 +1123,9 @@
       PropertiesClassName = 'TcxTrackBarProperties'
     end
     object dxBarButton17: TdxBarButton
-      Caption = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1072#1076#1088#1077#1089#1072#1084
+      Caption = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1073#1091#1076#1080#1085#1082#1072#1093
       Category = 0
-      Hint = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1072#1076#1088#1077#1089#1072#1084
+      Hint = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1073#1091#1076#1080#1085#1082#1072#1093
       Visible = ivAlways
       OnClick = dxBarButton17Click
     end
@@ -1173,6 +1177,13 @@
       Visible = ivAlways
       OnClick = dxBarButton25Click
     end
+    object dxBarButton26: TdxBarButton
+      Caption = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1110#1085#1096#1080#1084
+      Category = 0
+      Hint = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1110#1085#1096#1080#1084
+      Visible = ivAlways
+      OnClick = dxBarButton26Click
+    end
   end
   object ActionList1: TActionList
     Images = ImageList2
@@ -1211,7 +1222,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2059,7 +2070,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2382,7 +2393,6 @@
     Top = 368
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultDatabase = DataM.IBDatabase1
     Params.Strings = (
       'read_committed'
@@ -2613,7 +2623,10 @@
       
         '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
         'CH, PLOS_IN, '
-      '   PLOS_MZK, SUMOT, SUMOTPDV)'
+      
+        '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
+        'ICH_PK2, '
+      '   LICH_GK2, ID_VIDCENA)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -2624,7 +2637,10 @@
       
         '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
         'G_VIDH, '
-      '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV)')
+      
+        '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
+        'TARIF_ENDPDV, '
+      '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -2653,7 +2669,13 @@
       '  PLOS_IN,'
       '  PLOS_MZK,'
       '  SUMOT,'
-      '  SUMOTPDV'
+      '  SUMOTPDV,'
+      '  LICH_GK,'
+      '  TARIF_ENDPDV,'
+      '  LICH_PN2,'
+      '  LICH_PK2,'
+      '  LICH_GK2,'
+      '  ID_VIDCENA'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -2688,7 +2710,13 @@
       '  PLOS_IN = :PLOS_IN,'
       '  PLOS_MZK = :PLOS_MZK,'
       '  SUMOT = :SUMOT,'
-      '  SUMOTPDV = :SUMOTPDV'
+      '  SUMOTPDV = :SUMOTPDV,'
+      '  LICH_GK = :LICH_GK,'
+      '  TARIF_ENDPDV = :TARIF_ENDPDV,'
+      '  LICH_PN2 = :LICH_PN2,'
+      '  LICH_PK2 = :LICH_PK2,'
+      '  LICH_GK2 = :LICH_GK2,'
+      '  ID_VIDCENA = :ID_VIDCENA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2846,6 +2874,40 @@
       Origin = '"TARIF_MES"."SUMOTPDV"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIF_MESLICH_GK: TIBBCDField
+      FieldName = 'LICH_GK'
+      Origin = '"TARIF_MES"."LICH_GK"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESTARIF_ENDPDV: TIBBCDField
+      FieldName = 'TARIF_ENDPDV'
+      Origin = '"TARIF_MES"."TARIF_ENDPDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESLICH_PN2: TIBBCDField
+      FieldName = 'LICH_PN2'
+      Origin = '"TARIF_MES"."LICH_PN2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESLICH_PK2: TIBBCDField
+      FieldName = 'LICH_PK2'
+      Origin = '"TARIF_MES"."LICH_PK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESLICH_GK2: TIBBCDField
+      FieldName = 'LICH_GK2'
+      Origin = '"TARIF_MES"."LICH_GK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESID_VIDCENA: TIntegerField
+      FieldName = 'ID_VIDCENA'
+      Origin = '"TARIF_MES"."ID_VIDCENA"'
     end
   end
   object DSTARIF_MES: TDataSource
@@ -3005,12 +3067,18 @@
       'insert into TARIF_OTHER'
       
         '  (ID, ID_TARIF, ID_TARIFMES, ID_DOMOTHER, SPLAN, SFACT, NORMA, ' +
-        'SEND, MZK)'
+        'SEND, MZK, '
+      
+        '   LICH_PN, LICH_PK, LICH_GK, LICH_PN2, LICH_PK2, LICH_GK2, FL_L' +
+        'ICH, ID_VIDCENA)'
       'values'
       
         '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
         'NORMA, '
-      '   :SEND, :MZK)')
+      
+        '   :SEND, :MZK, :LICH_PN, :LICH_PK, :LICH_GK, :LICH_PN2, :LICH_P' +
+        'K2, :LICH_GK2, '
+      '   :FL_LICH, :ID_VIDCENA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -3021,7 +3089,18 @@
       '  SFACT,'
       '  NORMA,'
       '  SEND,'
-      '  MZK'
+      '  MZK,'
+      '  SUMOT,'
+      '  SUMOTPDV,'
+      '  SENDPDV,'
+      '  LICH_PN,'
+      '  LICH_PK,'
+      '  LICH_GK,'
+      '  LICH_PN2,'
+      '  LICH_PK2,'
+      '  LICH_GK2,'
+      '  FL_LICH,'
+      '  ID_VIDCENA'
       'from TARIF_OTHER '
       'where'
       '  ID = :ID')
@@ -3038,7 +3117,15 @@
       '  SFACT = :SFACT,'
       '  NORMA = :NORMA,'
       '  SEND = :SEND,'
-      '  MZK = :MZK'
+      '  MZK = :MZK,'
+      '  LICH_PN = :LICH_PN,'
+      '  LICH_PK = :LICH_PK,'
+      '  LICH_GK = :LICH_GK,'
+      '  LICH_PN2 = :LICH_PN2,'
+      '  LICH_PK2 = :LICH_PK2,'
+      '  LICH_GK2 = :LICH_GK2,'
+      '  FL_LICH = :FL_LICH,'
+      '  ID_VIDCENA = :ID_VIDCENA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -3093,6 +3180,68 @@
       Origin = '"TARIF_OTHER"."MZK"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIF_OTHERSUMOT: TIBBCDField
+      FieldName = 'SUMOT'
+      Origin = '"TARIF_OTHER"."SUMOT"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERSUMOTPDV: TIBBCDField
+      FieldName = 'SUMOTPDV'
+      Origin = '"TARIF_OTHER"."SUMOTPDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERSENDPDV: TIBBCDField
+      FieldName = 'SENDPDV'
+      Origin = '"TARIF_OTHER"."SENDPDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERLICH_PN: TIBBCDField
+      FieldName = 'LICH_PN'
+      Origin = '"TARIF_OTHER"."LICH_PN"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_PK: TIBBCDField
+      FieldName = 'LICH_PK'
+      Origin = '"TARIF_OTHER"."LICH_PK"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_GK: TIBBCDField
+      FieldName = 'LICH_GK'
+      Origin = '"TARIF_OTHER"."LICH_GK"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_PN2: TIBBCDField
+      FieldName = 'LICH_PN2'
+      Origin = '"TARIF_OTHER"."LICH_PN2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_PK2: TIBBCDField
+      FieldName = 'LICH_PK2'
+      Origin = '"TARIF_OTHER"."LICH_PK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_GK2: TIBBCDField
+      FieldName = 'LICH_GK2'
+      Origin = '"TARIF_OTHER"."LICH_GK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERFL_LICH: TIntegerField
+      FieldName = 'FL_LICH'
+      Origin = '"TARIF_OTHER"."FL_LICH"'
+    end
+    object IBTARIF_OTHERID_VIDCENA: TIntegerField
+      FieldName = 'ID_VIDCENA'
+      Origin = '"TARIF_OTHER"."ID_VIDCENA"'
     end
   end
   object DSTARIF_OTHER: TDataSource

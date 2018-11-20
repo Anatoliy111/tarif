@@ -88,7 +88,6 @@ type
     IBTARIFID: TIntegerField;
     IBTARIFNAME: TIBStringField;
     IBTARIFID_POSL: TIntegerField;
-    IBTARIFID_VIDAB: TIntegerField;
     procedure IBPOSLBeforePost(DataSet: TDataSet);
     procedure IBDOMBeforePost(DataSet: TDataSet);
     procedure IBULBeforePost(DataSet: TDataSet);

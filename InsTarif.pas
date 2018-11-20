@@ -127,9 +127,6 @@ type
     IBQuery2ID: TIntegerField;
     IBTARIF_MESID_POSL: TIntegerField;
     cxDBLabel2: TcxDBLabel;
-    IBTARIF_MESID_VIDAB: TIntegerField;
-    cxGridDBTableView2ID_VIDAB: TcxGridDBColumn;
-    IBTARIFID_VIDAB: TIntegerField;
     IBQuery3: TIBQuery;
     DSQuery3: TDataSource;
     IBQuery3ID: TIntegerField;
@@ -153,6 +150,28 @@ type
     IBTARIF_MESPLOS_MZK: TIBBCDField;
     cxGridDBTableView2PLOS_IN: TcxGridDBColumn;
     cxGridDBTableView2PLOS_MZK: TcxGridDBColumn;
+    IBTARIF_OTHERSUMOT: TIBBCDField;
+    IBTARIF_OTHERSUMOTPDV: TIBBCDField;
+    IBTARIF_OTHERSENDPDV: TIBBCDField;
+    IBTARIF_OTHERLICH_PN: TIBBCDField;
+    IBTARIF_OTHERLICH_PK: TIBBCDField;
+    IBTARIF_OTHERLICH_GK: TIBBCDField;
+    IBTARIF_OTHERLICH_PN2: TIBBCDField;
+    IBTARIF_OTHERLICH_PK2: TIBBCDField;
+    IBTARIF_OTHERLICH_GK2: TIBBCDField;
+    IBTARIF_OTHERFL_LICH: TIntegerField;
+    cxGridDBTableView1FL_LICH: TcxGridDBColumn;
+    IBTARIF_MESSUMOT: TIBBCDField;
+    IBTARIF_MESSUMOTPDV: TIBBCDField;
+    IBTARIF_MESLICH_GK: TIBBCDField;
+    IBTARIF_MESTARIF_ENDPDV: TIBBCDField;
+    IBTARIF_MESLICH_PN2: TIBBCDField;
+    IBTARIF_MESLICH_PK2: TIBBCDField;
+    IBTARIF_MESLICH_GK2: TIBBCDField;
+    IBTARIF_MESID_VIDCENA: TIntegerField;
+    IBTARIF_OTHERID_VIDCENA: TIntegerField;
+    cxGridDBTableView2ID_VIDCENA: TcxGridDBColumn;
+    cxGridDBTableView1ID_VIDCENA: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -178,7 +197,6 @@ type
     procedure cxGrid1DBTableView1ID_DOMPropertiesEditValueChanged(
       Sender: TObject);
     procedure cxButton9Click(Sender: TObject);
-    procedure IBTARIF_MESID_VIDABChange(Sender: TField);
     procedure cxButton7Click(Sender: TObject);
     procedure cxButton8Click(Sender: TObject);
     procedure IBTARIF_MESBeforePost(DataSet: TDataSet);
@@ -271,7 +289,7 @@ begin
 
       razn:=IBTARIF_DOM1PLOS_BB.AsFloat-IBTARIF_MESPLOS_BB.AsFloat;
       IBQuery4.Close;
-      IBQuery4.SQL.Text:='select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL, TARIF.ID_VIDAB from TARIF_MES, TARIF, TARIF_DOM'+
+      IBQuery4.SQL.Text:='select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL from TARIF_MES, TARIF, TARIF_DOM'+
                              ' where tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif and tarif_mes.id=tarif_dom.id_tarifmes and tarif.id_posl=:posl and tarif_dom.id_dom=:iddom';
 
       IBQuery4.ParamByName('iddom').Value:=IBTARIF_DOM1ID_DOM.AsInteger;
@@ -390,7 +408,7 @@ begin
   if (poslwid='ot') and (iddom<>0) then
   begin
   IBTARIF_MES.Close;
-  IBTARIF_MES.SelectSQL.Text:='select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL, TARIF.ID_VIDAB from TARIF_MES, TARIF, TARIF_DOM'+
+  IBTARIF_MES.SelectSQL.Text:='select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL from TARIF_MES, TARIF, TARIF_DOM'+
                          ' where tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif and tarif_mes.id=tarif_dom.id_tarifmes and tarif.id_posl=:posl and tarif_dom.id_dom=:iddom';
 
   IBTARIF_MES.ParamByName('iddom').Value:=iddom;
@@ -402,7 +420,7 @@ begin
   begin
 
   IBTARIF_MES.Close;
-  IBTARIF_MES.SelectSQL.Text:='select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL, TARIF.ID_VIDAB from TARIF_MES, TARIF where tarif_mes.id=:idmes and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select TARIF_MES.* ,TARIF.NAME, TARIF.ID_POSL from TARIF_MES, TARIF where tarif_mes.id=:idmes and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('idmes').Value:=idmes;
   IBTARIF_MES.Open;
   end;
@@ -444,7 +462,7 @@ begin
   IBQuery2.ParamByName('idmes').Value:=idmes;
   IBQuery2.Open;
   IBQuery3.Close;
-  IBQuery3.ParamByName('idvidab').Value:=idmes;
+//  IBQuery3.ParamByName('idvidab').Value:=idmes;
   IBQuery3.Open;
 
 
@@ -460,9 +478,9 @@ begin
   IBTARIF_DOM1.Locate('id',tardomid,[]);
   IBTARIF_OTHER.Locate('id',tarotherid,[]);
 
-  IBQuery3.Close;
-  IBQuery3.ParamByName('idvidab').Value:=IBTARIF_MESID_VIDAB.Value;
-  IBQuery3.Open;
+//  IBQuery3.Close;
+//  IBQuery3.ParamByName('idvidab').Value:=IBTARIF_MESID_VIDAB.Value;
+//  IBQuery3.Open;
 
 
 
@@ -508,9 +526,9 @@ begin
    exit;
   end;
 
-  if IBTARIF_MESID_VIDAB.Value=0 then
+  if IBTARIF_MESID_VIDCENA.Value=0 then
   begin
-   Application.MessageBox('Виберіть вид тарифу','Помилка',16);
+   Application.MessageBox('Виберіть вид ціни','Помилка',16);
    exit;
   end;
 
@@ -667,12 +685,12 @@ iddom:=0;
       IBTARIF.Edit;
       IBTARIFNAME.Value:=poslname+' '+IBTARIF_DOM1NAME.AsString;
       IBTARIFID_POSL.Value:=poslid;
-      IBTARIFID_VIDAB.Value:=IBTARIF_DOM1ID_VIDAB.Value;
       IBTARIF.Post;
       IBTARIF_MES.Insert;
       IBTARIF_MES.Edit;
       IBTARIF_MESID_TARIF.Value:=IBTARIFID.Value;
       IBTARIF_MESDATA.Value:=main.IBPERIODDATA.Value;
+      IBTARIF_MESID_VIDCENA.Value:=IBTARIF_DOM1ID_VIDAB.Value;
       IBTARIF_MES.Post;
 
         IBTARIF_DOM1.Insert;
@@ -716,7 +734,7 @@ procedure TInsTar.cxGrid1DBTableView1ID_DOMPropertiesEditValueChanged(
   Sender: TObject);
 begin
   inherited;
-  if IBTARIF_DOM1ID_DOM.AsInteger>1 then
+  if (IBTARIF_DOM1ID_DOM.AsInteger>1) and (IBTARIF_OTHER.RecordCount>0) then
   begin
     case MessageBox(handle,pchar('Ви дійсно бажаєте змінити будинок? Інші абоненти по цьому будинку буде видалено!'),pchar(''),36) of
     IDNO: IBTARIF_DOM1.Cancel;
@@ -809,7 +827,7 @@ begin
   IBQuery2.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
   IBQuery2.Open;
   IBQuery3.Close;
-  IBQuery3.ParamByName('idvidab').Value:=IBTARIF_MESID_VIDAB.Value;
+//  IBQuery3.ParamByName('idvidab').Value:=IBTARIF_MESID_VIDAB.Value;
   IBQuery3.Open;
 
 end;
@@ -970,37 +988,6 @@ procedure TInsTar.IBTARIF_MESBeforePost(DataSet: TDataSet);
 begin
   inherited;
 fl_postt:=1;
-end;
-
-procedure TInsTar.IBTARIF_MESID_VIDABChange(Sender: TField);
-var idmes,idvid,iddom:integer;
-begin
-  inherited;
-
-//  if (IBTARIF_MESID_VIDAB.Value<>IBTARIF_DOM1ID_VIDAB.Value) and (IBTARIF_DOM1ID_VIDAB.Value<>0) then
-//  begin
-//     Application.MessageBox('Неможливо змінити вид так як вже додані будинки мають інший вид','Помилка',16);
-//     IBTARIF_MES.Cancel;
-//     exit;
-//  end;
-
-  idmes:=IBTARIF_MESID.Value;
-  idvid:=IBTARIF_MESID_VIDAB.Value;
-  iddom:=IBTARIF_DOM1ID_DOM.Value;
-
-
-  IBTARIF_MES.First;
-  while not IBTARIF_MES.Eof do
-  begin
-    if IBTARIF.Locate('id',IBTARIF_MESID_TARIF.Value,[]) then
-    begin
-      IBTARIF.Edit;
-      IBTARIFID_VIDAB.Value:=idvid;
-      IBTARIF.Post;
-    end;
-  IBTARIF_MES.Next;
-  end;
-  Update(idmes,iddom);
 end;
 
 procedure TInsTar.IBTARIF_MESNAMEChange(Sender: TField);

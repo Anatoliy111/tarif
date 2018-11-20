@@ -910,7 +910,7 @@
         TabOrder = 1
         object cxGridDBTableView7: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
-          DataController.DataSource = DSTARIF_DATA
+          DataController.DataSource = DSTARIF_CENA
           DataController.DetailKeyFieldNames = 'ID'
           DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -1056,6 +1056,7 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Top = 696
   end
   object IBPOSL: TIBDataSet
@@ -1579,18 +1580,18 @@
     Left = 296
     Top = 408
   end
-  object IBTARIF_DATA: TIBDataSet
+  object IBTARIF_CENA: TIBDataSet
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
-    BeforePost = IBTARIF_DATABeforePost
+    BeforePost = IBTARIF_CENABeforePost
     BufferChunks = 1000
     CachedUpdates = False
     DeleteSQL.Strings = (
-      'delete from TARIF_DATA'
+      'delete from TARIF_CENA'
       'where'
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
-      'insert into TARIF_DATA'
+      'insert into TARIF_CENA'
       
         '  (ID, ID_VIDAB, DATE_MES, ID_POSL, DATE_N1, TARIF_SUM1, DATE_N2' +
         ', TARIF_SUM2, '
@@ -1613,13 +1614,13 @@
       '  FL_2DATE,'
       '  TARIF_MZK1,'
       '  TARIF_MZK2'
-      'from TARIF_DATA '
+      'from TARIF_CENA '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'select * from TARIF_DATA where DATE_MES=:dt')
+      'select * from TARIF_CENA where DATE_MES=:dt')
     ModifySQL.Strings = (
-      'update TARIF_DATA'
+      'update TARIF_CENA'
       'set'
       '  ID = :ID,'
       '  ID_VIDAB = :ID_VIDAB,'
@@ -1637,65 +1638,65 @@
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'ID'
-    GeneratorField.Generator = 'GEN_TARIF_DATA_ID'
+    GeneratorField.Generator = 'GEN_TARIF_CENA_ID'
     Left = 360
     Top = 352
-    object IBTARIF_DATAID: TIntegerField
+    object IBTARIF_CENAID: TIntegerField
       FieldName = 'ID'
-      Origin = '"TARIF_DATA"."ID"'
+      Origin = '"TARIF_CENA"."ID"'
       Required = True
     end
-    object IBTARIF_DATAID_VIDAB: TIntegerField
+    object IBTARIF_CENAID_VIDAB: TIntegerField
       FieldName = 'ID_VIDAB'
-      Origin = '"TARIF_DATA"."ID_VIDAB"'
+      Origin = '"TARIF_CENA"."ID_VIDAB"'
     end
-    object IBTARIF_DATADATE_MES: TDateField
+    object IBTARIF_CENADATE_MES: TDateField
       FieldName = 'DATE_MES'
-      Origin = '"TARIF_DATA"."DATE_MES"'
+      Origin = '"TARIF_CENA"."DATE_MES"'
     end
-    object IBTARIF_DATAID_POSL: TIntegerField
+    object IBTARIF_CENAID_POSL: TIntegerField
       FieldName = 'ID_POSL'
-      Origin = '"TARIF_DATA"."ID_POSL"'
+      Origin = '"TARIF_CENA"."ID_POSL"'
     end
-    object IBTARIF_DATADATE_N1: TDateField
+    object IBTARIF_CENADATE_N1: TDateField
       FieldName = 'DATE_N1'
-      Origin = '"TARIF_DATA"."DATE_N1"'
+      Origin = '"TARIF_CENA"."DATE_N1"'
     end
-    object IBTARIF_DATATARIF_SUM1: TIBBCDField
+    object IBTARIF_CENATARIF_SUM1: TIBBCDField
       FieldName = 'TARIF_SUM1'
-      Origin = '"TARIF_DATA"."TARIF_SUM1"'
+      Origin = '"TARIF_CENA"."TARIF_SUM1"'
       Precision = 18
       Size = 4
     end
-    object IBTARIF_DATADATE_N2: TDateField
+    object IBTARIF_CENADATE_N2: TDateField
       FieldName = 'DATE_N2'
-      Origin = '"TARIF_DATA"."DATE_N2"'
+      Origin = '"TARIF_CENA"."DATE_N2"'
     end
-    object IBTARIF_DATATARIF_SUM2: TIBBCDField
+    object IBTARIF_CENATARIF_SUM2: TIBBCDField
       FieldName = 'TARIF_SUM2'
-      Origin = '"TARIF_DATA"."TARIF_SUM2"'
+      Origin = '"TARIF_CENA"."TARIF_SUM2"'
       Precision = 18
       Size = 4
     end
-    object IBTARIF_DATAFL_2DATE: TIntegerField
+    object IBTARIF_CENAFL_2DATE: TIntegerField
       FieldName = 'FL_2DATE'
-      Origin = '"TARIF_DATA"."FL_2DATE"'
+      Origin = '"TARIF_CENA"."FL_2DATE"'
     end
-    object IBTARIF_DATATARIF_MZK1: TIBBCDField
+    object IBTARIF_CENATARIF_MZK1: TIBBCDField
       FieldName = 'TARIF_MZK1'
-      Origin = '"TARIF_DATA"."TARIF_MZK1"'
+      Origin = '"TARIF_CENA"."TARIF_MZK1"'
       Precision = 18
       Size = 4
     end
-    object IBTARIF_DATATARIF_MZK2: TIBBCDField
+    object IBTARIF_CENATARIF_MZK2: TIBBCDField
       FieldName = 'TARIF_MZK2'
-      Origin = '"TARIF_DATA"."TARIF_MZK2"'
+      Origin = '"TARIF_CENA"."TARIF_MZK2"'
       Precision = 18
       Size = 4
     end
   end
-  object DSTARIF_DATA: TDataSource
-    DataSet = IBTARIF_DATA
+  object DSTARIF_CENA: TDataSource
+    DataSet = IBTARIF_CENA
     Left = 360
     Top = 408
   end
@@ -1707,7 +1708,7 @@
     ParamCheck = True
     SQL.Strings = (
       
-        'select DATE_MES from TARIF_DATA group by DATE_MES order by DATE_' +
+        'select DATE_MES from TARIF_CENA group by DATE_MES order by DATE_' +
         'MES desc')
     Left = 540
     Top = 265

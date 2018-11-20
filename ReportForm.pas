@@ -11,7 +11,9 @@ uses
   cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, cxTextEdit, cxMaskEdit,
   cxDropDownEdit, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxLabel,
-  IBX.IBCustomDataSet, IBX.IBQuery;
+  IBX.IBCustomDataSet, IBX.IBQuery, Vcl.DBCtrls, dxSparkline, dxDBSparkline,
+  IWVCLBaseControl, IWBaseControl, IWBaseHTMLControl, IWControl, IWCompListbox,
+  IWDBStdCtrls, cxListBox, cxDBEdit;
 
 type
   TReport = class(TAllMDICh)
@@ -27,23 +29,91 @@ type
     IBPERIODID: TIntegerField;
     IBPERIODDATA: TDateField;
     DІPERIOD: TDataSource;
+    DBLookupListBox1: TDBLookupListBox;
+    IBPOSL: TIBDataSet;
+    IBPOSLID: TIntegerField;
+    IBPOSLWID: TIBStringField;
+    IBPOSLNAME: TIBStringField;
+    IBPOSLFL_ZAGR: TIntegerField;
+    IBPOSLFL_ROZRAH: TIntegerField;
+    DSPOSL: TDataSource;
+    IBQuery2: TIBQuery;
+    DSQuery2: TDataSource;
+    cxGrid2: TcxGrid;
+    cxGridDBTableView1: TcxGridDBTableView;
+    cxGridLevel1: TcxGridLevel;
     IBQuery1ID: TIntegerField;
-    IBQuery1POSL: TIBStringField;
+    IBQuery1VID: TIBStringField;
     IBQuery1UL: TIBStringField;
     IBQuery1DOM: TIBStringField;
     IBQuery1TARIF: TIBStringField;
     IBQuery1TARIF_END: TIBBCDField;
+    IBQuery1TARIF_ENDPDV: TIBBCDField;
+    IBQuery1MZK: TIBBCDField;
+    IBQuery1SUMOT: TIBBCDField;
+    IBQuery1SUMOTPDV: TIBBCDField;
+    IBQuery1KOTEL: TIBStringField;
+    IBQuery1TARIF_PLAN: TIBBCDField;
+    IBQuery1TARIF_FACT: TIBBCDField;
     IBQuery1NORMA: TIBBCDField;
+    IBQuery1END_BL: TIBBCDField;
+    IBQuery1END_L: TIBBCDField;
+    cxGrid1DBTableView1VID: TcxGridDBColumn;
+    cxGrid1DBTableView1UL: TcxGridDBColumn;
+    cxGrid1DBTableView1DOM: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_END: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_ENDPDV: TcxGridDBColumn;
+    cxGrid1DBTableView1MZK: TcxGridDBColumn;
+    cxGrid1DBTableView1SUMOT: TcxGridDBColumn;
+    cxGrid1DBTableView1SUMOTPDV: TcxGridDBColumn;
+    cxGrid1DBTableView1KOTEL: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_FACT: TcxGridDBColumn;
+    cxGrid1DBTableView1NORMA: TcxGridDBColumn;
+    cxGrid1DBTableView1END_BL: TcxGridDBColumn;
+    cxGrid1DBTableView1END_L: TcxGridDBColumn;
+    IBQuery2SPLAN: TIBBCDField;
+    IBQuery2SFACT: TIBBCDField;
+    IBQuery2NORMA: TIBBCDField;
+    IBQuery2SEND: TIBBCDField;
+    IBQuery2MZK: TIBBCDField;
+    IBQuery2SUMOT: TIBBCDField;
+    IBQuery2SUMOTPDV: TIBBCDField;
+    IBQuery2SENDPDV: TIBBCDField;
+    IBQuery2DOM: TIBStringField;
+    IBQuery2TARIF: TIBStringField;
+    IBQuery2UL: TIBStringField;
+    IBQuery2OTHER: TIBStringField;
+    IBQuery2VID: TIBStringField;
+    cxGridDBTableView1SPLAN: TcxGridDBColumn;
+    cxGridDBTableView1SFACT: TcxGridDBColumn;
+    cxGridDBTableView1NORMA: TcxGridDBColumn;
+    cxGridDBTableView1SEND: TcxGridDBColumn;
+    cxGridDBTableView1MZK: TcxGridDBColumn;
+    cxGridDBTableView1SUMOT: TcxGridDBColumn;
+    cxGridDBTableView1SUMOTPDV: TcxGridDBColumn;
+    cxGridDBTableView1SENDPDV: TcxGridDBColumn;
+    cxGridDBTableView1DOM: TcxGridDBColumn;
+    cxGridDBTableView1TARIF: TcxGridDBColumn;
+    cxGridDBTableView1UL: TcxGridDBColumn;
+    cxGridDBTableView1OTHER: TcxGridDBColumn;
+    cxGridDBTableView1VID: TcxGridDBColumn;
+    IBQuery2ID: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
-    procedure cxLookupComboBox1PropertiesChange(Sender: TObject);
     procedure cxButton7Click(Sender: TObject);
     procedure cxButton6Click(Sender: TObject);
+    procedure DSPOSLDataChange(Sender: TObject; Field: TField);
+    procedure cxLookupComboBox1PropertiesChange(Sender: TObject);
   private
     procedure ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
+    procedure Update;
+    procedure Visible;
     { Private declarations }
   public
     { Public declarations }
+
   end;
 
 var
@@ -55,6 +125,131 @@ implementation
 
 uses registry, cxGridExportLink, comobj, MainForm, mytools;
 
+procedure TReport.Update;
+var rec:integer;
+begin
+//  DSQuery1.Enabled:=false;
+    if IBQuery1.Active then
+       rec:=IBQuery1.FieldByName('id').AsInteger;
+    if IBQuery2.Active then
+       rec:=IBQuery2.FieldByName('id').AsInteger;
+
+   if cxLookupComboBox1.EditValue = Main.Period then
+   begin
+      cxLabel2.Caption:='Поточний період';
+   end
+   else
+   begin
+      cxLabel2.Caption:='Архів';
+   end;
+
+  if IBQuery1.Active then
+  begin
+  IBQuery1.close;
+  IBQuery1.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
+  IBQuery1.ParamByName('pos').AsInteger:=IBPOSLID.Value;
+  IBQuery1.open;
+  IBQuery1.Locate('ID',rec,[]);
+  end;
+
+  if IBQuery2.Active then
+  begin
+  IBQuery2.close;
+  IBQuery2.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
+  IBQuery2.ParamByName('pos').AsInteger:=IBPOSLID.Value;
+  IBQuery2.open;
+  IBQuery2.Locate('ID',rec,[]);
+  end;
+
+  Visible;
+end;
+
+procedure TReport.Visible;
+begin
+
+  if IBQuery1.Active then
+  begin
+          cxGrid1DBTableView1TARIF_ENDPDV.Visible:=false;
+          cxGrid1DBTableView1sumot.Visible:=false;
+          cxGrid1DBTableView1sumotpdv.Visible:=false;
+          cxGrid1DBTableView1mzk.Visible:=false;
+          cxGrid1DBTableView1kotel.Visible:=false;
+          cxGrid1DBTableView1TARIF_PLAN.Visible:=false;
+          cxGrid1DBTableView1TARIF_FACT.Visible:=false;
+          cxGrid1DBTableView1NORMA.Visible:=true;
+          cxGrid1DBTableView1END_BL.Visible:=false;
+          cxGrid1DBTableView1END_L.Visible:=false;
+
+
+        if IBPOSLWID.Value='ub' then
+        begin
+
+          cxGrid1DBTableView1TARIF_PLAN.Visible:=true;
+          cxGrid1DBTableView1TARIF_FACT.Visible:=true;
+          cxGrid1DBTableView1NORMA.Visible:=false;
+          cxGrid1DBTableView1END_BL.Visible:=true;
+          cxGrid1DBTableView1END_L.Visible:=true;
+
+        end;
+
+        if IBPOSLWID.Value='ot' then
+        begin
+
+          cxGrid1DBTableView1TARIF_ENDPDV.Visible:=true;
+          cxGrid1DBTableView1sumot.Visible:=true;
+          cxGrid1DBTableView1sumotpdv.Visible:=true;
+          cxGrid1DBTableView1mzk.Visible:=true;
+          cxGrid1DBTableView1kotel.Visible:=true;
+          cxGrid1DBTableView1NORMA.Visible:=false;
+
+        end;
+
+
+
+  end;
+
+  if IBQuery2.Active then
+  begin
+
+          cxGridDBTableView1SENDPDV.Visible:=false;
+          cxGridDBTableView1sumot.Visible:=false;
+          cxGridDBTableView1sumotpdv.Visible:=false;
+          cxGridDBTableView1mzk.Visible:=false;
+          cxGridDBTableView1SPLAN.Visible:=false;
+          cxGridDBTableView1SFACT.Visible:=false;
+          cxGridDBTableView1NORMA.Visible:=true;
+
+
+        if IBPOSLWID.Value='ub' then
+        begin
+
+          cxGridDBTableView1SPLAN.Visible:=true;
+          cxGridDBTableView1SFACT.Visible:=true;
+          cxGridDBTableView1NORMA.Visible:=false;
+
+        end;
+
+        if IBPOSLWID.Value='ot' then
+        begin
+
+          cxGridDBTableView1SENDPDV.Visible:=true;
+          cxGridDBTableView1sumot.Visible:=true;
+          cxGridDBTableView1sumotpdv.Visible:=true;
+          cxGridDBTableView1mzk.Visible:=true;
+          cxGridDBTableView1NORMA.Visible:=false;
+
+        end;
+
+
+
+  end;
+
+
+
+
+end;
+
+
 procedure TReport.cxButton6Click(Sender: TObject);
 begin
   inherited;
@@ -65,27 +260,23 @@ procedure TReport.cxButton7Click(Sender: TObject);
 begin
   inherited;
 //  cxLookupComboBox1PropertiesChange;
-  cxLookupComboBox1.ActiveProperties.OnChange(sender);
+//  cxLookupComboBox1.ActiveProperties.OnChange(sender);
+  Update;
+
 end;
 
 procedure TReport.cxLookupComboBox1PropertiesChange(Sender: TObject);
-var rec:integer;
 begin
   inherited;
-  rec:=iif(IBQuery1.FieldByName('id').Value=null,0,IBQuery1.FieldByName('id').Value);
-   if cxLookupComboBox1.EditValue = Main.Period then
-   begin
-      cxLabel2.Caption:='Поточний період';
-   end
-   else
-   begin
-      cxLabel2.Caption:='Архів';
-   end;
-  IBQuery1.Active:=false;
-  IBQuery1.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
-  IBQuery1.Active:=true;
-  if rec<>0 then
-     IBQuery1.Locate('ID',rec,[]);
+Update;
+
+end;
+
+procedure TReport.DSPOSLDataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+Update;
+
 end;
 
 procedure TReport.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -100,14 +291,9 @@ procedure TReport.FormCreate(Sender: TObject);
 begin
   inherited;
   IBTransaction1.Active:=true;
-  IBPERIOD.Active:=true;
-  cxLookupComboBox1.EditValue:= IBPERIODDATA.Value;
-
-  IBQuery1.Active:=false;
-  IBQuery1.ParamByName('dt').Value:=IBPERIODDATA.Value;
-  IBQuery1.Active:=true;
-//  cxGrid1DBTableView1.DataController.DataSource:=DSQuery1;
-  cxGrid1DBTableView1.DataController.CreateAllItems(True);
+  IBPERIOD.open;
+//  cxLookupComboBox1.EditValue:=IBPERIODDATA.Value;
+  IBPOSL.open;
 end;
 
 procedure TReport.ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
@@ -196,6 +382,57 @@ begin
   except
   end;
 end;
+
+
+//cxGrid1DBTableView1.GetColumnByFieldName('tarif_end').Summary.FooterKind:=skSum;
+//cxGrid1DBTableView1.GetColumnByFieldName('tarif_endpdv').Summary.FooterKind:=skSum;
+//cxGrid1DBTableView1.GetColumnByFieldName('sumot').Summary.FooterKind:=skSum;
+//cxGrid1DBTableView1.GetColumnByFieldName('sumotpdv').Summary.FooterKind:=skSum;
+//cxGrid1DBTableView1.GetColumnByFieldName('mzk').Summary.FooterKind:=skSum;
+//cxGrid1DBTableView1.GetColumnByFieldName('TARIF_PLAN').Summary.FooterKind:=skSum;
+//cxGrid1DBTableView1.GetColumnByFieldName('TARIF_FACT').Summary.FooterKind:=skSum;
+//cxGrid1DBTableView1.GetColumnByFieldName('NORMA').Summary.FooterKind:=skSum;
+//cxGrid1DBTableView1.GetColumnByFieldName('END_BL').Summary.FooterKind:=skSum;
+//cxGrid1DBTableView1.GetColumnByFieldName('END_L').Summary.FooterKind:=skSum;
+//
+//
+//
+//    cxGrid1DBTableView1.GetColumnByFieldName('tarif_endpdv').Visible:=false;
+//    cxGrid1DBTableView1.GetColumnByFieldName('sumot').Visible:=false;
+//    cxGrid1DBTableView1.GetColumnByFieldName('sumotpdv').Visible:=false;
+//    cxGrid1DBTableView1.GetColumnByFieldName('mzk').Visible:=false;
+//    cxGrid1DBTableView1.GetColumnByFieldName('kotel').Visible:=false;
+//    cxGrid1DBTableView1.GetColumnByFieldName('TARIF_PLAN').Visible:=false;
+//    cxGrid1DBTableView1.GetColumnByFieldName('TARIF_FACT').Visible:=false;
+//    cxGrid1DBTableView1.GetColumnByFieldName('NORMA').Visible:=true;
+//    cxGrid1DBTableView1.GetColumnByFieldName('END_BL').Visible:=false;
+//    cxGrid1DBTableView1.GetColumnByFieldName('END_L').Visible:=false;
+//
+//
+//
+//
+//
+//  if IBPOSLWID.Value='ub' then
+//  begin
+//
+//    cxGrid1DBTableView1.GetColumnByFieldName('TARIF_PLAN').Visible:=true;
+//    cxGrid1DBTableView1.GetColumnByFieldName('TARIF_FACT').Visible:=true;
+//    cxGrid1DBTableView1.GetColumnByFieldName('NORMA').Visible:=false;
+//    cxGrid1DBTableView1.GetColumnByFieldName('END_BL').Visible:=true;
+//    cxGrid1DBTableView1.GetColumnByFieldName('END_L').Visible:=true;
+//
+//  end;
+//
+//  if IBPOSLWID.Value='ot' then
+//  begin
+//    cxGrid1DBTableView1.GetColumnByFieldName('tarif_endpdv').Visible:=true;
+//    cxGrid1DBTableView1.GetColumnByFieldName('sumot').Visible:=true;
+//    cxGrid1DBTableView1.GetColumnByFieldName('sumotpdv').Visible:=true;
+//    cxGrid1DBTableView1.GetColumnByFieldName('mzk').Visible:=true;
+//    cxGrid1DBTableView1.GetColumnByFieldName('kotel').Visible:=true;
+//    cxGrid1DBTableView1.GetColumnByFieldName('NORMA').Visible:=false;
+//
+//  end;
 
 
 end.

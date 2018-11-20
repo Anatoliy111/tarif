@@ -4,7 +4,7 @@
   ClientHeight = 661
   ClientWidth = 928
   PopupMode = pmAuto
-  Position = poDefaultSizeOnly
+  Position = poDefault
   WindowState = wsMaximized
   OnCreate = FormCreate
   ExplicitWidth = 944
@@ -44,6 +44,20 @@
     inherited cxButton5: TcxButton
       TabOrder = 5
       OnClick = cxButton5Click
+    end
+    object cxButton10: TcxButton
+      Left = 331
+      Top = 1
+      Width = 120
+      Height = 39
+      Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+      Caption = #1042#1080#1075#1088#1091#1079#1080#1090#1080' '#1090#1072#1088#1080#1092#1080
+      LookAndFeel.Kind = lfOffice11
+      LookAndFeel.NativeStyle = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 6
+      OnClick = cxButton10Click
     end
   end
   object cxGrid1: TcxGrid [1]
@@ -115,6 +129,10 @@
         item
           Kind = skSum
           Column = cxGrid1DBTableView1TARIF_ENDPDV
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1LICH_GK2
         end>
       DataController.Summary.SummaryGroups = <
         item
@@ -189,6 +207,18 @@
         DataBinding.FieldName = 'LICH_GK'
         PropertiesClassName = 'TcxCalcEditProperties'
         Width = 70
+      end
+      object cxGrid1DBTableView1LICH_PN2: TcxGridDBColumn
+        Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1087#1086#1095#1072#1090#1086#1082' 2'
+        DataBinding.FieldName = 'LICH_PN2'
+      end
+      object cxGrid1DBTableView1LICH_PK2: TcxGridDBColumn
+        Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1082#1110#1085#1077#1094#1100' 2'
+        DataBinding.FieldName = 'LICH_PK2'
+      end
+      object cxGrid1DBTableView1LICH_GK2: TcxGridDBColumn
+        Caption = #1050'-'#1089#1090#1100' '#1043#1082#1072#1083'. 2'
+        DataBinding.FieldName = 'LICH_GK2'
       end
       object cxGrid1DBTableView1TARIF_PLAN: TcxGridDBColumn
         Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
@@ -283,8 +313,8 @@
         Options.Editing = False
       end
       object cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn
-        Caption = #1042#1080#1076
-        DataBinding.FieldName = 'ID_VIDAB'
+        Caption = #1042#1080#1076' '#1094#1110#1085#1080
+        DataBinding.FieldName = 'ID_VIDCENA'
         PropertiesClassName = 'TcxLookupComboBoxProperties'
         Properties.KeyFieldNames = 'ID'
         Properties.ListColumns = <
@@ -485,11 +515,18 @@
           item
             Kind = skSum
             Column = cxGridDBTableView1SENDPDV
+          end
+          item
+            Kind = skSum
+            Column = cxGridDBTableView1LICH_GK
+          end
+          item
+            Kind = skSum
+            Column = cxGridDBTableView1LICH_GK2
           end>
         DataController.Summary.SummaryGroups = <>
-        OptionsData.Editing = False
-        OptionsSelection.CellSelect = False
-        OptionsView.ColumnAutoWidth = True
+        OptionsSelection.HideFocusRectOnExit = False
+        OptionsView.CellAutoHeight = True
         OptionsView.Footer = True
         OptionsView.GroupByBox = False
         object cxGridDBTableView1ID_DOM: TcxGridDBColumn
@@ -502,7 +539,8 @@
               FieldName = 'NAME'
             end>
           Properties.ListSource = DSDOM
-          Width = 81
+          Options.Editing = False
+          Width = 109
         end
         object cxGridDBTableView1ID_OTHER: TcxGridDBColumn
           Caption = #1053#1072#1079#1074#1072
@@ -514,40 +552,101 @@
               FieldName = 'NAME'
             end>
           Properties.ListSource = DSOTHER
-          Width = 110
+          Options.Editing = False
+          Width = 232
         end
         object cxGridDBTableView1PLOS_BB: TcxGridDBColumn
           Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
           DataBinding.FieldName = 'PLOS_BB'
-          Width = 55
+          Options.Editing = False
+          Width = 116
         end
-        object cxGridDBTableView1SPLAN: TcxGridDBColumn
-          Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
-          DataBinding.FieldName = 'SPLAN'
-          Width = 56
+        object cxGridDBTableView1LICH_PN: TcxGridDBColumn
+          Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1087#1086#1095#1072#1090#1086#1082
+          DataBinding.FieldName = 'LICH_PN'
+          PropertiesClassName = 'TcxCalcEditProperties'
         end
-        object cxGridDBTableView1SFACT: TcxGridDBColumn
-          Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
-          DataBinding.FieldName = 'SFACT'
-          Width = 55
+        object cxGridDBTableView1LICH_PK: TcxGridDBColumn
+          Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1082#1110#1085#1077#1094#1100
+          DataBinding.FieldName = 'LICH_PK'
+          PropertiesClassName = 'TcxCalcEditProperties'
+        end
+        object cxGridDBTableView1LICH_GK: TcxGridDBColumn
+          Caption = #1050'-'#1089#1090#1100' '#1043#1082#1072#1083'.'
+          DataBinding.FieldName = 'LICH_GK'
+          PropertiesClassName = 'TcxCalcEditProperties'
+        end
+        object cxGridDBTableView1LICH_PN2: TcxGridDBColumn
+          Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1087#1086#1095#1072#1090#1086#1082' 2'
+          DataBinding.FieldName = 'LICH_PN2'
+          PropertiesClassName = 'TcxCalcEditProperties'
+        end
+        object cxGridDBTableView1LICH_PK2: TcxGridDBColumn
+          Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1082#1110#1085#1077#1094#1100' 2'
+          DataBinding.FieldName = 'LICH_PK2'
+          PropertiesClassName = 'TcxCalcEditProperties'
+        end
+        object cxGridDBTableView1LICH_GK2: TcxGridDBColumn
+          Caption = #1050'-'#1089#1090#1100' '#1043#1082#1072#1083'. 2'
+          DataBinding.FieldName = 'LICH_GK2'
+          PropertiesClassName = 'TcxCalcEditProperties'
         end
         object cxGridDBTableView1SEND: TcxGridDBColumn
           Caption = #1053#1072#1088#1072#1093'. '#1090#1072#1088#1080#1092
           DataBinding.FieldName = 'SEND'
-          Width = 70
+          Options.Editing = False
+          Width = 80
         end
         object cxGridDBTableView1SENDPDV: TcxGridDBColumn
           Caption = #1053#1072#1088#1072#1093'. '#1090#1072#1088#1080#1092' '#1079' '#1055#1044#1042
           DataBinding.FieldName = 'SENDPDV'
-          Width = 69
+          Options.Editing = False
+          Width = 111
         end
         object cxGridDBTableView1MZK: TcxGridDBColumn
           Caption = #1052#1079#1082
           DataBinding.FieldName = 'MZK'
           Width = 55
         end
+        object cxGridDBTableView1SUMOT: TcxGridDBColumn
+          Caption = #1042#1072#1088#1090#1110#1089#1090#1100
+          DataBinding.FieldName = 'SUMOT'
+          Options.Editing = False
+          Width = 110
+        end
+        object cxGridDBTableView1SUMOTPDV: TcxGridDBColumn
+          Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1079' '#1055#1044#1042
+          DataBinding.FieldName = 'SUMOTPDV'
+          Options.Editing = False
+          Width = 123
+        end
+        object cxGridDBTableView1SPLAN: TcxGridDBColumn
+          Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
+          DataBinding.FieldName = 'SPLAN'
+          Visible = False
+          Width = 56
+        end
+        object cxGridDBTableView1SFACT: TcxGridDBColumn
+          Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
+          DataBinding.FieldName = 'SFACT'
+          Visible = False
+          Width = 99
+        end
+        object cxGridDBTableView1ID_VIDCENA: TcxGridDBColumn
+          Caption = #1042#1080#1076' '#1094#1110#1085#1080
+          DataBinding.FieldName = 'ID_VIDCENA'
+          PropertiesClassName = 'TcxLookupComboBoxProperties'
+          Properties.KeyFieldNames = 'ID'
+          Properties.ListColumns = <
+            item
+              FieldName = 'NAME'
+            end>
+          Properties.ListSource = DSVIDAB
+          Options.Editing = False
+          Width = 98
+        end
         object cxGridDBTableView1ID_VIDAB: TcxGridDBColumn
-          Caption = #1042#1080#1076
+          Caption = #1042#1080#1076' '#1072#1073#1086#1085'.'
           DataBinding.FieldName = 'ID_VIDAB'
           PropertiesClassName = 'TcxLookupComboBoxProperties'
           Properties.KeyFieldNames = 'ID'
@@ -556,17 +655,17 @@
               FieldName = 'NAME'
             end>
           Properties.ListSource = DSVIDAB
-          Width = 31
+          Options.Editing = False
+          Width = 106
         end
-        object cxGridDBTableView1SUMOT: TcxGridDBColumn
-          Caption = #1042#1072#1088#1090#1110#1089#1090#1100
-          DataBinding.FieldName = 'SUMOT'
-          Width = 69
-        end
-        object cxGridDBTableView1SUMOTPDV: TcxGridDBColumn
-          Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1079' '#1055#1044#1042
-          DataBinding.FieldName = 'SUMOTPDV'
-          Width = 69
+        object cxGridDBTableView1FL_LICH: TcxGridDBColumn
+          Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
+          DataBinding.FieldName = 'FL_LICH'
+          PropertiesClassName = 'TcxCheckBoxProperties'
+          Properties.NullStyle = nssUnchecked
+          Properties.ValueChecked = 1
+          Properties.ValueUnchecked = 0
+          Options.Editing = False
         end
       end
       object cxGridLevel1: TcxGridLevel
@@ -651,11 +750,14 @@
         'K, NORMA, '
       
         '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
-        ' LICH_GK, '
+        ' NOTE, '
       
-        '   NOTE, PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH,' +
-        ' NO_LICH, '
-      '   PLOS_IN, PLOS_MZK, SUMOT, SUMOTPDV, TARIF_ENDPDV)'
+        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
+        'CH, PLOS_IN, '
+      
+        '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
+        'ICH_PK2, '
+      '   LICH_GK2, ID_VIDCENA)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -664,11 +766,12 @@
         '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
         'H_PN, :LICH_PK, '
       
-        '   :LICH_GK, :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, ' +
-        ':MZK, :BORG_VIDH, '
+        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
+        'G_VIDH, '
       
-        '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :TARIF_ENDP' +
-        'DV)')
+        '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
+        'TARIF_ENDPDV, '
+      '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -686,7 +789,6 @@
       '  END_L,'
       '  LICH_PN,'
       '  LICH_PK,'
-      '  LICH_GK,'
       '  NOTE,'
       '  PLOS_BBI,'
       '  NSER_LICH,'
@@ -699,17 +801,21 @@
       '  PLOS_MZK,'
       '  SUMOT,'
       '  SUMOTPDV,'
-      '  TARIF_ENDPDV'
+      '  LICH_GK,'
+      '  TARIF_ENDPDV,'
+      '  LICH_PN2,'
+      '  LICH_PK2,'
+      '  LICH_GK2,'
+      '  ID_VIDCENA'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
       
         'select tarif_mes.*,posl.wid, posl.name as posl, tarif_dom.name a' +
-        's dom, tarif_dom.id_dom, tarif.id_vidab from TARIF, TARIF_MES, P' +
-        'OSL, TARIF_DOM where tarif_mes.data=:dt and tarif.id_posl=posl.i' +
-        'd and tarif_mes.id_tarif=tarif.id and tarif_mes.id=tarif_dom.id_' +
-        'tarifmes')
+        's dom, tarif_dom.id_dom from TARIF, TARIF_MES, POSL, TARIF_DOM w' +
+        'here tarif_mes.data=:dt and tarif.id_posl=posl.id and tarif_mes.' +
+        'id_tarif=tarif.id and tarif_mes.id=tarif_dom.id_tarifmes')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'
@@ -728,7 +834,6 @@
       '  END_L = :END_L,'
       '  LICH_PN = :LICH_PN,'
       '  LICH_PK = :LICH_PK,'
-      '  LICH_GK = :LICH_GK,'
       '  NOTE = :NOTE,'
       '  PLOS_BBI = :PLOS_BBI,'
       '  NSER_LICH = :NSER_LICH,'
@@ -741,7 +846,12 @@
       '  PLOS_MZK = :PLOS_MZK,'
       '  SUMOT = :SUMOT,'
       '  SUMOTPDV = :SUMOTPDV,'
-      '  TARIF_ENDPDV = :TARIF_ENDPDV'
+      '  LICH_GK = :LICH_GK,'
+      '  TARIF_ENDPDV = :TARIF_ENDPDV,'
+      '  LICH_PN2 = :LICH_PN2,'
+      '  LICH_PK2 = :LICH_PK2,'
+      '  LICH_GK2 = :LICH_GK2,'
+      '  ID_VIDCENA = :ID_VIDCENA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -918,10 +1028,6 @@
       Precision = 18
       Size = 2
     end
-    object IBTARIFUPDID_VIDAB: TIntegerField
-      FieldName = 'ID_VIDAB'
-      Origin = '"TARIF"."ID_VIDAB"'
-    end
     object IBTARIFUPDLICH_GK: TIBBCDField
       FieldName = 'LICH_GK'
       Origin = '"TARIF_MES"."LICH_GK"'
@@ -933,6 +1039,28 @@
       Origin = '"TARIF_MES"."TARIF_ENDPDV"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIFUPDLICH_PN2: TIBBCDField
+      FieldName = 'LICH_PN2'
+      Origin = '"TARIF_MES"."LICH_PN2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDLICH_PK2: TIBBCDField
+      FieldName = 'LICH_PK2'
+      Origin = '"TARIF_MES"."LICH_PK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDLICH_GK2: TIBBCDField
+      FieldName = 'LICH_GK2'
+      Origin = '"TARIF_MES"."LICH_GK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDID_VIDCENA: TIntegerField
+      FieldName = 'ID_VIDCENA'
+      Origin = '"TARIF_MES"."ID_VIDCENA"'
     end
   end
   object DSTARIFUPD: TDataSource
@@ -1235,7 +1363,7 @@
       'rec_version'
       'nowait')
     Left = 448
-    Top = 456
+    Top = 464
   end
   object IBTARIF_DOM: TIBDataSet
     Database = DataM.IBDatabase1
@@ -1536,11 +1664,14 @@
         'K, NORMA, '
       
         '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
-        ' LICH_GK, '
+        ' NOTE, '
       
-        '   NOTE, PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH,' +
-        ' NO_LICH, '
-      '   PLOS_IN, PLOS_MZK, SUMOT, SUMOTPDV, TARIF_ENDPDV)'
+        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
+        'CH, PLOS_IN, '
+      
+        '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
+        'ICH_PK2, '
+      '   LICH_GK2, ID_VIDCENA)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1549,11 +1680,12 @@
         '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
         'H_PN, :LICH_PK, '
       
-        '   :LICH_GK, :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, ' +
-        ':MZK, :BORG_VIDH, '
+        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
+        'G_VIDH, '
       
-        '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :TARIF_ENDP' +
-        'DV)')
+        '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
+        'TARIF_ENDPDV, '
+      '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1571,7 +1703,6 @@
       '  END_L,'
       '  LICH_PN,'
       '  LICH_PK,'
-      '  LICH_GK,'
       '  NOTE,'
       '  PLOS_BBI,'
       '  NSER_LICH,'
@@ -1584,14 +1715,19 @@
       '  PLOS_MZK,'
       '  SUMOT,'
       '  SUMOTPDV,'
-      '  TARIF_ENDPDV'
+      '  LICH_GK,'
+      '  TARIF_ENDPDV,'
+      '  LICH_PN2,'
+      '  LICH_PK2,'
+      '  LICH_GK2,'
+      '  ID_VIDCENA'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
       
-        'select TARIF_MES.*, TARIF.NAME, TARIF.id_posl, TARIF.id_vidab fr' +
-        'om TARIF_MES, TARIF WHERE TARIF_MES.ID_TARIF=TARIF.ID ')
+        'select TARIF_MES.*, TARIF.NAME, TARIF.id_posl from TARIF_MES, TA' +
+        'RIF WHERE TARIF_MES.ID_TARIF=TARIF.ID ')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'
@@ -1610,7 +1746,6 @@
       '  END_L = :END_L,'
       '  LICH_PN = :LICH_PN,'
       '  LICH_PK = :LICH_PK,'
-      '  LICH_GK = :LICH_GK,'
       '  NOTE = :NOTE,'
       '  PLOS_BBI = :PLOS_BBI,'
       '  NSER_LICH = :NSER_LICH,'
@@ -1623,7 +1758,12 @@
       '  PLOS_MZK = :PLOS_MZK,'
       '  SUMOT = :SUMOT,'
       '  SUMOTPDV = :SUMOTPDV,'
-      '  TARIF_ENDPDV = :TARIF_ENDPDV'
+      '  LICH_GK = :LICH_GK,'
+      '  TARIF_ENDPDV = :TARIF_ENDPDV,'
+      '  LICH_PN2 = :LICH_PN2,'
+      '  LICH_PK2 = :LICH_PK2,'
+      '  LICH_GK2 = :LICH_GK2,'
+      '  ID_VIDCENA = :ID_VIDCENA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1755,10 +1895,6 @@
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
     end
-    object IBTARIF_MESID_VIDAB: TIntegerField
-      FieldName = 'ID_VIDAB'
-      Origin = '"TARIF"."ID_VIDAB"'
-    end
     object IBTARIF_MESMZK: TIBBCDField
       FieldName = 'MZK'
       Origin = '"TARIF_MES"."MZK"'
@@ -1810,6 +1946,30 @@
       Origin = '"TARIF_MES"."TARIF_ENDPDV"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIF_MESLICH_PN2: TIBBCDField
+      FieldName = 'LICH_PN2'
+      Origin = '"TARIF_MES"."LICH_PN2"'
+      OnChange = IBTARIF_MESLICH_PN2Change
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESLICH_PK2: TIBBCDField
+      FieldName = 'LICH_PK2'
+      Origin = '"TARIF_MES"."LICH_PK2"'
+      OnChange = IBTARIF_MESLICH_PK2Change
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESLICH_GK2: TIBBCDField
+      FieldName = 'LICH_GK2'
+      Origin = '"TARIF_MES"."LICH_GK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESID_VIDCENA: TIntegerField
+      FieldName = 'ID_VIDCENA'
+      Origin = '"TARIF_MES"."ID_VIDCENA"'
     end
   end
   object DSTARIF_MES: TDataSource
@@ -2051,15 +2211,14 @@
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into TARIF'
-      '  (ID, NAME, ID_POSL, ID_VIDAB)'
+      '  (ID, NAME, ID_POSL)'
       'values'
-      '  (:ID, :NAME, :ID_POSL, :ID_VIDAB)')
+      '  (:ID, :NAME, :ID_POSL)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  NAME,'
-      '  ID_POSL,'
-      '  ID_VIDAB'
+      '  ID_POSL'
       'from TARIF '
       'where'
       '  ID = :ID')
@@ -2070,8 +2229,7 @@
       'set'
       '  ID = :ID,'
       '  NAME = :NAME,'
-      '  ID_POSL = :ID_POSL,'
-      '  ID_VIDAB = :ID_VIDAB'
+      '  ID_POSL = :ID_POSL'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2093,10 +2251,6 @@
     object IBTARIFID_POSL: TIntegerField
       FieldName = 'ID_POSL'
       Origin = '"TARIF"."ID_POSL"'
-    end
-    object IBTARIFID_VIDAB: TIntegerField
-      FieldName = 'ID_VIDAB'
-      Origin = '"TARIF"."ID_VIDAB"'
     end
   end
   object DSTARIF: TDataSource
@@ -2236,12 +2390,18 @@
       
         '  (ID, ID_TARIF, ID_TARIFMES, ID_DOMOTHER, SPLAN, SFACT, NORMA, ' +
         'SEND, MZK, '
-      '   SUMOT, SUMOTPDV, SENDPDV)'
+      
+        '   SUMOT, SUMOTPDV, SENDPDV, LICH_PN, LICH_PK, LICH_GK, LICH_PN2' +
+        ', LICH_PK2, '
+      '   LICH_GK2)'
       'values'
       
         '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
         'NORMA, '
-      '   :SEND, :MZK, :SUMOT, :SUMOTPDV, :SENDPDV)')
+      
+        '   :SEND, :MZK, :SUMOT, :SUMOTPDV, :SENDPDV, :LICH_PN, :LICH_PK,' +
+        ' :LICH_GK, '
+      '   :LICH_PN2, :LICH_PK2, :LICH_GK2)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -2255,7 +2415,14 @@
       '  MZK,'
       '  SUMOT,'
       '  SUMOTPDV,'
-      '  SENDPDV'
+      '  SENDPDV,'
+      '  LICH_PN,'
+      '  LICH_PK,'
+      '  LICH_GK,'
+      '  LICH_PN2,'
+      '  LICH_PK2,'
+      '  LICH_GK2,'
+      '  FL_LICH'
       'from TARIF_OTHER '
       'where'
       '  ID = :ID')
@@ -2279,7 +2446,13 @@
       '  MZK = :MZK,'
       '  SUMOT = :SUMOT,'
       '  SUMOTPDV = :SUMOTPDV,'
-      '  SENDPDV = :SENDPDV'
+      '  SENDPDV = :SENDPDV,'
+      '  LICH_PN = :LICH_PN,'
+      '  LICH_PK = :LICH_PK,'
+      '  LICH_GK = :LICH_GK,'
+      '  LICH_PN2 = :LICH_PN2,'
+      '  LICH_PK2 = :LICH_PK2,'
+      '  LICH_GK2 = :LICH_GK2'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2370,6 +2543,56 @@
       Origin = '"TARIF_OTHER"."SENDPDV"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIF_OTHERLICH_PN: TIBBCDField
+      FieldName = 'LICH_PN'
+      Origin = '"TARIF_OTHER"."LICH_PN"'
+      OnChange = IBTARIF_OTHERLICH_PNChange
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_PK: TIBBCDField
+      FieldName = 'LICH_PK'
+      Origin = '"TARIF_OTHER"."LICH_PK"'
+      OnChange = IBTARIF_OTHERLICH_PKChange
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_GK: TIBBCDField
+      FieldName = 'LICH_GK'
+      Origin = '"TARIF_OTHER"."LICH_GK"'
+      OnChange = IBTARIF_OTHERLICH_GKChange
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_PN2: TIBBCDField
+      FieldName = 'LICH_PN2'
+      Origin = '"TARIF_OTHER"."LICH_PN2"'
+      OnChange = IBTARIF_OTHERLICH_PN2Change
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_PK2: TIBBCDField
+      FieldName = 'LICH_PK2'
+      Origin = '"TARIF_OTHER"."LICH_PK2"'
+      OnChange = IBTARIF_OTHERLICH_PK2Change
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_GK2: TIBBCDField
+      FieldName = 'LICH_GK2'
+      Origin = '"TARIF_OTHER"."LICH_GK2"'
+      OnChange = IBTARIF_OTHERLICH_GK2Change
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERFL_LICH: TIntegerField
+      FieldName = 'FL_LICH'
+      Origin = '"TARIF_OTHER"."FL_LICH"'
+    end
+    object IBTARIF_OTHERID_VIDCENA: TIntegerField
+      FieldName = 'ID_VIDCENA'
+      Origin = '"TARIF_OTHER"."ID_VIDCENA"'
     end
   end
   object DSTARIF_OTHER: TDataSource
