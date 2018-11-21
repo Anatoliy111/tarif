@@ -593,8 +593,7 @@ Prores.Show;
          Prores.cxProgressBar1.Properties.Min:=0;
 
          IBQuery1.Close;
-         IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where date_mes<=:dmes order by date_mes desc';
-         IBQuery1.ParamByName('dmes').Value:=main.IBPERIODDATA.Value;
+         IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA order by date_mes desc';
          IBQuery1.Open;
          IBQuery1.First;
          FL_2DATE:=IBQuery1.FieldByName('FL_2DATE').AsInteger;
