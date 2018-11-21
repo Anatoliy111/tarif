@@ -23,7 +23,8 @@ uses
   SpVidAB in 'SpVidAB.pas' {SpVidABForm},
   DomOther in 'DomOther.pas' {DomOthForm},
   SpView in 'SpView.pas' {SpViewForm},
-  InsTarif in 'InsTarif.pas' {InsTar};
+  InsTarif in 'InsTarif.pas' {InsTar},
+  FRRep in 'FRRep.pas' {FRRepForm};
 
 {$R *.res}
 
@@ -41,6 +42,7 @@ begin
   Application.CreateForm(TAbout, About);
   Application.CreateForm(TProres, Prores);
   Application.CreateForm(TInfoForm, InfoForm);
+  Application.CreateForm(TFRRepForm, FRRepForm);
   Start.Free;
   Application.Run;
 end.

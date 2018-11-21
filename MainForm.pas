@@ -219,6 +219,7 @@ type
     IBTARIF_MESID_VIDCENA: TIntegerField;
     IBTARIF_OTHERID_VIDCENA: TIntegerField;
     dxBarButton26: TdxBarButton;
+    dxBarButton27: TdxBarButton;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -240,6 +241,7 @@ type
     procedure dxBarButton23Click(Sender: TObject);
     procedure dxBarButton25Click(Sender: TObject);
     procedure dxBarButton26Click(Sender: TObject);
+    procedure dxBarButton27Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -269,7 +271,7 @@ var
 implementation
 
 uses Aboutt ,TarifForm, DataMod, mytools, Import, Progress, UITypes, SpDom,
-  SpUl;
+  SpUl, FRRep;
 
 {$R *.dfm}
 
@@ -910,6 +912,11 @@ begin
  Report2.Show;
  Report2.SetFocus;
  end;
+end;
+
+procedure TMain.dxBarButton27Click(Sender: TObject);
+begin
+FRRepForm.Show;
 end;
 
 procedure TMain.dxBarButton30Click(Sender: TObject);
