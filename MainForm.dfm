@@ -22,7 +22,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900B00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -1222,7 +1222,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400B00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2070,7 +2070,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900B00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2393,6 +2393,7 @@
     Top = 368
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultDatabase = DataM.IBDatabase1
     Params.Strings = (
       'read_committed'
@@ -3248,5 +3249,181 @@
     DataSet = IBTARIF_OTHER
     Left = 416
     Top = 371
+  end
+  object IBQREPBuh: TIBQuery
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      'select '
+      '    tarifnam,'
+      '    adres,'
+      '    plos,'
+      '    gkal,'
+      '    cena,'
+      '    sumot,'
+      '    sumotpdv,'
+      '    tarif_end,'
+      '    tarif_endpdv,'
+      '    vid,'
+      '    data,'
+      '    id_posl,'
+      '    other,'
+      '    no_lich'
+      'from'
+      '('
+      '    select '
+      '        tarif.name tarifnam,'
+      '        (ul.name || '#39' '#39' || dom.dom) AS adres,'
+      '        tarif_mes.plos_bbi plos,'
+      
+        '        (COALESCE(tarif_mes.lich_gk,0)+COALESCE(tarif_mes.lich_g' +
+        'k2,0)) as gkal,'
+      '        tarif_mes.cena,'
+      '        tarif_mes.sumot,'
+      '        tarif_mes.sumotpdv,'
+      '        tarif_mes.tarif_end,'
+      '        tarif_mes.tarif_endpdv,'
+      '        vidab.name vid,'
+      '        tarif_mes.data,'
+      '        tarif.id_posl,'
+      '        0 as other,'
+      '        tarif_mes.no_lich'
+      '    from tarif_mes'
+      
+        '       inner join tarif_dom on (tarif_mes.id = tarif_dom.id_tari' +
+        'fmes)'
+      '       inner join dom on (tarif_dom.id_dom = dom.id)'
+      '       inner join ul on (dom.id_ul = ul.id)'
+      '       inner join vidab on (dom.id_vidab = vidab.id)'
+      '       inner join tarif on (tarif_mes.id_tarif = tarif.id)'
+      '   union'
+      '    select '
+      '        other.name tarifnam,'
+      '        (ul.name || '#39' '#39' || dom.dom) AS adres,'
+      '        dom_other.plos_bb plos,'
+      
+        '        (COALESCE(tarif_mes.lich_gk,0)+COALESCE(tarif_mes.lich_g' +
+        'k2,0)) as gkal,'
+      '        tarif_other.cena,'
+      '        tarif_other.sumot,'
+      '        tarif_other.sumotpdv,'
+      '        tarif_other.send tarif_end,'
+      '        tarif_other.sendpdv tarif_endpdv,'
+      '        vidab.name vid,'
+      '        tarif_mes.data,'
+      '        tarif.id_posl,'
+      '        1 as other,'
+      '        case'
+      '        when tarif_other.fl_lich = 1 then 0'
+      '        when tarif_other.fl_lich = 0 then 1'
+      '        else 0'
+      '    end AS SomeColumnName'
+      '    from tarif_other'
+      
+        '       left outer join dom_other on (tarif_other.id_domother = d' +
+        'om_other.id)'
+      '       left outer join dom on (dom_other.id_dom = dom.id)'
+      '       left outer join ul on (dom.id_ul = ul.id)'
+      '       left outer join other on (dom_other.id_other = other.id)'
+      '       left outer join vidab on (other.id_vidab = vidab.id)'
+      
+        '       left outer join tarif on (tarif_other.id_tarif = tarif.id' +
+        ')'
+      '       left outer join posl on (tarif.id_posl = posl.id)'
+      
+        '       inner join tarif_mes on (tarif_other.id_tarifmes = tarif_' +
+        'mes.id)'
+      ')'
+      'where data = :dt and id_posl=:pos and tarifnam is not null'
+      'order by tarifnam')
+    Left = 48
+    Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'dt'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'pos'
+        ParamType = ptUnknown
+      end>
+    object IBQREPBuhTARIFNAM: TIBStringField
+      FieldName = 'TARIFNAM'
+      ProviderFlags = []
+      Size = 50
+    end
+    object IBQREPBuhADRES: TIBStringField
+      FieldName = 'ADRES'
+      ProviderFlags = []
+      Size = 51
+    end
+    object IBQREPBuhPLOS: TIBBCDField
+      FieldName = 'PLOS'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object IBQREPBuhGKAL: TIBBCDField
+      FieldName = 'GKAL'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object IBQREPBuhCENA: TIBBCDField
+      FieldName = 'CENA'
+      ProviderFlags = []
+      Precision = 18
+      Size = 4
+    end
+    object IBQREPBuhSUMOT: TIBBCDField
+      FieldName = 'SUMOT'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object IBQREPBuhSUMOTPDV: TIBBCDField
+      FieldName = 'SUMOTPDV'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object IBQREPBuhTARIF_END: TIBBCDField
+      FieldName = 'TARIF_END'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object IBQREPBuhTARIF_ENDPDV: TIBBCDField
+      FieldName = 'TARIF_ENDPDV'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object IBQREPBuhVID: TIBStringField
+      FieldName = 'VID'
+      ProviderFlags = []
+      Size = 10
+    end
+    object IBQREPBuhDATA: TDateField
+      FieldName = 'DATA'
+      ProviderFlags = []
+    end
+    object IBQREPBuhID_POSL: TIntegerField
+      FieldName = 'ID_POSL'
+      ProviderFlags = []
+    end
+    object IBQREPBuhOTHER: TIntegerField
+      FieldName = 'OTHER'
+      ProviderFlags = []
+    end
+    object IBQREPBuhNO_LICH: TIntegerField
+      FieldName = 'NO_LICH'
+      ProviderFlags = []
+    end
   end
 end
