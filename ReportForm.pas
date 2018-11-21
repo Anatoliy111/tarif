@@ -100,6 +100,10 @@ type
     cxGridDBTableView1OTHER: TcxGridDBColumn;
     cxGridDBTableView1VID: TcxGridDBColumn;
     IBQuery2ID: TIntegerField;
+    IBQuery1GKAL: TIBBCDField;
+    cxGrid1DBTableView1GKAL: TcxGridDBColumn;
+    IBQuery2GKAL: TIBBCDField;
+    cxGridDBTableView1GKAL: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure cxButton7Click(Sender: TObject);
@@ -179,6 +183,7 @@ begin
           cxGrid1DBTableView1NORMA.Visible:=true;
           cxGrid1DBTableView1END_BL.Visible:=false;
           cxGrid1DBTableView1END_L.Visible:=false;
+          cxGrid1DBTableView1GKAL.Visible:=false;
 
 
         if IBPOSLWID.Value='ub' then
@@ -201,6 +206,7 @@ begin
           cxGrid1DBTableView1mzk.Visible:=true;
           cxGrid1DBTableView1kotel.Visible:=true;
           cxGrid1DBTableView1NORMA.Visible:=false;
+          cxGrid1DBTableView1GKAL.Visible:=true;
 
         end;
 
@@ -218,6 +224,7 @@ begin
           cxGridDBTableView1SPLAN.Visible:=false;
           cxGridDBTableView1SFACT.Visible:=false;
           cxGridDBTableView1NORMA.Visible:=true;
+          cxGridDBTableView1GKAL.Visible:=false;
 
 
         if IBPOSLWID.Value='ub' then
@@ -237,6 +244,7 @@ begin
           cxGridDBTableView1sumotpdv.Visible:=true;
           cxGridDBTableView1mzk.Visible:=true;
           cxGridDBTableView1NORMA.Visible:=false;
+          cxGridDBTableView1GKAL.Visible:=true;
 
         end;
 

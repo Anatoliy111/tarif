@@ -274,6 +274,9 @@ type
     IBTARIFUPDID_VIDCENA: TIntegerField;
     IBTARIF_OTHERID_VIDCENA: TIntegerField;
     cxGridDBTableView1ID_VIDCENA: TcxGridDBColumn;
+    IBTARIF_MESCENA: TIBBCDField;
+    IBTARIFUPDCENA: TIBBCDField;
+    IBTARIF_OTHERCENA: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -489,8 +492,9 @@ begin
        if IBTARIFUPDNO_LICH.Value=0 then
        begin
          IBQuery1.Close;
-         IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where id_vidab=:idvidcena order by date_mes desc';
+         IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where id_vidab=:idvidcena and date_mes<=:dmes order by date_mes desc';
          IBQuery1.ParamByName('idvidcena').Value:=IBTARIFUPDID_VIDCENA.Value;
+         IBQuery1.ParamByName('dmes').Value:=IBTARIFUPDDATA.Value;
          IBQuery1.Open;
          IBQuery1.First;
          cenaosn:=IBQuery1.FieldByName('TARIF_SUM1').AsFloat;
@@ -545,6 +549,7 @@ begin
          IBTARIFUPDMZK.AsCurrency:=(gkalm2in*cenamzk)*1.2;
          IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(send,-2)*IBTARIFUPDPLOS_BBI.AsFloat;
          IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(send,-2)*IBTARIFUPDPLOS_BBI.AsFloat)*1.2;
+         IBTARIFUPDCENA.Value:=cenaosn;
          IBTARIFUPD.Post;
          IBTARIF_OTHER.Close;
          IBTARIF_OTHER.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
@@ -553,8 +558,9 @@ begin
          begin
 //         gkal:=normaosn*IBTARIF_OTHERPLOS_BB.AsFloat;
            IBQuery1.Close;
-           IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where id_vidab=:idvidcena order by date_mes desc';
+           IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where id_vidab=:idvidcena and date_mes<=:dmes order by date_mes desc';
            IBQuery1.ParamByName('idvidcena').Value:=IBTARIF_OTHERID_VIDCENA.Value;
+           IBQuery1.ParamByName('dmes').Value:=IBTARIFUPDDATA.Value;
            IBQuery1.Open;
            IBQuery1.First;
 
@@ -570,6 +576,7 @@ begin
            IBTARIF_OTHERMZK.Value:=IBTARIFUPDMZK.AsCurrency;
            IBTARIF_OTHERSUMOT.Value:=SimpleRoundTo(sotend,-2)*IBTARIF_OTHERPLOS_BB.AsFloat;
            IBTARIF_OTHERSUMOTPDV.Value:=(SimpleRoundTo(sotend,-2)*IBTARIF_OTHERPLOS_BB.AsFloat)*1.2;
+           IBTARIF_OTHERCENA.Value:=IBQuery1.FieldByName('TARIF_SUM1').AsFloat;
            IBTARIF_OTHER.Post;
          IBTARIF_OTHER.Next;
          end;

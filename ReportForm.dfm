@@ -105,6 +105,10 @@
         item
           Kind = skSum
           Column = cxGrid1DBTableView1END_L
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1GKAL
         end>
       DataController.Summary.SummaryGroups = <>
       OptionsData.Editing = False
@@ -126,6 +130,10 @@
       object cxGrid1DBTableView1TARIF: TcxGridDBColumn
         Caption = #1058#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF'
+      end
+      object cxGrid1DBTableView1GKAL: TcxGridDBColumn
+        Caption = #1050'-'#1089#1090#1100' '#1043#1082#1072#1083'.'
+        DataBinding.FieldName = 'GKAL'
       end
       object cxGrid1DBTableView1TARIF_END: TcxGridDBColumn
         Caption = #1053#1072#1088#1072#1093'. '#1090#1072#1088#1080#1092
@@ -238,6 +246,10 @@
         item
           Kind = skSum
           Column = cxGridDBTableView1SFACT
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1GKAL
         end>
       DataController.Summary.SummaryGroups = <>
       OptionsData.Editing = False
@@ -261,6 +273,10 @@
       object cxGridDBTableView1TARIF: TcxGridDBColumn
         Caption = #1058#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIF'
+      end
+      object cxGridDBTableView1GKAL: TcxGridDBColumn
+        Caption = #1050'-'#1089#1090#1100' '#1043#1082#1072#1083'.'
+        DataBinding.FieldName = 'GKAL'
       end
       object cxGridDBTableView1SEND: TcxGridDBColumn
         Caption = #1053#1072#1088#1072#1093'. '#1090#1072#1088#1080#1092
@@ -299,6 +315,9 @@
       GridView = cxGridDBTableView1
     end
   end
+  inherited IBTransaction1: TIBTransaction
+    Active = True
+  end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
@@ -310,8 +329,9 @@
         'select tarif_mes.id, vidab.name vid, ul.name ul, dom.dom,tarif.n' +
         'ame tarif, tarif_mes.tarif_end,'
       
-        '    tarif_mes.tarif_endpdv, tarif_mes.mzk, tarif_mes.sumot, tari' +
-        'f_mes.sumotpdv,kotel.name kotel,'
+        '    tarif_mes.tarif_endpdv, (COALESCE(tarif_mes.lich_gk,0)+COALE' +
+        'SCE(tarif_mes.lich_gk2,0)) as gkal,tarif_mes.mzk, tarif_mes.sumo' +
+        't, tarif_mes.sumotpdv,kotel.name kotel,'
       
         '    tarif_mes.TARIF_PLAN, tarif_mes.TARIF_FACT, tarif_mes.NORMA,' +
         ' tarif_mes.END_BL, tarif_mes.END_L from tarif_mes'
@@ -425,6 +445,12 @@
       Origin = '"TARIF_MES"."END_L"'
       Precision = 18
       Size = 2
+    end
+    object IBQuery1GKAL: TIBBCDField
+      FieldName = 'GKAL'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
     end
   end
   object DSQuery1: TDataSource
@@ -571,6 +597,9 @@
       '    tarif_other.sumot,'
       '    tarif_other.sumotpdv,'
       '    tarif_other.sendpdv,'
+      
+        '   (COALESCE(tarif_other.lich_gk,0)+COALESCE(tarif_other.lich_gk' +
+        '2,0)) as gkal,'
       '    dom.dom,'
       '    tarif.name tarif,'
       '    ul.name ul,'
@@ -681,6 +710,12 @@
       FieldName = 'ID'
       Origin = '"TARIF_OTHER"."ID"'
       Required = True
+    end
+    object IBQuery2GKAL: TIBBCDField
+      FieldName = 'GKAL'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
     end
   end
   object DSQuery2: TDataSource

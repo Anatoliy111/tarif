@@ -1,0 +1,2 @@
+update tarif_other set tarif_other.id_vidcena = (select other.id_vidab from dom_other, other where dom_other.id=tarif_other.id_domother and other.id=dom_other.id_other and other.id_vidab is not null)
+update tarif_mes set tarif_mes.id_vidcena = (select id_vidab from tarif where tarif.id=tarif_mes.id_tarif and tarif.id_vidab is not null)
