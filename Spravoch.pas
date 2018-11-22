@@ -202,6 +202,10 @@ type
     IBTARIF_CENAFL_2DATE: TIntegerField;
     IBTARIF_CENATARIF_MZK1: TIBBCDField;
     IBTARIF_CENATARIF_MZK2: TIBBCDField;
+    IBVIDABWID: TIBStringField;
+    cxGridDBTableView3WID: TcxGridDBColumn;
+    cxLabel18: TcxLabel;
+    cxLabel19: TcxLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);

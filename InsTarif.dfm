@@ -412,6 +412,7 @@ inherited InsTar: TInsTar
         object cxGridDBTableView2PROCENT: TcxGridDBColumn
           Caption = #1055#1088#1086#1094#1077#1085#1090
           DataBinding.FieldName = 'PROCENT'
+          PropertiesClassName = 'TcxCalcEditProperties'
         end
       end
       object cxGridLevel2: TcxGridLevel
@@ -1028,7 +1029,6 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = False
     Left = 16
     Top = 520
   end
@@ -1135,7 +1135,9 @@ inherited InsTar: TInsTar
       '  LICH_PK2,'
       '  LICH_GK2,'
       '  FL_LICH,'
-      '  ID_VIDCENA'
+      '  ID_VIDCENA,'
+      '  CENA1,'
+      '  CENA2'
       'from TARIF_OTHER '
       'where'
       '  ID = :ID')
@@ -1383,7 +1385,8 @@ inherited InsTar: TInsTar
       '  LICH_PK2,'
       '  LICH_GK2,'
       '  ID_VIDCENA,'
-      '  CENA,'
+      '  CENA1,'
+      '  CENA2,'
       '  PROCENT'
       'from TARIF_MES '
       'where'
@@ -1623,12 +1626,6 @@ inherited InsTar: TInsTar
     object IBTARIF_MESID_VIDCENA: TIntegerField
       FieldName = 'ID_VIDCENA'
       Origin = '"TARIF_MES"."ID_VIDCENA"'
-    end
-    object IBTARIF_MESCENA: TIBBCDField
-      FieldName = 'CENA'
-      Origin = '"TARIF_MES"."CENA"'
-      Precision = 18
-      Size = 4
     end
     object IBTARIF_MESPROCENT: TIBBCDField
       FieldName = 'PROCENT'

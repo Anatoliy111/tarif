@@ -172,7 +172,6 @@ type
     IBTARIF_OTHERID_VIDCENA: TIntegerField;
     cxGridDBTableView2ID_VIDCENA: TcxGridDBColumn;
     cxGridDBTableView1ID_VIDCENA: TcxGridDBColumn;
-    IBTARIF_MESCENA: TIBBCDField;
     IBTARIF_MESPROCENT: TIBBCDField;
     cxGridDBTableView2PROCENT: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

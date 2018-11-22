@@ -1017,11 +1017,13 @@
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.ThumbnailVisible = True
+    PreviewOptions.ShowCaptions = True
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43425.596407557900000000
-    ReportOptions.LastChange = 43426.503262349540000000
+    ReportOptions.LastChange = 43426.613396307870000000
     ScriptLanguage = 'PascalScript'
     ShowProgress = False
     StoreInDFM = False

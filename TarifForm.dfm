@@ -413,7 +413,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 164
+      Height = 148
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -429,9 +429,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 165
+      Top = 149
       Width = 167
-      Height = 201
+      Height = 217
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -594,7 +594,6 @@
         object cxGridDBTableView1SEND: TcxGridDBColumn
           Caption = #1053#1072#1088#1072#1093'. '#1090#1072#1088#1080#1092
           DataBinding.FieldName = 'SEND'
-          Options.Editing = False
           Width = 80
         end
         object cxGridDBTableView1SENDPDV: TcxGridDBColumn
@@ -757,7 +756,7 @@
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
-      '   LICH_GK2, ID_VIDCENA, CENA, PROCENT)'
+      '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -772,8 +771,9 @@
         '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
         'TARIF_ENDPDV, '
       
-        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA, :PROCENT' +
-        ')')
+        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA1, :CENA2,' +
+        ' :PROCENT, '
+      '   :FL_2CENA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -809,8 +809,10 @@
       '  LICH_PK2,'
       '  LICH_GK2,'
       '  ID_VIDCENA,'
-      '  CENA,'
-      '  PROCENT'
+      '  CENA1,'
+      '  CENA2,'
+      '  PROCENT,'
+      '  FL_2CENA'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -856,8 +858,10 @@
       '  LICH_PK2 = :LICH_PK2,'
       '  LICH_GK2 = :LICH_GK2,'
       '  ID_VIDCENA = :ID_VIDCENA,'
-      '  CENA = :CENA,'
-      '  PROCENT = :PROCENT'
+      '  CENA1 = :CENA1,'
+      '  CENA2 = :CENA2,'
+      '  PROCENT = :PROCENT,'
+      '  FL_2CENA = :FL_2CENA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1068,17 +1072,27 @@
       FieldName = 'ID_VIDCENA'
       Origin = '"TARIF_MES"."ID_VIDCENA"'
     end
-    object IBTARIFUPDCENA: TIBBCDField
-      FieldName = 'CENA'
-      Origin = '"TARIF_MES"."CENA"'
-      Precision = 18
-      Size = 4
-    end
     object IBTARIFUPDPROCENT: TIBBCDField
       FieldName = 'PROCENT'
       Origin = '"TARIF_MES"."PROCENT"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIFUPDCENA1: TIBBCDField
+      FieldName = 'CENA1'
+      Origin = '"TARIF_MES"."CENA1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIFUPDCENA2: TIBBCDField
+      FieldName = 'CENA2'
+      Origin = '"TARIF_MES"."CENA2"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIFUPDFL_2CENA: TIntegerField
+      FieldName = 'FL_2CENA'
+      Origin = '"TARIF_MES"."FL_2CENA"'
     end
   end
   object DSTARIFUPD: TDataSource
@@ -1689,7 +1703,7 @@
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
-      '   LICH_GK2, ID_VIDCENA, CENA, PROCENT)'
+      '   LICH_GK2, ID_VIDCENA, PROCENT, FL_2CENA)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1704,8 +1718,8 @@
         '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
         'TARIF_ENDPDV, '
       
-        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA, :PROCENT' +
-        ')')
+        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :PROCENT, :FL_2' +
+        'CENA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1741,8 +1755,10 @@
       '  LICH_PK2,'
       '  LICH_GK2,'
       '  ID_VIDCENA,'
-      '  CENA,'
-      '  PROCENT'
+      '  CENA1,'
+      '  CENA2,'
+      '  PROCENT,'
+      '  FL_2CENA'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1786,8 +1802,8 @@
       '  LICH_PK2 = :LICH_PK2,'
       '  LICH_GK2 = :LICH_GK2,'
       '  ID_VIDCENA = :ID_VIDCENA,'
-      '  CENA = :CENA,'
-      '  PROCENT = :PROCENT'
+      '  PROCENT = :PROCENT,'
+      '  FL_2CENA = :FL_2CENA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1995,17 +2011,27 @@
       FieldName = 'ID_VIDCENA'
       Origin = '"TARIF_MES"."ID_VIDCENA"'
     end
-    object IBTARIF_MESCENA: TIBBCDField
-      FieldName = 'CENA'
-      Origin = '"TARIF_MES"."CENA"'
-      Precision = 18
-      Size = 4
-    end
     object IBTARIF_MESPROCENT: TIBBCDField
       FieldName = 'PROCENT'
       Origin = '"TARIF_MES"."PROCENT"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIF_MESCENA1: TIBBCDField
+      FieldName = 'CENA1'
+      Origin = '"TARIF_MES"."CENA1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESCENA2: TIBBCDField
+      FieldName = 'CENA2'
+      Origin = '"TARIF_MES"."CENA2"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESFL_2CENA: TIntegerField
+      FieldName = 'FL_2CENA'
+      Origin = '"TARIF_MES"."FL_2CENA"'
     end
   end
   object DSTARIF_MES: TDataSource
@@ -2429,7 +2455,7 @@
       
         '   SUMOT, SUMOTPDV, SENDPDV, LICH_PN, LICH_PK, LICH_GK, LICH_PN2' +
         ', LICH_PK2, '
-      '   LICH_GK2, CENA)'
+      '   LICH_GK2, CENA1, CENA2)'
       'values'
       
         '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
@@ -2437,7 +2463,7 @@
       
         '   :SEND, :MZK, :SUMOT, :SUMOTPDV, :SENDPDV, :LICH_PN, :LICH_PK,' +
         ' :LICH_GK, '
-      '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :CENA)')
+      '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :CENA1, :CENA2)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -2460,7 +2486,8 @@
       '  LICH_GK2,'
       '  FL_LICH,'
       '  ID_VIDCENA,'
-      '  CENA'
+      '  CENA1,'
+      '  CENA2'
       'from TARIF_OTHER '
       'where'
       '  ID = :ID')
@@ -2491,7 +2518,8 @@
       '  LICH_PN2 = :LICH_PN2,'
       '  LICH_PK2 = :LICH_PK2,'
       '  LICH_GK2 = :LICH_GK2,'
-      '  CENA = :CENA'
+      '  CENA1 = :CENA1,'
+      '  CENA2 = :CENA2'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2633,9 +2661,15 @@
       FieldName = 'ID_VIDCENA'
       Origin = '"TARIF_OTHER"."ID_VIDCENA"'
     end
-    object IBTARIF_OTHERCENA: TIBBCDField
-      FieldName = 'CENA'
-      Origin = '"TARIF_OTHER"."CENA"'
+    object IBTARIF_OTHERCENA1: TIBBCDField
+      FieldName = 'CENA1'
+      Origin = '"TARIF_OTHER"."CENA1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_OTHERCENA2: TIBBCDField
+      FieldName = 'CENA2'
+      Origin = '"TARIF_OTHER"."CENA2"'
       Precision = 18
       Size = 4
     end

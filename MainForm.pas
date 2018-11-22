@@ -221,7 +221,6 @@ type
     dxBarButton26: TdxBarButton;
     dxBarButton27: TdxBarButton;
     dxBarButton35: TdxBarButton;
-    IBTARIF_MESCENA: TIBBCDField;
     IBTARIF_MESPROCENT: TIBBCDField;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);

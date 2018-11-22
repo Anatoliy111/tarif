@@ -16,7 +16,7 @@
     Height = 596
     Align = alClient
     TabOrder = 2
-    Properties.ActivePage = cxTabSheet7
+    Properties.ActivePage = cxTabSheet4
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
     ClientRectBottom = 592
@@ -57,6 +57,13 @@
           Top = 64
           TabOrder = 1
           Width = 329
+        end
+        object cxLabel19: TcxLabel
+          Left = 328
+          Top = 22
+          Caption = 
+            #1047#1085#1072#1095#1077#1085#1085#1103' '#1074' '#1087#1086#1083#1110' WID '#1085#1077' '#1084#1110#1085#1103#1090#1080', '#1094#1110' '#1087#1086#1079#1085#1072#1095#1082#1080' '#1074#1080#1082#1086#1088#1080#1089#1090#1086#1074#1091#1102#1090#1100#1089#1103' '#1074' '#1088#1086 +
+            #1079#1088#1072#1093#1091#1085#1082#1072#1093
         end
       end
       object cxGrid1: TcxGrid
@@ -722,10 +729,20 @@
             DataBinding.FieldName = 'NAME'
             Width = 273
           end
+          object cxGridDBTableView3WID: TcxGridDBColumn
+            DataBinding.FieldName = 'WID'
+          end
         end
         object cxGridLevel3: TcxGridLevel
           GridView = cxGridDBTableView3
         end
+      end
+      object cxLabel18: TcxLabel
+        Left = 344
+        Top = 5
+        Caption = 
+          #1047#1085#1072#1095#1077#1085#1085#1103' '#1074' '#1087#1086#1083#1110' WID '#1085#1077' '#1084#1110#1085#1103#1090#1080', '#1094#1110' '#1087#1086#1079#1085#1072#1095#1082#1080' '#1074#1080#1082#1086#1088#1080#1089#1090#1086#1074#1091#1102#1090#1100#1089#1103' '#1074' '#1088#1086 +
+          #1079#1088#1072#1093#1091#1085#1082#1072#1093
       end
     end
     object cxTabSheet5: TcxTabSheet
@@ -1337,13 +1354,14 @@
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into VIDAB'
-      '  (ID, NAME)'
+      '  (ID, NAME, WID)'
       'values'
-      '  (:ID, :NAME)')
+      '  (:ID, :NAME, :WID)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
-      '  NAME'
+      '  NAME,'
+      '  WID'
       'from VIDAB '
       'where'
       '  ID = :ID')
@@ -1354,7 +1372,8 @@
       'update VIDAB'
       'set'
       '  ID = :ID,'
-      '  NAME = :NAME'
+      '  NAME = :NAME,'
+      '  WID = :WID'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1371,6 +1390,11 @@
     object IBVIDABNAME: TIBStringField
       FieldName = 'NAME'
       Origin = '"VIDAB"."NAME"'
+      Size = 10
+    end
+    object IBVIDABWID: TIBStringField
+      FieldName = 'WID'
+      Origin = '"VIDAB"."WID"'
       Size = 10
     end
   end
