@@ -8,7 +8,10 @@ uses
   IBX.IBQuery, frxClass, frxDBSet, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Vcl.Menus, cxControls, cxContainer, cxEdit, cxLabel,
   cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox, Vcl.StdCtrls, cxButtons;
+  cxDBLookupComboBox, Vcl.StdCtrls, cxButtons, cxStyles, cxCustomData, cxFilter,
+  cxData, cxDataStorage, cxNavigator, cxDBData, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView,
+  cxGrid;
 
 type
   TFRRepForm = class(TForm)
@@ -36,6 +39,24 @@ type
     IBQuery1WID: TIBStringField;
     IBQuery1OTHERS: TIntegerField;
     IBQuery1NO_LICH: TIntegerField;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    DSQuery1: TDataSource;
+    cxGrid1DBTableView1TARIFNAM: TcxGridDBColumn;
+    cxGrid1DBTableView1ADRES: TcxGridDBColumn;
+    cxGrid1DBTableView1PLOS: TcxGridDBColumn;
+    cxGrid1DBTableView1GKAL: TcxGridDBColumn;
+    cxGrid1DBTableView1CENA: TcxGridDBColumn;
+    cxGrid1DBTableView1SUMOT: TcxGridDBColumn;
+    cxGrid1DBTableView1SUMOTPDV: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_END: TcxGridDBColumn;
+    cxGrid1DBTableView1TARIF_ENDPDV: TcxGridDBColumn;
+    cxGrid1DBTableView1VID: TcxGridDBColumn;
+    cxGrid1DBTableView1DATA: TcxGridDBColumn;
+    cxGrid1DBTableView1WID: TcxGridDBColumn;
+    cxGrid1DBTableView1OTHERS: TcxGridDBColumn;
+    cxGrid1DBTableView1NO_LICH: TcxGridDBColumn;
     procedure cxButton1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -60,8 +81,12 @@ IBQuery1.Close;
 IBQuery1.ParamByName('pos').Value:='ot';
 IBQuery1.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
 IBQuery1.Open;
+IBQuery1.Last;
+IBQuery1.RecordCount;
 
-//frxReport2.LoadFromFile('report/Buh.fr3');
+if FileExists('report/Buhg.fr3') then
+  frxReport2.LoadFromFile('report/Buhg.fr3');
+
 frxReport2.Variables['Dolgn']:=''''+DataMod.DataM.iniFile.ReadString('RepBuhg','Dolgn',extractfilepath(paramstr(0)))+'''';
 frxReport2.Variables['Fio']:=''''+DataMod.DataM.iniFile.ReadString('RepBuhg','FIO',extractfilepath(paramstr(0)))+'''';
 frxReport2.Variables['datemes']:=''''+mon_slovoDt(cxLookupComboBox1.EditValue)+'''';

@@ -2,7 +2,7 @@
   Left = 0
   Top = 0
   Caption = 'FRRepForm'
-  ClientHeight = 178
+  ClientHeight = 302
   ClientWidth = 482
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -40,10 +40,90 @@
     Top = 16
     Caption = #1055#1077#1088#1110#1086#1076
   end
+  object cxGrid1: TcxGrid
+    Left = 8
+    Top = 72
+    Width = 250
+    Height = 200
+    TabOrder = 3
+    object cxGrid1DBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      Navigator.Buttons.First.Visible = True
+      Navigator.Buttons.PriorPage.Visible = True
+      Navigator.Buttons.Prior.Visible = True
+      Navigator.Buttons.Next.Visible = True
+      Navigator.Buttons.NextPage.Visible = True
+      Navigator.Buttons.Last.Visible = True
+      Navigator.Buttons.Insert.Visible = True
+      Navigator.Buttons.Append.Visible = False
+      Navigator.Buttons.Delete.Visible = True
+      Navigator.Buttons.Edit.Visible = True
+      Navigator.Buttons.Post.Visible = True
+      Navigator.Buttons.Cancel.Visible = True
+      Navigator.Buttons.Refresh.Visible = True
+      Navigator.Buttons.SaveBookmark.Visible = True
+      Navigator.Buttons.GotoBookmark.Visible = True
+      Navigator.Buttons.Filter.Visible = True
+      DataController.DataSource = DSQuery1
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsSelection.HideFocusRectOnExit = False
+      OptionsView.CellEndEllipsis = True
+      OptionsView.CellAutoHeight = True
+      OptionsView.Footer = True
+      OptionsView.FooterMultiSummaries = True
+      OptionsView.GroupByBox = False
+      object cxGrid1DBTableView1TARIFNAM: TcxGridDBColumn
+        DataBinding.FieldName = 'TARIFNAM'
+      end
+      object cxGrid1DBTableView1ADRES: TcxGridDBColumn
+        DataBinding.FieldName = 'ADRES'
+      end
+      object cxGrid1DBTableView1PLOS: TcxGridDBColumn
+        DataBinding.FieldName = 'PLOS'
+      end
+      object cxGrid1DBTableView1GKAL: TcxGridDBColumn
+        DataBinding.FieldName = 'GKAL'
+      end
+      object cxGrid1DBTableView1CENA: TcxGridDBColumn
+        DataBinding.FieldName = 'CENA'
+      end
+      object cxGrid1DBTableView1SUMOT: TcxGridDBColumn
+        DataBinding.FieldName = 'SUMOT'
+      end
+      object cxGrid1DBTableView1SUMOTPDV: TcxGridDBColumn
+        DataBinding.FieldName = 'SUMOTPDV'
+      end
+      object cxGrid1DBTableView1TARIF_END: TcxGridDBColumn
+        DataBinding.FieldName = 'TARIF_END'
+      end
+      object cxGrid1DBTableView1TARIF_ENDPDV: TcxGridDBColumn
+        DataBinding.FieldName = 'TARIF_ENDPDV'
+      end
+      object cxGrid1DBTableView1VID: TcxGridDBColumn
+        DataBinding.FieldName = 'VID'
+      end
+      object cxGrid1DBTableView1DATA: TcxGridDBColumn
+        DataBinding.FieldName = 'DATA'
+      end
+      object cxGrid1DBTableView1WID: TcxGridDBColumn
+        DataBinding.FieldName = 'WID'
+      end
+      object cxGrid1DBTableView1OTHERS: TcxGridDBColumn
+        DataBinding.FieldName = 'OTHERS'
+      end
+      object cxGrid1DBTableView1NO_LICH: TcxGridDBColumn
+        DataBinding.FieldName = 'NO_LICH'
+      end
+    end
+    object cxGrid1Level1: TcxGridLevel
+      GridView = cxGrid1DBTableView1
+    end
+  end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
     Transaction = Main.IBTransaction1
-    Active = True
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -115,7 +195,9 @@
         'mes.id)'
       ')'
       'where data = :dt and wid=:pos and tarifnam is not null'
-      'order by vid,no_lich,tarifnam')
+      'order by vid,no_lich,tarifnam'
+      ''
+      '')
     Left = 344
     Top = 24
     ParamData = <
@@ -221,7 +303,7 @@
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43425.596407557900000000
-    ReportOptions.LastChange = 43425.796121631940000000
+    ReportOptions.LastChange = 43426.435741898100000000
     ScriptLanguage = 'PascalScript'
     ShowProgress = False
     StoreInDFM = False
@@ -277,6 +359,11 @@
   object DІPERIOD: TDataSource
     DataSet = IBPERIOD
     Left = 288
+    Top = 78
+  end
+  object DSQuery1: TDataSource
+    DataSet = IBQuery1
+    Left = 344
     Top = 78
   end
 end

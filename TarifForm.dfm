@@ -413,7 +413,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 196
+      Height = 164
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -429,13 +429,11 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 197
+      Top = 165
       Width = 167
-      Height = 169
+      Height = 201
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 85
-      ExplicitHeight = 281
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -686,7 +684,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -760,7 +757,7 @@
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
-      '   LICH_GK2, ID_VIDCENA, CENA)'
+      '   LICH_GK2, ID_VIDCENA, CENA, PROCENT)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -774,7 +771,9 @@
       
         '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
         'TARIF_ENDPDV, '
-      '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA)')
+      
+        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA, :PROCENT' +
+        ')')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -810,7 +809,8 @@
       '  LICH_PK2,'
       '  LICH_GK2,'
       '  ID_VIDCENA,'
-      '  CENA'
+      '  CENA,'
+      '  PROCENT'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -856,7 +856,8 @@
       '  LICH_PK2 = :LICH_PK2,'
       '  LICH_GK2 = :LICH_GK2,'
       '  ID_VIDCENA = :ID_VIDCENA,'
-      '  CENA = :CENA'
+      '  CENA = :CENA,'
+      '  PROCENT = :PROCENT'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1072,6 +1073,12 @@
       Origin = '"TARIF_MES"."CENA"'
       Precision = 18
       Size = 4
+    end
+    object IBTARIFUPDPROCENT: TIBBCDField
+      FieldName = 'PROCENT'
+      Origin = '"TARIF_MES"."PROCENT"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIFUPD: TDataSource
@@ -1682,7 +1689,7 @@
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
-      '   LICH_GK2, ID_VIDCENA, CENA)'
+      '   LICH_GK2, ID_VIDCENA, CENA, PROCENT)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1696,7 +1703,9 @@
       
         '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
         'TARIF_ENDPDV, '
-      '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA)')
+      
+        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA, :PROCENT' +
+        ')')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1732,7 +1741,8 @@
       '  LICH_PK2,'
       '  LICH_GK2,'
       '  ID_VIDCENA,'
-      '  CENA'
+      '  CENA,'
+      '  PROCENT'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1776,7 +1786,8 @@
       '  LICH_PK2 = :LICH_PK2,'
       '  LICH_GK2 = :LICH_GK2,'
       '  ID_VIDCENA = :ID_VIDCENA,'
-      '  CENA = :CENA'
+      '  CENA = :CENA,'
+      '  PROCENT = :PROCENT'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1989,6 +2000,12 @@
       Origin = '"TARIF_MES"."CENA"'
       Precision = 18
       Size = 4
+    end
+    object IBTARIF_MESPROCENT: TIBBCDField
+      FieldName = 'PROCENT'
+      Origin = '"TARIF_MES"."PROCENT"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIF_MES: TDataSource

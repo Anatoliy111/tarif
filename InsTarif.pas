@@ -172,6 +172,9 @@ type
     IBTARIF_OTHERID_VIDCENA: TIntegerField;
     cxGridDBTableView2ID_VIDCENA: TcxGridDBColumn;
     cxGridDBTableView1ID_VIDCENA: TcxGridDBColumn;
+    IBTARIF_MESCENA: TIBBCDField;
+    IBTARIF_MESPROCENT: TIBBCDField;
+    cxGridDBTableView2PROCENT: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -373,11 +376,15 @@ begin
     cxGridDBTableView2NSER_LICH.Visible:=false;
     cxGridDBTableView2PLOS_BB.Visible:=false;
     cxGridDBTableView2PLOS_OBL.Visible:=false;
+
     cxGridDBTableView2ID_KOTEL.Visible:=false;
     cxGridDBTableView1PLOS_BB.Visible:=false;
     cxGrid1DBTableView1PLOS_BB.Visible:=false;
     cxDBCheckBox1.Visible:=false;
 
+    cxGridDBTableView2PLOS_IN.Visible:=false;
+    cxGridDBTableView2PLOS_MZK.Visible:=false;
+    cxGridDBTableView2PROCENT.Visible:=false;
   if poslwid='ot' then
   begin
     cxGridDBTableView2NSER_LICH.Visible:=true;
@@ -387,6 +394,9 @@ begin
     cxGridDBTableView1PLOS_BB.Visible:=true;
     cxGrid1DBTableView1PLOS_BB.Visible:=true;
     cxDBCheckBox1.Visible:=true;
+    cxGridDBTableView2PLOS_IN.Visible:=true;
+    cxGridDBTableView2PLOS_MZK.Visible:=true;
+    cxGridDBTableView2PROCENT.Visible:=true;
   end;
 
 
@@ -533,7 +543,7 @@ begin
   end;
 
 
-      if (poslwid='ot') and (IBTARIF_DOM1.RecordCount<>0) and (IBTARIF_MESNO_LICH.Value=0) then
+      if (poslwid='ot') and (IBTARIF_DOM1.RecordCount<>0) then
          exit;
 
       IBTARIF_DOM1.Insert;
@@ -728,6 +738,8 @@ begin
       Application.MessageBox('Тариф з лічильником використовує тільки один будинок. Видаліть лишні будинки !!! ','Ошибка',16)
     end;
   end;
+  if cxDBCheckBox1.Checked then
+     IBTARIF_MESNSER_LICH.Value:='NO';
 end;
 
 procedure TInsTar.cxGrid1DBTableView1ID_DOMPropertiesEditValueChanged(

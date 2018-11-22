@@ -220,6 +220,9 @@ type
     IBTARIF_OTHERID_VIDCENA: TIntegerField;
     dxBarButton26: TdxBarButton;
     dxBarButton27: TdxBarButton;
+    dxBarButton35: TdxBarButton;
+    IBTARIF_MESCENA: TIBBCDField;
+    IBTARIF_MESPROCENT: TIBBCDField;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -389,7 +392,7 @@ begin
 //  Report1.IBQuery1.open;
   Report1.IBQuery1.open;
   Report1.cxLookupComboBox1.EditValue:=Report1.IBPERIODDATA.Value;
-  Report1.cxGrid2.Visible:=false;
+  Report1.cxGrid3.Visible:=false;
   Report1.cxGrid1.Align:=alClient;
 
  AddToolBar(Report1);
@@ -640,6 +643,7 @@ Prores.Show;
             IBTARIF_MESPLOS_IN.AsFloat:=IBQuery1.FieldByName('PLOS_IN').AsFloat;
             IBTARIF_MESPLOS_MZK.AsFloat:=IBQuery1.FieldByName('PLOS_MZK').AsFloat;
             IBTARIF_MESID_VIDCENA.AsInteger:=IBQuery1.FieldByName('ID_VIDCENA').AsInteger;
+            IBTARIF_MESPROCENT.AsFloat:=IBQuery1.FieldByName('PROCENT').AsFloat;
 
             IBTARIF_MES.Post;
           end;
@@ -901,8 +905,9 @@ begin
 //  Report1.IBQuery1.open;
   Report2.IBQuery2.open;
   Report2.cxLookupComboBox1.EditValue:=Report2.IBPERIODDATA.Value;
+  Report2.DBLookupListBox1.Visible:=false;
   Report2.cxGrid1.Visible:=false;
-  Report2.cxGrid2.Align:=alClient;
+  Report2.cxGrid3.Align:=alClient;
 
  AddToolBar(Report2);
  Report2.Show;

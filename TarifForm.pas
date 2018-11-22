@@ -277,6 +277,8 @@ type
     IBTARIF_MESCENA: TIBBCDField;
     IBTARIFUPDCENA: TIBBCDField;
     IBTARIF_OTHERCENA: TIBBCDField;
+    IBTARIFUPDPROCENT: TIBBCDField;
+    IBTARIF_MESPROCENT: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -489,8 +491,7 @@ begin
     if IBTARIFUPDWID.Value='ot' then
     begin
     fl_rasch:=true;
-       if IBTARIFUPDNO_LICH.Value=0 then
-       begin
+
          IBQuery1.Close;
          IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where id_vidab=:idvidcena and date_mes<=:dmes order by date_mes desc';
          IBQuery1.ParamByName('idvidcena').Value:=IBTARIFUPDID_VIDCENA.Value;
@@ -499,7 +500,9 @@ begin
          IBQuery1.First;
          cenaosn:=IBQuery1.FieldByName('TARIF_SUM1').AsFloat;
          cenamzk:=IBQuery1.FieldByName('TARIF_MZK1').AsFloat;
+
          gkal:=IBTARIFUPDLICH_GK.AsFloat+IBTARIFUPDLICH_GK2.AsFloat;
+
          plosallmzk:=IBTARIFUPDPLOS_BBI.AsFloat+IBTARIFUPDPLOS_IN.AsFloat+IBTARIFUPDPLOS_MZK.AsFloat;
          gkalkv:=gkal/plosallmzk*(IBTARIFUPDPLOS_BBI.AsFloat+IBTARIFUPDPLOS_IN.AsFloat);
          gkalmzk:=gkal-gkalkv;
@@ -539,6 +542,8 @@ begin
 
 
          send:=normaosn*cenaosn;
+       if IBTARIFUPDNO_LICH.Value=0 then
+       begin
 
          IBTARIFUPD.Edit;
 //         IBTARIFUPDNORMA.Value:=normaosn;
@@ -582,6 +587,18 @@ begin
          end;
 
 
+       end
+       else
+       begin
+
+         IBTARIFUPD.Edit;
+         IBTARIFUPDTARIF_END.Value:=SimpleRoundTo(send,-2);
+         IBTARIFUPDTARIF_ENDPDV.AsCurrency:=SimpleRoundTo(send,-2)*1.2;
+         IBTARIFUPDMZK.AsCurrency:=(gkalm2in*cenamzk)*1.2;
+         IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(send,-2)*IBTARIFUPDPLOS_BBI.AsFloat;
+         IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(send,-2)*IBTARIFUPDPLOS_BBI.AsFloat)*1.2;
+         IBTARIFUPDCENA.Value:=cenaosn;
+         IBTARIFUPD.Post;
        end;
 
 
@@ -1491,7 +1508,11 @@ procedure TTarifs.IBTARIF_MESLICH_PK2Change(Sender: TField);
 begin
   inherited;
   IBTARIF_MES.edit;
-  IBTARIF_MESLICH_GK2.AsFloat:= IBTARIF_MESLICH_PK2.AsFloat-IBTARIF_MESLICH_PN2.AsFloat;
+  if IBTARIF_MESPROCENT.AsFloat<>0 then
+    IBTARIF_MESLICH_GK2.AsFloat:= IBTARIF_MESLICH_PK2.AsFloat-IBTARIF_MESLICH_PN2.AsFloat+(((IBTARIF_MESLICH_PK2.AsFloat-IBTARIF_MESLICH_PN2.AsFloat)/100)*IBTARIF_MESPROCENT.AsFloat)
+  else
+    IBTARIF_MESLICH_GK2.AsFloat:= IBTARIF_MESLICH_PK2.AsFloat-IBTARIF_MESLICH_PN2.AsFloat;
+
   IBTARIF_MES.post;
 end;
 
@@ -1499,7 +1520,11 @@ procedure TTarifs.IBTARIF_MESLICH_PKChange(Sender: TField);
 begin
   inherited;
   IBTARIF_MES.edit;
-  IBTARIF_MESLICH_GK.AsFloat:= IBTARIF_MESLICH_PK.AsFloat-IBTARIF_MESLICH_PN.AsFloat;
+  if IBTARIF_MESPROCENT.AsFloat<>0 then
+    IBTARIF_MESLICH_GK.AsFloat:= IBTARIF_MESLICH_PK.AsFloat-IBTARIF_MESLICH_PN.AsFloat+(((IBTARIF_MESLICH_PK.AsFloat-IBTARIF_MESLICH_PN.AsFloat)/100)*IBTARIF_MESPROCENT.AsFloat)
+  else
+    IBTARIF_MESLICH_GK.AsFloat:= IBTARIF_MESLICH_PK.AsFloat-IBTARIF_MESLICH_PN.AsFloat;
+
   IBTARIF_MES.post;
 end;
 
@@ -1507,15 +1532,24 @@ procedure TTarifs.IBTARIF_MESLICH_PN2Change(Sender: TField);
 begin
   inherited;
   IBTARIF_MES.edit;
-  IBTARIF_MESLICH_GK2.AsFloat:= IBTARIF_MESLICH_PK2.AsFloat-IBTARIF_MESLICH_PN2.AsFloat;
+  if IBTARIF_MESPROCENT.AsFloat<>0 then
+    IBTARIF_MESLICH_GK2.AsFloat:= IBTARIF_MESLICH_PK2.AsFloat-IBTARIF_MESLICH_PN2.AsFloat+(((IBTARIF_MESLICH_PK2.AsFloat-IBTARIF_MESLICH_PN2.AsFloat)/100)*IBTARIF_MESPROCENT.AsFloat)
+  else
+    IBTARIF_MESLICH_GK2.AsFloat:= IBTARIF_MESLICH_PK2.AsFloat-IBTARIF_MESLICH_PN2.AsFloat;
+
   IBTARIF_MES.post;
 end;
 
 procedure TTarifs.IBTARIF_MESLICH_PNChange(Sender: TField);
+
 begin
   inherited;
   IBTARIF_MES.edit;
-  IBTARIF_MESLICH_GK.AsFloat:= IBTARIF_MESLICH_PK.AsFloat-IBTARIF_MESLICH_PN.AsFloat;
+  if IBTARIF_MESPROCENT.AsFloat<>0 then
+    IBTARIF_MESLICH_GK.AsFloat:= IBTARIF_MESLICH_PK.AsFloat-IBTARIF_MESLICH_PN.AsFloat+(((IBTARIF_MESLICH_PK.AsFloat-IBTARIF_MESLICH_PN.AsFloat)/100)*IBTARIF_MESPROCENT.AsFloat)
+  else
+    IBTARIF_MESLICH_GK.AsFloat:= IBTARIF_MESLICH_PK.AsFloat-IBTARIF_MESLICH_PN.AsFloat;
+
   IBTARIF_MES.post;
 
 end;

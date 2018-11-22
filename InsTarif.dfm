@@ -409,6 +409,10 @@ inherited InsTar: TInsTar
           Properties.ListSource = DSKOTEL
           Width = 86
         end
+        object cxGridDBTableView2PROCENT: TcxGridDBColumn
+          Caption = #1055#1088#1086#1094#1077#1085#1090
+          DataBinding.FieldName = 'PROCENT'
+        end
       end
       object cxGridLevel2: TcxGridLevel
         GridView = cxGridDBTableView2
@@ -1332,7 +1336,7 @@ inherited InsTar: TInsTar
       
         '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
         'CH, PLOS_IN, '
-      '   PLOS_MZK, ID_VIDCENA)'
+      '   PLOS_MZK, ID_VIDCENA, PROCENT)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1343,7 +1347,7 @@ inherited InsTar: TInsTar
       
         '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
         'G_VIDH, '
-      '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :ID_VIDCENA)')
+      '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :ID_VIDCENA, :PROCENT)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1378,7 +1382,9 @@ inherited InsTar: TInsTar
       '  LICH_PN2,'
       '  LICH_PK2,'
       '  LICH_GK2,'
-      '  ID_VIDCENA'
+      '  ID_VIDCENA,'
+      '  CENA,'
+      '  PROCENT'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1414,7 +1420,8 @@ inherited InsTar: TInsTar
       '  NO_LICH = :NO_LICH,'
       '  PLOS_IN = :PLOS_IN,'
       '  PLOS_MZK = :PLOS_MZK,'
-      '  ID_VIDCENA = :ID_VIDCENA'
+      '  ID_VIDCENA = :ID_VIDCENA,'
+      '  PROCENT = :PROCENT'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1616,6 +1623,18 @@ inherited InsTar: TInsTar
     object IBTARIF_MESID_VIDCENA: TIntegerField
       FieldName = 'ID_VIDCENA'
       Origin = '"TARIF_MES"."ID_VIDCENA"'
+    end
+    object IBTARIF_MESCENA: TIBBCDField
+      FieldName = 'CENA'
+      Origin = '"TARIF_MES"."CENA"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESPROCENT: TIBBCDField
+      FieldName = 'PROCENT'
+      Origin = '"TARIF_MES"."PROCENT"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIF_MES: TDataSource
