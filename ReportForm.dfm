@@ -55,13 +55,33 @@
       Width = 132
     end
     object cxButton1: TcxButton
-      Left = 143
+      Left = 311
       Top = 6
       Width = 98
       Height = 33
       Caption = #1047#1074#1110#1090' '#1076#1083#1103' '#1073#1091#1093'.'
       TabOrder = 2
       OnClick = cxButton1Click
+    end
+    object cxLookupComboBox2: TcxLookupComboBox
+      Left = 157
+      Top = 23
+      Properties.KeyFieldNames = 'DATA'
+      Properties.ListColumns = <
+        item
+          FieldName = 'DATA'
+        end>
+      Properties.ListSource = DІPERIOD
+      Properties.OnChange = cxLookupComboBox2PropertiesChange
+      TabOrder = 3
+      Visible = False
+      Width = 132
+    end
+    object cxLabel1: TcxLabel
+      Left = 197
+      Top = 6
+      Caption = #1055#1077#1088#1110#1086#1076
+      Visible = False
     end
   end
   object cxGrid1: TcxGrid [3]
@@ -117,7 +137,7 @@
         end
         item
           Kind = skSum
-          Column = cxGrid1DBTableView1GKAL
+          Column = cxGrid1DBTableView1GKAL1
         end
         item
           Kind = skSum
@@ -153,9 +173,21 @@
         Caption = #1058#1072#1088#1080#1092
         DataBinding.FieldName = 'TARIFNAM'
       end
-      object cxGrid1DBTableView1GKAL: TcxGridDBColumn
+      object cxGrid1DBTableView1GKAL1: TcxGridDBColumn
         Caption = #1050'-'#1089#1090#1100' '#1043#1082#1072#1083'.'
-        DataBinding.FieldName = 'GKAL'
+        DataBinding.FieldName = 'GKAL1'
+      end
+      object cxGrid1DBTableView1CENA1: TcxGridDBColumn
+        Caption = #1062#1110#1085#1072' 1'
+        DataBinding.FieldName = 'CENA1'
+      end
+      object cxGrid1DBTableView1GKAL2: TcxGridDBColumn
+        Caption = #1050'-'#1089#1090#1100' '#1043#1082#1072#1083'. 2'
+        DataBinding.FieldName = 'GKAL2'
+      end
+      object cxGrid1DBTableView1CENA2: TcxGridDBColumn
+        Caption = #1062#1110#1085#1072' 2'
+        DataBinding.FieldName = 'CENA2'
       end
       object cxGrid1DBTableView1TARIF_END: TcxGridDBColumn
         Caption = #1053#1072#1088#1072#1093'. '#1090#1072#1088#1080#1092
@@ -340,9 +372,6 @@
       GridView = cxGridDBTableView2
     end
   end
-  inherited IBTransaction1: TIBTransaction
-    Active = True
-  end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
@@ -351,20 +380,21 @@
     ParamCheck = True
     SQL.Strings = (
       
-        'select tarifnam,adres,ul,dom,plos,gkal,cena,sumot,sumotpdv,tarif' +
-        '_end,tarif_endpdv,mzk,norma,tarif_rk,borg_vidh,kotel,vid,data,wi' +
-        'd,posl,id_posl,tarif_plan,tarif_fact,end_bl,end_l,others,nothers' +
-        ',no_lich'
+        'select tarifnam,adres,ul,dom,plos,gkal1,gkal2,cena1,cena2,FL_2CE' +
+        'NA,sumot,sumotpdv,tarif_end,tarif_endpdv,mzk,norma,tarif_rk,borg' +
+        '_vidh,kotel,vid,widab,data,wid,posl,id_posl,tarif_plan,tarif_fac' +
+        't,end_bl,end_l,others,nothers,no_lich'
       'from'
       '(select tarif.name tarifnam,'
       '        (ul.name || '#39' '#39' || dom.dom) AS adres,'
       '        ul.name ul,'
       '        dom.dom,'
       '        tarif_mes.plos_bbi plos,'
-      
-        '        (COALESCE(tarif_mes.lich_gk,0)+COALESCE(tarif_mes.lich_g' +
-        'k2,0)) as gkal,'
-      '        tarif_mes.cena,'
+      '        COALESCE(tarif_mes.lich_gk,0) gkal1,'
+      '        COALESCE(tarif_mes.lich_gk2,0) as gkal2,'
+      '        tarif_mes.cena1,'
+      '        tarif_mes.cena2,'
+      '        tarif_mes.FL_2CENA,'
       '        tarif_mes.sumot,'
       '        tarif_mes.sumotpdv,'
       '        tarif_mes.tarif_end,'
@@ -375,9 +405,10 @@
       '        tarif_mes.borg_vidh,'
       '        kotel.name kotel,'
       '        vidab.name vid,'
+      '        vidab.wid widab,'
       '        tarif_mes.data,'
       '        posl.wid,'
-      '        posl.wid posl,'
+      '        posl.name posl,'
       '        tarif.id_posl,'
       '        tarif_mes.tarif_plan,'
       '        tarif_mes.tarif_fact,'
@@ -402,10 +433,11 @@
       '        ul.name ul,'
       '        dom.dom,'
       '        dom_other.plos_bb plos,'
-      
-        '        (COALESCE(tarif_mes.lich_gk,0)+COALESCE(tarif_mes.lich_g' +
-        'k2,0)) as gkal,'
-      '        tarif_other.cena,'
+      '        COALESCE(tarif_mes.lich_gk,0) gkal1,'
+      '        COALESCE(tarif_mes.lich_gk2,0) as gkal2,'
+      '        tarif_other.cena1,'
+      '        tarif_other.cena2,'
+      '        tarif_mes.FL_2CENA,'
       '        tarif_other.sumot,'
       '        tarif_other.sumotpdv,'
       '        tarif_other.send tarif_end,'
@@ -416,6 +448,7 @@
       '        00.0 as borg_vidh,'
       '        kotel.name kotel,'
       '        vidab.name vid,'
+      '        vidab.wid widab,'
       '        tarif_mes.data,'
       '        posl.wid,'
       '        posl.name posl,'
@@ -426,11 +459,7 @@
       '        00.0 as end_l,'
       '        1 as others,'
       '        '#39#1110#1085#1096#1110'('#1086#1088#1077#1085#1076#1072#1088#1110')'#39' as nothers,'
-      '        case'
-      '        when tarif_other.fl_lich = 1 then 0'
-      '        when tarif_other.fl_lich = 0 then 1'
-      '        else 0'
-      '        end AS no_lich'
+      '        tarif_mes.no_lich'
       '    from tarif_other'
       
         '       left outer join dom_other on (tarif_other.id_domother = d' +
@@ -478,18 +507,6 @@
       ProviderFlags = []
       Precision = 18
       Size = 2
-    end
-    object IBQuery1GKAL: TIBBCDField
-      FieldName = 'GKAL'
-      ProviderFlags = []
-      Precision = 18
-      Size = 3
-    end
-    object IBQuery1CENA: TIBBCDField
-      FieldName = 'CENA'
-      ProviderFlags = []
-      Precision = 18
-      Size = 4
     end
     object IBQuery1SUMOT: TIBBCDField
       FieldName = 'SUMOT'
@@ -612,6 +629,39 @@
     object IBQuery1POSL: TIBStringField
       FieldName = 'POSL'
       ProviderFlags = []
+    end
+    object IBQuery1GKAL1: TIBBCDField
+      FieldName = 'GKAL1'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object IBQuery1GKAL2: TIBBCDField
+      FieldName = 'GKAL2'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object IBQuery1CENA1: TIBBCDField
+      FieldName = 'CENA1'
+      ProviderFlags = []
+      Precision = 18
+      Size = 4
+    end
+    object IBQuery1CENA2: TIBBCDField
+      FieldName = 'CENA2'
+      ProviderFlags = []
+      Precision = 18
+      Size = 4
+    end
+    object IBQuery1FL_2CENA: TIntegerField
+      FieldName = 'FL_2CENA'
+      ProviderFlags = []
+    end
+    object IBQuery1WIDAB: TIBStringField
+      FieldName = 'WIDAB'
+      ProviderFlags = []
+      Size = 10
     end
   end
   object DSQuery1: TDataSource
@@ -749,20 +799,21 @@
     ParamCheck = True
     SQL.Strings = (
       
-        'select tarifnam,adres,ul,dom,plos,gkal,cena,sumot,sumotpdv,tarif' +
-        '_end,tarif_endpdv,mzk,norma,tarif_rk,borg_vidh,kotel,vid,data,wi' +
-        'd,posl,id_posl,tarif_plan,tarif_fact,end_bl,end_l,others,nothers' +
-        ',no_lich'
+        'select tarifnam,adres,ul,dom,plos,gkal1,gkal2,cena1,cena2,FL_2CE' +
+        'NA,sumot,sumotpdv,tarif_end,tarif_endpdv,mzk,norma,tarif_rk,borg' +
+        '_vidh,kotel,vid,widab,data,wid,posl,id_posl,tarif_plan,tarif_fac' +
+        't,end_bl,end_l,others,nothers,no_lich'
       'from'
       '(select tarif.name tarifnam,'
       '        (ul.name || '#39' '#39' || dom.dom) AS adres,'
       '        ul.name ul,'
       '        dom.dom,'
       '        tarif_mes.plos_bbi plos,'
-      
-        '        (COALESCE(tarif_mes.lich_gk,0)+COALESCE(tarif_mes.lich_g' +
-        'k2,0)) as gkal,'
-      '        tarif_mes.cena,'
+      '        COALESCE(tarif_mes.lich_gk,0) gkal1,'
+      '        COALESCE(tarif_mes.lich_gk2,0) as gkal2,'
+      '        tarif_mes.cena1,'
+      '        tarif_mes.cena2,'
+      '        tarif_mes.FL_2CENA,'
       '        tarif_mes.sumot,'
       '        tarif_mes.sumotpdv,'
       '        tarif_mes.tarif_end,'
@@ -773,6 +824,7 @@
       '        tarif_mes.borg_vidh,'
       '        kotel.name kotel,'
       '        vidab.name vid,'
+      '        vidab.wid widab,'
       '        tarif_mes.data,'
       '        posl.wid,'
       '        posl.name posl,'
@@ -800,10 +852,11 @@
       '        ul.name ul,'
       '        dom.dom,'
       '        dom_other.plos_bb plos,'
-      
-        '        (COALESCE(tarif_mes.lich_gk,0)+COALESCE(tarif_mes.lich_g' +
-        'k2,0)) as gkal,'
-      '        tarif_other.cena,'
+      '        COALESCE(tarif_mes.lich_gk,0) gkal1,'
+      '        COALESCE(tarif_mes.lich_gk2,0) as gkal2,'
+      '        tarif_other.cena1,'
+      '        tarif_other.cena2,'
+      '        tarif_mes.FL_2CENA,'
       '        tarif_other.sumot,'
       '        tarif_other.sumotpdv,'
       '        tarif_other.send tarif_end,'
@@ -814,6 +867,7 @@
       '        00.0 as borg_vidh,'
       '        kotel.name kotel,'
       '        vidab.name vid,'
+      '        vidab.wid widab,'
       '        tarif_mes.data,'
       '        posl.wid,'
       '        posl.name posl,'
@@ -824,11 +878,7 @@
       '        00.0 as end_l,'
       '        1 as others,'
       '        '#39#1110#1085#1096#1110'('#1086#1088#1077#1085#1076#1072#1088#1110')'#39' as nothers,'
-      '        case'
-      '        when tarif_other.fl_lich = 1 then 0'
-      '        when tarif_other.fl_lich = 0 then 1'
-      '        else 0'
-      '        end AS no_lich'
+      '        tarif_mes.no_lich'
       '    from tarif_other'
       
         '       left outer join dom_other on (tarif_other.id_domother = d' +
@@ -881,18 +931,6 @@
       ProviderFlags = []
       Precision = 18
       Size = 2
-    end
-    object IBQuery2GKAL: TIBBCDField
-      FieldName = 'GKAL'
-      ProviderFlags = []
-      Precision = 18
-      Size = 3
-    end
-    object IBQuery2CENA: TIBBCDField
-      FieldName = 'CENA'
-      ProviderFlags = []
-      Precision = 18
-      Size = 4
     end
     object IBQuery2SUMOT: TIBBCDField
       FieldName = 'SUMOT'
@@ -1006,6 +1044,39 @@
       FieldName = 'NO_LICH'
       ProviderFlags = []
     end
+    object IBQuery2GKAL1: TIBBCDField
+      FieldName = 'GKAL1'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object IBQuery2GKAL2: TIBBCDField
+      FieldName = 'GKAL2'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object IBQuery2CENA1: TIBBCDField
+      FieldName = 'CENA1'
+      ProviderFlags = []
+      Precision = 18
+      Size = 4
+    end
+    object IBQuery2CENA2: TIBBCDField
+      FieldName = 'CENA2'
+      ProviderFlags = []
+      Precision = 18
+      Size = 4
+    end
+    object IBQuery2FL_2CENA: TIntegerField
+      FieldName = 'FL_2CENA'
+      ProviderFlags = []
+    end
+    object IBQuery2WIDAB: TIBStringField
+      FieldName = 'WIDAB'
+      ProviderFlags = []
+      Size = 10
+    end
   end
   object DSQuery2: TDataSource
     DataSet = IBQuery2
@@ -1017,15 +1088,12 @@
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
-    PreviewOptions.ThumbnailVisible = True
-    PreviewOptions.ShowCaptions = True
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43425.596407557900000000
-    ReportOptions.LastChange = 43426.613396307870000000
+    ReportOptions.LastChange = 43427.684047337960000000
     ScriptLanguage = 'PascalScript'
-    ShowProgress = False
     StoreInDFM = False
     Left = 144
     Top = 408
@@ -1037,5 +1105,199 @@
     BCDToCurrency = False
     Left = 192
     Top = 408
+  end
+  object IBQuery3: TIBQuery
+    Database = DataM.IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      
+        'select id,tarifnam,adres,ul,dom,sum(gkal1)+sum(gkal2) as gkal1,s' +
+        'um(sumot) sumot,sum(sumotpdv) sumotpdv,'
+      
+        '(select kotel.name from kotel,tarif_mes where tarif_mes.id_tarif' +
+        '=aa.id and tarif_mes.id_kotel=kotel.id and tarif_mes.data=:dt2) ' +
+        'kotel,'
+      'vid,widab,wid,others,nothers,no_lich'
+      'from'
+      '(select tarif.id,'
+      '        tarif.name tarifnam,'
+      '        (ul.name || '#39' '#39' || dom.dom) AS adres,'
+      '        ul.name ul,'
+      '        dom.dom,'
+      '        tarif_mes.plos_bbi plos,'
+      '        COALESCE(tarif_mes.lich_gk,0) gkal1,'
+      '        COALESCE(tarif_mes.lich_gk2,0) as gkal2,'
+      '        COALESCE(tarif_mes.sumot,0) sumot,'
+      '        COALESCE(tarif_mes.sumotpdv,0) sumotpdv,'
+      '        vidab.name vid,'
+      '        vidab.wid widab,'
+      '        tarif_mes.data,'
+      '        posl.wid,'
+      '        posl.name posl,'
+      '        tarif.id_posl,'
+      '        tarif_mes.tarif_plan,'
+      '        tarif_mes.tarif_fact,'
+      '        tarif_mes.end_bl,'
+      '        tarif_mes.end_l,'
+      '        0 as others,'
+      '        '#39#1086#1082#1088#1077#1084#1086' '#1089#1090#1086#1103#1095#1110#39' as nothers,'
+      '        COALESCE(tarif_mes.no_lich,0) no_lich'
+      '    from tarif_mes'
+      
+        '       inner join tarif_dom on (tarif_mes.id = tarif_dom.id_tari' +
+        'fmes)'
+      '       inner join dom on (tarif_dom.id_dom = dom.id)'
+      '       inner join ul on (dom.id_ul = ul.id)'
+      '       left join vidab on (dom.id_vidab = vidab.id)'
+      '       inner join tarif on (tarif_mes.id_tarif = tarif.id)'
+      '       inner join posl on (tarif.id_posl = posl.id)'
+      '   union'
+      '    select tarif.id, '
+      '        other.name tarifnam,'
+      '        (ul.name || '#39' '#39' || dom.dom) AS adres,'
+      '        ul.name ul,'
+      '        dom.dom,'
+      '        dom_other.plos_bb plos,'
+      '        COALESCE(tarif_mes.lich_gk,0) gkal1,'
+      '        COALESCE(tarif_mes.lich_gk2,0) as gkal2,'
+      '        COALESCE(tarif_other.sumot,0) as sumot,'
+      '        COALESCE(tarif_other.sumotpdv,0) sumotpdv,'
+      '        vidab.name vid,'
+      '        vidab.wid widab,'
+      '        tarif_mes.data,'
+      '        posl.wid,'
+      '        posl.name posl,'
+      '        tarif.id_posl,'
+      '        tarif_other.splan tarif_plan,'
+      '        tarif_other.sfact tarif_fact,'
+      '        00.0 as end_bl,'
+      '        00.0 as end_l,'
+      '        1 as others,'
+      '        '#39#1110#1085#1096#1110'('#1086#1088#1077#1085#1076#1072#1088#1110')'#39' as nothers,'
+      '        COALESCE(tarif_mes.no_lich,0) no_lich'
+      '    from tarif_other'
+      
+        '       left outer join dom_other on (tarif_other.id_domother = d' +
+        'om_other.id)'
+      '       left outer join dom on (dom_other.id_dom = dom.id)'
+      '       left outer join ul on (dom.id_ul = ul.id)'
+      '       left outer join other on (dom_other.id_other = other.id)'
+      '       left outer join vidab on (other.id_vidab = vidab.id)'
+      
+        '       left outer join tarif on (tarif_other.id_tarif = tarif.id' +
+        ')'
+      '       left outer join posl on (tarif.id_posl = posl.id)'
+      
+        '       inner join tarif_mes on (tarif_other.id_tarifmes = tarif_' +
+        'mes.id)'
+      ') aa'
+      
+        'where data >= :dt1 and data <= :dt2 and wid='#39'ot'#39' and tarifnam is' +
+        ' not null'
+      
+        'group by id,tarifnam,adres,ul,dom,vid,widab,wid,others,nothers,n' +
+        'o_lich'
+      'order by wid,vid,no_lich,ul,dom')
+    Left = 304
+    Top = 288
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'dt2'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'dt1'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'dt2'
+        ParamType = ptUnknown
+      end>
+    object IBQuery3ID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = []
+    end
+    object IBQuery3TARIFNAM: TIBStringField
+      FieldName = 'TARIFNAM'
+      ProviderFlags = []
+      Size = 50
+    end
+    object IBQuery3ADRES: TIBStringField
+      FieldName = 'ADRES'
+      ProviderFlags = []
+      Size = 51
+    end
+    object IBQuery3UL: TIBStringField
+      FieldName = 'UL'
+      ProviderFlags = []
+      Size = 40
+    end
+    object IBQuery3DOM: TIBStringField
+      FieldName = 'DOM'
+      ProviderFlags = []
+      Size = 10
+    end
+    object IBQuery3SUMOT: TIBBCDField
+      FieldName = 'SUMOT'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object IBQuery3SUMOTPDV: TIBBCDField
+      FieldName = 'SUMOTPDV'
+      ProviderFlags = []
+      Precision = 18
+      Size = 2
+    end
+    object IBQuery3KOTEL: TIBStringField
+      FieldName = 'KOTEL'
+      ProviderFlags = []
+    end
+    object IBQuery3VID: TIBStringField
+      FieldName = 'VID'
+      ProviderFlags = []
+      Size = 10
+    end
+    object IBQuery3WIDAB: TIBStringField
+      FieldName = 'WIDAB'
+      ProviderFlags = []
+      Size = 10
+    end
+    object IBQuery3WID: TIBStringField
+      FieldName = 'WID'
+      ProviderFlags = []
+      Size = 2
+    end
+    object IBQuery3OTHERS: TIntegerField
+      FieldName = 'OTHERS'
+      ProviderFlags = []
+    end
+    object IBQuery3NOTHERS: TIBStringField
+      FieldName = 'NOTHERS'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 14
+    end
+    object IBQuery3NO_LICH: TIntegerField
+      FieldName = 'NO_LICH'
+      ProviderFlags = []
+    end
+    object IBQuery3GKAL1: TIBBCDField
+      FieldName = 'GKAL1'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+  end
+  object DSQuery3: TDataSource
+    DataSet = IBQuery3
+    Left = 304
+    Top = 344
   end
 end

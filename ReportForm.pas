@@ -53,12 +53,10 @@ type
     cxGrid1DBTableView1NORMA: TcxGridDBColumn;
     cxGrid1DBTableView1END_BL: TcxGridDBColumn;
     cxGrid1DBTableView1END_L: TcxGridDBColumn;
-    cxGrid1DBTableView1GKAL: TcxGridDBColumn;
+    cxGrid1DBTableView1GKAL1: TcxGridDBColumn;
     IBQuery1TARIFNAM: TIBStringField;
     IBQuery1ADRES: TIBStringField;
     IBQuery1PLOS: TIBBCDField;
-    IBQuery1GKAL: TIBBCDField;
-    IBQuery1CENA: TIBBCDField;
     IBQuery1SUMOT: TIBBCDField;
     IBQuery1SUMOTPDV: TIBBCDField;
     IBQuery1TARIF_END: TIBBCDField;
@@ -96,8 +94,6 @@ type
     IBQuery2UL: TIBStringField;
     IBQuery2DOM: TIBStringField;
     IBQuery2PLOS: TIBBCDField;
-    IBQuery2GKAL: TIBBCDField;
-    IBQuery2CENA: TIBBCDField;
     IBQuery2SUMOT: TIBBCDField;
     IBQuery2SUMOTPDV: TIBBCDField;
     IBQuery2TARIF_END: TIBBCDField;
@@ -129,6 +125,40 @@ type
     cxGridDBTableView2VID: TcxGridDBColumn;
     cxGridDBTableView2POSL: TcxGridDBColumn;
     cxGridDBTableView2NOTHERS: TcxGridDBColumn;
+    IBQuery1GKAL1: TIBBCDField;
+    IBQuery1GKAL2: TIBBCDField;
+    IBQuery1CENA1: TIBBCDField;
+    IBQuery1CENA2: TIBBCDField;
+    cxGrid1DBTableView1GKAL2: TcxGridDBColumn;
+    cxGrid1DBTableView1CENA1: TcxGridDBColumn;
+    cxGrid1DBTableView1CENA2: TcxGridDBColumn;
+    IBQuery1FL_2CENA: TIntegerField;
+    IBQuery2GKAL1: TIBBCDField;
+    IBQuery2GKAL2: TIBBCDField;
+    IBQuery2CENA1: TIBBCDField;
+    IBQuery2CENA2: TIBBCDField;
+    IBQuery2FL_2CENA: TIntegerField;
+    IBQuery1WIDAB: TIBStringField;
+    IBQuery2WIDAB: TIBStringField;
+    cxLookupComboBox2: TcxLookupComboBox;
+    cxLabel1: TcxLabel;
+    IBQuery3: TIBQuery;
+    DSQuery3: TDataSource;
+    IBQuery3ID: TIntegerField;
+    IBQuery3TARIFNAM: TIBStringField;
+    IBQuery3ADRES: TIBStringField;
+    IBQuery3UL: TIBStringField;
+    IBQuery3DOM: TIBStringField;
+    IBQuery3SUMOT: TIBBCDField;
+    IBQuery3SUMOTPDV: TIBBCDField;
+    IBQuery3KOTEL: TIBStringField;
+    IBQuery3VID: TIBStringField;
+    IBQuery3WIDAB: TIBStringField;
+    IBQuery3WID: TIBStringField;
+    IBQuery3OTHERS: TIntegerField;
+    IBQuery3NOTHERS: TIBStringField;
+    IBQuery3NO_LICH: TIntegerField;
+    IBQuery3GKAL1: TIBBCDField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure cxButton7Click(Sender: TObject);
@@ -136,12 +166,14 @@ type
     procedure DSPOSLDataChange(Sender: TObject; Field: TField);
     procedure cxLookupComboBox1PropertiesChange(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
+    procedure cxLookupComboBox2PropertiesChange(Sender: TObject);
   private
     procedure ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
-    procedure Update;
+
     procedure Visible;
     { Private declarations }
   public
+    procedure Update;
     { Public declarations }
 
   end;
@@ -173,6 +205,13 @@ begin
       cxLabel2.Caption:='јрх≥в';
    end;
 
+  if IBQuery3.Active then
+  begin
+     cxLabel2.Caption:='пер≥од з';
+     cxLabel1.Caption:='пер≥од по';
+  end;
+
+
   if IBQuery1.Active then
   begin
   IBQuery1.close;
@@ -190,6 +229,15 @@ begin
 //  IBQuery2.Locate('ID',rec,[]);
   end;
 
+  if IBQuery3.Active then
+  begin
+  IBQuery3.close;
+  IBQuery3.ParamByName('dt1').Value:=cxLookupComboBox1.EditValue;
+  IBQuery3.ParamByName('dt2').Value:=cxLookupComboBox2.EditValue;
+  IBQuery3.open;
+//  IBQuery2.Locate('ID',rec,[]);
+  end;
+
   Visible;
 end;
 
@@ -198,6 +246,7 @@ begin
   cxButton1.Visible:=false;
   if IBQuery1.Active then
   begin
+          cxButton1.Visible:=false;
           cxGrid1DBTableView1TARIF_ENDPDV.Visible:=false;
           cxGrid1DBTableView1sumot.Visible:=false;
           cxGrid1DBTableView1sumotpdv.Visible:=false;
@@ -208,7 +257,10 @@ begin
           cxGrid1DBTableView1NORMA.Visible:=true;
           cxGrid1DBTableView1END_BL.Visible:=false;
           cxGrid1DBTableView1END_L.Visible:=false;
-          cxGrid1DBTableView1GKAL.Visible:=false;
+          cxGrid1DBTableView1GKAL1.Visible:=false;
+          cxGrid1DBTableView1GKAL2.Visible:=false;
+          cxGrid1DBTableView1CENA1.Visible:=false;
+          cxGrid1DBTableView1CENA2.Visible:=false;
           cxButton1.Visible:=false;
           cxGrid1DBTableView1TARIF_RK.Visible:=false;
           cxGrid1DBTableView1BORG_VIDH.Visible:=false;
@@ -237,13 +289,37 @@ begin
           cxGrid1DBTableView1mzk.Visible:=true;
           cxGrid1DBTableView1kotel.Visible:=true;
           cxGrid1DBTableView1NORMA.Visible:=false;
-          cxGrid1DBTableView1GKAL.Visible:=true;
+          cxGrid1DBTableView1GKAL1.Visible:=true;
+          cxGrid1DBTableView1CENA1.Visible:=true;
+          if IBQuery1.FieldByName('fl_2cena').Value=1 then
+          begin
+            cxGrid1DBTableView1GKAL2.Visible:=true;
+            cxGrid1DBTableView1CENA2.Visible:=true;
+          end;
           cxButton1.Visible:=true;
 
         end;
 
 
 
+  end;
+
+  if IBQuery3.Active then
+  begin
+          cxGrid1DBTableView1TARIF_ENDPDV.Visible:=false;
+          cxGrid1DBTableView1mzk.Visible:=false;
+          cxGrid1DBTableView1TARIF_PLAN.Visible:=false;
+          cxGrid1DBTableView1TARIF_FACT.Visible:=false;
+          cxGrid1DBTableView1NORMA.Visible:=false;
+          cxGrid1DBTableView1END_BL.Visible:=false;
+          cxGrid1DBTableView1END_L.Visible:=false;
+          cxGrid1DBTableView1GKAL2.Visible:=false;
+          cxGrid1DBTableView1CENA1.Visible:=false;
+          cxGrid1DBTableView1CENA2.Visible:=false;
+          cxButton1.Visible:=true;
+          cxGrid1DBTableView1TARIF_RK.Visible:=false;
+          cxGrid1DBTableView1BORG_VIDH.Visible:=false;
+          cxGrid1DBTableView1TARIF_END.Visible:=false;
   end;
 
 //  if IBQuery2.Active then
@@ -295,14 +371,32 @@ begin
   inherited;
 
 if IBPOSLWID.Value='ot' then
-  frxReport2.LoadFromFile('report/BuhgOT.fr3');
+begin
+  if IBQuery1.FieldByName('fl_2cena').Value=1 then
+    frxReport2.LoadFromFile('report/BuhgOT2.fr3')
+  else
+    frxReport2.LoadFromFile('report/BuhgOT.fr3');
+end;
 
 if IBPOSLWID.Value='ub' then
   frxReport2.LoadFromFile('report/BuhgUB.fr3');
 
+if IBQuery3.Active then
+begin
+  frxDBDataset1.DataSet:=IBQuery3;
+  frxReport2.LoadFromFile('report/BuhgOTPeriod.fr3');
+end;
+
 frxReport2.Variables['Dolgn']:=''''+DataMod.DataM.iniFile.ReadString('RepBuhg','Dolgn',extractfilepath(paramstr(0)))+'''';
 frxReport2.Variables['Fio']:=''''+DataMod.DataM.iniFile.ReadString('RepBuhg','FIO',extractfilepath(paramstr(0)))+'''';
+if IBQuery3.Active then
+begin
+frxReport2.Variables['datemes1']:=''''+mon_slovoDt(cxLookupComboBox1.EditValue)+'''';
+frxReport2.Variables['datemes2']:=''''+mon_slovoDt(cxLookupComboBox2.EditValue)+'''';
+end
+else
 frxReport2.Variables['datemes']:=''''+mon_slovoDt(cxLookupComboBox1.EditValue)+'''';
+
 frxReport2.ShowReport;
 end;
 
@@ -313,6 +407,8 @@ begin
      ExportGrid(cxGrid1);
   if IBQuery2.Active then
      ExportGrid(cxGrid3);
+  if IBQuery3.Active then
+     ExportGrid(cxGrid1);
 end;
 
 procedure TReport.cxButton7Click(Sender: TObject);
@@ -327,8 +423,15 @@ end;
 procedure TReport.cxLookupComboBox1PropertiesChange(Sender: TObject);
 begin
   inherited;
-Update;
 
+    Update;
+
+end;
+
+procedure TReport.cxLookupComboBox2PropertiesChange(Sender: TObject);
+begin
+  inherited;
+  Update;
 end;
 
 procedure TReport.DSPOSLDataChange(Sender: TObject; Field: TField);

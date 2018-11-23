@@ -22,7 +22,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900C40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -338,10 +338,6 @@
         item
           Visible = True
           ItemName = 'dxBarSubItem7'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarSubItem5'
         end
         item
           Visible = True
@@ -794,6 +790,10 @@
         item
           Visible = True
           ItemName = 'dxBarButton26'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton43'
         end>
     end
     object dxBarSubItem9: TdxBarSubItem
@@ -1197,6 +1197,19 @@
       Hint = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1087#1086#1089#1083#1091#1075#1072#1093' '#1079#1072' '#1087#1077#1088#1110#1086#1076
       Visible = ivAlways
     end
+    object dxBarButton39: TdxBarButton
+      Caption = 'New Button'
+      Category = 0
+      Hint = 'New Button'
+      Visible = ivAlways
+    end
+    object dxBarButton43: TdxBarButton
+      Caption = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1086#1087#1072#1083#1077#1085#1085#1102' '#1079#1072' '#1087#1077#1088#1110#1086#1076
+      Category = 0
+      Hint = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1086#1087#1072#1083#1077#1085#1085#1102' '#1079#1072' '#1087#1077#1088#1110#1086#1076
+      Visible = ivAlways
+      OnClick = dxBarButton43Click
+    end
   end
   object ActionList1: TActionList
     Images = ImageList2
@@ -1235,7 +1248,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400C40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2083,7 +2096,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900C40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2406,7 +2419,6 @@
     Top = 368
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultDatabase = DataM.IBDatabase1
     Params.Strings = (
       'read_committed'
@@ -2640,7 +2652,7 @@
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
-      '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT)'
+      '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -2656,7 +2668,8 @@
         'TARIF_ENDPDV, '
       
         '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA1, :CENA2,' +
-        ' :PROCENT)')
+        ' :PROCENT, '
+      '   :FL_2CENA)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -2694,7 +2707,8 @@
       '  ID_VIDCENA,'
       '  CENA1,'
       '  CENA2,'
-      '  PROCENT'
+      '  PROCENT,'
+      '  FL_2CENA'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -2738,7 +2752,8 @@
       '  ID_VIDCENA = :ID_VIDCENA,'
       '  CENA1 = :CENA1,'
       '  CENA2 = :CENA2,'
-      '  PROCENT = :PROCENT'
+      '  PROCENT = :PROCENT,'
+      '  FL_2CENA = :FL_2CENA'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2936,6 +2951,22 @@
       Origin = '"TARIF_MES"."PROCENT"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIF_MESCENA1: TIBBCDField
+      FieldName = 'CENA1'
+      Origin = '"TARIF_MES"."CENA1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESCENA2: TIBBCDField
+      FieldName = 'CENA2'
+      Origin = '"TARIF_MES"."CENA2"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESFL_2CENA: TIntegerField
+      FieldName = 'FL_2CENA'
+      Origin = '"TARIF_MES"."FL_2CENA"'
     end
   end
   object DSTARIF_MES: TDataSource

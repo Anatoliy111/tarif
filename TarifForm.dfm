@@ -312,7 +312,7 @@
         Properties.ListSource = DSKOTEL
         Options.Editing = False
       end
-      object cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn
+      object cxGrid1DBTableView1ID_VIDCENA: TcxGridDBColumn
         Caption = #1042#1080#1076' '#1094#1110#1085#1080
         DataBinding.FieldName = 'ID_VIDCENA'
         PropertiesClassName = 'TcxLookupComboBoxProperties'
@@ -413,7 +413,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 148
+      Height = 132
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -429,9 +429,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 149
+      Top = 133
       Width = 167
-      Height = 217
+      Height = 233
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -2628,7 +2628,6 @@
     object IBTARIF_OTHERLICH_GK: TIBBCDField
       FieldName = 'LICH_GK'
       Origin = '"TARIF_OTHER"."LICH_GK"'
-      OnChange = IBTARIF_OTHERLICH_GKChange
       Precision = 18
       Size = 3
     end
@@ -2649,7 +2648,6 @@
     object IBTARIF_OTHERLICH_GK2: TIBBCDField
       FieldName = 'LICH_GK2'
       Origin = '"TARIF_OTHER"."LICH_GK2"'
-      OnChange = IBTARIF_OTHERLICH_GK2Change
       Precision = 18
       Size = 3
     end

@@ -193,7 +193,7 @@ type
     IBKOTELID: TIntegerField;
     IBKOTELNAME: TIBStringField;
     DSKOTEL: TDataSource;
-    cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn;
+    cxGrid1DBTableView1ID_VIDCENA: TcxGridDBColumn;
     IBTARIF_MESMZK: TIBBCDField;
     cxGrid1DBTableView1MZK: TcxGridDBColumn;
     IBTARIF_MESBORG_VIDH: TIBBCDField;
@@ -324,8 +324,6 @@ type
     procedure IBTARIF_OTHERLICH_PN2Change(Sender: TField);
     procedure IBTARIF_OTHERLICH_PK2Change(Sender: TField);
     procedure IBTARIF_OTHERLICH_PKChange(Sender: TField);
-    procedure IBTARIF_OTHERLICH_GKChange(Sender: TField);
-    procedure IBTARIF_OTHERLICH_GK2Change(Sender: TField);
   private
   procedure Enables(val:boolean);
   procedure Visible;
@@ -375,6 +373,7 @@ var res,res1,res2:currency;
     widab:string;
     rrr:Variant;
     fl_rasch:Boolean;
+    fl_2cena:Integer;
     plosallmzk,plosothlich:double;
     cenaosn1,cenamzk1,cenaother1,gkal1,gkalother1,normaosn1,normaother1,gkalkv1,gkalmzk1,gkalmzkco1,gkalmzkin1,send1,sotend1,sinend1,gkalm2in1,gkalothlich1:double;
     cenaosn2,cenamzk2,cenaother2,gkal2,gkalother2,normaosn2,normaother2,gkalkv2,gkalmzk2,gkalmzkco2,gkalmzkin2,send2,sotend2,sinend2,gkalm2in2,gkalothlich2:double;
@@ -501,12 +500,15 @@ begin
     begin
     fl_rasch:=true;
 
+
          IBQuery1.Close;
          IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where id_vidab=:idvidcena and date_mes<=:dmes order by date_mes desc';
          IBQuery1.ParamByName('idvidcena').Value:=IBTARIFUPDID_VIDCENA.Value;
          IBQuery1.ParamByName('dmes').Value:=IBTARIFUPDDATA.Value;
          IBQuery1.Open;
          IBQuery1.First;
+
+         fl_2cena:=IBQuery1.FieldByName('FL_2DATE').AsInteger;
          cenaosn1:=IBQuery1.FieldByName('TARIF_SUM1').AsFloat;
          cenamzk1:=IBQuery1.FieldByName('TARIF_MZK1').AsFloat;
          cenaosn2:=IBQuery1.FieldByName('TARIF_SUM2').AsFloat;
@@ -577,8 +579,7 @@ begin
        begin
 
          IBTARIFUPD.Edit;
-//         IBTARIFUPDNORMA.Value:=normaosn;
-
+         IBTARIFUPDFL_2CENA.Value:=fl_2cena;
 
          IBTARIFUPDTARIF_END.Value:=SimpleRoundTo(send1+send2,-2);
          IBTARIFUPDTARIF_ENDPDV.AsCurrency:=SimpleRoundTo(send1+send2,-2)*1.2;
@@ -622,7 +623,7 @@ begin
            begin
               normaother1:=normaosn1;
               gkalother1:=SimpleRoundTo(normaother1*IBTARIF_OTHERPLOS_BB.AsFloat,-3);
-              normaother2:=normaosn1;
+              normaother2:=normaosn2;
               gkalother2:=SimpleRoundTo(normaother2*IBTARIF_OTHERPLOS_BB.AsFloat,-3);
            end;
 
@@ -646,8 +647,8 @@ begin
            IBTARIF_OTHERMZK.Value:=IBTARIFUPDMZK.AsCurrency;
            if IBTARIF_OTHERFL_LICH.Value=0 then
            begin
-              IBTARIF_OTHERLICH_GK.Value:=gkalother1;
-              IBTARIF_OTHERLICH_GK2.Value:=gkalother2;
+              IBTARIF_OTHERLICH_GK.AsFloat:=gkalother1;
+              IBTARIF_OTHERLICH_GK2.AsFloat:=gkalother2;
            end;
            if widab='ns' then
            begin
@@ -1177,15 +1178,10 @@ begin
 
 
 
+
   if IBPOSLWID.Value='ot' then
   begin
     DSTARIF_OTHER.Enabled:=false;
-//         IBQuery1.Close;
-//         IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where date_mes<=:dmesorder by date_mes desc';
-//         IBQuery1.ParamByName('dmes').Value:=IBTARIF_MESDATA.Value;
-//         IBQuery1.Open;
-//         IBQuery1.First;
-//         FL_2DATE:=IBQuery1.FieldByName('FL_2DATE').AsInteger;
 
          IBQuery1.Close;
          IBQuery1.SQL.Text:='select max(fl_lich) as flich from TARIF_OTHER where TARIF_OTHER.id_tarifmes=:idmes';
@@ -1193,6 +1189,26 @@ begin
          IBQuery1.Open;
          IBQuery1.First;
          FL_OTHERLICH:=IBQuery1.FieldByName('flich').AsInteger;
+
+    cxGrid1DBTableView1ID_VIDCENA.Visible:=false;
+    cxGrid1DBTableView1NSER_LICH.Visible:=true;
+    cxGrid1DBTableView1ID_KOTEL.Visible:=true;
+    cxGrid1DBTableView1PLOS_BBI.Visible:=true;
+    cxGrid1DBTableView1LICH_PN.Visible:=true;
+    cxGrid1DBTableView1LICH_PK.Visible:=true;
+    cxGrid1DBTableView1MZK.Editing:=false;
+    cxGrid1DBTableView1MZK.Options.Editing:=false;
+    cxGridDBTableView1PLOS_BB.Visible:=true;
+    cxGridDBTableView1MZK.Visible:=true;
+    cxGrid1DBTableView1MZK.Visible:=true;
+    cxGrid1DBTableView1SUMOT.Visible:=true;
+    cxGrid1DBTableView1SUMOTPDV.Visible:=true;
+    cxGridDBTableView1SUMOT.Visible:=true;
+    cxGridDBTableView1SUMOTPDV.Visible:=true;
+    cxGridDBTableView1SENDPDV.Visible:=true;
+    cxGrid1DBTableView1LICH_GK.Visible:=true;
+    cxGrid1DBTableView1TARIF_ENDPDV.Visible:=true;
+    cxGridDBTableView1LICH_GK.Options.Editing:=false;
 
    if FL_OTHERLICH=1 then
     begin
@@ -1210,7 +1226,6 @@ begin
       cxGridDBTableView1LICH_PN2.Visible:=false;
       cxGridDBTableView1LICH_PK2.Visible:=false;
       cxGridDBTableView1LICH_GK2.Visible:=false;
-      cxGridDBTableView1LICH_GK.Options.Editing:=false;
     end;
 
     if IBTARIF_MESFL_2CENA.Value=1 then
@@ -1381,6 +1396,7 @@ begin
     cxGridDBTableView1SENDPDV.Visible:=false;
     cxGrid1DBTableView1LICH_GK.Visible:=false;
     cxGrid1DBTableView1TARIF_ENDPDV.Visible:=false;
+    cxGrid1DBTableView1ID_VIDCENA.Visible:=false;
 
 
   if IBPOSLWID.Value='ub' then
@@ -1405,13 +1421,6 @@ begin
   if IBPOSLWID.Value='ot' then
   begin
 
-//         IBQuery1.Close;
-//         IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where date_mes<=:dmes order by date_mes desc';
-//         IBQuery1.ParamByName('dmes').Value:=IBTARIF_MESDATA.Value;
-//         IBQuery1.Open;
-//         IBQuery1.First;
-//         FL_2DATE:=IBQuery1.FieldByName('FL_2DATE').AsInteger;
-
          IBQuery1.Close;
          IBQuery1.SQL.Text:='select max(fl_lich) as flich from TARIF_OTHER where TARIF_OTHER.id_tarifmes=:idmes';
          IBQuery1.ParamByName('idmes').AsInteger:=IBTARIF_MESID.Value;
@@ -1419,7 +1428,7 @@ begin
          IBQuery1.First;
          FL_OTHERLICH:=IBQuery1.FieldByName('flich').AsInteger;
 
-
+    cxGrid1DBTableView1ID_VIDCENA.Visible:=false;
     cxGrid1DBTableView1NSER_LICH.Visible:=true;
     cxGrid1DBTableView1ID_KOTEL.Visible:=true;
     cxGrid1DBTableView1PLOS_BBI.Visible:=true;
@@ -1660,18 +1669,6 @@ begin
     IBTARIFNAME.Value:=IBTARIF_MESNAME.Value;
     IBTARIF.Post;
   end;
-end;
-
-procedure TTarifs.IBTARIF_OTHERLICH_GK2Change(Sender: TField);
-begin
-  inherited;
-  if IBTARIF_OTHERFL_LICH.Value=0 then IBTARIF_OTHER.Cancel;
-end;
-
-procedure TTarifs.IBTARIF_OTHERLICH_GKChange(Sender: TField);
-begin
-  inherited;
-  if IBTARIF_OTHERFL_LICH.Value=0 then IBTARIF_OTHER.Cancel;
 end;
 
 procedure TTarifs.IBTARIF_OTHERLICH_PK2Change(Sender: TField);

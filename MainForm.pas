@@ -222,6 +222,11 @@ type
     dxBarButton27: TdxBarButton;
     dxBarButton35: TdxBarButton;
     IBTARIF_MESPROCENT: TIBBCDField;
+    IBTARIF_MESCENA1: TIBBCDField;
+    IBTARIF_MESCENA2: TIBBCDField;
+    IBTARIF_MESFL_2CENA: TIntegerField;
+    dxBarButton39: TdxBarButton;
+    dxBarButton43: TdxBarButton;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -244,6 +249,7 @@ type
     procedure dxBarButton25Click(Sender: TObject);
     procedure dxBarButton26Click(Sender: TObject);
     procedure dxBarButton27Click(Sender: TObject);
+    procedure dxBarButton43Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -268,6 +274,7 @@ var
 
   Report1: tReport;
   Report2: tReport;
+  Report3: tReport;
 
  // TB:TToolButton;
 implementation
@@ -596,16 +603,8 @@ Prores.Show;
          Prores.cxProgressBar1.Position:=0;
          Prores.cxProgressBar1.Properties.Min:=0;
 
-         IBQuery1.Close;
-         IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA order by date_mes desc';
-         IBQuery1.Open;
-         IBQuery1.First;
-         FL_2DATE:=IBQuery1.FieldByName('FL_2DATE').AsInteger;
-
-
-
          IBQuery1.close;
-         IBQuery1.SQL.Text:='select * from tarif_mes where tarif_mes.data=:dt';
+         IBQuery1.SQL.Text:='select tarif_mes.*,posl.wid from tarif_mes, tarif, posl where tarif_mes.data=:dt and tarif_mes.id_tarif=tarif.id and tarif.id_posl=posl.id';
          IBQuery1.ParamByName('dt').AsDate:=date;
          IBQuery1.open;
          IBQuery1.Last;
@@ -627,12 +626,15 @@ Prores.Show;
             IBTARIF_MESDATA.Value:=IncMonth(date);
             IBTARIF_MESTARIF_RN.Value:=iif(IBQuery1.FieldByName('TARIF_RK').Value=null,0,IBQuery1.FieldByName('TARIF_RK').Value);
             IBTARIF_MESNORMA.Value:=iif(IBQuery1.FieldByName('NORMA').Value=null,0,IBQuery1.FieldByName('NORMA').Value);
-            IBTARIF_MESTARIF_END.AsCurrency:=IBQuery1.FieldByName('TARIF_END').AsCurrency;
+            if (trim(IBQuery1.FieldByName('WID').AsString)<>'ot') and (trim(IBQuery1.FieldByName('WID').AsString)<>'ub') then
+              IBTARIF_MESTARIF_END.AsCurrency:=IBQuery1.FieldByName('TARIF_END').AsCurrency;
 
-            if (IBQuery1.FieldByName('LICH_PK2').AsFloat<>0) and (FL_2DATE=1) then
+            if IBQuery1.FieldByName('FL_2CENA').AsInteger=1 then
                IBTARIF_MESLICH_PN.Value:=IBQuery1.FieldByName('LICH_PK2').AsFloat
             else
                IBTARIF_MESLICH_PN.Value:=IBQuery1.FieldByName('LICH_PK').AsFloat;
+
+
 
             IBTARIF_MESNOTE.AsString:=IBQuery1.FieldByName('NOTE').AsString;
             IBTARIF_MESPLOS_BBI.AsFloat:=IBQuery1.FieldByName('PLOS_BBI').AsFloat;
@@ -643,6 +645,7 @@ Prores.Show;
             IBTARIF_MESPLOS_MZK.AsFloat:=IBQuery1.FieldByName('PLOS_MZK').AsFloat;
             IBTARIF_MESID_VIDCENA.AsInteger:=IBQuery1.FieldByName('ID_VIDCENA').AsInteger;
             IBTARIF_MESPROCENT.AsFloat:=IBQuery1.FieldByName('PROCENT').AsFloat;
+            IBTARIF_MESNO_LICH.AsInteger:=IBQuery1.FieldByName('NO_LICH').AsInteger;
 
             IBTARIF_MES.Post;
           end;
@@ -962,6 +965,39 @@ var i: integer;
 begin
 for i:= 0 to MdiChildCount - 1 do
   MDIChildren[i].Close;
+end;
+
+procedure TMain.dxBarButton43Click(Sender: TObject);
+begin
+ if Report3=nil then
+ begin
+
+ Application.CreateForm(TReport,Report3);
+ Report3.Caption:=dxBarButton43.Caption;
+//  Report1.IBQuery1.close;
+//  Report1.IBQuery1.ParamByName('dt').Value:=Report1.IBPERIODDATA.Value;
+//  Report1.IBQuery1.ParamByName('pos').AsInteger:=Report1.IBPOSLID.Value;
+//  Report1.IBQuery1.open;
+//  Report3.IBQuery3.open;
+  Report3.IBQuery3.open;
+  Report3.cxLookupComboBox1.EditValue:=Report3.IBPERIODDATA.Value;
+  Report3.cxLookupComboBox2.EditValue:=Report3.IBPERIODDATA.Value;
+  Report3.DBLookupListBox1.Visible:=false;
+  Report3.cxLookupComboBox2.Visible:=true;
+  Report3.cxLabel1.Visible:=true;
+  Report3.cxGrid3.Visible:=false;
+  Report3.cxGrid1.Align:=alClient;
+  Report3.cxGrid1DBTableView1.DataController.DataSource:=Report3.DSQuery3;
+
+
+ AddToolBar(Report3);
+ Report3.Show;
+ end
+ else
+ begin
+ Report3.Show;
+ Report3.SetFocus;
+ end;
 end;
 
 procedure TMain.dxBarButton4Click(Sender: TObject);
