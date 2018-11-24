@@ -1,11 +1,16 @@
 ﻿inherited Tarifs: TTarifs
-  BorderStyle = bsSizeable
+  AlignWithMargins = True
+  Margins.Left = 0
+  Margins.Top = 0
+  Margins.Right = 0
+  Margins.Bottom = 0
+  AlphaBlend = True
+  BorderIcons = [biSystemMenu, biMinimize]
   Caption = #1058#1072#1088#1080#1092#1080
   ClientHeight = 661
   ClientWidth = 928
-  PopupMode = pmAuto
-  Position = poDefault
-  WindowState = wsMaximized
+  Position = poDefaultSizeOnly
+  PrintScale = poNone
   OnCreate = FormCreate
   ExplicitWidth = 944
   ExplicitHeight = 699
@@ -413,7 +418,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 132
+      Height = 116
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -429,9 +434,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 133
+      Top = 117
       Width = 167
-      Height = 233
+      Height = 249
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView

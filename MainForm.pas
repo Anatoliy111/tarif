@@ -11,7 +11,7 @@ uses
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
   cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm,
-  Data.Win.ADODB,SpView;
+  Data.Win.ADODB,SpView, cxStyles;
 
 type
   TMain = class(TForm)
@@ -227,6 +227,11 @@ type
     IBTARIF_MESFL_2CENA: TIntegerField;
     dxBarButton39: TdxBarButton;
     dxBarButton43: TdxBarButton;
+    dxBarButton44: TdxBarButton;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
+    cxStyle2: TcxStyle;
+    dxBarButton45: TdxBarButton;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -303,7 +308,7 @@ begin
   NewItemLink := dxBarManager1Bar2.ItemLinks.Add;
   NewItemLink.Item := NewButton;
 
-  NewButton.ButtonStyle := bsChecked;
+//  NewButton.ButtonStyle := bsChecked;
   NewButton.OnClick:=ClickBarButton;
   NewButton.Down:=true;
   NewButton.Caption:=frm.Caption;
@@ -333,6 +338,8 @@ begin
  if Tarifs=nil then
  begin
  Application.CreateForm(TTarifs,Tarifs);
+ Tarifs.ClientHeight:=main.ClientHeight-100;
+ Tarifs.ClientWidth:=main.ClientWidth-20;
  AddToolBar(Tarifs);
  end
  else

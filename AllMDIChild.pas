@@ -45,7 +45,7 @@ var
     ExB: WORD;
 implementation
 
-uses DataMod, InsertForm;
+uses DataMod, InsertForm, MainForm;
 
 {$R *.dfm}
 
@@ -84,7 +84,8 @@ begin
   for I := 0 to ABar.ItemLinks.Count - 1 do
     if ABar.ItemLinks[i].Item.Data=Self then
     begin
-      TdxBarButton(ABar.ItemLinks[i].Item).Down:=true;
+//      TdxBarButton(ABar.ItemLinks[i].Item).Down:=true;
+        TdxBarButton(ABar.ItemLinks[i].Item).Style:=main.cxStyle1;
       exit;
     end;
 end;
@@ -157,7 +158,8 @@ begin
   for I := 0 to ABar.ItemLinks.Count - 1 do
     if ABar.ItemLinks[i].Item.Data=Self then
     begin
-      TdxBarButton(ABar.ItemLinks[i].Item).Down:=false;
+//      TdxBarButton(ABar.ItemLinks[i].Item).Down:=false;
+        TdxBarButton(ABar.ItemLinks[i].Item).Style:=main.cxStyle2;
       exit;
     end;
 end;
