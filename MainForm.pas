@@ -906,6 +906,7 @@ begin
  begin
 
  Application.CreateForm(TReport,Report2);
+ Report2.AutoMAX;
  Report2.IBPOSL.SelectSQL.Text:='select * from POSL where exists (select tarif.id_posl from tarif_other, tarif where tarif_other.id_tarif=tarif.id and tarif.id_posl=posl.id)';
  Report2.IBPOSL.Close;
  Report2.IBPOSL.Open;
