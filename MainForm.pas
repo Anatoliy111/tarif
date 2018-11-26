@@ -339,8 +339,7 @@ begin
  if Tarifs=nil then
  begin
  Application.CreateForm(TTarifs,Tarifs);
- Tarifs.ClientHeight:=main.ClientHeight-100;
- Tarifs.ClientWidth:=main.ClientWidth-20;
+ Tarifs.AutoMAX;
  AddToolBar(Tarifs);
  end
  else
@@ -408,7 +407,8 @@ begin
   Report1.cxLookupComboBox1.EditValue:=Report1.IBPERIODDATA.Value;
   Report1.cxGrid3.Visible:=false;
   Report1.cxGrid1.Align:=alClient;
-
+  Report1.cxGrid1DBTableView1.DataController.DataSource:=Report1.DSQuery1;
+  Report1.AutoMAX;
  AddToolBar(Report1);
  Report1.Show;
  end
@@ -424,6 +424,7 @@ begin
  if Report2=nil then
  begin
  Application.CreateForm(TReport,Report2);
+ Report2.AutoMAX;
  AddToolBar(Report2);
  end
  else
@@ -996,7 +997,7 @@ begin
   Report3.cxGrid3.Visible:=false;
   Report3.cxGrid1.Align:=alClient;
   Report3.cxGrid1DBTableView1.DataController.DataSource:=Report3.DSQuery3;
-
+  Report3.AutoMAX;
 
  AddToolBar(Report3);
  Report3.Show;

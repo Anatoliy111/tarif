@@ -3,7 +3,6 @@
   ClientHeight = 706
   ClientWidth = 767
   Position = poMainFormCenter
-  WindowState = wsMaximized
   OnCreate = FormCreate
   ExplicitWidth = 783
   ExplicitHeight = 744

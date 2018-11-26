@@ -30,6 +30,9 @@ type
     procedure cxButton3Click(Sender: TObject);
     procedure cxButton4Click(Sender: TObject);
   private
+    LastHeight,LastWidth:integer;
+    procedure WinProc1(var Msg: TMessage); message WM_SYSCOMMAND;
+
     { Private declarations }
   public
     { Public declarations }
@@ -37,6 +40,7 @@ type
         ABar: TdxBar;
         fl_post:integer;
 //        constructor Create(Sender: TComponent); virtual;
+    procedure AutoMAX;
 
   end;
 
@@ -55,6 +59,36 @@ uses DataMod, InsertForm, MainForm;
 //    // do other
 //end;
 
+procedure TAllMDICh.WinProc1(var Msg: TMessage);
+begin
+  if (Msg.wParam = SC_MAXIMIZE) then
+    begin
+      // тут выполнится код при разворачивании
+      AutoMAX;
+    end
+  else
+    inherited;
+end;
+
+
+procedure TAllMDICh.AutoMax;
+begin
+ if self.Height=(main.ClientHeight-70) then
+ begin
+   self.Height:=LastHeight;
+   self.Width:=LastWidth;
+ end
+ else
+ begin
+ self.WindowState:=wsNormal;
+ self.top:=0;
+ self.Left:=0;
+ LastHeight:=self.Height;
+ LastWidth:=self.Width;
+ self.Height:=main.ClientHeight-70;
+ self.Width:=main.ClientWidth-5;
+ end;
+end;
 
 procedure TAllMDICh.cxButton3Click(Sender: TObject);
 begin

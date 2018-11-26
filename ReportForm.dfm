@@ -1,7 +1,6 @@
 ﻿inherited Report: TReport
   Caption = #1058#1072#1088#1080#1092#1080
   Position = poMainFormCenter
-  WindowState = wsMaximized
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -1104,7 +1103,7 @@
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxDBDataset1'
     CloseDataSource = False
-    DataSet = IBQuery3
+    DataSet = IBQuery1
     BCDToCurrency = False
     Left = 192
     Top = 408
