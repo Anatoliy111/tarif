@@ -232,6 +232,7 @@ type
     cxStyle1: TcxStyle;
     cxStyle2: TcxStyle;
     dxBarButton45: TdxBarButton;
+    dxBarSubItem13: TdxBarSubItem;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);

@@ -3,7 +3,7 @@
   Top = 138
   Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1090#1072#1088#1080#1092#1110#1074
   ClientHeight = 479
-  ClientWidth = 732
+  ClientWidth = 735
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,7 +22,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900C80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900CC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -337,7 +337,11 @@
         end
         item
           Visible = True
-          ItemName = 'dxBarSubItem7'
+          ItemName = 'dxBarButton10'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarSubItem13'
         end
         item
           Visible = True
@@ -778,23 +782,7 @@
       Caption = #1058#1072#1088#1080#1092#1080
       Category = 0
       Visible = ivAlways
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'dxBarButton10'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton17'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton26'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton43'
-        end>
+      ItemLinks = <>
     end
     object dxBarSubItem9: TdxBarSubItem
       Caption = 'New SubItem'
@@ -866,7 +854,7 @@
       Align = iaRight
       Caption = 
         '                                                                ' +
-        '                                              '#1044#1072#1090#1072
+        '                                    '#1044#1072#1090#1072
       Category = 0
       Hint = #1044#1072#1090#1072
       Visible = ivAlways
@@ -1123,9 +1111,9 @@
       PropertiesClassName = 'TcxTrackBarProperties'
     end
     object dxBarButton17: TdxBarButton
-      Caption = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1087#1086#1089#1083#1091#1075#1072#1093
+      Caption = #1047#1074#1110#1090' '#1087#1086' '#1087#1086#1089#1083#1091#1075#1072#1093
       Category = 0
-      Hint = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1087#1086#1089#1083#1091#1075#1072#1093
+      Hint = #1047#1074#1110#1090' '#1087#1086' '#1087#1086#1089#1083#1091#1075#1072#1093
       Visible = ivAlways
       OnClick = dxBarButton17Click
     end
@@ -1178,9 +1166,9 @@
       OnClick = dxBarButton25Click
     end
     object dxBarButton26: TdxBarButton
-      Caption = #1042#1089#1110' '#1087#1086#1089#1083#1091#1075#1080' '#1087#1086' '#1072#1076#1088#1077#1089#1072#1084
+      Caption = #1047#1074#1110#1090' '#1042#1089#1110' '#1087#1086#1089#1083#1091#1075#1080' '#1087#1086' '#1072#1076#1088#1077#1089#1072#1084
       Category = 0
-      Hint = #1042#1089#1110' '#1087#1086#1089#1083#1091#1075#1080' '#1087#1086' '#1072#1076#1088#1077#1089#1072#1084
+      Hint = #1047#1074#1110#1090' '#1042#1089#1110' '#1087#1086#1089#1083#1091#1075#1080' '#1087#1086' '#1072#1076#1088#1077#1089#1072#1084
       Visible = ivAlways
       OnClick = dxBarButton26Click
     end
@@ -1204,9 +1192,9 @@
       Visible = ivAlways
     end
     object dxBarButton43: TdxBarButton
-      Caption = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1086#1087#1072#1083#1077#1085#1085#1102' '#1079#1072' '#1087#1077#1088#1110#1086#1076
+      Caption = #1047#1074#1110#1090' '#1087#1086' '#1086#1087#1072#1083#1077#1085#1085#1102' '#1079#1072' '#1087#1077#1088#1110#1086#1076
       Category = 0
-      Hint = #1058#1072#1088#1080#1092#1080' '#1087#1086' '#1086#1087#1072#1083#1077#1085#1085#1102' '#1079#1072' '#1087#1077#1088#1110#1086#1076
+      Hint = #1047#1074#1110#1090' '#1087#1086' '#1086#1087#1072#1083#1077#1085#1085#1102' '#1079#1072' '#1087#1077#1088#1110#1086#1076
       Visible = ivAlways
       OnClick = dxBarButton43Click
     end
@@ -1223,6 +1211,24 @@
       Hint = 'New Button'
       Style = cxStyle2
       Visible = ivAlways
+    end
+    object dxBarSubItem13: TdxBarSubItem
+      Caption = #1047#1074#1110#1090#1080
+      Category = 0
+      Visible = ivAlways
+      ItemLinks = <
+        item
+          Visible = True
+          ItemName = 'dxBarButton17'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton26'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton43'
+        end>
     end
   end
   object ActionList1: TActionList
@@ -1262,7 +1268,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400C80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400CC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2110,7 +2116,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900C80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900CC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000

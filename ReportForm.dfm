@@ -372,6 +372,9 @@
       GridView = cxGridDBTableView2
     end
   end
+  inherited IBTransaction1: TIBTransaction
+    Active = True
+  end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
@@ -1092,7 +1095,7 @@
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43425.596407557900000000
-    ReportOptions.LastChange = 43427.684047337960000000
+    ReportOptions.LastChange = 43430.382019074070000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     Left = 144
@@ -1101,7 +1104,7 @@
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxDBDataset1'
     CloseDataSource = False
-    DataSet = IBQuery1
+    DataSet = IBQuery3
     BCDToCurrency = False
     Left = 192
     Top = 408
