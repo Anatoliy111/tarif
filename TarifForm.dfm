@@ -1,12 +1,8 @@
 ﻿inherited Tarifs: TTarifs
-  Margins.Left = 0
-  Margins.Top = 0
-  Margins.Right = 0
-  Margins.Bottom = 0
   Caption = #1058#1072#1088#1080#1092#1080
   ClientHeight = 661
   ClientWidth = 928
-  PrintScale = poNone
+  Position = poMainFormCenter
   OnCreate = FormCreate
   ExplicitWidth = 944
   ExplicitHeight = 699
@@ -134,6 +130,14 @@
         item
           Kind = skSum
           Column = cxGrid1DBTableView1LICH_GK2
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1MZK_GK1
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1MZK_GK2
         end>
       DataController.Summary.SummaryGroups = <
         item
@@ -260,8 +264,18 @@
         PropertiesClassName = 'TcxCalcEditProperties'
         Width = 116
       end
+      object cxGrid1DBTableView1MZK_GK1: TcxGridDBColumn
+        Caption = #1052#1047#1050' '#1043#1082#1072#1083'. 1'
+        DataBinding.FieldName = 'MZK_GK1'
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1MZK_GK2: TcxGridDBColumn
+        Caption = #1052#1047#1050' '#1043#1082#1072#1083'. 2'
+        DataBinding.FieldName = 'MZK_GK2'
+        Options.Editing = False
+      end
       object cxGrid1DBTableView1MZK: TcxGridDBColumn
-        Caption = #1052#1047#1050
+        Caption = #1058#1072#1088#1080#1092' '#1052#1047#1050
         DataBinding.FieldName = 'MZK'
         PropertiesClassName = 'TcxCalcEditProperties'
         Options.Editing = False
@@ -414,7 +428,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 100
+      Height = 84
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -430,9 +444,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 101
+      Top = 85
       Width = 167
-      Height = 265
+      Height = 281
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -524,6 +538,14 @@
           item
             Kind = skSum
             Column = cxGridDBTableView1LICH_GK2
+          end
+          item
+            Kind = skSum
+            Column = cxGridDBTableView1MZK_GK1
+          end
+          item
+            Kind = skSum
+            Column = cxGridDBTableView1MZK_GK2
           end>
         DataController.Summary.SummaryGroups = <>
         OptionsSelection.HideFocusRectOnExit = False
@@ -603,9 +625,20 @@
           Options.Editing = False
           Width = 111
         end
+        object cxGridDBTableView1MZK_GK1: TcxGridDBColumn
+          Caption = #1052#1047#1050' '#1043#1082#1072#1083'. 1'
+          DataBinding.FieldName = 'MZK_GK1'
+          Options.Editing = False
+        end
+        object cxGridDBTableView1MZK_GK2: TcxGridDBColumn
+          Caption = #1052#1047#1050' '#1043#1082#1072#1083'. 2'
+          DataBinding.FieldName = 'MZK_GK2'
+          Options.Editing = False
+        end
         object cxGridDBTableView1MZK: TcxGridDBColumn
-          Caption = #1052#1079#1082
+          Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082
           DataBinding.FieldName = 'MZK'
+          Options.Editing = False
           Width = 55
         end
         object cxGridDBTableView1SUMOT: TcxGridDBColumn
@@ -757,7 +790,9 @@
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
-      '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA)'
+      
+        '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA, MZK_GK' +
+        '1, MZK_GK2)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -774,7 +809,7 @@
       
         '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA1, :CENA2,' +
         ' :PROCENT, '
-      '   :FL_2CENA)')
+      '   :FL_2CENA, :MZK_GK1, :MZK_GK2)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -813,7 +848,9 @@
       '  CENA1,'
       '  CENA2,'
       '  PROCENT,'
-      '  FL_2CENA'
+      '  FL_2CENA,'
+      '  MZK_GK1,'
+      '  MZK_GK2'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -862,7 +899,9 @@
       '  CENA1 = :CENA1,'
       '  CENA2 = :CENA2,'
       '  PROCENT = :PROCENT,'
-      '  FL_2CENA = :FL_2CENA'
+      '  FL_2CENA = :FL_2CENA,'
+      '  MZK_GK1 = :MZK_GK1,'
+      '  MZK_GK2 = :MZK_GK2'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1094,6 +1133,18 @@
     object IBTARIFUPDFL_2CENA: TIntegerField
       FieldName = 'FL_2CENA'
       Origin = '"TARIF_MES"."FL_2CENA"'
+    end
+    object IBTARIFUPDMZK_GK1: TIBBCDField
+      FieldName = 'MZK_GK1'
+      Origin = '"TARIF_MES"."MZK_GK1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDMZK_GK2: TIBBCDField
+      FieldName = 'MZK_GK2'
+      Origin = '"TARIF_MES"."MZK_GK2"'
+      Precision = 18
+      Size = 3
     end
   end
   object DSTARIFUPD: TDataSource
@@ -1704,7 +1755,7 @@
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
-      '   LICH_GK2, ID_VIDCENA, PROCENT, FL_2CENA)'
+      '   LICH_GK2, ID_VIDCENA, PROCENT, FL_2CENA, MZK_GK1, MZK_GK2)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1720,7 +1771,8 @@
         'TARIF_ENDPDV, '
       
         '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :PROCENT, :FL_2' +
-        'CENA)')
+        'CENA, :MZK_GK1, '
+      '   :MZK_GK2)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1759,7 +1811,9 @@
       '  CENA1,'
       '  CENA2,'
       '  PROCENT,'
-      '  FL_2CENA'
+      '  FL_2CENA,'
+      '  MZK_GK1,'
+      '  MZK_GK2'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1804,7 +1858,9 @@
       '  LICH_GK2 = :LICH_GK2,'
       '  ID_VIDCENA = :ID_VIDCENA,'
       '  PROCENT = :PROCENT,'
-      '  FL_2CENA = :FL_2CENA'
+      '  FL_2CENA = :FL_2CENA,'
+      '  MZK_GK1 = :MZK_GK1,'
+      '  MZK_GK2 = :MZK_GK2'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2033,6 +2089,18 @@
     object IBTARIF_MESFL_2CENA: TIntegerField
       FieldName = 'FL_2CENA'
       Origin = '"TARIF_MES"."FL_2CENA"'
+    end
+    object IBTARIF_MESMZK_GK1: TIBBCDField
+      FieldName = 'MZK_GK1'
+      Origin = '"TARIF_MES"."MZK_GK1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GK2: TIBBCDField
+      FieldName = 'MZK_GK2'
+      Origin = '"TARIF_MES"."MZK_GK2"'
+      Precision = 18
+      Size = 3
     end
   end
   object DSTARIF_MES: TDataSource
@@ -2456,7 +2524,7 @@
       
         '   SUMOT, SUMOTPDV, SENDPDV, LICH_PN, LICH_PK, LICH_GK, LICH_PN2' +
         ', LICH_PK2, '
-      '   LICH_GK2, CENA1, CENA2)'
+      '   LICH_GK2, CENA1, CENA2, MZK_GK1, MZK_GK2, FL_MZK)'
       'values'
       
         '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
@@ -2464,7 +2532,10 @@
       
         '   :SEND, :MZK, :SUMOT, :SUMOTPDV, :SENDPDV, :LICH_PN, :LICH_PK,' +
         ' :LICH_GK, '
-      '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :CENA1, :CENA2)')
+      
+        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :CENA1, :CENA2, :MZK_GK1, :M' +
+        'ZK_GK2, '
+      '   :FL_MZK)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -2488,7 +2559,10 @@
       '  FL_LICH,'
       '  ID_VIDCENA,'
       '  CENA1,'
-      '  CENA2'
+      '  CENA2,'
+      '  MZK_GK1,'
+      '  MZK_GK2,'
+      '  FL_MZK'
       'from TARIF_OTHER '
       'where'
       '  ID = :ID')
@@ -2520,7 +2594,10 @@
       '  LICH_PK2 = :LICH_PK2,'
       '  LICH_GK2 = :LICH_GK2,'
       '  CENA1 = :CENA1,'
-      '  CENA2 = :CENA2'
+      '  CENA2 = :CENA2,'
+      '  MZK_GK1 = :MZK_GK1,'
+      '  MZK_GK2 = :MZK_GK2,'
+      '  FL_MZK = :FL_MZK'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2671,6 +2748,22 @@
       Origin = '"TARIF_OTHER"."CENA2"'
       Precision = 18
       Size = 4
+    end
+    object IBTARIF_OTHERMZK_GK1: TIBBCDField
+      FieldName = 'MZK_GK1'
+      Origin = '"TARIF_OTHER"."MZK_GK1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERMZK_GK2: TIBBCDField
+      FieldName = 'MZK_GK2'
+      Origin = '"TARIF_OTHER"."MZK_GK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERFL_MZK: TIntegerField
+      FieldName = 'FL_MZK'
+      Origin = '"TARIF_OTHER"."FL_MZK"'
     end
   end
   object DSTARIF_OTHER: TDataSource

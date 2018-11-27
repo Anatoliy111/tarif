@@ -159,6 +159,11 @@ type
     IBQuery3NOTHERS: TIBStringField;
     IBQuery3NO_LICH: TIntegerField;
     IBQuery3GKAL1: TIBBCDField;
+    IBQuery1MZK_GK1: TIBBCDField;
+    IBQuery1MZK_GK2: TIBBCDField;
+    cxGrid1DBTableView1MZK_GK1: TcxGridDBColumn;
+    cxGrid1DBTableView1MZK_GK2: TcxGridDBColumn;
+    IBQuery3MZK_GK1: TIBBCDField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure cxButton7Click(Sender: TObject);
@@ -259,6 +264,8 @@ begin
           cxGrid1DBTableView1END_L.Visible:=false;
           cxGrid1DBTableView1GKAL1.Visible:=false;
           cxGrid1DBTableView1GKAL2.Visible:=false;
+          cxGrid1DBTableView1MZK_GK1.Visible:=false;
+          cxGrid1DBTableView1MZK_GK2.Visible:=false;
           cxGrid1DBTableView1CENA1.Visible:=false;
           cxGrid1DBTableView1CENA2.Visible:=false;
           cxButton1.Visible:=false;
@@ -291,10 +298,13 @@ begin
           cxGrid1DBTableView1NORMA.Visible:=false;
           cxGrid1DBTableView1GKAL1.Visible:=true;
           cxGrid1DBTableView1CENA1.Visible:=true;
+          cxGrid1DBTableView1MZK_GK1.Visible:=true;
+
           if IBQuery1.FieldByName('fl_2cena').Value=1 then
           begin
             cxGrid1DBTableView1GKAL2.Visible:=true;
             cxGrid1DBTableView1CENA2.Visible:=true;
+            cxGrid1DBTableView1MZK_GK2.Visible:=true;
           end;
           cxButton1.Visible:=true;
 
@@ -314,6 +324,7 @@ begin
           cxGrid1DBTableView1END_BL.Visible:=false;
           cxGrid1DBTableView1END_L.Visible:=false;
           cxGrid1DBTableView1GKAL2.Visible:=false;
+          cxGrid1DBTableView1MZK_GK2.Visible:=false;
           cxGrid1DBTableView1CENA1.Visible:=false;
           cxGrid1DBTableView1CENA2.Visible:=false;
           cxButton1.Visible:=true;

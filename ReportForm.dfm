@@ -145,6 +145,14 @@
         item
           Kind = skSum
           Column = cxGrid1DBTableView1BORG_VIDH
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1MZK_GK1
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1MZK_GK2
         end>
       DataController.Summary.SummaryGroups = <>
       OptionsData.Editing = False
@@ -196,8 +204,16 @@
         Caption = #1053#1072#1088#1072#1093'. '#1090#1072#1088#1080#1092' '#1079' '#1055#1044#1042
         DataBinding.FieldName = 'TARIF_ENDPDV'
       end
+      object cxGrid1DBTableView1MZK_GK1: TcxGridDBColumn
+        Caption = #1052#1047#1050' '#1043#1082#1072#1083'. 1'
+        DataBinding.FieldName = 'MZK_GK1'
+      end
+      object cxGrid1DBTableView1MZK_GK2: TcxGridDBColumn
+        Caption = #1052#1047#1050' '#1043#1082#1072#1083'. 2'
+        DataBinding.FieldName = 'MZK_GK2'
+      end
       object cxGrid1DBTableView1MZK: TcxGridDBColumn
-        Caption = #1052#1047#1050
+        Caption = #1058#1072#1088#1080#1092' '#1052#1047#1050
         DataBinding.FieldName = 'MZK'
       end
       object cxGrid1DBTableView1SUMOT: TcxGridDBColumn
@@ -371,9 +387,6 @@
       GridView = cxGridDBTableView2
     end
   end
-  inherited IBTransaction1: TIBTransaction
-    Active = True
-  end
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
@@ -383,9 +396,9 @@
     SQL.Strings = (
       
         'select tarifnam,adres,ul,dom,plos,gkal1,gkal2,cena1,cena2,FL_2CE' +
-        'NA,sumot,sumotpdv,tarif_end,tarif_endpdv,mzk,norma,tarif_rk,borg' +
-        '_vidh,kotel,vid,widab,data,wid,posl,id_posl,tarif_plan,tarif_fac' +
-        't,end_bl,end_l,others,nothers,no_lich'
+        'NA,sumot,sumotpdv,tarif_end,tarif_endpdv,mzk,mzk_gk1,mzk_gk2,nor' +
+        'ma,tarif_rk,borg_vidh,kotel,vid,widab,data,wid,posl,id_posl,tari' +
+        'f_plan,tarif_fact,end_bl,end_l,others,nothers,no_lich'
       'from'
       '(select tarif.name tarifnam,'
       '        (ul.name || '#39' '#39' || dom.dom) AS adres,'
@@ -402,6 +415,8 @@
       '        tarif_mes.tarif_end,'
       '        tarif_mes.tarif_endpdv,'
       '        tarif_mes.mzk,'
+      '        tarif_mes.mzk_gk1,'
+      '        tarif_mes.mzk_gk2,'
       '        tarif_mes.norma,'
       '        tarif_mes.tarif_rk,'
       '        tarif_mes.borg_vidh,'
@@ -435,8 +450,8 @@
       '        ul.name ul,'
       '        dom.dom,'
       '        dom_other.plos_bb plos,'
-      '        COALESCE(tarif_mes.lich_gk,0) gkal1,'
-      '        COALESCE(tarif_mes.lich_gk2,0) as gkal2,'
+      '        COALESCE(tarif_other.lich_gk,0) gkal1,'
+      '        COALESCE(tarif_other.lich_gk2,0) as gkal2,'
       '        tarif_other.cena1,'
       '        tarif_other.cena2,'
       '        tarif_mes.FL_2CENA,'
@@ -445,6 +460,8 @@
       '        tarif_other.send tarif_end,'
       '        tarif_other.sendpdv tarif_endpdv,'
       '        tarif_other.mzk,'
+      '        tarif_other.mzk_gk1,'
+      '        tarif_other.mzk_gk2,'
       '        tarif_other.norma,'
       '        00.0 as tarif_rk,'
       '        00.0 as borg_vidh,'
@@ -665,6 +682,18 @@
       ProviderFlags = []
       Size = 10
     end
+    object IBQuery1MZK_GK1: TIBBCDField
+      FieldName = 'MZK_GK1'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object IBQuery1MZK_GK2: TIBBCDField
+      FieldName = 'MZK_GK2'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
   end
   object DSQuery1: TDataSource
     DataSet = IBQuery1
@@ -854,8 +883,8 @@
       '        ul.name ul,'
       '        dom.dom,'
       '        dom_other.plos_bb plos,'
-      '        COALESCE(tarif_mes.lich_gk,0) gkal1,'
-      '        COALESCE(tarif_mes.lich_gk2,0) as gkal2,'
+      '        COALESCE(tarif_other.lich_gk,0) gkal1,'
+      '        COALESCE(tarif_other.lich_gk2,0) as gkal2,'
       '        tarif_other.cena1,'
       '        tarif_other.cena2,'
       '        tarif_mes.FL_2CENA,'
@@ -1094,7 +1123,7 @@
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43425.596407557900000000
-    ReportOptions.LastChange = 43430.382019074070000000
+    ReportOptions.LastChange = 43431.698562685200000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     Left = 144
@@ -1117,7 +1146,8 @@
     SQL.Strings = (
       
         'select id,tarifnam,adres,ul,dom,sum(gkal1)+sum(gkal2) as gkal1,s' +
-        'um(sumot) sumot,sum(sumotpdv) sumotpdv,'
+        'um(sumot) sumot,sum(sumotpdv) sumotpdv,sum(mzk_gk1)+sum(mzk_gk1)' +
+        ' mzk_gk1,'
       
         '(select kotel.name from kotel,tarif_mes where tarif_mes.id_tarif' +
         '=aa.id and tarif_mes.id_kotel=kotel.id and tarif_mes.data=:dt2) ' +
@@ -1134,6 +1164,8 @@
       '        COALESCE(tarif_mes.lich_gk2,0) as gkal2,'
       '        COALESCE(tarif_mes.sumot,0) sumot,'
       '        COALESCE(tarif_mes.sumotpdv,0) sumotpdv,'
+      '        tarif_mes.mzk_gk1,'
+      '        tarif_mes.mzk_gk2,'
       '        vidab.name vid,'
       '        vidab.wid widab,'
       '        tarif_mes.data,'
@@ -1163,10 +1195,12 @@
       '        ul.name ul,'
       '        dom.dom,'
       '        dom_other.plos_bb plos,'
-      '        COALESCE(tarif_mes.lich_gk,0) gkal1,'
-      '        COALESCE(tarif_mes.lich_gk2,0) as gkal2,'
+      '        COALESCE(tarif_other.lich_gk,0) gkal1,'
+      '        COALESCE(tarif_other.lich_gk2,0) as gkal2,'
       '        COALESCE(tarif_other.sumot,0) as sumot,'
       '        COALESCE(tarif_other.sumotpdv,0) sumotpdv,'
+      '        tarif_other.mzk_gk1,'
+      '        tarif_other.mzk_gk2,'
       '        vidab.name vid,'
       '        vidab.wid widab,'
       '        tarif_mes.data,'
@@ -1292,6 +1326,12 @@
     end
     object IBQuery3GKAL1: TIBBCDField
       FieldName = 'GKAL1'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object IBQuery3MZK_GK1: TIBBCDField
+      FieldName = 'MZK_GK1'
       ProviderFlags = []
       Precision = 18
       Size = 3

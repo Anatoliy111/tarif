@@ -41,6 +41,7 @@ type
         fl_post:integer;
 //        constructor Create(Sender: TComponent); virtual;
     procedure AutoMAX;
+    procedure WMWindowPosChanging(var Msg: TMessage); message WM_WINDOWPOSCHANGING;
 
   end;
 
@@ -49,7 +50,7 @@ var
     ExB: WORD;
 implementation
 
-uses DataMod, InsertForm, MainForm;
+uses DataMod, InsertForm, MainForm, math;
 
 {$R *.dfm}
 
@@ -59,12 +60,26 @@ uses DataMod, InsertForm, MainForm;
 //    // do other
 //end;
 
+procedure TAllMDICh.WMWindowPosChanging(var Msg: TMessage);
+begin
+   if main.WindowState=wsMaximized then
+     with PWindowPos(Msg.LParam)^ do
+     begin
+  //      X := EnsureRange(X, 0, Main.Width - Self.Width - 20);
+  //      Y := EnsureRange(Y, 0, Main.Height - Self.Height - 100);
+        X := EnsureRange(X, 0, main.ClientWidth-Self.Width-5);
+        Y := EnsureRange(Y, 0, main.ClientHeight-Self.Height-60);
+     end;
+end;
+
+
 procedure TAllMDICh.WinProc1(var Msg: TMessage);
 begin
   if (Msg.wParam = SC_MAXIMIZE) then
     begin
       // тут выполнится код при разворачивании
-      AutoMAX;
+//      if main.WindowState=wsMaximized then
+        AutoMAX;
     end
   else
     inherited;
@@ -73,10 +88,18 @@ end;
 
 procedure TAllMDICh.AutoMax;
 begin
- if self.Height=(main.ClientHeight-70) then
+ if (self.Height=(main.ClientHeight-60)) and (self.Width=(main.ClientWidth-5)) then
  begin
+   if (self.top=0) and (self.Left=0) then
+   begin
    self.Height:=LastHeight;
    self.Width:=LastWidth;
+   end
+   else
+   begin
+    self.top:=0;
+    self.Left:=0;
+   end;
  end
  else
  begin
@@ -85,7 +108,7 @@ begin
  self.Left:=0;
  LastHeight:=self.Height;
  LastWidth:=self.Width;
- self.Height:=main.ClientHeight-70;
+ self.Height:=main.ClientHeight-60;
  self.Width:=main.ClientWidth-5;
  end;
 end;

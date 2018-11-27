@@ -284,6 +284,17 @@ type
     IBTARIF_MESFL_2CENA: TIntegerField;
     IBTARIFUPDCENA2: TIBBCDField;
     IBTARIFUPDFL_2CENA: TIntegerField;
+    IBTARIF_MESMZK_GK1: TIBBCDField;
+    IBTARIF_MESMZK_GK2: TIBBCDField;
+    IBTARIFUPDMZK_GK1: TIBBCDField;
+    IBTARIFUPDMZK_GK2: TIBBCDField;
+    cxGrid1DBTableView1MZK_GK1: TcxGridDBColumn;
+    cxGrid1DBTableView1MZK_GK2: TcxGridDBColumn;
+    IBTARIF_OTHERMZK_GK1: TIBBCDField;
+    IBTARIF_OTHERMZK_GK2: TIBBCDField;
+    IBTARIF_OTHERFL_MZK: TIntegerField;
+    cxGridDBTableView1MZK_GK1: TcxGridDBColumn;
+    cxGridDBTableView1MZK_GK2: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -336,7 +347,7 @@ type
     Glavna:Tform;
      iniFile:TIniFile;
      procedure Update;
-     procedure WMWindowPosChanging(var Msg: TMessage); message WM_WINDOWPOSCHANGING;
+
   end;
 
 var
@@ -349,15 +360,6 @@ uses registry, cxGridExportLink, comobj, MainForm, InsertForm, Ins, mytools, Dat
   Info, InsTarif;
 
 {$R *.dfm}
-
-procedure TTarifs.WMWindowPosChanging(var Msg: TMessage);
-begin
-//   with PWindowPos(Msg.LParam)^ do
-//   begin
-//      X := EnsureRange(X, 10, Main.Width - Self.Width - 50);
-//      Y := EnsureRange(Y, 10, Main.Height - Self.Height - 50);
-//   end;
-end;
 
 
 procedure TTarifs.cxButton10Click(Sender: TObject);
@@ -596,6 +598,8 @@ begin
          end;
          IBTARIFUPDCENA1.Value:=cenaosn1;
          IBTARIFUPDCENA2.Value:=cenaosn2;
+         IBTARIFUPDMZK_GK1.Value:=gkalmzkin1;
+         IBTARIFUPDMZK_GK2.Value:=gkalmzkin2;
          IBTARIFUPD.Post;
          IBTARIF_OTHER.Close;
          IBTARIF_OTHER.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
@@ -644,7 +648,7 @@ begin
            IBTARIF_OTHER.Edit;
            IBTARIF_OTHERSEND.Value:=SimpleRoundTo(sotend1+sotend2,-2);
            IBTARIF_OTHERSENDPDV.Value:=SimpleRoundTo(sotend1+sotend2,-2)*1.2;
-           IBTARIF_OTHERMZK.Value:=IBTARIFUPDMZK.AsCurrency;
+
            if IBTARIF_OTHERFL_LICH.Value=0 then
            begin
               IBTARIF_OTHERLICH_GK.AsFloat:=gkalother1;
@@ -662,6 +666,19 @@ begin
            end;
            IBTARIF_OTHERCENA1.Value:=cenaother1;
            IBTARIF_OTHERCENA2.Value:=cenaother2;
+           if IBTARIF_OTHERFL_MZK.Value=1 then
+           begin
+             IBTARIF_OTHERMZK.Value:=IBTARIFUPDMZK.AsCurrency;
+             IBTARIF_OTHERMZK_GK1.Value:=gkalmzkin1;
+             IBTARIF_OTHERMZK_GK2.Value:=gkalmzkin2;
+           end
+           else
+           begin
+             IBTARIF_OTHERMZK.Value:=0;
+             IBTARIF_OTHERMZK_GK1.Value:=0;
+             IBTARIF_OTHERMZK_GK2.Value:=0;
+           end;
+
            IBTARIF_OTHER.Post;
          IBTARIF_OTHER.Next;
          end;
@@ -678,6 +695,8 @@ begin
          IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(IBTARIFUPDTARIF_END.Value*IBTARIFUPDPLOS_BBI.AsFloat,-2))*1.2;
          IBTARIFUPDCENA1.Value:=cenaosn1;
          IBTARIFUPDCENA2.Value:=cenaosn2;
+         IBTARIFUPDMZK_GK1.Value:=gkalmzkin1;
+         IBTARIFUPDMZK_GK2.Value:=gkalmzkin2;
          IBTARIFUPD.Post;
          IBTARIF_OTHER.Close;
          IBTARIF_OTHER.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
@@ -1209,6 +1228,8 @@ begin
     cxGrid1DBTableView1LICH_GK.Visible:=true;
     cxGrid1DBTableView1TARIF_ENDPDV.Visible:=true;
     cxGridDBTableView1LICH_GK.Options.Editing:=false;
+    cxGrid1DBTableView1MZK_GK2.Visible:=false;
+    cxGridDBTableView1MZK_GK2.Visible:=false;
 
    if FL_OTHERLICH=1 then
     begin
@@ -1236,6 +1257,8 @@ begin
       cxGridDBTableView1LICH_PN2.Visible:=true;
       cxGridDBTableView1LICH_PK2.Visible:=true;
       cxGridDBTableView1LICH_GK2.Visible:=true;
+      cxGrid1DBTableView1MZK_GK2.Visible:=true;
+      cxGridDBTableView1MZK_GK2.Visible:=true;
     end
     else
     begin
@@ -1245,6 +1268,8 @@ begin
       cxGridDBTableView1LICH_PN2.Visible:=false;
       cxGridDBTableView1LICH_PK2.Visible:=false;
       cxGridDBTableView1LICH_GK2.Visible:=false;
+      cxGrid1DBTableView1MZK_GK2.Visible:=false;
+      cxGridDBTableView1MZK_GK2.Visible:=false;
     end;
 
       DSTARIF_OTHER.Enabled:=true;
@@ -1397,6 +1422,8 @@ begin
     cxGrid1DBTableView1LICH_GK.Visible:=false;
     cxGrid1DBTableView1TARIF_ENDPDV.Visible:=false;
     cxGrid1DBTableView1ID_VIDCENA.Visible:=false;
+    cxGrid1DBTableView1MZK_GK2.Visible:=false;
+    cxGridDBTableView1MZK_GK2.Visible:=false;
 
 
   if IBPOSLWID.Value='ub' then
@@ -1474,6 +1501,8 @@ begin
       cxGridDBTableView1LICH_PN2.Visible:=true;
       cxGridDBTableView1LICH_PK2.Visible:=true;
       cxGridDBTableView1LICH_GK2.Visible:=true;
+      cxGrid1DBTableView1MZK_GK2.Visible:=true;
+      cxGridDBTableView1MZK_GK2.Visible:=true;
     end
     else
     begin
@@ -1483,6 +1512,8 @@ begin
       cxGridDBTableView1LICH_PN2.Visible:=false;
       cxGridDBTableView1LICH_PK2.Visible:=false;
       cxGridDBTableView1LICH_GK2.Visible:=false;
+      cxGrid1DBTableView1MZK_GK2.Visible:=false;
+      cxGridDBTableView1MZK_GK2.Visible:=false;
     end;
 
   end;
