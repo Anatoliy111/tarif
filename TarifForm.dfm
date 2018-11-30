@@ -428,7 +428,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 84
+      Height = 180
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -440,15 +440,16 @@
       ListSource = DSPOSL
       ParentFont = False
       TabOrder = 0
-      OnClick = DBLookupListBox1Click
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 85
+      Top = 181
       Width = 167
-      Height = 281
+      Height = 185
       Align = alClient
       TabOrder = 1
+      ExplicitTop = 37
+      ExplicitHeight = 329
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -1220,6 +1221,7 @@
   end
   object DSPOSL: TDataSource
     DataSet = IBPOSL
+    OnDataChange = DSPOSLDataChange
     Left = 424
     Top = 568
   end
@@ -1775,48 +1777,49 @@
       '   :MZK_GK2)')
     RefreshSQL.Strings = (
       'Select '
-      '  ID,'
-      '  ID_TARIF,'
-      '  DATA,'
-      '  TARIF_PLAN,'
-      '  TARIF_FACT,'
-      '  TARIF_RN,'
-      '  TARIF_RK,'
-      '  NORMA,'
-      '  TARIF_END,'
-      '  PLAN_BL,'
-      '  FACT_BL,'
-      '  END_BL,'
-      '  END_L,'
-      '  LICH_PN,'
-      '  LICH_PK,'
-      '  NOTE,'
-      '  PLOS_BBI,'
-      '  NSER_LICH,'
-      '  ID_KOTEL,'
-      '  PLOS_BB,'
-      '  MZK,'
-      '  BORG_VIDH,'
-      '  NO_LICH,'
-      '  PLOS_IN,'
-      '  PLOS_MZK,'
-      '  SUMOT,'
-      '  SUMOTPDV,'
-      '  LICH_GK,'
-      '  TARIF_ENDPDV,'
-      '  LICH_PN2,'
-      '  LICH_PK2,'
-      '  LICH_GK2,'
-      '  ID_VIDCENA,'
-      '  CENA1,'
-      '  CENA2,'
-      '  PROCENT,'
-      '  FL_2CENA,'
-      '  MZK_GK1,'
-      '  MZK_GK2'
-      'from TARIF_MES '
+      '  TARIF_MES.ID,'
+      '  TARIF_MES.ID_TARIF,'
+      '  TARIF_MES.DATA,'
+      '  TARIF_MES.TARIF_PLAN,'
+      '  TARIF_MES.TARIF_FACT,'
+      '  TARIF_MES.TARIF_RN,'
+      '  TARIF_MES.TARIF_RK,'
+      '  TARIF_MES.NORMA,'
+      '  TARIF_MES.TARIF_END,'
+      '  TARIF_MES.PLAN_BL,'
+      '  TARIF_MES.FACT_BL,'
+      '  TARIF_MES.END_BL,'
+      '  TARIF_MES.END_L,'
+      '  TARIF_MES.LICH_PN,'
+      '  TARIF_MES.LICH_PK,'
+      '  TARIF_MES.NOTE,'
+      '  TARIF_MES.PLOS_BBI,'
+      '  TARIF_MES.NSER_LICH,'
+      '  TARIF_MES.ID_KOTEL,'
+      '  TARIF_MES.PLOS_BB,'
+      '  TARIF_MES.MZK,'
+      '  TARIF_MES.BORG_VIDH,'
+      '  TARIF_MES.NO_LICH,'
+      '  TARIF_MES.PLOS_IN,'
+      '  TARIF_MES.PLOS_MZK,'
+      '  TARIF_MES.SUMOT,'
+      '  TARIF_MES.SUMOTPDV,'
+      '  TARIF_MES.LICH_GK,'
+      '  TARIF_MES.TARIF_ENDPDV,'
+      '  TARIF_MES.LICH_PN2,'
+      '  TARIF_MES.LICH_PK2,'
+      '  TARIF_MES.LICH_GK2,'
+      '  TARIF_MES.ID_VIDCENA,'
+      '  TARIF_MES.CENA1,'
+      '  TARIF_MES.CENA2,'
+      '  TARIF_MES.PROCENT,'
+      '  TARIF_MES.FL_2CENA,'
+      '  TARIF_MES.MZK_GK1,'
+      '  TARIF_MES.MZK_GK2,'
+      '  TARIF. NAME'
+      'from TARIF_MES, TARIF '
       'where'
-      '  ID = :ID')
+      '  TARIF_MES.ID = :ID and TARIF_MES.ID_TARIF=TARIF.ID')
     SelectSQL.Strings = (
       
         'select TARIF_MES.*, TARIF.NAME, TARIF.id_posl from TARIF_MES, TA' +

@@ -300,7 +300,6 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBTARIFUPDBeforePost(DataSet: TDataSet);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure DBLookupListBox1Click(Sender: TObject);
     procedure DBComboBox1Change(Sender: TObject);
     procedure cxLookupComboBox1PropertiesChange(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
@@ -335,6 +334,7 @@ type
     procedure IBTARIF_OTHERLICH_PN2Change(Sender: TField);
     procedure IBTARIF_OTHERLICH_PK2Change(Sender: TField);
     procedure IBTARIF_OTHERLICH_PKChange(Sender: TField);
+    procedure DSPOSLDataChange(Sender: TObject; Field: TField);
   private
   procedure Enables(val:boolean);
   procedure Visible;
@@ -1153,14 +1153,24 @@ begin
 end;
 
 procedure TTarifs.Enables(val:boolean);
+var i:integer;
 begin
   cxButton2.Enabled:=val;
   cxButton9.Enabled:=val;
   cxButton8.Enabled:=val;
-  cxButton7.Enabled:=val;
+//  cxButton7.Enabled:=val;
 //  cxButton6.Enabled:=val;
   cxButton1.Enabled:=val;
-  cxGrid1DBTableView1.OptionsData.Editing:=val;
+//  cxGrid1DBTableView1.OptionsData.Editing:=val;
+  for I := 0 to cxGrid1DBTableView1.ColumnCount-1 do
+  begin
+    cxGrid1DBTableView1.Columns[I].Options.Editing:=val;
+    if cxGrid1DBTableView1Column1.Index=I then
+      cxGrid1DBTableView1.Columns[I].Options.Editing:=true;
+  end;
+
+
+  cxGrid1DBTableView1Column1.Options.Editing:=true;
 end;
 
 
@@ -1173,6 +1183,7 @@ begin
   InfoForm.IBTARIF_INF.Close;
   InfoForm.IBTARIF_INF.ParamByName('tmes').Value:=Tarifs.IBTARIF_MESID.Value;
   InfoForm.IBTARIF_INF.Open;
+  InfoForm.cxLabel2.Caption:=mon_slovoDt(Tarifs.IBTARIF_MESDATA.Value);
 
 
 end;
@@ -1209,7 +1220,7 @@ begin
          IBQuery1.First;
          FL_OTHERLICH:=IBQuery1.FieldByName('flich').AsInteger;
 
-    cxGrid1DBTableView1ID_VIDCENA.Visible:=false;
+    cxGrid1DBTableView1ID_VIDCENA.Visible:=true;
     cxGrid1DBTableView1NSER_LICH.Visible:=true;
     cxGrid1DBTableView1ID_KOTEL.Visible:=true;
     cxGrid1DBTableView1PLOS_BBI.Visible:=true;
@@ -1321,16 +1332,18 @@ if Main.IBPERIODDATA.Value=main.Period then
 //cxComboBox1.EditValue
 end;
 
-procedure TTarifs.DBLookupListBox1Click(Sender: TObject);
+procedure TTarifs.DSPOSLDataChange(Sender: TObject; Field: TField);
 begin
   inherited;
-//  UpdateGrids;
     IBTARIF_MES.close;
   IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
-  IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
+  IBTARIF_MES.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
   IBTARIF_MES.open;
+//  DSTARIF_MES.Enabled:=false;
   Visible;
+//  DSTARIF_MES.Enabled:=true;
+
   IBTARIF_COMP.close;
   IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarifmes=:tar';
   IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
@@ -1455,7 +1468,7 @@ begin
          IBQuery1.First;
          FL_OTHERLICH:=IBQuery1.FieldByName('flich').AsInteger;
 
-    cxGrid1DBTableView1ID_VIDCENA.Visible:=false;
+    cxGrid1DBTableView1ID_VIDCENA.Visible:=true;
     cxGrid1DBTableView1NSER_LICH.Visible:=true;
     cxGrid1DBTableView1ID_KOTEL.Visible:=true;
     cxGrid1DBTableView1PLOS_BBI.Visible:=true;
@@ -1845,6 +1858,52 @@ begin
   except
   end;
 end;
+
+//refresh tarif_mes
+//Select
+//  TARIF_MES.ID,
+//  TARIF_MES.ID_TARIF,
+//  TARIF_MES.DATA,
+//  TARIF_MES.TARIF_PLAN,
+//  TARIF_MES.TARIF_FACT,
+//  TARIF_MES.TARIF_RN,
+//  TARIF_MES.TARIF_RK,
+//  TARIF_MES.NORMA,
+//  TARIF_MES.TARIF_END,
+//  TARIF_MES.PLAN_BL,
+//  TARIF_MES.FACT_BL,
+//  TARIF_MES.END_BL,
+//  TARIF_MES.END_L,
+//  TARIF_MES.LICH_PN,
+//  TARIF_MES.LICH_PK,
+//  TARIF_MES.NOTE,
+//  TARIF_MES.PLOS_BBI,
+//  TARIF_MES.NSER_LICH,
+//  TARIF_MES.ID_KOTEL,
+//  TARIF_MES.PLOS_BB,
+//  TARIF_MES.MZK,
+//  TARIF_MES.BORG_VIDH,
+//  TARIF_MES.NO_LICH,
+//  TARIF_MES.PLOS_IN,
+//  TARIF_MES.PLOS_MZK,
+//  TARIF_MES.SUMOT,
+//  TARIF_MES.SUMOTPDV,
+//  TARIF_MES.LICH_GK,
+//  TARIF_MES.TARIF_ENDPDV,
+//  TARIF_MES.LICH_PN2,
+//  TARIF_MES.LICH_PK2,
+//  TARIF_MES.LICH_GK2,
+//  TARIF_MES.ID_VIDCENA,
+//  TARIF_MES.CENA1,
+//  TARIF_MES.CENA2,
+//  TARIF_MES.PROCENT,
+//  TARIF_MES.FL_2CENA,
+//  TARIF_MES.MZK_GK1,
+//  TARIF_MES.MZK_GK2,
+//  TARIF. NAME
+//from TARIF_MES, TARIF
+//where
+//  TARIF_MES.ID = :ID and TARIF_MES.ID_TARIF=TARIF.ID
 
 
 end.
