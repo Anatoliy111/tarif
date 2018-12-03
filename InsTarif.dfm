@@ -4,6 +4,7 @@ inherited InsTar: TInsTar
   ClientWidth = 965
   Position = poDefault
   OnCreate = FormCreate
+  ExplicitLeft = 2
   ExplicitWidth = 981
   ExplicitHeight = 680
   PixelsPerInch = 96
@@ -167,7 +168,6 @@ inherited InsTar: TInsTar
     Height = 252
     Align = alClient
     TabOrder = 3
-    ExplicitWidth = 607
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -264,6 +264,7 @@ inherited InsTar: TInsTar
           end>
         Properties.ListSource = Tarifs.DSVIDAB
         Properties.ReadOnly = True
+        Options.Editing = False
         Width = 61
       end
       object cxGridDBTableView1FL_LICH: TcxGridDBColumn
@@ -1042,7 +1043,6 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = False
     Left = 16
     Top = 520
   end
