@@ -233,6 +233,11 @@ type
     cxStyle2: TcxStyle;
     dxBarButton45: TdxBarButton;
     dxBarSubItem13: TdxBarSubItem;
+    IBTARIF_OTHERCENA1: TIBBCDField;
+    IBTARIF_OTHERCENA2: TIBBCDField;
+    IBTARIF_OTHERMZK_GK1: TIBBCDField;
+    IBTARIF_OTHERMZK_GK2: TIBBCDField;
+    IBTARIF_OTHERFL_MZK: TIntegerField;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -656,6 +661,7 @@ Prores.Show;
             IBTARIF_MESPROCENT.AsFloat:=IBQuery1.FieldByName('PROCENT').AsFloat;
             IBTARIF_MESNO_LICH.AsInteger:=IBQuery1.FieldByName('NO_LICH').AsInteger;
 
+
             IBTARIF_MES.Post;
           end;
 
@@ -696,6 +702,8 @@ Prores.Show;
                IBTARIF_OTHERID_TARIFMES.Value:=IBTARIF_MESID.AsInteger;
                IBTARIF_OTHERID_VIDCENA.Value:=IBQuery2.FieldByName('ID_VIDCENA').AsInteger;
                IBTARIF_OTHERFL_LICH.Value:=IBQuery2.FieldByName('FL_LICH').AsInteger;
+               IBTARIF_OTHERNORMA.Value:=IBQuery2.FieldByName('NORMA').AsFloat;
+               IBTARIF_OTHERFL_MZK.Value:=IBQuery2.FieldByName('FL_MZK').AsInteger;
                IBTARIF_OTHER.Post;
              IBQuery2.Next;
              end;

@@ -295,6 +295,9 @@ type
     IBTARIF_OTHERFL_MZK: TIntegerField;
     cxGridDBTableView1MZK_GK1: TcxGridDBColumn;
     cxGridDBTableView1MZK_GK2: TcxGridDBColumn;
+    IBTARIF_MESID_VIDAB: TIntegerField;
+    cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn;
+    cxGrid1DBTableView1PLOS_IN: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -335,6 +338,7 @@ type
     procedure IBTARIF_OTHERLICH_PK2Change(Sender: TField);
     procedure IBTARIF_OTHERLICH_PKChange(Sender: TField);
     procedure DSPOSLDataChange(Sender: TObject; Field: TField);
+    procedure IBTARIF_MESAfterPost(DataSet: TDataSet);
   private
   procedure Enables(val:boolean);
   procedure Visible;
@@ -1162,12 +1166,12 @@ begin
 //  cxButton6.Enabled:=val;
   cxButton1.Enabled:=val;
 //  cxGrid1DBTableView1.OptionsData.Editing:=val;
-  for I := 0 to cxGrid1DBTableView1.ColumnCount-1 do
-  begin
-    cxGrid1DBTableView1.Columns[I].Options.Editing:=val;
-    if cxGrid1DBTableView1Column1.Index=I then
-      cxGrid1DBTableView1.Columns[I].Options.Editing:=true;
-  end;
+//  for I := 0 to cxGrid1DBTableView1.ColumnCount-1 do
+//  begin
+//    cxGrid1DBTableView1.Columns[I].Options.Editing:=val;
+//    if cxGrid1DBTableView1Column1.Index=I then
+//      cxGrid1DBTableView1.Columns[I].Options.Editing:=true;
+//  end;
 
 
   cxGrid1DBTableView1Column1.Options.Editing:=true;
@@ -1306,7 +1310,8 @@ begin
       Enables(false);
    end;
     IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, (select first 1 dom.id_vidab from tarif_dom,dom where tarif_dom.id_dom=dom.id and tarif_dom.id_tarifmes=tarif_mes.id) id_vidab'+
+                              ' from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
   IBTARIF_MES.open;
@@ -1336,7 +1341,8 @@ procedure TTarifs.DSPOSLDataChange(Sender: TObject; Field: TField);
 begin
   inherited;
     IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, (select first 1 dom.id_vidab from tarif_dom,dom where tarif_dom.id_dom=dom.id and tarif_dom.id_tarifmes=tarif_mes.id) id_vidab'+
+                              ' from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
   IBTARIF_MES.open;
@@ -1561,7 +1567,8 @@ begin
   cxLookupComboBox1.EditValue:= IBPERIODDATA.Value;
 
   IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, (select first 1 dom.id_vidab from tarif_dom,dom where tarif_dom.id_dom=dom.id and tarif_dom.id_tarifmes=tarif_mes.id) id_vidab'+
+                              ' from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
   IBTARIF_MES.open;
@@ -1645,11 +1652,23 @@ procedure TTarifs.IBTARIF_MESAfterEdit(DataSet: TDataSet);
 begin
   inherited;
   tmpval:=IBTARIF_MESTARIF_FACT.Value;
+   if cxLookupComboBox1.EditValue <> main.Period then
+   begin
+     if IBTARIF_MES.State in [dsInsert,dsEdit] then
+     IBTARIF_MES.Cancel;
+   end;
+end;
+
+procedure TTarifs.IBTARIF_MESAfterPost(DataSet: TDataSet);
+begin
+  inherited;
+//IBTARIF_MES.Refresh;
 end;
 
 procedure TTarifs.IBTARIF_MESBeforePost(DataSet: TDataSet);
 begin
 self.fl_post:=1;
+
   inherited;
 
 end;
