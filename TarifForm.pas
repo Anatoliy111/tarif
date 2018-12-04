@@ -295,7 +295,6 @@ type
     IBTARIF_OTHERFL_MZK: TIntegerField;
     cxGridDBTableView1MZK_GK1: TcxGridDBColumn;
     cxGridDBTableView1MZK_GK2: TcxGridDBColumn;
-    IBTARIF_MESID_VIDAB: TIntegerField;
     cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn;
     cxGrid1DBTableView1PLOS_IN: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);

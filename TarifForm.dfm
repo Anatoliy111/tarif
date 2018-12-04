@@ -451,7 +451,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 180
+      Height = 164
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -466,13 +466,11 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 181
+      Top = 165
       Width = 167
-      Height = 185
+      Height = 201
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 165
-      ExplicitHeight = 201
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -741,6 +739,7 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -1766,44 +1765,7 @@
     DeleteSQL.Strings = (
       'delete from TARIF_MES'
       'where'
-      '  ID_TARIF = :OLD_ID_TARIF and'
-      '  DATA = :OLD_DATA and'
-      '  TARIF_PLAN = :OLD_TARIF_PLAN and'
-      '  TARIF_FACT = :OLD_TARIF_FACT and'
-      '  TARIF_RN = :OLD_TARIF_RN and'
-      '  TARIF_RK = :OLD_TARIF_RK and'
-      '  NORMA = :OLD_NORMA and'
-      '  TARIF_END = :OLD_TARIF_END and'
-      '  PLAN_BL = :OLD_PLAN_BL and'
-      '  FACT_BL = :OLD_FACT_BL and'
-      '  END_BL = :OLD_END_BL and'
-      '  END_L = :OLD_END_L and'
-      '  LICH_PN = :OLD_LICH_PN and'
-      '  LICH_PK = :OLD_LICH_PK and'
-      '  NOTE = :OLD_NOTE and'
-      '  PLOS_BBI = :OLD_PLOS_BBI and'
-      '  NSER_LICH = :OLD_NSER_LICH and'
-      '  ID_KOTEL = :OLD_ID_KOTEL and'
-      '  PLOS_BB = :OLD_PLOS_BB and'
-      '  MZK = :OLD_MZK and'
-      '  BORG_VIDH = :OLD_BORG_VIDH and'
-      '  NO_LICH = :OLD_NO_LICH and'
-      '  PLOS_IN = :OLD_PLOS_IN and'
-      '  PLOS_MZK = :OLD_PLOS_MZK and'
-      '  SUMOT = :OLD_SUMOT and'
-      '  SUMOTPDV = :OLD_SUMOTPDV and'
-      '  LICH_GK = :OLD_LICH_GK and'
-      '  TARIF_ENDPDV = :OLD_TARIF_ENDPDV and'
-      '  LICH_PN2 = :OLD_LICH_PN2 and'
-      '  LICH_PK2 = :OLD_LICH_PK2 and'
-      '  LICH_GK2 = :OLD_LICH_GK2 and'
-      '  ID_VIDCENA = :OLD_ID_VIDCENA and'
-      '  CENA1 = :OLD_CENA1 and'
-      '  CENA2 = :OLD_CENA2 and'
-      '  PROCENT = :OLD_PROCENT and'
-      '  FL_2CENA = :OLD_FL_2CENA and'
-      '  MZK_GK1 = :OLD_MZK_GK1 and'
-      '  MZK_GK2 = :OLD_MZK_GK2')
+      '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into TARIF_MES'
       
@@ -1839,92 +1801,54 @@
         ' :PROCENT, '
       '   :FL_2CENA, :MZK_GK1, :MZK_GK2)')
     RefreshSQL.Strings = (
-      'Select '
-      '  ID,'
-      '  ID_TARIF,'
-      '  DATA,'
-      '  TARIF_PLAN,'
-      '  TARIF_FACT,'
-      '  TARIF_RN,'
-      '  TARIF_RK,'
-      '  NORMA,'
-      '  TARIF_END,'
-      '  PLAN_BL,'
-      '  FACT_BL,'
-      '  END_BL,'
-      '  END_L,'
-      '  LICH_PN,'
-      '  LICH_PK,'
-      '  NOTE,'
-      '  PLOS_BBI,'
-      '  NSER_LICH,'
-      '  ID_KOTEL,'
-      '  PLOS_BB,'
-      '  MZK,'
-      '  BORG_VIDH,'
-      '  NO_LICH,'
-      '  PLOS_IN,'
-      '  PLOS_MZK,'
-      '  SUMOT,'
-      '  SUMOTPDV,'
-      '  LICH_GK,'
-      '  TARIF_ENDPDV,'
-      '  LICH_PN2,'
-      '  LICH_PK2,'
-      '  LICH_GK2,'
-      '  ID_VIDCENA,'
-      '  CENA1,'
-      '  CENA2,'
-      '  PROCENT,'
-      '  FL_2CENA,'
-      '  MZK_GK1,'
-      '  MZK_GK2'
-      'from TARIF_MES '
+      'Select'
+      '  TARIF_MES.ID,'
+      '  TARIF_MES.ID_TARIF,'
+      '  TARIF_MES.DATA,'
+      '  TARIF_MES.TARIF_PLAN,'
+      '  TARIF_MES.TARIF_FACT,'
+      '  TARIF_MES.TARIF_RN,'
+      '  TARIF_MES.TARIF_RK,'
+      '  TARIF_MES.NORMA,'
+      '  TARIF_MES.TARIF_END,'
+      '  TARIF_MES.PLAN_BL,'
+      '  TARIF_MES.FACT_BL,'
+      '  TARIF_MES.END_BL,'
+      '  TARIF_MES.END_L,'
+      '  TARIF_MES.LICH_PN,'
+      '  TARIF_MES.LICH_PK,'
+      '  TARIF_MES.NOTE,'
+      '  TARIF_MES.PLOS_BBI,'
+      '  TARIF_MES.NSER_LICH,'
+      '  TARIF_MES.ID_KOTEL,'
+      '  TARIF_MES.PLOS_BB,'
+      '  TARIF_MES.MZK,'
+      '  TARIF_MES.BORG_VIDH,'
+      '  TARIF_MES.NO_LICH,'
+      '  TARIF_MES.PLOS_IN,'
+      '  TARIF_MES.PLOS_MZK,'
+      '  TARIF_MES.SUMOT,'
+      '  TARIF_MES.SUMOTPDV,'
+      '  TARIF_MES.LICH_GK,'
+      '  TARIF_MES.TARIF_ENDPDV,'
+      '  TARIF_MES.LICH_PN2,'
+      '  TARIF_MES.LICH_PK2,'
+      '  TARIF_MES.LICH_GK2,'
+      '  TARIF_MES.ID_VIDCENA,'
+      '  TARIF_MES.CENA1,'
+      '  TARIF_MES.CENA2,'
+      '  TARIF_MES.PROCENT,'
+      '  TARIF_MES.FL_2CENA,'
+      '  TARIF_MES.MZK_GK1,'
+      '  TARIF_MES.MZK_GK2,'
+      '  TARIF. NAME'
+      'from TARIF_MES, TARIF'
       'where'
-      '  ID_TARIF = :ID_TARIF and'
-      '  DATA = :DATA and'
-      '  TARIF_PLAN = :TARIF_PLAN and'
-      '  TARIF_FACT = :TARIF_FACT and'
-      '  TARIF_RN = :TARIF_RN and'
-      '  TARIF_RK = :TARIF_RK and'
-      '  NORMA = :NORMA and'
-      '  TARIF_END = :TARIF_END and'
-      '  PLAN_BL = :PLAN_BL and'
-      '  FACT_BL = :FACT_BL and'
-      '  END_BL = :END_BL and'
-      '  END_L = :END_L and'
-      '  LICH_PN = :LICH_PN and'
-      '  LICH_PK = :LICH_PK and'
-      '  NOTE = :NOTE and'
-      '  PLOS_BBI = :PLOS_BBI and'
-      '  NSER_LICH = :NSER_LICH and'
-      '  ID_KOTEL = :ID_KOTEL and'
-      '  PLOS_BB = :PLOS_BB and'
-      '  MZK = :MZK and'
-      '  BORG_VIDH = :BORG_VIDH and'
-      '  NO_LICH = :NO_LICH and'
-      '  PLOS_IN = :PLOS_IN and'
-      '  PLOS_MZK = :PLOS_MZK and'
-      '  SUMOT = :SUMOT and'
-      '  SUMOTPDV = :SUMOTPDV and'
-      '  LICH_GK = :LICH_GK and'
-      '  TARIF_ENDPDV = :TARIF_ENDPDV and'
-      '  LICH_PN2 = :LICH_PN2 and'
-      '  LICH_PK2 = :LICH_PK2 and'
-      '  LICH_GK2 = :LICH_GK2 and'
-      '  ID_VIDCENA = :ID_VIDCENA and'
-      '  CENA1 = :CENA1 and'
-      '  CENA2 = :CENA2 and'
-      '  PROCENT = :PROCENT and'
-      '  FL_2CENA = :FL_2CENA and'
-      '  MZK_GK1 = :MZK_GK1 and'
-      '  MZK_GK2 = :MZK_GK2')
+      '  TARIF_MES.ID = :ID and TARIF_MES.ID_TARIF=TARIF.ID')
     SelectSQL.Strings = (
       
-        'select tarif_mes.* ,tarif.name, tarif.id_posl, (select first 1 d' +
-        'om.id_vidab from tarif_dom,dom where tarif_dom.id_dom=dom.id and' +
-        ' tarif_dom.id_tarifmes=tarif_mes.id) as id_vidab from tarif_mes,' +
-        'tarif where tarif.id=tarif_mes.id_tarif')
+        'select tarif_mes.* ,tarif.name NAME, tarif.id_posl from TARIF_ME' +
+        'S, TARIF where tarif.id=tarif_mes.id_tarif')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'
@@ -1968,44 +1892,7 @@
       '  MZK_GK1 = :MZK_GK1,'
       '  MZK_GK2 = :MZK_GK2'
       'where'
-      '  ID_TARIF = :OLD_ID_TARIF and'
-      '  DATA = :OLD_DATA and'
-      '  TARIF_PLAN = :OLD_TARIF_PLAN and'
-      '  TARIF_FACT = :OLD_TARIF_FACT and'
-      '  TARIF_RN = :OLD_TARIF_RN and'
-      '  TARIF_RK = :OLD_TARIF_RK and'
-      '  NORMA = :OLD_NORMA and'
-      '  TARIF_END = :OLD_TARIF_END and'
-      '  PLAN_BL = :OLD_PLAN_BL and'
-      '  FACT_BL = :OLD_FACT_BL and'
-      '  END_BL = :OLD_END_BL and'
-      '  END_L = :OLD_END_L and'
-      '  LICH_PN = :OLD_LICH_PN and'
-      '  LICH_PK = :OLD_LICH_PK and'
-      '  NOTE = :OLD_NOTE and'
-      '  PLOS_BBI = :OLD_PLOS_BBI and'
-      '  NSER_LICH = :OLD_NSER_LICH and'
-      '  ID_KOTEL = :OLD_ID_KOTEL and'
-      '  PLOS_BB = :OLD_PLOS_BB and'
-      '  MZK = :OLD_MZK and'
-      '  BORG_VIDH = :OLD_BORG_VIDH and'
-      '  NO_LICH = :OLD_NO_LICH and'
-      '  PLOS_IN = :OLD_PLOS_IN and'
-      '  PLOS_MZK = :OLD_PLOS_MZK and'
-      '  SUMOT = :OLD_SUMOT and'
-      '  SUMOTPDV = :OLD_SUMOTPDV and'
-      '  LICH_GK = :OLD_LICH_GK and'
-      '  TARIF_ENDPDV = :OLD_TARIF_ENDPDV and'
-      '  LICH_PN2 = :OLD_LICH_PN2 and'
-      '  LICH_PK2 = :OLD_LICH_PK2 and'
-      '  LICH_GK2 = :OLD_LICH_GK2 and'
-      '  ID_VIDCENA = :OLD_ID_VIDCENA and'
-      '  CENA1 = :OLD_CENA1 and'
-      '  CENA2 = :OLD_CENA2 and'
-      '  PROCENT = :OLD_PROCENT and'
-      '  FL_2CENA = :OLD_FL_2CENA and'
-      '  MZK_GK1 = :OLD_MZK_GK1 and'
-      '  MZK_GK2 = :OLD_MZK_GK2')
+      '  ID = :OLD_ID')
     ParamCheck = True
     UniDirectional = False
     GeneratorField.Field = 'ID'
@@ -2244,10 +2131,6 @@
       Origin = '"TARIF_MES"."MZK_GK2"'
       Precision = 18
       Size = 3
-    end
-    object IBTARIF_MESID_VIDAB: TIntegerField
-      FieldName = 'ID_VIDAB'
-      Origin = '"DOM"."ID_VIDAB"'
     end
   end
   object DSTARIF_MES: TDataSource
