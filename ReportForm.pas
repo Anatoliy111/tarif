@@ -164,6 +164,51 @@ type
     cxGrid1DBTableView1MZK_GK1: TcxGridDBColumn;
     cxGrid1DBTableView1MZK_GK2: TcxGridDBColumn;
     IBQuery3MZK_GK1: TIBBCDField;
+    IBQuery1PLOSALL: TIBBCDField;
+    IBQuery1PLOS_IN: TIBBCDField;
+    IBQuery1PLOS_MZK: TIBBCDField;
+    IBQuery1PN: TIBBCDField;
+    IBQuery1PK: TIBBCDField;
+    IBQuery1PN2: TIBBCDField;
+    IBQuery1PK2: TIBBCDField;
+    cxGrid1DBTableView1PLOS: TcxGridDBColumn;
+    cxGrid1DBTableView1PLOSALL: TcxGridDBColumn;
+    cxGrid1DBTableView1PLOS_IN: TcxGridDBColumn;
+    cxGrid1DBTableView1PLOS_MZK: TcxGridDBColumn;
+    cxGrid1DBTableView1PN: TcxGridDBColumn;
+    cxGrid1DBTableView1PK: TcxGridDBColumn;
+    cxGrid1DBTableView1PN2: TcxGridDBColumn;
+    cxGrid1DBTableView1PK2: TcxGridDBColumn;
+    cxGrid2: TcxGrid;
+    cxGridDBTableView1: TcxGridDBTableView;
+    cxGridDBColumn1: TcxGridDBColumn;
+    cxGridDBColumn2: TcxGridDBColumn;
+    cxGridDBColumn3: TcxGridDBColumn;
+    cxGridDBColumn4: TcxGridDBColumn;
+    cxGridDBColumn5: TcxGridDBColumn;
+    cxGridDBColumn6: TcxGridDBColumn;
+    cxGridDBColumn7: TcxGridDBColumn;
+    cxGridDBColumn8: TcxGridDBColumn;
+    cxGridDBColumn9: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    IBQuery4: TIBQuery;
+    IntegerField1: TIntegerField;
+    IBStringField1: TIBStringField;
+    IBStringField2: TIBStringField;
+    IBStringField3: TIBStringField;
+    IBStringField4: TIBStringField;
+    IBBCDField1: TIBBCDField;
+    IBBCDField2: TIBBCDField;
+    IBStringField5: TIBStringField;
+    IBStringField6: TIBStringField;
+    IBStringField7: TIBStringField;
+    IBStringField8: TIBStringField;
+    IntegerField2: TIntegerField;
+    IBStringField9: TIBStringField;
+    IntegerField3: TIntegerField;
+    IBBCDField3: TIBBCDField;
+    IBBCDField4: TIBBCDField;
+    DSQuery4: TDataSource;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure cxButton7Click(Sender: TObject);
@@ -243,6 +288,14 @@ begin
 //  IBQuery2.Locate('ID',rec,[]);
   end;
 
+  if IBQuery4.Active then
+  begin
+  IBQuery4.close;
+  IBQuery4.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
+  IBQuery4.open;
+//  IBQuery2.Locate('ID',rec,[]);
+  end;
+
   Visible;
 end;
 
@@ -271,6 +324,14 @@ begin
           cxButton1.Visible:=false;
           cxGrid1DBTableView1TARIF_RK.Visible:=false;
           cxGrid1DBTableView1BORG_VIDH.Visible:=false;
+          cxGrid1DBTableView1PLOS.Visible:=false;
+          cxGrid1DBTableView1PLOSALL.Visible:=false;
+          cxGrid1DBTableView1PLOS_IN.Visible:=false;
+          cxGrid1DBTableView1PLOS_MZK.Visible:=false;
+          cxGrid1DBTableView1PN.Visible:=false;
+          cxGrid1DBTableView1PK.Visible:=false;
+          cxGrid1DBTableView1PN2.Visible:=false;
+          cxGrid1DBTableView1PK2.Visible:=false;
 
 
         if IBPOSLWID.Value='ub' then
@@ -299,12 +360,20 @@ begin
           cxGrid1DBTableView1GKAL1.Visible:=true;
           cxGrid1DBTableView1CENA1.Visible:=true;
           cxGrid1DBTableView1MZK_GK1.Visible:=true;
+          cxGrid1DBTableView1PLOS.Visible:=true;
+          cxGrid1DBTableView1PLOSALL.Visible:=true;
+          cxGrid1DBTableView1PLOS_IN.Visible:=true;
+          cxGrid1DBTableView1PLOS_MZK.Visible:=true;
+          cxGrid1DBTableView1PN.Visible:=true;
+          cxGrid1DBTableView1PK.Visible:=true;
 
           if IBQuery1.FieldByName('fl_2cena').Value=1 then
           begin
             cxGrid1DBTableView1GKAL2.Visible:=true;
             cxGrid1DBTableView1CENA2.Visible:=true;
             cxGrid1DBTableView1MZK_GK2.Visible:=true;
+            cxGrid1DBTableView1PN2.Visible:=true;
+            cxGrid1DBTableView1PK2.Visible:=true;
           end;
           cxButton1.Visible:=true;
 
@@ -331,6 +400,11 @@ begin
           cxGrid1DBTableView1TARIF_RK.Visible:=false;
           cxGrid1DBTableView1BORG_VIDH.Visible:=false;
           cxGrid1DBTableView1TARIF_END.Visible:=false;
+          cxGrid1DBTableView1PLOS.Visible:=false;
+          cxGrid1DBTableView1PN.Visible:=false;
+          cxGrid1DBTableView1PK.Visible:=false;
+          cxGrid1DBTableView1PN2.Visible:=false;
+          cxGrid1DBTableView1PK2.Visible:=false;
   end;
 
 //  if IBQuery2.Active then
@@ -458,6 +532,8 @@ begin
   if  (Report <> nil) and (Report.Active) then Report:=nil;
   if  (Report1 <> nil) and (Report1.Active) then Report1:=nil;
   if  (Report2 <> nil) and (Report2.Active) then Report2:=nil;
+  if  (Report3 <> nil) and (Report3.Active) then Report3:=nil;
+  if  (Report4 <> nil) and (Report4.Active) then Report4:=nil;
 end;
 
 procedure TReport.FormCreate(Sender: TObject);

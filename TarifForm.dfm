@@ -165,7 +165,6 @@
       OptionsView.GroupByBox = False
       object cxGrid1DBTableView1ID: TcxGridDBColumn
         DataBinding.FieldName = 'ID'
-        Visible = False
       end
       object cxGrid1DBTableView1ID_POSL: TcxGridDBColumn
         DataBinding.FieldName = 'ID_POSL'
@@ -296,17 +295,17 @@
         Width = 116
       end
       object cxGrid1DBTableView1MZK_GK1: TcxGridDBColumn
-        Caption = #1052#1047#1050' '#1043#1082#1072#1083'. 1'
+        Caption = #1052#1047#1050' '#1043#1082#1072#1083'./m2 - 1'
         DataBinding.FieldName = 'MZK_GK1'
         Options.Editing = False
       end
       object cxGrid1DBTableView1MZK_GK2: TcxGridDBColumn
-        Caption = #1052#1047#1050' '#1043#1082#1072#1083'. 2'
+        Caption = #1052#1047#1050' '#1043#1082#1072#1083'./m2 - 2'
         DataBinding.FieldName = 'MZK_GK2'
         Options.Editing = False
       end
       object cxGrid1DBTableView1MZK: TcxGridDBColumn
-        Caption = #1058#1072#1088#1080#1092' '#1052#1047#1050
+        Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082' '#1079' '#1055#1044#1042' /m2'
         DataBinding.FieldName = 'MZK'
         PropertiesClassName = 'TcxCalcEditProperties'
         Options.Editing = False
@@ -648,20 +647,22 @@
           Width = 111
         end
         object cxGridDBTableView1MZK_GK1: TcxGridDBColumn
-          Caption = #1052#1047#1050' '#1043#1082#1072#1083'. 1'
+          Caption = #1052#1047#1050' '#1043#1082#1072#1083'./m2 -1'
           DataBinding.FieldName = 'MZK_GK1'
           Options.Editing = False
+          Width = 90
         end
         object cxGridDBTableView1MZK_GK2: TcxGridDBColumn
-          Caption = #1052#1047#1050' '#1043#1082#1072#1083'. 2'
+          Caption = #1052#1047#1050' '#1043#1082#1072#1083'./m2 -2'
           DataBinding.FieldName = 'MZK_GK2'
           Options.Editing = False
+          Width = 94
         end
         object cxGridDBTableView1MZK: TcxGridDBColumn
-          Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082
+          Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082' '#1079' '#1055#1044#1042' /m2'
           DataBinding.FieldName = 'MZK'
           Options.Editing = False
-          Width = 55
+          Width = 122
         end
         object cxGridDBTableView1SUMOT: TcxGridDBColumn
           Caption = #1042#1072#1088#1090#1110#1089#1090#1100
@@ -815,7 +816,14 @@
         'ICH_PK2, '
       
         '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA, MZK_GK' +
-        '1, MZK_GK2)'
+        '1, MZK_GK2, '
+      
+        '   ID_VIDAB, MZK_PLOSALL, MZK_GKKV1, MZK_GKKV2, MZK_GKALL1, MZK_' +
+        'GKALL2, '
+      
+        '   MZK_GKCO1, MZK_GKCO2, MZK_GKM2IND1, MZK_GKM2IND2, MZK_SUMM2IN' +
+        'D1, MZK_SUMM2IND2, '
+      '   MZK_CENA1, MZK_CENA2, MZK_ALLSUMM2IND)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -832,7 +840,16 @@
       
         '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA1, :CENA2,' +
         ' :PROCENT, '
-      '   :FL_2CENA, :MZK_GK1, :MZK_GK2)')
+      
+        '   :FL_2CENA, :MZK_GK1, :MZK_GK2, :ID_VIDAB, :MZK_PLOSALL, :MZK_' +
+        'GKKV1, '
+      
+        '   :MZK_GKKV2, :MZK_GKALL1, :MZK_GKALL2, :MZK_GKCO1, :MZK_GKCO2,' +
+        ' :MZK_GKM2IND1, '
+      
+        '   :MZK_GKM2IND2, :MZK_SUMM2IND1, :MZK_SUMM2IND2, :MZK_CENA1, :M' +
+        'ZK_CENA2, '
+      '   :MZK_ALLSUMM2IND)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -873,7 +890,22 @@
       '  PROCENT,'
       '  FL_2CENA,'
       '  MZK_GK1,'
-      '  MZK_GK2'
+      '  MZK_GK2,'
+      '  ID_VIDAB,'
+      '  MZK_PLOSALL,'
+      '  MZK_GKKV1,'
+      '  MZK_GKKV2,'
+      '  MZK_GKALL1,'
+      '  MZK_GKALL2,'
+      '  MZK_GKCO1,'
+      '  MZK_GKCO2,'
+      '  MZK_GKM2IND1,'
+      '  MZK_GKM2IND2,'
+      '  MZK_SUMM2IND1,'
+      '  MZK_SUMM2IND2,'
+      '  MZK_CENA1,'
+      '  MZK_CENA2,'
+      '  MZK_ALLSUMM2IND'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -924,7 +956,22 @@
       '  PROCENT = :PROCENT,'
       '  FL_2CENA = :FL_2CENA,'
       '  MZK_GK1 = :MZK_GK1,'
-      '  MZK_GK2 = :MZK_GK2'
+      '  MZK_GK2 = :MZK_GK2,'
+      '  ID_VIDAB = :ID_VIDAB,'
+      '  MZK_PLOSALL = :MZK_PLOSALL,'
+      '  MZK_GKKV1 = :MZK_GKKV1,'
+      '  MZK_GKKV2 = :MZK_GKKV2,'
+      '  MZK_GKALL1 = :MZK_GKALL1,'
+      '  MZK_GKALL2 = :MZK_GKALL2,'
+      '  MZK_GKCO1 = :MZK_GKCO1,'
+      '  MZK_GKCO2 = :MZK_GKCO2,'
+      '  MZK_GKM2IND1 = :MZK_GKM2IND1,'
+      '  MZK_GKM2IND2 = :MZK_GKM2IND2,'
+      '  MZK_SUMM2IND1 = :MZK_SUMM2IND1,'
+      '  MZK_SUMM2IND2 = :MZK_SUMM2IND2,'
+      '  MZK_CENA1 = :MZK_CENA1,'
+      '  MZK_CENA2 = :MZK_CENA2,'
+      '  MZK_ALLSUMM2IND = :MZK_ALLSUMM2IND'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1168,6 +1215,94 @@
       Origin = '"TARIF_MES"."MZK_GK2"'
       Precision = 18
       Size = 3
+    end
+    object IBTARIFUPDID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      Origin = '"TARIF_MES"."ID_VIDAB"'
+    end
+    object IBTARIFUPDMZK_PLOSALL: TIBBCDField
+      FieldName = 'MZK_PLOSALL'
+      Origin = '"TARIF_MES"."MZK_PLOSALL"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDMZK_GKKV1: TIBBCDField
+      FieldName = 'MZK_GKKV1'
+      Origin = '"TARIF_MES"."MZK_GKKV1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDMZK_GKKV2: TIBBCDField
+      FieldName = 'MZK_GKKV2'
+      Origin = '"TARIF_MES"."MZK_GKKV2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDMZK_GKALL1: TIBBCDField
+      FieldName = 'MZK_GKALL1'
+      Origin = '"TARIF_MES"."MZK_GKALL1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDMZK_GKALL2: TIBBCDField
+      FieldName = 'MZK_GKALL2'
+      Origin = '"TARIF_MES"."MZK_GKALL2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDMZK_GKCO1: TIBBCDField
+      FieldName = 'MZK_GKCO1'
+      Origin = '"TARIF_MES"."MZK_GKCO1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDMZK_GKCO2: TIBBCDField
+      FieldName = 'MZK_GKCO2'
+      Origin = '"TARIF_MES"."MZK_GKCO2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDMZK_GKM2IND1: TIBBCDField
+      FieldName = 'MZK_GKM2IND1'
+      Origin = '"TARIF_MES"."MZK_GKM2IND1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDMZK_GKM2IND2: TIBBCDField
+      FieldName = 'MZK_GKM2IND2'
+      Origin = '"TARIF_MES"."MZK_GKM2IND2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIFUPDMZK_SUMM2IND1: TIBBCDField
+      FieldName = 'MZK_SUMM2IND1'
+      Origin = '"TARIF_MES"."MZK_SUMM2IND1"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDMZK_SUMM2IND2: TIBBCDField
+      FieldName = 'MZK_SUMM2IND2'
+      Origin = '"TARIF_MES"."MZK_SUMM2IND2"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDMZK_CENA1: TIBBCDField
+      FieldName = 'MZK_CENA1'
+      Origin = '"TARIF_MES"."MZK_CENA1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIFUPDMZK_CENA2: TIBBCDField
+      FieldName = 'MZK_CENA2'
+      Origin = '"TARIF_MES"."MZK_CENA2"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIFUPDMZK_ALLSUMM2IND: TIBBCDField
+      FieldName = 'MZK_ALLSUMM2IND'
+      Origin = '"TARIF_MES"."MZK_ALLSUMM2IND"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIFUPD: TDataSource

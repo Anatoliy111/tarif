@@ -238,6 +238,7 @@ type
     IBTARIF_OTHERMZK_GK1: TIBBCDField;
     IBTARIF_OTHERMZK_GK2: TIBBCDField;
     IBTARIF_OTHERFL_MZK: TIntegerField;
+    dxBarButton46: TdxBarButton;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -261,6 +262,7 @@ type
     procedure dxBarButton26Click(Sender: TObject);
     procedure dxBarButton27Click(Sender: TObject);
     procedure dxBarButton43Click(Sender: TObject);
+    procedure dxBarButton46Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -286,6 +288,7 @@ var
   Report1: tReport;
   Report2: tReport;
   Report3: tReport;
+  Report4: tReport;
 
  // TB:TToolButton;
 implementation
@@ -411,6 +414,7 @@ begin
   Report1.IBQuery1.open;
   Report1.cxLookupComboBox1.EditValue:=Report1.IBPERIODDATA.Value;
   Report1.cxGrid3.Visible:=false;
+  Report1.cxGrid2.Visible:=false;
   Report1.cxGrid1.Align:=alClient;
   Report1.cxGrid1DBTableView1.DataController.DataSource:=Report1.DSQuery1;
   Report1.AutoMAX;
@@ -927,7 +931,8 @@ begin
   Report2.cxLookupComboBox1.EditValue:=Report2.IBPERIODDATA.Value;
   Report2.DBLookupListBox1.Visible:=false;
   Report2.cxGrid1.Visible:=false;
-  Report2.cxGrid3.Align:=alClient;
+  Report2.cxGrid3.Visible:=false;
+  Report2.cxGrid2.Align:=alClient;
 
  AddToolBar(Report2);
  Report2.Show;
@@ -1004,6 +1009,7 @@ begin
   Report3.cxLookupComboBox2.Visible:=true;
   Report3.cxLabel1.Visible:=true;
   Report3.cxGrid3.Visible:=false;
+  Report3.cxGrid2.Visible:=false;
   Report3.cxGrid1.Align:=alClient;
   Report3.cxGrid1DBTableView1.DataController.DataSource:=Report3.DSQuery3;
   Report3.AutoMAX;
@@ -1015,6 +1021,32 @@ begin
  begin
  Report3.Show;
  Report3.SetFocus;
+ end;
+end;
+
+procedure TMain.dxBarButton46Click(Sender: TObject);
+begin
+ if Report4=nil then
+ begin
+
+ Application.CreateForm(TReport,Report4);
+ Report4.Caption:=dxBarButton46.Caption;
+  Report4.IBQuery3.open;
+  Report4.cxLookupComboBox1.EditValue:=Report4.IBPERIODDATA.Value;
+  Report4.DBLookupListBox1.Visible:=false;
+  Report4.cxGrid1.Visible:=false;
+  Report4.cxGrid2.Visible:=false;
+  Report4.cxGrid3.Align:=alClient;
+  Report4.cxGrid1DBTableView1.DataController.DataSource:=Report4.DSQuery4;
+  Report4.AutoMAX;
+
+ AddToolBar(Report4);
+ Report4.Show;
+ end
+ else
+ begin
+ Report4.Show;
+ Report4.SetFocus;
  end;
 end;
 

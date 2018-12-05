@@ -297,6 +297,21 @@ type
     cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn;
     cxGrid1DBTableView1PLOS_IN: TcxGridDBColumn;
     IBTARIF_MESID_VIDAB: TIntegerField;
+    IBTARIFUPDID_VIDAB: TIntegerField;
+    IBTARIFUPDMZK_PLOSALL: TIBBCDField;
+    IBTARIFUPDMZK_GKKV1: TIBBCDField;
+    IBTARIFUPDMZK_GKKV2: TIBBCDField;
+    IBTARIFUPDMZK_GKALL1: TIBBCDField;
+    IBTARIFUPDMZK_GKALL2: TIBBCDField;
+    IBTARIFUPDMZK_GKCO1: TIBBCDField;
+    IBTARIFUPDMZK_GKCO2: TIBBCDField;
+    IBTARIFUPDMZK_GKM2IND1: TIBBCDField;
+    IBTARIFUPDMZK_GKM2IND2: TIBBCDField;
+    IBTARIFUPDMZK_SUMM2IND1: TIBBCDField;
+    IBTARIFUPDMZK_SUMM2IND2: TIBBCDField;
+    IBTARIFUPDMZK_CENA1: TIBBCDField;
+    IBTARIFUPDMZK_CENA2: TIBBCDField;
+    IBTARIFUPDMZK_ALLSUMM2IND: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -567,8 +582,12 @@ begin
           gkalothlich2:=IBQuery1.FieldByName('LICH_GK2').AsFloat;
 
 
-          normaosn1:=(gkal1-gkalmzkin1-gkalothlich1)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
-          normaosn2:=(gkal2-gkalmzkin2-gkalothlich2)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
+//          normaosn1:=(gkal1-gkalmzkin1-gkalothlich1)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
+//          normaosn2:=(gkal2-gkalmzkin2-gkalothlich2)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
+
+          normaosn1:=(gkal1-gkalothlich1)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
+          normaosn2:=(gkal2-gkalothlich2)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
+
 
       IBQuery1.Close;
       IBQuery1.SQL.Text:='select first 1 VIDAB.wid from TARIF_DOM ,DOM, VIDAB where TARIF_dom.id_dom=DOM.id and TARIF_dom.id_tarifmes=:idmes and DOM.id_vidab=VIDAB.id';
@@ -588,7 +607,7 @@ begin
 
          IBTARIFUPDTARIF_END.Value:=SimpleRoundTo(send1+send2,-2);
          IBTARIFUPDTARIF_ENDPDV.AsCurrency:=SimpleRoundTo(send1+send2,-2)*1.2;
-         IBTARIFUPDMZK.AsCurrency:=((gkalm2in1*cenamzk1)+(gkalm2in2*cenamzk2))*1.2;
+
          if widab='ns' then
          begin
            IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(send1+send2,-2)*IBTARIFUPDPLOS_BBI.AsFloat;
@@ -596,13 +615,46 @@ begin
          end
          else
          begin
-           IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(((gkal1-gkalmzkin1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2);
-           IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(((gkal1-gkalmzkin1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2))*1.2;
+//           IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(((gkal1-gkalmzkin1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2);
+//           IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(((gkal1-gkalmzkin1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2))*1.2;
+           IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(((gkal1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2);
+           IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(((gkal1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2))*1.2;
+
          end;
+
          IBTARIFUPDCENA1.Value:=cenaosn1;
          IBTARIFUPDCENA2.Value:=cenaosn2;
+
+//       Гкал на МЗК для індивід.  опалення
          IBTARIFUPDMZK_GK1.Value:=gkalmzkin1;
          IBTARIFUPDMZK_GK2.Value:=gkalmzkin2;
+//         Загальна опалювальна S будинку
+         IBTARIFUPDMZK_PLOSALL.Value:=plosallmzk;
+//         Споживання Гкал на опалення квартир
+         IBTARIFUPDMZK_GKKV1.Value:=gkalkv1;
+         IBTARIFUPDMZK_GKKV2.Value:=gkalkv2;
+//         Споживання Гкал на МЗК
+         IBTARIFUPDMZK_GKALL1.Value:=gkalmzk1;
+         IBTARIFUPDMZK_GKALL2.Value:=gkalmzk2;
+//         Гкал на МЗК  для централ.  опалення
+         IBTARIFUPDMZK_GKCO1.Value:=gkalmzkco1;
+         IBTARIFUPDMZK_GKCO2.Value:=gkalmzkco2;
+//         Витрати Гкал/ 1 м2 МЗК  для індивід опалення
+         IBTARIFUPDMZK_GKM2IND1.Value:=gkalm2in1;
+         IBTARIFUPDMZK_GKM2IND2.Value:=gkalm2in2;
+//       Ціна МЗК
+         IBTARIFUPDMZK_CENA1.Value:=cenamzk1;
+         IBTARIFUPDMZK_CENA2.Value:=cenamzk2;
+//         Вартість1м2 МЗК для індивід.
+         IBTARIFUPDMZK_SUMM2IND1.Value:=SimpleRoundTo((gkalm2in1*cenamzk1),-2);
+         IBTARIFUPDMZK_SUMM2IND2.Value:=SimpleRoundTo((gkalm2in2*cenamzk2),-2);
+//         Загальний тариф
+         IBTARIFUPDMZK_ALLSUMM2IND.Value:=IBTARIFUPDMZK_SUMM2IND1.Value+IBTARIFUPDMZK_SUMM2IND2.Value;
+         //         Загальний тариф з ПДВ
+         IBTARIFUPDMZK.AsCurrency:=(IBTARIFUPDMZK_SUMM2IND1.Value+IBTARIFUPDMZK_SUMM2IND2.Value)*1.2;
+
+
+
          IBTARIFUPD.Post;
          IBTARIF_OTHER.Close;
          IBTARIF_OTHER.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
@@ -696,10 +748,10 @@ begin
 //         IBTARIFUPDMZK.AsCurrency:=(gkalm2in*cenamzk)*1.2;
          IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(IBTARIFUPDTARIF_END.Value*IBTARIFUPDPLOS_BBI.AsFloat,-2);
          IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(IBTARIFUPDTARIF_END.Value*IBTARIFUPDPLOS_BBI.AsFloat,-2))*1.2;
-         IBTARIFUPDCENA1.Value:=cenaosn1;
-         IBTARIFUPDCENA2.Value:=cenaosn2;
-         IBTARIFUPDMZK_GK1.Value:=gkalmzkin1;
-         IBTARIFUPDMZK_GK2.Value:=gkalmzkin2;
+//         IBTARIFUPDCENA1.Value:=cenaosn1;
+//         IBTARIFUPDCENA2.Value:=cenaosn2;
+//         IBTARIFUPDMZK_GK1.Value:=gkalmzkin1;
+//         IBTARIFUPDMZK_GK2.Value:=gkalmzkin2;
          IBTARIFUPD.Post;
          IBTARIF_OTHER.Close;
          IBTARIF_OTHER.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
