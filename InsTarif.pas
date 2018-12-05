@@ -867,6 +867,7 @@ end;
 
 procedure TInsTar.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+
 if fl_postt=1 then
 begin
   Tarifs.Update;
@@ -919,6 +920,7 @@ IBKOTEL.Open;
 IBTARIF_MES.Open;
 IBTARIF_DOM1.Open;
 IBTARIF_OTHER.Open;
+
 
 
 

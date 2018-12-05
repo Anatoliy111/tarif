@@ -4,6 +4,7 @@ inherited InsTar: TInsTar
   ClientWidth = 965
   Position = poDefault
   OnCreate = FormCreate
+  ExplicitLeft = -247
   ExplicitWidth = 981
   ExplicitHeight = 680
   PixelsPerInch = 96
@@ -1042,7 +1043,6 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = False
     Left = 16
     Top = 520
   end

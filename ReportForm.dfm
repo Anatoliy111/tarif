@@ -440,7 +440,7 @@
         'fmes)'
       '       inner join dom on (tarif_dom.id_dom = dom.id)'
       '       inner join ul on (dom.id_ul = ul.id)'
-      '       left join vidab on (dom.id_vidab = vidab.id)'
+      '       left join vidab on (tarif_mes.id_vidab = vidab.id)'
       '       inner join tarif on (tarif_mes.id_tarif = tarif.id)'
       '       inner join posl on (tarif.id_posl = posl.id)'
       '       left join kotel on (tarif_mes.id_kotel = kotel.id)'
@@ -873,7 +873,7 @@
         'fmes)'
       '       inner join dom on (tarif_dom.id_dom = dom.id)'
       '       inner join ul on (dom.id_ul = ul.id)'
-      '       left join vidab on (dom.id_vidab = vidab.id)'
+      '       left join vidab on (tarif_mes.id_vidab = vidab.id)'
       '       inner join tarif on (tarif_mes.id_tarif = tarif.id)'
       '       inner join posl on (tarif.id_posl = posl.id)'
       '       left join kotel on (tarif_mes.id_kotel = kotel.id)'
@@ -1123,7 +1123,7 @@
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43425.596407557900000000
-    ReportOptions.LastChange = 43431.698562685200000000
+    ReportOptions.LastChange = 43439.120257743100000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     Left = 144
@@ -1185,7 +1185,7 @@
         'fmes)'
       '       inner join dom on (tarif_dom.id_dom = dom.id)'
       '       inner join ul on (dom.id_ul = ul.id)'
-      '       left join vidab on (dom.id_vidab = vidab.id)'
+      '       left join vidab on (tarif_mes.id_vidab = vidab.id)'
       '       inner join tarif on (tarif_mes.id_tarif = tarif.id)'
       '       inner join posl on (tarif.id_posl = posl.id)'
       '   union'

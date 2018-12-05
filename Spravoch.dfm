@@ -15,7 +15,7 @@
     Height = 596
     Align = alClient
     TabOrder = 2
-    Properties.ActivePage = cxTabSheet4
+    Properties.ActivePage = cxTabSheet8
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
     ClientRectBottom = 592
@@ -75,6 +75,7 @@
         object cxGrid1DBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSPOSL
+          DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
@@ -198,6 +199,7 @@
           Navigator.Buttons.CustomButtons = <>
           OnFocusedRecordChanged = cxGridDBTableView1FocusedRecordChanged
           DataController.DataSource = DSDOM
+          DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
@@ -663,6 +665,7 @@
         object cxGridDBTableView2: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSUL
+          DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
@@ -720,6 +723,7 @@
         object cxGridDBTableView3: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSVIDAB
+          DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
@@ -811,6 +815,7 @@
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSOTHER
           DataController.KeyFieldNames = 'ID'
+          DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
@@ -873,6 +878,7 @@
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DІTIPPR
           DataController.DetailKeyFieldNames = 'ID'
+          DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
@@ -1032,6 +1038,7 @@
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DSKOTEL
           DataController.DetailKeyFieldNames = 'ID'
+          DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>

@@ -451,7 +451,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 164
+      Height = 148
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -466,9 +466,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 165
+      Top = 149
       Width = 167
-      Height = 201
+      Height = 217
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -739,6 +739,7 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -1841,11 +1842,11 @@
       '  TARIF_MES.FL_2CENA,'
       '  TARIF_MES.MZK_GK1,'
       '  TARIF_MES.MZK_GK2,'
+      '  TARIF_MES.ID_VIDAB,'
       '  TARIF.NAME'
       'from TARIF_MES, TARIF'
       'where'
-      'TARIF_MES.ID=:ID and TARIF_MES.ID_TARIF=TARIF.ID'
-      '')
+      'TARIF_MES.ID=:ID and TARIF_MES.ID_TARIF=TARIF.ID')
     SelectSQL.Strings = (
       'Select'
       '  TARIF_MES.*,'

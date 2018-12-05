@@ -1057,7 +1057,7 @@ procedure TTarifs.Update;
 var idd:Integer;
 begin
 idd:=IBTARIF_MESID.Value;
-self.fl_post:=1;
+//self.fl_post:=1;
   inherited;
 //  if IBPOSLWID='ot' then
 //  begin
@@ -1108,17 +1108,26 @@ self.fl_post:=1;
   IBTARIF_DOM.close;
   IBTARIF_MES.close;
   IBTARIF_OTHER.close;
+  IBQuery1.Close;
+  IBQuery1.SQL.Text:='update tarif_mes set tarif_mes.id_vidab = (select first 1 DOM.id_vidab from TARIF_DOM, DOM where TARIF_DOM.ID_DOM=DOM.ID and TARIF_DOM.ID_TARIFMES=TARIF_MES.ID) where tarif_mes.data=:dt';
+  IBQuery1.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
+  IBQuery1.ExecSQL;
 
-//  IBPOSL.open;
-//  IBPERIOD.open;
-//  IBUL.open;
-//  IBDOM.open;
-//  IBTARIF.open;
-  IBTARIF_COMP.open;
-  IBTARIF_DOM.open;
+  IBTARIF_MES.close;
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
-  IBTARIF_MES.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
+  IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
   IBTARIF_MES.open;
+//  Visible;
+  IBTARIF_COMP.close;
+  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarifmes=:tar';
+  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
+  IBTARIF_COMP.open;
+  IBTARIF_DOM.close;
+  IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_tarifmes=:tar';
+  IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
+  IBTARIF_DOM.open;
+  IBTARIF_OTHER.close;
+  IBTARIF_OTHER.ParamByName('idmes').AsInteger:=IBTARIF_MESID.Value;
   IBTARIF_OTHER.open;
 
 //  Visible;
@@ -1163,8 +1172,8 @@ begin
   cxButton2.Enabled:=val;
   cxButton9.Enabled:=val;
   cxButton8.Enabled:=val;
-//  cxButton7.Enabled:=val;
-//  cxButton6.Enabled:=val;
+  cxButton7.Enabled:=val;
+  cxButton5.Enabled:=val;
   cxButton1.Enabled:=val;
 //  cxGrid1DBTableView1.OptionsData.Editing:=val;
 //  for I := 0 to cxGrid1DBTableView1.ColumnCount-1 do
@@ -1573,31 +1582,31 @@ begin
   InfoForm.IBTARIF_INF.Transaction:=IBTransaction1;
   cxLookupComboBox1.EditValue:= IBPERIODDATA.Value;
 
-  IBTARIF_MES.close;
-//  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, DOM.ID_VIDAB'+
-//                              ' from tarif_mes,tarif'+
-//                              ' left join TARIF_DOM on (TARIF_DOM.ID_TARIFMES=TARIF_MES.ID)'+
-//                              ' left join dom on (TARIF_DOM.ID_DOM=DOM.ID and TARIF_DOM.ID_TARIFMES=TARIF_MES.ID)'+
-//                              ' where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
-  IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
-  IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
-  IBTARIF_MES.open;
-  Visible;
-  IBTARIF_COMP.close;
-  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarifmes=:tar';
-  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
-  IBTARIF_COMP.open;
-  IBTARIF_DOM.close;
-  IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_tarifmes=:tar';
-  IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
-  IBTARIF_DOM.open;
-  IBTARIF_OTHER.close;
-  IBTARIF_OTHER.ParamByName('idmes').AsInteger:=IBTARIF_MESID.Value;
-  IBTARIF_OTHER.open;
+//  IBTARIF_MES.close;
+////  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, DOM.ID_VIDAB'+
+////                              ' from tarif_mes,tarif'+
+////                              ' left join TARIF_DOM on (TARIF_DOM.ID_TARIFMES=TARIF_MES.ID)'+
+////                              ' left join dom on (TARIF_DOM.ID_DOM=DOM.ID and TARIF_DOM.ID_TARIFMES=TARIF_MES.ID)'+
+////                              ' where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+//  IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
+//  IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
+//  IBTARIF_MES.open;
+//
+//  IBTARIF_COMP.close;
+//  IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarifmes=:tar';
+//  IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
+//  IBTARIF_COMP.open;
+//  IBTARIF_DOM.close;
+//  IBTARIF_DOM.SelectSQL.Text:='select * from tarif_dom where id_tarifmes=:tar';
+//  IBTARIF_DOM.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
+//  IBTARIF_DOM.open;
+//  IBTARIF_OTHER.close;
+//  IBTARIF_OTHER.ParamByName('idmes').AsInteger:=IBTARIF_MESID.Value;
+//  IBTARIF_OTHER.open;
 
 
-
-
+   Update;
+   Visible;
 
 //  DBLookupComboBox1.KeyField:=  Main.IBPERIODID.Value;
 
