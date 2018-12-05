@@ -180,6 +180,12 @@ type
     IBTARIF_OTHERMZK_GK2: TIBBCDField;
     IBTARIF_OTHERFL_MZK: TIntegerField;
     cxGridDBTableView1FL_MZK: TcxGridDBColumn;
+    IBTARIF_MESCENA1: TIBBCDField;
+    IBTARIF_MESCENA2: TIBBCDField;
+    IBTARIF_MESFL_2CENA: TIntegerField;
+    IBTARIF_MESMZK_GK1: TIBBCDField;
+    IBTARIF_MESMZK_GK2: TIBBCDField;
+    IBTARIF_MESID_VIDAB: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -390,6 +396,7 @@ begin
     cxGridDBTableView2PLOS_IN.Visible:=false;
     cxGridDBTableView2PLOS_MZK.Visible:=false;
     cxGridDBTableView2PROCENT.Visible:=false;
+    cxGridDBTableView2ID_VIDCENA.Visible:=false;
   if poslwid='ot' then
   begin
     cxGridDBTableView2NSER_LICH.Visible:=true;
@@ -402,6 +409,7 @@ begin
     cxGridDBTableView2PLOS_IN.Visible:=true;
     cxGridDBTableView2PLOS_MZK.Visible:=true;
     cxGridDBTableView2PROCENT.Visible:=true;
+    cxGridDBTableView2ID_VIDCENA.Visible:=true;
   end;
 
 
@@ -980,6 +988,21 @@ begin
       end;
 //      Update(idmes,iddom);
     end;
+
+    if (poslwid='ot') then
+    begin
+      IBTARIF_MES.First;
+      while not IBTARIF_MES.Eof do
+      begin
+      IBTARIF_MES.Edit;
+      IBTARIF_MESID_VIDAB.Value:=IBTARIF_DOM1ID_VIDAB.Value;
+      IBTARIF_MES.Post;
+      IBTARIF_MES.Next;
+      end;
+//      Update(idmes,iddom);
+    end;
+
+
 
 
   end;

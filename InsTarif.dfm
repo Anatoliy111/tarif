@@ -4,7 +4,6 @@ inherited InsTar: TInsTar
   ClientWidth = 965
   Position = poDefault
   OnCreate = FormCreate
-  ExplicitLeft = 2
   ExplicitWidth = 981
   ExplicitHeight = 680
   PixelsPerInch = 96
@@ -743,9 +742,9 @@ inherited InsTar: TInsTar
       OnClick = cxButton14Click
     end
     object Panel7: TPanel
-      Left = 584
+      Left = 613
       Top = 1
-      Width = 380
+      Width = 351
       Height = 70
       Align = alRight
       Color = clGradientInactiveCaption
@@ -1043,6 +1042,7 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = False
     Left = 16
     Top = 520
   end
@@ -1384,7 +1384,7 @@ inherited InsTar: TInsTar
       
         '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
         'CH, PLOS_IN, '
-      '   PLOS_MZK, ID_VIDCENA, PROCENT)'
+      '   PLOS_MZK, ID_VIDCENA, PROCENT, ID_VIDAB)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1395,7 +1395,9 @@ inherited InsTar: TInsTar
       
         '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
         'G_VIDH, '
-      '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :ID_VIDCENA, :PROCENT)')
+      
+        '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :ID_VIDCENA, :PROCENT, :ID_VID' +
+        'AB)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1433,7 +1435,11 @@ inherited InsTar: TInsTar
       '  ID_VIDCENA,'
       '  CENA1,'
       '  CENA2,'
-      '  PROCENT'
+      '  PROCENT,'
+      '  FL_2CENA,'
+      '  MZK_GK1,'
+      '  MZK_GK2,'
+      '  ID_VIDAB'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1470,7 +1476,8 @@ inherited InsTar: TInsTar
       '  PLOS_IN = :PLOS_IN,'
       '  PLOS_MZK = :PLOS_MZK,'
       '  ID_VIDCENA = :ID_VIDCENA,'
-      '  PROCENT = :PROCENT'
+      '  PROCENT = :PROCENT,'
+      '  ID_VIDAB = :ID_VIDAB'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1678,6 +1685,38 @@ inherited InsTar: TInsTar
       Origin = '"TARIF_MES"."PROCENT"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIF_MESCENA1: TIBBCDField
+      FieldName = 'CENA1'
+      Origin = '"TARIF_MES"."CENA1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESCENA2: TIBBCDField
+      FieldName = 'CENA2'
+      Origin = '"TARIF_MES"."CENA2"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESFL_2CENA: TIntegerField
+      FieldName = 'FL_2CENA'
+      Origin = '"TARIF_MES"."FL_2CENA"'
+    end
+    object IBTARIF_MESMZK_GK1: TIBBCDField
+      FieldName = 'MZK_GK1'
+      Origin = '"TARIF_MES"."MZK_GK1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GK2: TIBBCDField
+      FieldName = 'MZK_GK2'
+      Origin = '"TARIF_MES"."MZK_GK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      Origin = '"TARIF_MES"."ID_VIDAB"'
     end
   end
   object DSTARIF_MES: TDataSource

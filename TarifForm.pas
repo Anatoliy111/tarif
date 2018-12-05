@@ -168,7 +168,6 @@ type
     IBTARIF_MESNSER_LICH: TIBStringField;
     IBTARIF_MESID_KOTEL: TIntegerField;
     IBTARIF_MESPLOS_BB: TIBBCDField;
-    IBTARIF_MESID_POSL: TIntegerField;
     cxGrid1DBTableView1ID_POSL: TcxGridDBColumn;
     IBTARIF_OTHER: TIBDataSet;
     IBTARIF_OTHERID: TIntegerField;
@@ -297,6 +296,7 @@ type
     cxGridDBTableView1MZK_GK2: TcxGridDBColumn;
     cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn;
     cxGrid1DBTableView1PLOS_IN: TcxGridDBColumn;
+    IBTARIF_MESID_VIDAB: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -1099,27 +1099,29 @@ self.fl_post:=1;
 //  end;
 
 
-  IBPOSL.close;
-  IBPERIOD.close;
-  IBUL.close;
-  IBDOM.close;
+//  IBPOSL.close;
+//  IBPERIOD.close;
+//  IBUL.close;
+//  IBDOM.close;
 //  IBTARIF.close;
   IBTARIF_COMP.close;
   IBTARIF_DOM.close;
   IBTARIF_MES.close;
   IBTARIF_OTHER.close;
 
-  IBPOSL.open;
-  IBPERIOD.open;
-  IBUL.open;
-  IBDOM.open;
+//  IBPOSL.open;
+//  IBPERIOD.open;
+//  IBUL.open;
+//  IBDOM.open;
 //  IBTARIF.open;
   IBTARIF_COMP.open;
   IBTARIF_DOM.open;
+  IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
+  IBTARIF_MES.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
   IBTARIF_MES.open;
   IBTARIF_OTHER.open;
 
-  Visible;
+//  Visible;
 
 
   IBTARIF_MES.Locate('id',idd,[]);
@@ -1309,12 +1311,15 @@ begin
       Enables(false);
    end;
     IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, (select first 1 dom.id_vidab from tarif_dom,dom where tarif_dom.id_dom=dom.id and tarif_dom.id_tarifmes=tarif_mes.id) id_vidab'+
-                              ' from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+//  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, DOM.ID_VIDAB'+
+//                              ' from tarif_mes,tarif'+
+//                              ' left join TARIF_DOM on (TARIF_DOM.ID_TARIFMES=TARIF_MES.ID)'+
+//                              ' left join dom on (TARIF_DOM.ID_DOM=DOM.ID and TARIF_DOM.ID_TARIFMES=TARIF_MES.ID)'+
+//                              ' where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif order by tarif.name';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
   IBTARIF_MES.open;
-  Visible;
+//  Visible;
   IBTARIF_COMP.close;
   IBTARIF_COMP.SelectSQL.Text:='select * from tarif_comp where id_tarifmes=:tar';
   IBTARIF_COMP.ParamByName('tar').AsInteger:=IBTARIF_MESID.Value;
@@ -1340,8 +1345,11 @@ procedure TTarifs.DSPOSLDataChange(Sender: TObject; Field: TField);
 begin
   inherited;
     IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, (select first 1 dom.id_vidab from tarif_dom,dom where tarif_dom.id_dom=dom.id and tarif_dom.id_tarifmes=tarif_mes.id) id_vidab'+
-                              ' from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+//  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, DOM.ID_VIDAB'+
+//                              ' from tarif_mes,tarif'+
+//                              ' left join TARIF_DOM on (TARIF_DOM.ID_TARIFMES=TARIF_MES.ID)'+
+//                              ' left join dom on (TARIF_DOM.ID_DOM=DOM.ID and TARIF_DOM.ID_TARIFMES=TARIF_MES.ID)'+
+//                              ' where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=cxLookupComboBox1.EditValue;
   IBTARIF_MES.open;
@@ -1566,8 +1574,11 @@ begin
   cxLookupComboBox1.EditValue:= IBPERIODDATA.Value;
 
   IBTARIF_MES.close;
-  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, (select first 1 dom.id_vidab from tarif_dom,dom where tarif_dom.id_dom=dom.id and tarif_dom.id_tarifmes=tarif_mes.id) id_vidab'+
-                              ' from tarif_mes,tarif where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
+//  IBTARIF_MES.SelectSQL.Text:='select tarif_mes.* ,tarif.name, tarif.id_posl, DOM.ID_VIDAB'+
+//                              ' from tarif_mes,tarif'+
+//                              ' left join TARIF_DOM on (TARIF_DOM.ID_TARIFMES=TARIF_MES.ID)'+
+//                              ' left join dom on (TARIF_DOM.ID_DOM=DOM.ID and TARIF_DOM.ID_TARIFMES=TARIF_MES.ID)'+
+//                              ' where tarif.id_posl=:pos and tarif_mes.data=:dt and tarif.id=tarif_mes.id_tarif';
   IBTARIF_MES.ParamByName('pos').AsInteger:=IBPOSLID.Value;
   IBTARIF_MES.ParamByName('dt').Value:=IBPERIODDATA.Value;
   IBTARIF_MES.open;

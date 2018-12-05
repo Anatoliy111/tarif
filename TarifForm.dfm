@@ -739,7 +739,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -1782,7 +1781,8 @@
         'ICH_PK2, '
       
         '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA, MZK_GK' +
-        '1, MZK_GK2)'
+        '1, MZK_GK2, '
+      '   ID_VIDAB)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1799,7 +1799,7 @@
       
         '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA1, :CENA2,' +
         ' :PROCENT, '
-      '   :FL_2CENA, :MZK_GK1, :MZK_GK2)')
+      '   :FL_2CENA, :MZK_GK1, :MZK_GK2, :ID_VIDAB)')
     RefreshSQL.Strings = (
       'Select'
       '  TARIF_MES.ID,'
@@ -1841,14 +1841,20 @@
       '  TARIF_MES.FL_2CENA,'
       '  TARIF_MES.MZK_GK1,'
       '  TARIF_MES.MZK_GK2,'
-      '  TARIF. NAME'
+      '  TARIF.NAME'
       'from TARIF_MES, TARIF'
       'where'
-      '  TARIF_MES.ID = :ID and TARIF_MES.ID_TARIF=TARIF.ID')
+      'TARIF_MES.ID=:ID and TARIF_MES.ID_TARIF=TARIF.ID'
+      '')
     SelectSQL.Strings = (
-      
-        'select tarif_mes.* ,tarif.name NAME, tarif.id_posl from TARIF_ME' +
-        'S, TARIF where tarif.id=tarif_mes.id_tarif')
+      'Select'
+      '  TARIF_MES.*,'
+      '  TARIF.NAME'
+      'from TARIF_MES, TARIF  '
+      'where'
+      'TARIF_MES.ID_TARIF=TARIF.ID '
+      'and tarif.id_posl=:pos and tarif_mes.data=:dt'
+      'order by TARIF.NAME')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'
@@ -1890,7 +1896,8 @@
       '  PROCENT = :PROCENT,'
       '  FL_2CENA = :FL_2CENA,'
       '  MZK_GK1 = :MZK_GK1,'
-      '  MZK_GK2 = :MZK_GK2'
+      '  MZK_GK2 = :MZK_GK2,'
+      '  ID_VIDAB = :ID_VIDAB'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2018,10 +2025,6 @@
       Precision = 18
       Size = 2
     end
-    object IBTARIF_MESID_POSL: TIntegerField
-      FieldName = 'ID_POSL'
-      Origin = '"TARIF"."ID_POSL"'
-    end
     object IBTARIF_MESMZK: TIBBCDField
       FieldName = 'MZK'
       Origin = '"TARIF_MES"."MZK"'
@@ -2131,6 +2134,10 @@
       Origin = '"TARIF_MES"."MZK_GK2"'
       Precision = 18
       Size = 3
+    end
+    object IBTARIF_MESID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      ProviderFlags = []
     end
   end
   object DSTARIF_MES: TDataSource
