@@ -1031,7 +1031,7 @@ begin
 
  Application.CreateForm(TReport,Report4);
  Report4.Caption:=dxBarButton46.Caption;
-  Report4.IBQuery3.open;
+  Report4.IBQuery4.open;
   Report4.cxLookupComboBox1.EditValue:=Report4.IBPERIODDATA.Value;
   Report4.DBLookupListBox1.Visible:=false;
   Report4.cxGrid1.Visible:=false;

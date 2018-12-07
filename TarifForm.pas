@@ -289,11 +289,7 @@ type
     IBTARIFUPDMZK_GK2: TIBBCDField;
     cxGrid1DBTableView1MZK_GK1: TcxGridDBColumn;
     cxGrid1DBTableView1MZK_GK2: TcxGridDBColumn;
-    IBTARIF_OTHERMZK_GK1: TIBBCDField;
-    IBTARIF_OTHERMZK_GK2: TIBBCDField;
     IBTARIF_OTHERFL_MZK: TIntegerField;
-    cxGridDBTableView1MZK_GK1: TcxGridDBColumn;
-    cxGridDBTableView1MZK_GK2: TcxGridDBColumn;
     cxGrid1DBTableView1ID_VIDAB: TcxGridDBColumn;
     cxGrid1DBTableView1PLOS_IN: TcxGridDBColumn;
     IBTARIF_MESID_VIDAB: TIntegerField;
@@ -312,6 +308,35 @@ type
     IBTARIFUPDMZK_CENA1: TIBBCDField;
     IBTARIFUPDMZK_CENA2: TIBBCDField;
     IBTARIFUPDMZK_ALLSUMM2IND: TIBBCDField;
+    IBTARIF_MESMZK_PLOSALL: TIBBCDField;
+    IBTARIF_MESMZK_GKKV1: TIBBCDField;
+    IBTARIF_MESMZK_GKKV2: TIBBCDField;
+    IBTARIF_MESMZK_GKALL1: TIBBCDField;
+    IBTARIF_MESMZK_GKALL2: TIBBCDField;
+    IBTARIF_MESMZK_GKCO1: TIBBCDField;
+    IBTARIF_MESMZK_GKCO2: TIBBCDField;
+    IBTARIF_MESMZK_GKM2IND1: TIBBCDField;
+    IBTARIF_MESMZK_GKM2IND2: TIBBCDField;
+    IBTARIF_MESMZK_SUMM2IND1: TIBBCDField;
+    IBTARIF_MESMZK_SUMM2IND2: TIBBCDField;
+    IBTARIF_MESMZK_CENA1: TIBBCDField;
+    IBTARIF_MESMZK_CENA2: TIBBCDField;
+    IBTARIF_MESMZK_ALLSUMM2IND: TIBBCDField;
+    IBTARIF_MESMZK_PDV: TIBBCDField;
+    IBTARIF_MESSUMMZK: TIBBCDField;
+    IBTARIF_MESSUMMZK_PDV: TIBBCDField;
+    IBTARIF_MESALLSUM: TIBBCDField;
+    IBTARIF_MESALLSUM_PDV: TIBBCDField;
+    IBTARIFUPDMZK_PDV: TIBBCDField;
+    IBTARIFUPDSUMMZK: TIBBCDField;
+    IBTARIFUPDSUMMZK_PDV: TIBBCDField;
+    IBTARIFUPDALLSUM: TIBBCDField;
+    IBTARIFUPDALLSUM_PDV: TIBBCDField;
+    cxGrid1DBTableView1MZK_PDV: TcxGridDBColumn;
+    cxGrid1DBTableView1SUMMZK: TcxGridDBColumn;
+    cxGrid1DBTableView1SUMMZK_PDV: TcxGridDBColumn;
+    cxGrid1DBTableView1ALLSUM: TcxGridDBColumn;
+    cxGrid1DBTableView1ALLSUM_PDV: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -582,11 +607,11 @@ begin
           gkalothlich2:=IBQuery1.FieldByName('LICH_GK2').AsFloat;
 
 
-//          normaosn1:=(gkal1-gkalmzkin1-gkalothlich1)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
-//          normaosn2:=(gkal2-gkalmzkin2-gkalothlich2)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
+          normaosn1:=(gkal1-gkalmzkin1-gkalothlich1)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
+          normaosn2:=(gkal2-gkalmzkin2-gkalothlich2)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
 
-          normaosn1:=(gkal1-gkalothlich1)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
-          normaosn2:=(gkal2-gkalothlich2)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
+//          normaosn1:=(gkal1-gkalothlich1)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
+//          normaosn2:=(gkal2-gkalothlich2)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
 
 
       IBQuery1.Close;
@@ -615,10 +640,12 @@ begin
          end
          else
          begin
-//           IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(((gkal1-gkalmzkin1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2);
-//           IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(((gkal1-gkalmzkin1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2))*1.2;
-           IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(((gkal1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2);
-           IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(((gkal1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2))*1.2;
+//         Загальний тариф ЦО
+           IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(((gkal1-gkalmzkin1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2);
+//         Загальний тариф ЦО з ПДВ
+           IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(((gkal1-gkalmzkin1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2))*1.2;
+//           IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(((gkal1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2);
+//           IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(((gkal1-gkalothlich1)*cenaosn1)+((gkal2-gkalmzkin2-gkalothlich2)*cenaosn2),-2))*1.2;
 
          end;
 
@@ -648,11 +675,16 @@ begin
 //         Вартість1м2 МЗК для індивід.
          IBTARIFUPDMZK_SUMM2IND1.Value:=SimpleRoundTo((gkalm2in1*cenamzk1),-2);
          IBTARIFUPDMZK_SUMM2IND2.Value:=SimpleRoundTo((gkalm2in2*cenamzk2),-2);
-//         Загальний тариф
-         IBTARIFUPDMZK_ALLSUMM2IND.Value:=IBTARIFUPDMZK_SUMM2IND1.Value+IBTARIFUPDMZK_SUMM2IND2.Value;
-         //         Загальний тариф з ПДВ
-         IBTARIFUPDMZK.AsCurrency:=(IBTARIFUPDMZK_SUMM2IND1.Value+IBTARIFUPDMZK_SUMM2IND2.Value)*1.2;
+//         Загальний тариф МЗК
+         IBTARIFUPDMZK.AsCurrency:=(IBTARIFUPDMZK_SUMM2IND1.Value+IBTARIFUPDMZK_SUMM2IND2.Value);
+//         Загальний тариф МЗК з ПДВ
+         IBTARIFUPDMZK_PDV.AsCurrency:=(IBTARIFUPDMZK_SUMM2IND1.Value+IBTARIFUPDMZK_SUMM2IND2.Value)*1.2;
 
+         IBTARIFUPDSUMMZK.AsCurrency:=SimpleRoundTo(IBTARIFUPDMZK.Value*IBTARIFUPDPLOS_IN.Value,-2);
+         IBTARIFUPDSUMMZK_PDV.AsCurrency:=SimpleRoundTo(IBTARIFUPDSUMMZK.AsCurrency*1.2,-2);
+
+         IBTARIFUPDALLSUM.AsCurrency:=IBTARIFUPDSUMOT.AsCurrency+IBTARIFUPDSUMMZK.AsCurrency;
+         IBTARIFUPDALLSUM_PDV.AsCurrency:=SimpleRoundTo(IBTARIFUPDALLSUM.AsCurrency*1.2,-2);
 
 
          IBTARIFUPD.Post;
@@ -723,15 +755,15 @@ begin
            IBTARIF_OTHERCENA2.Value:=cenaother2;
            if IBTARIF_OTHERFL_MZK.Value=1 then
            begin
-             IBTARIF_OTHERMZK.Value:=IBTARIFUPDMZK.AsCurrency;
-             IBTARIF_OTHERMZK_GK1.Value:=gkalmzkin1;
-             IBTARIF_OTHERMZK_GK2.Value:=gkalmzkin2;
+             IBTARIF_OTHERMZK.Value:=IBTARIFUPDMZK_PDV.AsCurrency;
+//             IBTARIF_OTHERMZK_GK1.Value:=gkalmzkin1;
+//             IBTARIF_OTHERMZK_GK2.Value:=gkalmzkin2;
            end
            else
            begin
              IBTARIF_OTHERMZK.Value:=0;
-             IBTARIF_OTHERMZK_GK1.Value:=0;
-             IBTARIF_OTHERMZK_GK2.Value:=0;
+//             IBTARIF_OTHERMZK_GK1.Value:=0;
+//             IBTARIF_OTHERMZK_GK2.Value:=0;
            end;
 
            IBTARIF_OTHER.Post;
@@ -748,6 +780,11 @@ begin
 //         IBTARIFUPDMZK.AsCurrency:=(gkalm2in*cenamzk)*1.2;
          IBTARIFUPDSUMOT.AsCurrency:=SimpleRoundTo(IBTARIFUPDTARIF_END.Value*IBTARIFUPDPLOS_BBI.AsFloat,-2);
          IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(IBTARIFUPDTARIF_END.Value*IBTARIFUPDPLOS_BBI.AsFloat,-2))*1.2;
+
+         IBTARIFUPDALLSUM.AsCurrency:=IBTARIFUPDSUMOT.AsCurrency;
+         IBTARIFUPDALLSUM_PDV.AsCurrency:=IBTARIFUPDALLSUM.AsCurrency;
+
+
 //         IBTARIFUPDCENA1.Value:=cenaosn1;
 //         IBTARIFUPDCENA2.Value:=cenaosn2;
 //         IBTARIFUPDMZK_GK1.Value:=gkalmzkin1;
@@ -1306,7 +1343,7 @@ begin
     cxGrid1DBTableView1TARIF_ENDPDV.Visible:=true;
     cxGridDBTableView1LICH_GK.Options.Editing:=false;
     cxGrid1DBTableView1MZK_GK2.Visible:=false;
-    cxGridDBTableView1MZK_GK2.Visible:=false;
+//    cxGridDBTableView1MZK_GK2.Visible:=false;
 
    if FL_OTHERLICH=1 then
     begin
@@ -1335,7 +1372,7 @@ begin
       cxGridDBTableView1LICH_PK2.Visible:=true;
       cxGridDBTableView1LICH_GK2.Visible:=true;
       cxGrid1DBTableView1MZK_GK2.Visible:=true;
-      cxGridDBTableView1MZK_GK2.Visible:=true;
+//      cxGridDBTableView1MZK_GK2.Visible:=true;
     end
     else
     begin
@@ -1346,7 +1383,7 @@ begin
       cxGridDBTableView1LICH_PK2.Visible:=false;
       cxGridDBTableView1LICH_GK2.Visible:=false;
       cxGrid1DBTableView1MZK_GK2.Visible:=false;
-      cxGridDBTableView1MZK_GK2.Visible:=false;
+//      cxGridDBTableView1MZK_GK2.Visible:=false;
     end;
 
       DSTARIF_OTHER.Enabled:=true;
@@ -1510,7 +1547,21 @@ begin
     cxGrid1DBTableView1TARIF_ENDPDV.Visible:=false;
     cxGrid1DBTableView1ID_VIDCENA.Visible:=false;
     cxGrid1DBTableView1MZK_GK2.Visible:=false;
-    cxGridDBTableView1MZK_GK2.Visible:=false;
+//    cxGridDBTableView1MZK_GK2.Visible:=false;
+    cxGrid1DBTableView1TARIF_PLAN.Visible:=true;
+
+    cxGrid1DBTableView1MZK_PDV.Visible:=false;
+    cxGrid1DBTableView1SUMMZK.Visible:=false;
+    cxGrid1DBTableView1SUMMZK_PDV.Visible:=false;
+    cxGrid1DBTableView1ALLSUM.Visible:=false;
+    cxGrid1DBTableView1ALLSUM_PDV.Visible:=false;
+
+    cxGrid1DBTableView1PLOS_IN.Visible:=false;
+    cxGrid1DBTableView1LICH_PN2.Visible:=false;
+    cxGrid1DBTableView1LICH_PK2.Visible:=false;
+    cxGrid1DBTableView1LICH_GK2.Visible:=false;
+
+
 
 
   if IBPOSLWID.Value='ub' then
@@ -1530,6 +1581,7 @@ begin
     cxButton2.Visible:=true;
     cxGridDBTableView1SFACT.Visible:=true;
     cxGrid1DBTableView1BORG_VIDH.Visible:=true;
+
   end;
 
   if IBPOSLWID.Value='ot' then
@@ -1561,6 +1613,13 @@ begin
     cxGrid1DBTableView1LICH_GK.Visible:=true;
     cxGrid1DBTableView1TARIF_ENDPDV.Visible:=true;
     cxGridDBTableView1LICH_GK.Options.Editing:=false;
+    cxGrid1DBTableView1TARIF_PLAN.Visible:=false;
+    cxGrid1DBTableView1MZK_PDV.Visible:=true;
+    cxGrid1DBTableView1SUMMZK.Visible:=true;
+    cxGrid1DBTableView1SUMMZK_PDV.Visible:=true;
+    cxGrid1DBTableView1ALLSUM.Visible:=true;
+    cxGrid1DBTableView1ALLSUM_PDV.Visible:=true;
+    cxGrid1DBTableView1NORMA.Visible:=false;
 
    if FL_OTHERLICH=1 then
     begin
@@ -1589,7 +1648,7 @@ begin
       cxGridDBTableView1LICH_PK2.Visible:=true;
       cxGridDBTableView1LICH_GK2.Visible:=true;
       cxGrid1DBTableView1MZK_GK2.Visible:=true;
-      cxGridDBTableView1MZK_GK2.Visible:=true;
+//      cxGridDBTableView1MZK_GK2.Visible:=true;
     end
     else
     begin
@@ -1600,7 +1659,7 @@ begin
       cxGridDBTableView1LICH_PK2.Visible:=false;
       cxGridDBTableView1LICH_GK2.Visible:=false;
       cxGrid1DBTableView1MZK_GK2.Visible:=false;
-      cxGridDBTableView1MZK_GK2.Visible:=false;
+//      cxGridDBTableView1MZK_GK2.Visible:=false;
     end;
 
   end;

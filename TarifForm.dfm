@@ -143,6 +143,22 @@
         item
           Kind = skSum
           Column = cxGrid1DBTableView1PLOS_IN
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1SUMMZK
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1SUMMZK_PDV
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1ALLSUM
+        end
+        item
+          Kind = skSum
+          Column = cxGrid1DBTableView1ALLSUM_PDV
         end>
       DataController.Summary.SummaryGroups = <
         item
@@ -165,6 +181,7 @@
       OptionsView.GroupByBox = False
       object cxGrid1DBTableView1ID: TcxGridDBColumn
         DataBinding.FieldName = 'ID'
+        Visible = False
       end
       object cxGrid1DBTableView1ID_POSL: TcxGridDBColumn
         DataBinding.FieldName = 'ID_POSL'
@@ -225,6 +242,11 @@
       object cxGrid1DBTableView1PLOS_BBI: TcxGridDBColumn
         Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
         DataBinding.FieldName = 'PLOS_BBI'
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1PLOS_IN: TcxGridDBColumn
+        Caption = #1055#1083#1086#1097#1072' '#1110#1085#1076#1080#1074#1110#1076'.'#1086#1087#1072#1083
+        DataBinding.FieldName = 'PLOS_IN'
         Options.Editing = False
       end
       object cxGrid1DBTableView1LICH_PN: TcxGridDBColumn
@@ -295,31 +317,57 @@
         Width = 116
       end
       object cxGrid1DBTableView1MZK_GK1: TcxGridDBColumn
-        Caption = #1052#1047#1050' '#1043#1082#1072#1083'./m2 - 1'
+        Caption = #1052#1047#1050' '#1043#1082#1072#1083
         DataBinding.FieldName = 'MZK_GK1'
         Options.Editing = False
       end
       object cxGrid1DBTableView1MZK_GK2: TcxGridDBColumn
-        Caption = #1052#1047#1050' '#1043#1082#1072#1083'./m2 - 2'
+        Caption = #1052#1047#1050' '#1043#1082#1072#1083'- 2'
         DataBinding.FieldName = 'MZK_GK2'
         Options.Editing = False
       end
       object cxGrid1DBTableView1MZK: TcxGridDBColumn
-        Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082' '#1079' '#1055#1044#1042' /m2'
+        Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082'/m2'
         DataBinding.FieldName = 'MZK'
         PropertiesClassName = 'TcxCalcEditProperties'
         Options.Editing = False
       end
+      object cxGrid1DBTableView1MZK_PDV: TcxGridDBColumn
+        Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082'/m2 '#1079' '#1055#1044#1042
+        DataBinding.FieldName = 'MZK_PDV'
+        Options.Editing = False
+      end
       object cxGrid1DBTableView1SUMOT: TcxGridDBColumn
-        Caption = #1042#1072#1088#1090#1110#1089#1090#1100
+        Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1062#1054
         DataBinding.FieldName = 'SUMOT'
         Options.Editing = False
       end
       object cxGrid1DBTableView1SUMOTPDV: TcxGridDBColumn
-        Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1079' '#1055#1044#1042
+        Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1062#1054' '#1079' '#1055#1044#1042
         DataBinding.FieldName = 'SUMOTPDV'
         PropertiesClassName = 'TcxCalcEditProperties'
         Options.Editing = False
+      end
+      object cxGrid1DBTableView1SUMMZK: TcxGridDBColumn
+        Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1052#1047#1050
+        DataBinding.FieldName = 'SUMMZK'
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1SUMMZK_PDV: TcxGridDBColumn
+        Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1052#1047#1050' '#1079' '#1055#1044#1042
+        DataBinding.FieldName = 'SUMMZK_PDV'
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1ALLSUM: TcxGridDBColumn
+        Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1074#1072#1088#1090#1110#1089#1090#1100
+        DataBinding.FieldName = 'ALLSUM'
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1ALLSUM_PDV: TcxGridDBColumn
+        Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1074#1072#1088#1090#1110#1089#1090#1100' '#1079' '#1055#1044#1042
+        DataBinding.FieldName = 'ALLSUM_PDV'
+        Options.Editing = False
+        Width = 140
       end
       object cxGrid1DBTableView1NORMA: TcxGridDBColumn
         Caption = #1053#1086#1088#1084#1072
@@ -330,10 +378,12 @@
       object cxGrid1DBTableView1PLAN_BL: TcxGridDBColumn
         DataBinding.FieldName = 'PLAN_BL'
         Visible = False
+        Options.Editing = False
       end
       object cxGrid1DBTableView1FACT_BL: TcxGridDBColumn
         DataBinding.FieldName = 'FACT_BL'
         Visible = False
+        Options.Editing = False
       end
       object cxGrid1DBTableView1END_BL: TcxGridDBColumn
         Caption = #1041#1077#1079' '#1083#1110#1092#1090#1072
@@ -355,11 +405,6 @@
             FieldName = 'NAME'
           end>
         Properties.ListSource = DSKOTEL
-        Options.Editing = False
-      end
-      object cxGrid1DBTableView1PLOS_IN: TcxGridDBColumn
-        Caption = #1055#1083#1086#1097#1072' '#1110#1085#1076#1080#1074#1110#1076'.'#1086#1087#1072#1083
-        DataBinding.FieldName = 'PLOS_IN'
         Options.Editing = False
       end
     end
@@ -450,7 +495,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 148
+      Height = 116
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -465,9 +510,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 149
+      Top = 117
       Width = 167
-      Height = 217
+      Height = 249
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -562,11 +607,9 @@
           end
           item
             Kind = skSum
-            Column = cxGridDBTableView1MZK_GK1
           end
           item
             Kind = skSum
-            Column = cxGridDBTableView1MZK_GK2
           end>
         DataController.Summary.SummaryGroups = <>
         OptionsSelection.HideFocusRectOnExit = False
@@ -645,18 +688,6 @@
           DataBinding.FieldName = 'SENDPDV'
           Options.Editing = False
           Width = 111
-        end
-        object cxGridDBTableView1MZK_GK1: TcxGridDBColumn
-          Caption = #1052#1047#1050' '#1043#1082#1072#1083'./m2 -1'
-          DataBinding.FieldName = 'MZK_GK1'
-          Options.Editing = False
-          Width = 90
-        end
-        object cxGridDBTableView1MZK_GK2: TcxGridDBColumn
-          Caption = #1052#1047#1050' '#1043#1082#1072#1083'./m2 -2'
-          DataBinding.FieldName = 'MZK_GK2'
-          Options.Editing = False
-          Width = 94
         end
         object cxGridDBTableView1MZK: TcxGridDBColumn
           Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082' '#1079' '#1055#1044#1042' /m2'
@@ -740,7 +771,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -809,21 +839,24 @@
         '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
         ' NOTE, '
       
-        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
-        'CH, PLOS_IN, '
+        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, BORG_VIDH, NO_LICH, P' +
+        'LOS_IN, '
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
       
-        '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA, MZK_GK' +
-        '1, MZK_GK2, '
+        '   LICH_GK2, ID_VIDCENA, PROCENT, CENA1, CENA2, FL_2CENA, ID_VID' +
+        'AB, MZK_GK1, '
       
-        '   ID_VIDAB, MZK_PLOSALL, MZK_GKKV1, MZK_GKKV2, MZK_GKALL1, MZK_' +
-        'GKALL2, '
+        '   MZK_GK2, MZK, MZK_PLOSALL, MZK_GKKV1, MZK_GKKV2, MZK_GKALL1, ' +
+        'MZK_GKALL2, '
       
         '   MZK_GKCO1, MZK_GKCO2, MZK_GKM2IND1, MZK_GKM2IND2, MZK_SUMM2IN' +
         'D1, MZK_SUMM2IND2, '
-      '   MZK_CENA1, MZK_CENA2, MZK_ALLSUMM2IND)'
+      
+        '   MZK_CENA1, MZK_CENA2, MZK_ALLSUMM2IND, MZK_PDV, SUMMZK, SUMMZ' +
+        'K_PDV, '
+      '   ALLSUM, ALLSUM_PDV)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -832,24 +865,24 @@
         '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
         'H_PN, :LICH_PK, '
       
-        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
-        'G_VIDH, '
+        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :BORG_VIDH' +
+        ', :NO_LICH, '
       
-        '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
-        'TARIF_ENDPDV, '
+        '   :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :TARIF_ENDP' +
+        'DV, :LICH_PN2, '
       
-        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA1, :CENA2,' +
-        ' :PROCENT, '
+        '   :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :PROCENT, :CENA1, :CENA2, ' +
+        ':FL_2CENA, '
       
-        '   :FL_2CENA, :MZK_GK1, :MZK_GK2, :ID_VIDAB, :MZK_PLOSALL, :MZK_' +
-        'GKKV1, '
+        '   :ID_VIDAB, :MZK_GK1, :MZK_GK2, :MZK, :MZK_PLOSALL, :MZK_GKKV1' +
+        ', :MZK_GKKV2, '
       
-        '   :MZK_GKKV2, :MZK_GKALL1, :MZK_GKALL2, :MZK_GKCO1, :MZK_GKCO2,' +
-        ' :MZK_GKM2IND1, '
+        '   :MZK_GKALL1, :MZK_GKALL2, :MZK_GKCO1, :MZK_GKCO2, :MZK_GKM2IN' +
+        'D1, :MZK_GKM2IND2, '
       
-        '   :MZK_GKM2IND2, :MZK_SUMM2IND1, :MZK_SUMM2IND2, :MZK_CENA1, :M' +
-        'ZK_CENA2, '
-      '   :MZK_ALLSUMM2IND)')
+        '   :MZK_SUMM2IND1, :MZK_SUMM2IND2, :MZK_CENA1, :MZK_CENA2, :MZK_' +
+        'ALLSUMM2IND, '
+      '   :MZK_PDV, :SUMMZK, :SUMMZK_PDV, :ALLSUM, :ALLSUM_PDV)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -872,7 +905,6 @@
       '  NSER_LICH,'
       '  ID_KOTEL,'
       '  PLOS_BB,'
-      '  MZK,'
       '  BORG_VIDH,'
       '  NO_LICH,'
       '  PLOS_IN,'
@@ -885,13 +917,14 @@
       '  LICH_PK2,'
       '  LICH_GK2,'
       '  ID_VIDCENA,'
+      '  PROCENT,'
       '  CENA1,'
       '  CENA2,'
-      '  PROCENT,'
       '  FL_2CENA,'
+      '  ID_VIDAB,'
       '  MZK_GK1,'
       '  MZK_GK2,'
-      '  ID_VIDAB,'
+      '  MZK,'
       '  MZK_PLOSALL,'
       '  MZK_GKKV1,'
       '  MZK_GKKV2,'
@@ -905,7 +938,12 @@
       '  MZK_SUMM2IND2,'
       '  MZK_CENA1,'
       '  MZK_CENA2,'
-      '  MZK_ALLSUMM2IND'
+      '  MZK_ALLSUMM2IND,'
+      '  MZK_PDV,'
+      '  SUMMZK,'
+      '  SUMMZK_PDV,'
+      '  ALLSUM,'
+      '  ALLSUM_PDV'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -938,7 +976,6 @@
       '  NSER_LICH = :NSER_LICH,'
       '  ID_KOTEL = :ID_KOTEL,'
       '  PLOS_BB = :PLOS_BB,'
-      '  MZK = :MZK,'
       '  BORG_VIDH = :BORG_VIDH,'
       '  NO_LICH = :NO_LICH,'
       '  PLOS_IN = :PLOS_IN,'
@@ -951,13 +988,14 @@
       '  LICH_PK2 = :LICH_PK2,'
       '  LICH_GK2 = :LICH_GK2,'
       '  ID_VIDCENA = :ID_VIDCENA,'
+      '  PROCENT = :PROCENT,'
       '  CENA1 = :CENA1,'
       '  CENA2 = :CENA2,'
-      '  PROCENT = :PROCENT,'
       '  FL_2CENA = :FL_2CENA,'
+      '  ID_VIDAB = :ID_VIDAB,'
       '  MZK_GK1 = :MZK_GK1,'
       '  MZK_GK2 = :MZK_GK2,'
-      '  ID_VIDAB = :ID_VIDAB,'
+      '  MZK = :MZK,'
       '  MZK_PLOSALL = :MZK_PLOSALL,'
       '  MZK_GKKV1 = :MZK_GKKV1,'
       '  MZK_GKKV2 = :MZK_GKKV2,'
@@ -971,7 +1009,12 @@
       '  MZK_SUMM2IND2 = :MZK_SUMM2IND2,'
       '  MZK_CENA1 = :MZK_CENA1,'
       '  MZK_CENA2 = :MZK_CENA2,'
-      '  MZK_ALLSUMM2IND = :MZK_ALLSUMM2IND'
+      '  MZK_ALLSUMM2IND = :MZK_ALLSUMM2IND,'
+      '  MZK_PDV = :MZK_PDV,'
+      '  SUMMZK = :SUMMZK,'
+      '  SUMMZK_PDV = :SUMMZK_PDV,'
+      '  ALLSUM = :ALLSUM,'
+      '  ALLSUM_PDV = :ALLSUM_PDV'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1301,6 +1344,36 @@
     object IBTARIFUPDMZK_ALLSUMM2IND: TIBBCDField
       FieldName = 'MZK_ALLSUMM2IND'
       Origin = '"TARIF_MES"."MZK_ALLSUMM2IND"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDMZK_PDV: TIBBCDField
+      FieldName = 'MZK_PDV'
+      Origin = '"TARIF_MES"."MZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDSUMMZK: TIBBCDField
+      FieldName = 'SUMMZK'
+      Origin = '"TARIF_MES"."SUMMZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDSUMMZK_PDV: TIBBCDField
+      FieldName = 'SUMMZK_PDV'
+      Origin = '"TARIF_MES"."SUMMZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDALLSUM: TIBBCDField
+      FieldName = 'ALLSUM'
+      Origin = '"TARIF_MES"."ALLSUM"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIFUPDALLSUM_PDV: TIBBCDField
+      FieldName = 'ALLSUM_PDV'
+      Origin = '"TARIF_MES"."ALLSUM_PDV"'
       Precision = 18
       Size = 2
     end
@@ -1910,15 +1983,24 @@
         '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
         ' NOTE, '
       
-        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
-        'CH, PLOS_IN, '
+        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, BORG_VIDH, NO_LICH, P' +
+        'LOS_IN, '
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
       
-        '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA, MZK_GK' +
-        '1, MZK_GK2, '
-      '   ID_VIDAB)'
+        '   LICH_GK2, ID_VIDCENA, PROCENT, CENA1, CENA2, FL_2CENA, ID_VID' +
+        'AB, MZK_GK1, '
+      
+        '   MZK_GK2, MZK, MZK_PLOSALL, MZK_GKKV1, MZK_GKKV2, MZK_GKALL1, ' +
+        'MZK_GKALL2, '
+      
+        '   MZK_GKCO1, MZK_GKCO2, MZK_GKM2IND1, MZK_GKM2IND2, MZK_SUMM2IN' +
+        'D1, MZK_SUMM2IND2, '
+      
+        '   MZK_CENA1, MZK_CENA2, MZK_ALLSUMM2IND, MZK_PDV, SUMMZK, SUMMZ' +
+        'K_PDV, '
+      '   ALLSUM, ALLSUM_PDV)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1927,18 +2009,27 @@
         '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
         'H_PN, :LICH_PK, '
       
-        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
-        'G_VIDH, '
+        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :BORG_VIDH' +
+        ', :NO_LICH, '
       
-        '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
-        'TARIF_ENDPDV, '
+        '   :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :TARIF_ENDP' +
+        'DV, :LICH_PN2, '
       
-        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA1, :CENA2,' +
-        ' :PROCENT, '
-      '   :FL_2CENA, :MZK_GK1, :MZK_GK2, :ID_VIDAB)')
+        '   :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :PROCENT, :CENA1, :CENA2, ' +
+        ':FL_2CENA, '
+      
+        '   :ID_VIDAB, :MZK_GK1, :MZK_GK2, :MZK, :MZK_PLOSALL, :MZK_GKKV1' +
+        ', :MZK_GKKV2, '
+      
+        '   :MZK_GKALL1, :MZK_GKALL2, :MZK_GKCO1, :MZK_GKCO2, :MZK_GKM2IN' +
+        'D1, :MZK_GKM2IND2, '
+      
+        '   :MZK_SUMM2IND1, :MZK_SUMM2IND2, :MZK_CENA1, :MZK_CENA2, :MZK_' +
+        'ALLSUMM2IND, '
+      '   :MZK_PDV, :SUMMZK, :SUMMZK_PDV, :ALLSUM, :ALLSUM_PDV)')
     RefreshSQL.Strings = (
-      'Select'
-      '  TARIF_MES.ID,'
+      'Select '
+      ' TARIF_MES.ID,'
       '  TARIF_MES.ID_TARIF,'
       '  TARIF_MES.DATA,'
       '  TARIF_MES.TARIF_PLAN,'
@@ -1958,7 +2049,6 @@
       '  TARIF_MES.NSER_LICH,'
       '  TARIF_MES.ID_KOTEL,'
       '  TARIF_MES.PLOS_BB,'
-      '  TARIF_MES.MZK,'
       '  TARIF_MES.BORG_VIDH,'
       '  TARIF_MES.NO_LICH,'
       '  TARIF_MES.PLOS_IN,'
@@ -1971,13 +2061,33 @@
       '  TARIF_MES.LICH_PK2,'
       '  TARIF_MES.LICH_GK2,'
       '  TARIF_MES.ID_VIDCENA,'
+      '  TARIF_MES.PROCENT,'
       '  TARIF_MES.CENA1,'
       '  TARIF_MES.CENA2,'
-      '  TARIF_MES.PROCENT,'
       '  TARIF_MES.FL_2CENA,'
+      '  TARIF_MES.ID_VIDAB,'
       '  TARIF_MES.MZK_GK1,'
       '  TARIF_MES.MZK_GK2,'
-      '  TARIF_MES.ID_VIDAB,'
+      '  TARIF_MES.MZK,'
+      '  TARIF_MES.MZK_PLOSALL,'
+      '  TARIF_MES.MZK_GKKV1,'
+      '  TARIF_MES.MZK_GKKV2,'
+      ' TARIF_MES.MZK_GKALL1,'
+      '  TARIF_MES.MZK_GKALL2,'
+      '  TARIF_MES.MZK_GKCO1,'
+      '  TARIF_MES.MZK_GKCO2,'
+      '  TARIF_MES.MZK_GKM2IND1,'
+      '  TARIF_MES.MZK_GKM2IND2,'
+      '  TARIF_MES.MZK_SUMM2IND1,'
+      '  TARIF_MES.MZK_SUMM2IND2,'
+      '  TARIF_MES.MZK_CENA1,'
+      '  TARIF_MES.MZK_CENA2,'
+      '  TARIF_MES.MZK_ALLSUMM2IND,'
+      '  TARIF_MES.MZK_PDV,'
+      '  TARIF_MES.SUMMZK,'
+      '  TARIF_MES.SUMMZK_PDV,'
+      '  TARIF_MES.ALLSUM,'
+      '  TARIF_MES.ALLSUM_PDV,'
       '  TARIF.NAME'
       'from TARIF_MES, TARIF'
       'where'
@@ -2014,7 +2124,6 @@
       '  NSER_LICH = :NSER_LICH,'
       '  ID_KOTEL = :ID_KOTEL,'
       '  PLOS_BB = :PLOS_BB,'
-      '  MZK = :MZK,'
       '  BORG_VIDH = :BORG_VIDH,'
       '  NO_LICH = :NO_LICH,'
       '  PLOS_IN = :PLOS_IN,'
@@ -2027,13 +2136,33 @@
       '  LICH_PK2 = :LICH_PK2,'
       '  LICH_GK2 = :LICH_GK2,'
       '  ID_VIDCENA = :ID_VIDCENA,'
+      '  PROCENT = :PROCENT,'
       '  CENA1 = :CENA1,'
       '  CENA2 = :CENA2,'
-      '  PROCENT = :PROCENT,'
       '  FL_2CENA = :FL_2CENA,'
+      '  ID_VIDAB = :ID_VIDAB,'
       '  MZK_GK1 = :MZK_GK1,'
       '  MZK_GK2 = :MZK_GK2,'
-      '  ID_VIDAB = :ID_VIDAB'
+      '  MZK = :MZK,'
+      '  MZK_PLOSALL = :MZK_PLOSALL,'
+      '  MZK_GKKV1 = :MZK_GKKV1,'
+      '  MZK_GKKV2 = :MZK_GKKV2,'
+      '  MZK_GKALL1 = :MZK_GKALL1,'
+      '  MZK_GKALL2 = :MZK_GKALL2,'
+      '  MZK_GKCO1 = :MZK_GKCO1,'
+      '  MZK_GKCO2 = :MZK_GKCO2,'
+      '  MZK_GKM2IND1 = :MZK_GKM2IND1,'
+      '  MZK_GKM2IND2 = :MZK_GKM2IND2,'
+      '  MZK_SUMM2IND1 = :MZK_SUMM2IND1,'
+      '  MZK_SUMM2IND2 = :MZK_SUMM2IND2,'
+      '  MZK_CENA1 = :MZK_CENA1,'
+      '  MZK_CENA2 = :MZK_CENA2,'
+      '  MZK_ALLSUMM2IND = :MZK_ALLSUMM2IND,'
+      '  MZK_PDV = :MZK_PDV,'
+      '  SUMMZK = :SUMMZK,'
+      '  SUMMZK_PDV = :SUMMZK_PDV,'
+      '  ALLSUM = :ALLSUM,'
+      '  ALLSUM_PDV = :ALLSUM_PDV'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -2274,6 +2403,120 @@
     object IBTARIF_MESID_VIDAB: TIntegerField
       FieldName = 'ID_VIDAB'
       ProviderFlags = []
+    end
+    object IBTARIF_MESMZK_PLOSALL: TIBBCDField
+      FieldName = 'MZK_PLOSALL'
+      Origin = '"TARIF_MES"."MZK_PLOSALL"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_GKKV1: TIBBCDField
+      FieldName = 'MZK_GKKV1'
+      Origin = '"TARIF_MES"."MZK_GKKV1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKKV2: TIBBCDField
+      FieldName = 'MZK_GKKV2'
+      Origin = '"TARIF_MES"."MZK_GKKV2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKALL1: TIBBCDField
+      FieldName = 'MZK_GKALL1'
+      Origin = '"TARIF_MES"."MZK_GKALL1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKALL2: TIBBCDField
+      FieldName = 'MZK_GKALL2'
+      Origin = '"TARIF_MES"."MZK_GKALL2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKCO1: TIBBCDField
+      FieldName = 'MZK_GKCO1'
+      Origin = '"TARIF_MES"."MZK_GKCO1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKCO2: TIBBCDField
+      FieldName = 'MZK_GKCO2'
+      Origin = '"TARIF_MES"."MZK_GKCO2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKM2IND1: TIBBCDField
+      FieldName = 'MZK_GKM2IND1'
+      Origin = '"TARIF_MES"."MZK_GKM2IND1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKM2IND2: TIBBCDField
+      FieldName = 'MZK_GKM2IND2'
+      Origin = '"TARIF_MES"."MZK_GKM2IND2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_SUMM2IND1: TIBBCDField
+      FieldName = 'MZK_SUMM2IND1'
+      Origin = '"TARIF_MES"."MZK_SUMM2IND1"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_SUMM2IND2: TIBBCDField
+      FieldName = 'MZK_SUMM2IND2'
+      Origin = '"TARIF_MES"."MZK_SUMM2IND2"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_CENA1: TIBBCDField
+      FieldName = 'MZK_CENA1'
+      Origin = '"TARIF_MES"."MZK_CENA1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESMZK_CENA2: TIBBCDField
+      FieldName = 'MZK_CENA2'
+      Origin = '"TARIF_MES"."MZK_CENA2"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESMZK_ALLSUMM2IND: TIBBCDField
+      FieldName = 'MZK_ALLSUMM2IND'
+      Origin = '"TARIF_MES"."MZK_ALLSUMM2IND"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_PDV: TIBBCDField
+      FieldName = 'MZK_PDV'
+      Origin = '"TARIF_MES"."MZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESSUMMZK: TIBBCDField
+      FieldName = 'SUMMZK'
+      Origin = '"TARIF_MES"."SUMMZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESSUMMZK_PDV: TIBBCDField
+      FieldName = 'SUMMZK_PDV'
+      Origin = '"TARIF_MES"."SUMMZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESALLSUM: TIBBCDField
+      FieldName = 'ALLSUM'
+      Origin = '"TARIF_MES"."ALLSUM"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESALLSUM_PDV: TIBBCDField
+      FieldName = 'ALLSUM_PDV'
+      Origin = '"TARIF_MES"."ALLSUM_PDV"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIF_MES: TDataSource
@@ -2922,18 +3165,6 @@
       Origin = '"TARIF_OTHER"."CENA2"'
       Precision = 18
       Size = 4
-    end
-    object IBTARIF_OTHERMZK_GK1: TIBBCDField
-      FieldName = 'MZK_GK1'
-      Origin = '"TARIF_OTHER"."MZK_GK1"'
-      Precision = 18
-      Size = 3
-    end
-    object IBTARIF_OTHERMZK_GK2: TIBBCDField
-      FieldName = 'MZK_GK2'
-      Origin = '"TARIF_OTHER"."MZK_GK2"'
-      Precision = 18
-      Size = 3
     end
     object IBTARIF_OTHERFL_MZK: TIntegerField
       FieldName = 'FL_MZK'

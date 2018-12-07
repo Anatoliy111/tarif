@@ -88,6 +88,7 @@ type
     IBTARIFID: TIntegerField;
     IBTARIFNAME: TIBStringField;
     IBTARIFID_POSL: TIntegerField;
+    cxButton2: TcxButton;
     procedure IBPOSLBeforePost(DataSet: TDataSet);
     procedure IBDOMBeforePost(DataSet: TDataSet);
     procedure IBULBeforePost(DataSet: TDataSet);
@@ -99,6 +100,7 @@ type
     procedure IBTARIF_DOMBeforePost(DataSet: TDataSet);
     procedure IBTARIF_MESBeforePost(DataSet: TDataSet);
     procedure cxButton1Click(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -114,7 +116,7 @@ implementation
 
 {$R *.dfm}
 
-uses MainForm, mytools, Progress, DataMod;
+uses MainForm, mytools, Progress, DataMod, TarifForm;
 
 procedure TImpForm.cxButton1Click(Sender: TObject);
 begin
@@ -197,6 +199,16 @@ Prores.Show;
         ADOQuery1.Close;
         ADOConnectionDBF.Connected:=false;
       messagedlg('Повернення завершено!',mtInformation,[mbOK],0);
+end;
+
+procedure TImpForm.cxButton2Click(Sender: TObject);
+begin
+  inherited;
+Tarifs.IBPERIOD.Next;
+Tarifs.IBPERIODDATA.Value;
+Tarifs.cxButton1.Click;
+Tarifs.IBPERIOD.Prior;
+Tarifs.IBTransaction1.CommitRetaining;
 end;
 
 procedure TImpForm.cxButton6Click(Sender: TObject);

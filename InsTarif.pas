@@ -549,15 +549,19 @@ begin
    exit;
   end;
 
-  if IBTARIF_MESID_VIDCENA.Value=0 then
+  if (poslwid='ot') and (IBTARIF_MESID_VIDCENA.Value=0) then
   begin
    Application.MessageBox('Виберіть вид ціни','Помилка',16);
    exit;
   end;
 
 
-      if (poslwid='ot') and (IBTARIF_DOM1.RecordCount<>0) then
-         exit;
+  if (poslwid='ot') and (IBTARIF_DOM1.RecordCount<>0) then
+      exit;
+
+  if (poslwid='ub') and (IBTARIF_DOM1.RecordCount<>0) then
+      exit;
+
 
       IBTARIF_DOM1.Insert;
       IBTARIF_DOM1.Edit;

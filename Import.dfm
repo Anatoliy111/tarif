@@ -86,6 +86,17 @@
     TabOrder = 3
     OnClick = cxButton1Click
   end
+  object cxButton2: TcxButton [8]
+    Left = 24
+    Top = 325
+    Width = 209
+    Height = 25
+    Caption = #1056#1086#1079#1088#1072#1093#1091#1074#1072#1090#1080' !!! '#1053#1077' '#1074#1080#1082#1086#1088#1080#1089#1090#1086#1074#1091#1074#1072#1090#1080
+    LookAndFeel.Kind = lfUltraFlat
+    LookAndFeel.NativeStyle = False
+    TabOrder = 4
+    OnClick = cxButton2Click
+  end
   inherited IBTransaction1: TIBTransaction
     Active = True
     Left = 384

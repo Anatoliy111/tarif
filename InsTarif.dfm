@@ -4,7 +4,6 @@ inherited InsTar: TInsTar
   ClientWidth = 965
   Position = poDefault
   OnCreate = FormCreate
-  ExplicitLeft = -247
   ExplicitWidth = 981
   ExplicitHeight = 680
   PixelsPerInch = 96
@@ -753,7 +752,7 @@ inherited InsTar: TInsTar
       TabOrder = 4
       object cxButton12: TcxButton
         Left = 28
-        Top = 5
+        Top = 4
         Width = 40
         Height = 39
         Hint = #1044#1086#1076#1072#1090#1080

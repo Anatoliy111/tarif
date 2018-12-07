@@ -54,36 +54,11 @@ type
     cxGrid1DBTableView1END_BL: TcxGridDBColumn;
     cxGrid1DBTableView1END_L: TcxGridDBColumn;
     cxGrid1DBTableView1GKAL1: TcxGridDBColumn;
-    IBQuery1TARIFNAM: TIBStringField;
-    IBQuery1ADRES: TIBStringField;
-    IBQuery1PLOS: TIBBCDField;
-    IBQuery1SUMOT: TIBBCDField;
-    IBQuery1SUMOTPDV: TIBBCDField;
-    IBQuery1TARIF_END: TIBBCDField;
-    IBQuery1TARIF_ENDPDV: TIBBCDField;
-    IBQuery1MZK: TIBBCDField;
-    IBQuery1KOTEL: TIBStringField;
-    IBQuery1VID: TIBStringField;
-    IBQuery1DATA: TDateField;
-    IBQuery1WID: TIBStringField;
-    IBQuery1ID_POSL: TIntegerField;
-    IBQuery1TARIF_PLAN: TIBBCDField;
-    IBQuery1TARIF_FACT: TIBBCDField;
-    IBQuery1END_BL: TIBBCDField;
-    IBQuery1END_L: TIBBCDField;
-    IBQuery1OTHERS: TIntegerField;
-    IBQuery1NOTHERS: TIBStringField;
-    IBQuery1NO_LICH: TIntegerField;
-    IBQuery1NORMA: TIBBCDField;
     cxButton1: TcxButton;
     frxReport2: TfrxReport;
     frxDBDataset1: TfrxDBDataset;
-    IBQuery1TARIF_RK: TIBBCDField;
-    IBQuery1BORG_VIDH: TIBBCDField;
     cxGrid1DBTableView1TARIF_RK: TcxGridDBColumn;
     cxGrid1DBTableView1BORG_VIDH: TcxGridDBColumn;
-    IBQuery1UL: TIBStringField;
-    IBQuery1DOM: TIBStringField;
     cxGrid1DBTableView1UL: TcxGridDBColumn;
     cxGrid1DBTableView1DOM: TcxGridDBColumn;
     cxGrid3: TcxGrid;
@@ -115,30 +90,17 @@ type
     IBQuery2OTHERS: TIntegerField;
     IBQuery2NOTHERS: TIBStringField;
     IBQuery2NO_LICH: TIntegerField;
-    IBQuery1POSL: TIBStringField;
-    cxGridDBTableView2TARIFNAM: TcxGridDBColumn;
     cxGridDBTableView2UL: TcxGridDBColumn;
     cxGridDBTableView2DOM: TcxGridDBColumn;
-    cxGridDBTableView2TARIF_END: TcxGridDBColumn;
-    cxGridDBTableView2TARIF_ENDPDV: TcxGridDBColumn;
-    cxGridDBTableView2NORMA: TcxGridDBColumn;
     cxGridDBTableView2VID: TcxGridDBColumn;
-    cxGridDBTableView2POSL: TcxGridDBColumn;
-    cxGridDBTableView2NOTHERS: TcxGridDBColumn;
-    IBQuery1GKAL1: TIBBCDField;
-    IBQuery1GKAL2: TIBBCDField;
-    IBQuery1CENA1: TIBBCDField;
-    IBQuery1CENA2: TIBBCDField;
     cxGrid1DBTableView1GKAL2: TcxGridDBColumn;
     cxGrid1DBTableView1CENA1: TcxGridDBColumn;
     cxGrid1DBTableView1CENA2: TcxGridDBColumn;
-    IBQuery1FL_2CENA: TIntegerField;
     IBQuery2GKAL1: TIBBCDField;
     IBQuery2GKAL2: TIBBCDField;
     IBQuery2CENA1: TIBBCDField;
     IBQuery2CENA2: TIBBCDField;
     IBQuery2FL_2CENA: TIntegerField;
-    IBQuery1WIDAB: TIBStringField;
     IBQuery2WIDAB: TIBStringField;
     cxLookupComboBox2: TcxLookupComboBox;
     cxLabel1: TcxLabel;
@@ -159,18 +121,7 @@ type
     IBQuery3NOTHERS: TIBStringField;
     IBQuery3NO_LICH: TIntegerField;
     IBQuery3GKAL1: TIBBCDField;
-    IBQuery1MZK_GK1: TIBBCDField;
-    IBQuery1MZK_GK2: TIBBCDField;
-    cxGrid1DBTableView1MZK_GK1: TcxGridDBColumn;
-    cxGrid1DBTableView1MZK_GK2: TcxGridDBColumn;
     IBQuery3MZK_GK1: TIBBCDField;
-    IBQuery1PLOSALL: TIBBCDField;
-    IBQuery1PLOS_IN: TIBBCDField;
-    IBQuery1PLOS_MZK: TIBBCDField;
-    IBQuery1PN: TIBBCDField;
-    IBQuery1PK: TIBBCDField;
-    IBQuery1PN2: TIBBCDField;
-    IBQuery1PK2: TIBBCDField;
     cxGrid1DBTableView1PLOS: TcxGridDBColumn;
     cxGrid1DBTableView1PLOSALL: TcxGridDBColumn;
     cxGrid1DBTableView1PLOS_IN: TcxGridDBColumn;
@@ -192,23 +143,131 @@ type
     cxGridDBColumn9: TcxGridDBColumn;
     cxGridLevel1: TcxGridLevel;
     IBQuery4: TIBQuery;
-    IntegerField1: TIntegerField;
-    IBStringField1: TIBStringField;
-    IBStringField2: TIBStringField;
-    IBStringField3: TIBStringField;
-    IBStringField4: TIBStringField;
-    IBBCDField1: TIBBCDField;
-    IBBCDField2: TIBBCDField;
-    IBStringField5: TIBStringField;
-    IBStringField6: TIBStringField;
-    IBStringField7: TIBStringField;
-    IBStringField8: TIBStringField;
-    IntegerField2: TIntegerField;
-    IBStringField9: TIBStringField;
-    IntegerField3: TIntegerField;
-    IBBCDField3: TIBBCDField;
-    IBBCDField4: TIBBCDField;
     DSQuery4: TDataSource;
+    IBQuery1TARIFNAM: TIBStringField;
+    IBQuery1ADRES: TIBStringField;
+    IBQuery1UL: TIBStringField;
+    IBQuery1DOM: TIBStringField;
+    IBQuery1PLOSALL: TIBBCDField;
+    IBQuery1PLOS: TIBBCDField;
+    IBQuery1PLOS_IN: TIBBCDField;
+    IBQuery1PLOS_MZK: TIBBCDField;
+    IBQuery1GKAL1: TIBBCDField;
+    IBQuery1GKAL2: TIBBCDField;
+    IBQuery1PN: TIBBCDField;
+    IBQuery1PK: TIBBCDField;
+    IBQuery1PN2: TIBBCDField;
+    IBQuery1PK2: TIBBCDField;
+    IBQuery1CENA1: TIBBCDField;
+    IBQuery1CENA2: TIBBCDField;
+    IBQuery1FL_2CENA: TIntegerField;
+    IBQuery1TARIF_END: TIBBCDField;
+    IBQuery1TARIF_ENDPDV: TIBBCDField;
+    IBQuery1SUMOT: TIBBCDField;
+    IBQuery1SUMOTPDV: TIBBCDField;
+    IBQuery1MZK: TIBBCDField;
+    IBQuery1MZK_PDV: TIBBCDField;
+    IBQuery1SUMMZK: TIBBCDField;
+    IBQuery1SUMMZK_PDV: TIBBCDField;
+    IBQuery1ALLSUM: TIBBCDField;
+    IBQuery1ALLSUM_PDV: TIBBCDField;
+    IBQuery1NORMA: TIBBCDField;
+    IBQuery1TARIF_RK: TIBBCDField;
+    IBQuery1BORG_VIDH: TIBBCDField;
+    IBQuery1KOTEL: TIBStringField;
+    IBQuery1VID: TIBStringField;
+    IBQuery1WIDAB: TIBStringField;
+    IBQuery1DATA: TDateField;
+    IBQuery1WID: TIBStringField;
+    IBQuery1POSL: TIBStringField;
+    IBQuery1ID_POSL: TIntegerField;
+    IBQuery1TARIF_PLAN: TIBBCDField;
+    IBQuery1TARIF_FACT: TIBBCDField;
+    IBQuery1END_BL: TIBBCDField;
+    IBQuery1END_L: TIBBCDField;
+    IBQuery1OTHERS: TIntegerField;
+    IBQuery1NOTHERS: TIBStringField;
+    IBQuery1NO_LICH: TIntegerField;
+    cxGrid1DBTableView1MZK_PDV: TcxGridDBColumn;
+    cxGrid1DBTableView1SUMMZK: TcxGridDBColumn;
+    cxGrid1DBTableView1SUMMZK_PDV: TcxGridDBColumn;
+    cxGrid1DBTableView1ALLSUM: TcxGridDBColumn;
+    cxGrid1DBTableView1ALLSUM_PDV: TcxGridDBColumn;
+    IBQuery1MZK_GK1: TIBBCDField;
+    IBQuery1MZK_GK2: TIBBCDField;
+    cxGrid1DBTableView1MZK_GK1: TcxGridDBColumn;
+    cxGrid1DBTableView1MZK_GK2: TcxGridDBColumn;
+    IBQuery3SUMMZK: TIBBCDField;
+    IBQuery3SUMMZK_PDV: TIBBCDField;
+    IBQuery3ALLSUM: TIBBCDField;
+    IBQuery3ALLSUM_PDV: TIBBCDField;
+    cxGridDBTableView2PLOS_BBI: TcxGridDBColumn;
+    cxGridDBTableView2MZK: TcxGridDBColumn;
+    cxGridDBTableView2PLOS_IN: TcxGridDBColumn;
+    cxGridDBTableView2PLOS_MZK: TcxGridDBColumn;
+    cxGridDBTableView2MZK_GK1: TcxGridDBColumn;
+    cxGridDBTableView2MZK_GK2: TcxGridDBColumn;
+    cxGridDBTableView2MZK_PLOSALL: TcxGridDBColumn;
+    cxGridDBTableView2MZK_GKKV1: TcxGridDBColumn;
+    cxGridDBTableView2MZK_GKKV2: TcxGridDBColumn;
+    cxGridDBTableView2MZK_GKALL1: TcxGridDBColumn;
+    cxGridDBTableView2MZK_GKALL2: TcxGridDBColumn;
+    cxGridDBTableView2MZK_GKCO1: TcxGridDBColumn;
+    cxGridDBTableView2MZK_GKCO2: TcxGridDBColumn;
+    cxGridDBTableView2MZK_GKM2IND1: TcxGridDBColumn;
+    cxGridDBTableView2MZK_GKM2IND2: TcxGridDBColumn;
+    cxGridDBTableView2MZK_CENA1: TcxGridDBColumn;
+    cxGridDBTableView2MZK_CENA2: TcxGridDBColumn;
+    cxGridDBTableView2SUMMZK: TcxGridDBColumn;
+    cxGridDBTableView2SUMMZK_PDV: TcxGridDBColumn;
+    cxGridDBTableView2NAME: TcxGridDBColumn;
+    IBQuery4ID: TIntegerField;
+    IBQuery4ID_TARIF: TIntegerField;
+    IBQuery4ADRES: TIBStringField;
+    IBQuery4UL: TIBStringField;
+    IBQuery4DOM: TIBStringField;
+    IBQuery4DATA: TDateField;
+    IBQuery4PLOS_BBI: TIBBCDField;
+    IBQuery4MZK: TIBBCDField;
+    IBQuery4MZK_PDV: TIBBCDField;
+    IBQuery4PLOS_IN: TIBBCDField;
+    IBQuery4PLOS_MZK: TIBBCDField;
+    IBQuery4MZK_GK1: TIBBCDField;
+    IBQuery4MZK_GK2: TIBBCDField;
+    IBQuery4MZK_PLOSALL: TIBBCDField;
+    IBQuery4MZK_GKKV1: TIBBCDField;
+    IBQuery4MZK_GKKV2: TIBBCDField;
+    IBQuery4MZK_GKALL1: TIBBCDField;
+    IBQuery4MZK_GKALL2: TIBBCDField;
+    IBQuery4MZK_GKCO1: TIBBCDField;
+    IBQuery4MZK_GKCO2: TIBBCDField;
+    IBQuery4MZK_GKM2IND1: TIBBCDField;
+    IBQuery4MZK_GKM2IND2: TIBBCDField;
+    IBQuery4MZK_SUMM2IND1: TIBBCDField;
+    IBQuery4MZK_SUMM2IND2: TIBBCDField;
+    IBQuery4MZK_CENA1: TIBBCDField;
+    IBQuery4MZK_CENA2: TIBBCDField;
+    IBQuery4SUMMZK: TIBBCDField;
+    IBQuery4SUMMZK_PDV: TIBBCDField;
+    IBQuery4NAME: TIBStringField;
+    IBQuery4VID: TIBStringField;
+    IBQuery4WWID: TIBStringField;
+    cxGridDBTableView2MZK_PDV: TcxGridDBColumn;
+    IBQuery4PLOS_BB: TIBBCDField;
+    IBQuery4LICH_PN: TIBBCDField;
+    IBQuery4LICH_PK: TIBBCDField;
+    IBQuery4LICH_GK: TIBBCDField;
+    IBQuery4LICH_PN2: TIBBCDField;
+    IBQuery4LICH_PK2: TIBBCDField;
+    IBQuery4LICH_GK2: TIBBCDField;
+    cxGridDBTableView2LICH_PN: TcxGridDBColumn;
+    cxGridDBTableView2LICH_PK: TcxGridDBColumn;
+    cxGridDBTableView2LICH_GK: TcxGridDBColumn;
+    cxGridDBTableView2LICH_PN2: TcxGridDBColumn;
+    cxGridDBTableView2LICH_PK2: TcxGridDBColumn;
+    cxGridDBTableView2LICH_GK2: TcxGridDBColumn;
+    IBQuery4SUMMZK_PDV1: TIBBCDField;
+    IBQuery4FL_2CENA: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure cxButton7Click(Sender: TObject);
@@ -317,8 +376,15 @@ begin
           cxGrid1DBTableView1END_L.Visible:=false;
           cxGrid1DBTableView1GKAL1.Visible:=false;
           cxGrid1DBTableView1GKAL2.Visible:=false;
+          cxGrid1DBTableView1MZK_PDV.Visible:=false;
+          cxGrid1DBTableView1SUMMZK.Visible:=false;
+          cxGrid1DBTableView1SUMMZK_PDV.Visible:=false;
+          cxGrid1DBTableView1ALLSUM.Visible:=false;
+          cxGrid1DBTableView1ALLSUM_PDV.Visible:=false;
           cxGrid1DBTableView1MZK_GK1.Visible:=false;
           cxGrid1DBTableView1MZK_GK2.Visible:=false;
+
+
           cxGrid1DBTableView1CENA1.Visible:=false;
           cxGrid1DBTableView1CENA2.Visible:=false;
           cxButton1.Visible:=false;
@@ -359,7 +425,15 @@ begin
           cxGrid1DBTableView1NORMA.Visible:=false;
           cxGrid1DBTableView1GKAL1.Visible:=true;
           cxGrid1DBTableView1CENA1.Visible:=true;
+
+          cxGrid1DBTableView1MZK_PDV.Visible:=true;
+          cxGrid1DBTableView1SUMMZK.Visible:=true;
+          cxGrid1DBTableView1SUMMZK_PDV.Visible:=true;
+          cxGrid1DBTableView1ALLSUM.Visible:=true;
+          cxGrid1DBTableView1ALLSUM_PDV.Visible:=true;
           cxGrid1DBTableView1MZK_GK1.Visible:=true;
+
+
           cxGrid1DBTableView1PLOS.Visible:=true;
           cxGrid1DBTableView1PLOSALL.Visible:=true;
           cxGrid1DBTableView1PLOS_IN.Visible:=true;
@@ -371,9 +445,9 @@ begin
           begin
             cxGrid1DBTableView1GKAL2.Visible:=true;
             cxGrid1DBTableView1CENA2.Visible:=true;
-            cxGrid1DBTableView1MZK_GK2.Visible:=true;
             cxGrid1DBTableView1PN2.Visible:=true;
             cxGrid1DBTableView1PK2.Visible:=true;
+            cxGrid1DBTableView1MZK_GK2.Visible:=true;
           end;
           cxButton1.Visible:=true;
 
@@ -393,7 +467,10 @@ begin
           cxGrid1DBTableView1END_BL.Visible:=false;
           cxGrid1DBTableView1END_L.Visible:=false;
           cxGrid1DBTableView1GKAL2.Visible:=false;
+
+          cxGrid1DBTableView1MZK_PDV.Visible:=false;
           cxGrid1DBTableView1MZK_GK2.Visible:=false;
+
           cxGrid1DBTableView1CENA1.Visible:=false;
           cxGrid1DBTableView1CENA2.Visible:=false;
           cxButton1.Visible:=true;
@@ -407,43 +484,37 @@ begin
           cxGrid1DBTableView1PK2.Visible:=false;
   end;
 
-//  if IBQuery2.Active then
-//  begin
-//
-//          cxGridDBTableView1SENDPDV.Visible:=false;
-//          cxGridDBTableView1sumot.Visible:=false;
-//          cxGridDBTableView1sumotpdv.Visible:=false;
-//          cxGridDBTableView1mzk.Visible:=false;
-//          cxGridDBTableView1SPLAN.Visible:=false;
-//          cxGridDBTableView1SFACT.Visible:=false;
-//          cxGridDBTableView1NORMA.Visible:=true;
-//          cxGridDBTableView1GKAL.Visible:=false;
-//
-//
-//        if IBPOSLWID.Value='ub' then
-//        begin
-//
-//          cxGridDBTableView1SPLAN.Visible:=true;
-//          cxGridDBTableView1SFACT.Visible:=true;
-//          cxGridDBTableView1NORMA.Visible:=false;
-//
-//        end;
-//
-//        if IBPOSLWID.Value='ot' then
-//        begin
-//
-//          cxGridDBTableView1SENDPDV.Visible:=true;
-//          cxGridDBTableView1sumot.Visible:=true;
-//          cxGridDBTableView1sumotpdv.Visible:=true;
-//          cxGridDBTableView1mzk.Visible:=true;
-//          cxGridDBTableView1NORMA.Visible:=false;
-//          cxGridDBTableView1GKAL.Visible:=true;
-//
-//        end;
-//
-//
-//
-//  end;
+  if IBQuery4.Active then
+  begin
+
+          if IBQuery4.FieldByName('fl_2cena').Value=1 then
+          begin
+            cxGridDBTableView2LICH_PN2.Visible:=true;
+            cxGridDBTableView2LICH_PK2.Visible:=true;
+            cxGridDBTableView2LICH_GK2.Visible:=true;
+            cxGridDBTableView2MZK_GK2.Visible:=true;
+            cxGridDBTableView2MZK_GKKV2.Visible:=true;
+            cxGridDBTableView2MZK_GKALL2.Visible:=true;
+            cxGridDBTableView2MZK_GKCO2.Visible:=true;
+            cxGridDBTableView2MZK_GKM2IND2.Visible:=true;
+            cxGridDBTableView2MZK_CENA2.Visible:=true;
+
+          end
+          else
+          begin
+            cxGridDBTableView2LICH_PN2.Visible:=false;
+            cxGridDBTableView2LICH_PK2.Visible:=false;
+            cxGridDBTableView2LICH_GK2.Visible:=false;
+            cxGridDBTableView2MZK_GK2.Visible:=false;
+            cxGridDBTableView2MZK_GKKV2.Visible:=false;
+            cxGridDBTableView2MZK_GKALL2.Visible:=false;
+            cxGridDBTableView2MZK_GKCO2.Visible:=false;
+            cxGridDBTableView2MZK_GKM2IND2.Visible:=false;
+            cxGridDBTableView2MZK_CENA2.Visible:=false;
+
+          end;
+
+  end;
 
 
 
