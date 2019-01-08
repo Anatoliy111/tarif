@@ -782,7 +782,7 @@ begin
          IBTARIFUPDSUMOTPDV.AsCurrency:=(SimpleRoundTo(IBTARIFUPDTARIF_END.Value*IBTARIFUPDPLOS_BBI.AsFloat,-2))*1.2;
 
          IBTARIFUPDALLSUM.AsCurrency:=IBTARIFUPDSUMOT.AsCurrency;
-         IBTARIFUPDALLSUM_PDV.AsCurrency:=IBTARIFUPDALLSUM.AsCurrency;
+         IBTARIFUPDALLSUM_PDV.AsCurrency:=SimpleRoundTo(IBTARIFUPDALLSUM.AsCurrency*1.2,-2);
 
 
 //         IBTARIFUPDCENA1.Value:=cenaosn1;
