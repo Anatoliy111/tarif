@@ -13,7 +13,8 @@ uses
   cxDropDownEdit, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxLabel,
   IBX.IBCustomDataSet, IBX.IBQuery, Vcl.DBCtrls, dxSparkline, dxDBSparkline,
   IWVCLBaseControl, IWBaseControl, IWBaseHTMLControl, IWControl, IWCompListbox,
-  IWDBStdCtrls, cxListBox, cxDBEdit, frxClass, frxDBSet;
+  IWDBStdCtrls, cxListBox, cxDBEdit, frxClass, frxDBSet, frxExportCSV,
+  frxExportRTF, frxExportXLS;
 
 type
   TReport = class(TAllMDICh)
@@ -268,6 +269,8 @@ type
     cxGridDBTableView2LICH_GK2: TcxGridDBColumn;
     IBQuery4SUMMZK_PDV1: TIBBCDField;
     IBQuery4FL_2CENA: TIntegerField;
+    frxRTFExport1: TfrxRTFExport;
+    frxXLSExport1: TfrxXLSExport;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure cxButton7Click(Sender: TObject);
@@ -276,6 +279,7 @@ type
     procedure cxLookupComboBox1PropertiesChange(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
     procedure cxLookupComboBox2PropertiesChange(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
   private
     procedure ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
 
@@ -523,24 +527,39 @@ end;
 
 
 procedure TReport.cxButton1Click(Sender: TObject);
+var Datename1,Datename2:string;
 begin
   inherited;
+DateTimeToString(Datename1,'mm yyyy',cxLookupComboBox1.EditValue);
+if cxLookupComboBox2.EditValue<>null then
+  DateTimeToString(Datename2,'mm yyyy',cxLookupComboBox2.EditValue);
 
 if IBPOSLWID.Value='ot' then
 begin
   if IBQuery1.FieldByName('fl_2cena').Value=1 then
-    frxReport2.LoadFromFile('report/BuhgOT2.fr3')
+  begin
+    frxReport2.LoadFromFile('report/BuhgOT2.fr3');
+    frxXLSExport1.FileName:='«в≥т по опаленню '+Datename1;
+  end
   else
+  begin
     frxReport2.LoadFromFile('report/BuhgOT.fr3');
+    frxXLSExport1.FileName:='«в≥т по опаленню '+Datename1;
+  end;
 end;
 
 if IBPOSLWID.Value='ub' then
+begin
   frxReport2.LoadFromFile('report/BuhgUB.fr3');
+  frxXLSExport1.FileName:='«в≥т по упр.буд. '+Datename1;
+end;
+
 
 if IBQuery3.Active then
 begin
   frxDBDataset1.DataSet:=IBQuery3;
   frxReport2.LoadFromFile('report/BuhgOTPeriod.fr3');
+  frxXLSExport1.FileName:='«в≥т за пер≥од '+Datename1+' '+Datename2;
 end;
 
 frxReport2.Variables['Dolgn']:=''''+DataMod.DataM.iniFile.ReadString('RepBuhg','Dolgn',extractfilepath(paramstr(0)))+'''';
@@ -554,6 +573,24 @@ else
 frxReport2.Variables['datemes']:=''''+mon_slovoDt(cxLookupComboBox1.EditValue)+'''';
 
 frxReport2.ShowReport;
+
+end;
+
+procedure TReport.cxButton2Click(Sender: TObject);
+var Reg: TRegistry;
+    path,fdata:string;
+    sd:TSaveDialog;
+    Filename:string;
+begin
+  inherited;
+
+  DateTimeToString(fdata,'mmddhhmm',now);
+  DateTimeToString(Filename,'dd mm yyyy',cxLookupComboBox1.EditValue);
+  Filename:='«в≥т дл€ бух.'+IBPOSLNAME.Value+' '+Filename;
+  frxRTFExport1.FileName:=filename;
+  frxReport2.PrepareReport;
+  frxReport2.Export(frxRTFExport1);
+
 end;
 
 procedure TReport.cxButton6Click(Sender: TObject);

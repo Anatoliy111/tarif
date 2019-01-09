@@ -673,6 +673,7 @@
   object IBQuery1: TIBQuery
     Database = DataM.IBDatabase1
     Transaction = IBTransaction1
+    Active = True
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
@@ -1497,15 +1498,16 @@
     Top = 344
   end
   object frxReport2: TfrxReport
-    Version = '5.3.14'
+    Version = '5.3.16'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
+    PrintOptions.ShowDialog = False
     ReportOptions.CreateDate = 43425.596407557900000000
-    ReportOptions.LastChange = 43441.459127835650000000
+    ReportOptions.LastChange = 43439.396072280100000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     Left = 144
@@ -2057,5 +2059,36 @@
     DataSet = IBQuery4
     Left = 360
     Top = 344
+  end
+  object frxRTFExport1: TfrxRTFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    PictureType = gpPNG
+    OpenAfterExport = True
+    Wysiwyg = True
+    Creator = 'FastReport'
+    SuppressPageHeadersFooters = False
+    HeaderFooterMode = hfText
+    AutoSize = False
+    Left = 344
+    Top = 408
+  end
+  object frxXLSExport1: TfrxXLSExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    ExportEMF = True
+    OpenExcelAfterExport = True
+    AsText = False
+    Background = True
+    FastExport = True
+    PageBreaks = True
+    EmptyLines = True
+    SuppressPageHeadersFooters = False
+    Left = 416
+    Top = 408
   end
 end
