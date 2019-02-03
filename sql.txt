@@ -1,0 +1,65 @@
+select id,tarifnam,tarif_end,tarif_endpdv,norma,vid,widab,data,wid,posl,tarif_plan,tarif_fact,end_bl,end_l
+from
+(select tarif.id, 
+        tarif.name tarifnam,
+        tarif_mes.tarif_end,
+        tarif_mes.tarif_endpdv,
+        tarif_mes.norma,
+        vidab.name vid,
+        vidab.wid widab,
+        tarif_mes.data,
+        posl.wid,
+        posl.name posl,
+        tarif_mes.tarif_plan,
+        tarif_mes.tarif_fact,
+        tarif_mes.end_bl,
+        tarif_mes.end_l
+    from tarif_mes
+       left join vidab on (tarif_mes.id_vidab = vidab.id)
+       inner join tarif on (tarif_mes.id_tarif = tarif.id)
+       inner join posl on (tarif.id_posl = posl.id)
+   union
+select   tarif.id-300 id,
+        ('МЗК' || ' ' || tarif.name) tarifnam,
+        tarif_mes.mzk as tarif_end,
+        tarif_mes.mzk_pdv tarif_endpdv,
+        0.00 as norma,
+        vidab.name vid,
+        vidab.wid widab,
+        tarif_mes.data,
+        posl.wid,
+        posl.name posl,
+        0.00 as tarif_plan,
+        0.00 as tarif_fact,
+        0.00 as end_bl,
+        0.00 as end_l
+    from tarif_mes
+       left join vidab on (tarif_mes.id_vidab = vidab.id)
+       inner join tarif on (tarif_mes.id_tarif = tarif.id)
+       inner join posl on (tarif.id_posl = posl.id)
+       where posl.wid='ot'
+   union
+    select tarif.id-300-other.id id,
+        other.name tarifnam,
+        tarif_other.send tarif_end,
+        tarif_other.sendpdv tarif_endpdv,
+        0.00 as norma,
+        vidab.name vid,
+        vidab.wid widab,
+        tarif_mes.data,
+        posl.wid,
+        posl.name posl,
+        tarif_other.splan tarif_plan,
+        tarif_other.sfact tarif_fact,
+        00.0 as end_bl,
+        00.0 as end_l
+    from tarif_other
+       left outer join dom_other on (tarif_other.id_domother = dom_other.id)
+       left outer join other on (dom_other.id_other = other.id)
+       left outer join vidab on (other.id_vidab = vidab.id)
+       left outer join tarif on (tarif_other.id_tarif = tarif.id)
+       left outer join posl on (tarif.id_posl = posl.id)
+       inner join tarif_mes on (tarif_other.id_tarifmes = tarif_mes.id)
+)
+where data = :dt and wid is not null and widab='ns' and tarif_end<>0
+order by wid,tarifnam

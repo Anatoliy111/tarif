@@ -622,8 +622,9 @@ Prores.Show;
          Prores.cxProgressBar1.Properties.Min:=0;
 
          IBQuery1.close;
-         IBQuery1.SQL.Text:='select tarif_mes.*,posl.wid from tarif_mes, tarif, posl where tarif_mes.data=:dt and tarif_mes.id_tarif=tarif.id and tarif.id_posl=posl.id';
+         IBQuery1.SQL.Text:='select * from vw_tm where data=:dt';
          IBQuery1.ParamByName('dt').AsDate:=date;
+
          IBQuery1.open;
          IBQuery1.Last;
          Prores.cxProgressBar1.Properties.Max:=IBQuery1.RecordCount-1;
@@ -687,6 +688,8 @@ Prores.Show;
              IBQuery2.Next;
              end;
 
+          end;
+
               IBQuery2.close;
              IBQuery2.SQL.Text:='select * from tarif_other where id_tarifmes=:idmes';
              IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').AsInteger;
@@ -694,78 +697,97 @@ Prores.Show;
              IBQuery2.First;
              while not IBQuery2.Eof do
              begin
-               IBTARIF_OTHER.Insert;
-               IBTARIF_OTHERID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-               IBTARIF_OTHERID_DOMOTHER.Value:=IBQuery2.FieldByName('ID_DOMOTHER').AsInteger;
+                if fl_newmes then
+                begin
+                   IBTARIF_OTHER.Insert;
+                   IBTARIF_OTHERID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
+                   IBTARIF_OTHERID_DOMOTHER.Value:=IBQuery2.FieldByName('ID_DOMOTHER').AsInteger;
 
-               if (IBQuery2.FieldByName('LICH_PK2').AsFloat<>0) and (FL_2DATE=1) then
-                  IBTARIF_OTHERLICH_PN.Value:=IBQuery2.FieldByName('LICH_PK2').AsFloat
-               else
-                  IBTARIF_OTHERLICH_PN.Value:=IBQuery2.FieldByName('LICH_PK').AsFloat;
+                   if (IBQuery2.FieldByName('LICH_PK2').AsFloat<>0) and (FL_2DATE=1) then
+                      IBTARIF_OTHERLICH_PN.Value:=IBQuery2.FieldByName('LICH_PK2').AsFloat
+                   else
+                      IBTARIF_OTHERLICH_PN.Value:=IBQuery2.FieldByName('LICH_PK').AsFloat;
 
-               IBTARIF_OTHERID_TARIFMES.Value:=IBTARIF_MESID.AsInteger;
-               IBTARIF_OTHERID_VIDCENA.Value:=IBQuery2.FieldByName('ID_VIDCENA').AsInteger;
-               IBTARIF_OTHERFL_LICH.Value:=IBQuery2.FieldByName('FL_LICH').AsInteger;
-               IBTARIF_OTHERNORMA.Value:=IBQuery2.FieldByName('NORMA').AsFloat;
-               IBTARIF_OTHERFL_MZK.Value:=IBQuery2.FieldByName('FL_MZK').AsInteger;
-               IBTARIF_OTHER.Post;
+                   IBTARIF_OTHERID_TARIFMES.Value:=IBTARIF_MESID.AsInteger;
+                   IBTARIF_OTHERID_VIDCENA.Value:=IBQuery2.FieldByName('ID_VIDCENA').AsInteger;
+                   IBTARIF_OTHERFL_LICH.Value:=IBQuery2.FieldByName('FL_LICH').AsInteger;
+                   IBTARIF_OTHERNORMA.Value:=IBQuery2.FieldByName('NORMA').AsFloat;
+                   IBTARIF_OTHERFL_MZK.Value:=IBQuery2.FieldByName('FL_MZK').AsInteger;
+                   IBTARIF_OTHER.Post;
+                end;
+
+                if IBQuery2.FieldByName('WIDAB').AsString='ns' then
+                begin
+
+                   ADOQuery1.Insert;
+                   ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
+                   if IBTARIF_COMP.Locate('id_tarif',IBQuery1.FieldByName('ID_TARIF').AsInteger,[]) then
+                       ADOQuery1.FieldByName('kl').Value:=IBTARIF_COMPKL_NTAR.AsInteger;
+
+                   ADOQuery1.FieldByName('wid').Value:=IBQuery1.FieldByName('WID').AsString;
+                   ADOQuery1.FieldByName('name').Value:=StringReplace(IBQuery1.FieldByName('name').Value, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
+                   ADOQuery1.FieldByName('norma').Value:=IBQuery1.FieldByName('NORMA').AsFloat;
+                   ADOQuery1.FieldByName('tarif').Value:=IBQuery1.FieldByName('TARIF_END').AsFloat;
+                   ADOQuery1.FieldByName('plan').Value:=IBQuery1.FieldByName('TARIF_PLAN').AsFloat;
+                   ADOQuery1.FieldByName('fact').Value:=IBQuery1.FieldByName('TARIF_FACT').AsFloat;
+                   ADOQuery1.FieldByName('tarif_bl').Value:=IBQuery1.FieldByName('END_BL').AsFloat;
+                   ADOQuery1.FieldByName('tarif_l').Value:=IBQuery1.FieldByName('END_L').AsFloat;
+                   ADOQuery1.Post;
+
+                   if (ADOQuery1.FieldByName('wid').Value='ot') and (IBQuery1.FieldByName('MZK').AsFloat<>0) then
+                   begin
+                   sss:=StringReplace(IBQuery1.FieldByName('name').Value, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
+                   sss:=StringReplace(sss, 'Îïàëåííÿ', 'ÌÇÊ',[rfReplaceAll, rfIgnoreCase]);
+
+                   ADOQuery1.Insert;
+                   ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
+                   ADOQuery1.FieldByName('wid').Value:='om';
+                   ADOQuery1.FieldByName('name').Value:=StringReplace(sss, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
+                   ADOQuery1.FieldByName('tarif').Value:=IBQuery1.FieldByName('MZK').AsFloat;
+
+                   ADOQuery1.Post;
+                   end;
+
+
+                end;
+
              IBQuery2.Next;
              end;
-          end;
 
-
-
-
-
-         IBQuery2.close;
-         IBQuery2.SQL.Text:='select tarif_comp.*, tarif.name as nnn, posl.wid from tarif_comp, tarif,posl where id_tarifmes=:idmes and tarif_comp.id_tarif=tarif.id and posl.id=tarif.id_posl and tarif_comp.fl_lift=0';
-         IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').Value;
-         IBQuery2.open;
-         IBQuery2.First;
-         ADOQuery1.Open;
-         ADOQuery2.Open;
-         while not IBQuery2.Eof do
-         begin
-          if fl_newmes then
+          if IBQuery1.FieldByName('WIDAB').AsString='ns' then
           begin
-           IBTARIF_COMP.Insert;
-           IBTARIF_COMPID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-           IBTARIF_COMPNAME.Value:=IBQuery2.FieldByName('NAME').AsString;
-           IBTARIF_COMPKL_NTAR.Value:=iif(IBQuery2.FieldByName('KL_NTAR').Value=null,0,IBQuery2.FieldByName('KL_NTAR').Value);
-           IBTARIF_COMPFL_LIFT.Value:=iif(IBQuery2.FieldByName('FL_LIFT').Value=null,0,IBQuery2.FieldByName('FL_LIFT').Value);
-//           IBTARIF_COMPNORMA.Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
-           IBTARIF_COMPID_TARIFMES.Value:=IBTARIF_MESID.AsInteger;
-           IBTARIF_COMP.Post;
+
+             ADOQuery1.Insert;
+             ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
+             if IBTARIF_COMP.Locate('id_tarif',IBQuery1.FieldByName('ID_TARIF').AsInteger,[]) then
+                 ADOQuery1.FieldByName('kl').Value:=IBTARIF_COMPKL_NTAR.AsInteger;
+
+             ADOQuery1.FieldByName('wid').Value:=IBQuery1.FieldByName('WID').AsString;
+             ADOQuery1.FieldByName('name').Value:=StringReplace(IBQuery1.FieldByName('name').Value, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
+             ADOQuery1.FieldByName('norma').Value:=IBQuery1.FieldByName('NORMA').AsFloat;
+             ADOQuery1.FieldByName('tarif').Value:=IBQuery1.FieldByName('TARIF_END').AsFloat;
+             ADOQuery1.FieldByName('plan').Value:=IBQuery1.FieldByName('TARIF_PLAN').AsFloat;
+             ADOQuery1.FieldByName('fact').Value:=IBQuery1.FieldByName('TARIF_FACT').AsFloat;
+             ADOQuery1.FieldByName('tarif_bl').Value:=IBQuery1.FieldByName('END_BL').AsFloat;
+             ADOQuery1.FieldByName('tarif_l').Value:=IBQuery1.FieldByName('END_L').AsFloat;
+             ADOQuery1.Post;
+
+             if (ADOQuery1.FieldByName('wid').Value='ot') and (IBQuery1.FieldByName('MZK').AsFloat<>0) then
+             begin
+             sss:=StringReplace(IBQuery1.FieldByName('name').Value, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
+             sss:=StringReplace(sss, 'Îïàëåííÿ', 'ÌÇÊ',[rfReplaceAll, rfIgnoreCase]);
+
+             ADOQuery1.Insert;
+             ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
+             ADOQuery1.FieldByName('wid').Value:='om';
+             ADOQuery1.FieldByName('name').Value:=StringReplace(sss, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
+             ADOQuery1.FieldByName('tarif').Value:=IBQuery1.FieldByName('MZK').AsFloat;
+
+             ADOQuery1.Post;
+             end;
+
+
           end;
-
-           ADOQuery1.Insert;
-           ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-           ADOQuery1.FieldByName('kl').Value:=IBQuery2.FieldByName('KL_NTAR').AsInteger;
-           ADOQuery1.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').AsString;
-           ADOQuery1.FieldByName('name').Value:=StringReplace(IBQuery2.FieldByName('nnn').Value, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
-           ADOQuery1.FieldByName('norma').Value:=IBQuery1.FieldByName('NORMA').AsFloat;
-           ADOQuery1.FieldByName('tarif').Value:=IBQuery1.FieldByName('TARIF_END').AsFloat;
-           ADOQuery1.FieldByName('plan').Value:=IBQuery1.FieldByName('TARIF_PLAN').AsFloat;
-           ADOQuery1.FieldByName('fact').Value:=IBQuery1.FieldByName('TARIF_FACT').AsFloat;
-           ADOQuery1.FieldByName('tarif_bl').Value:=IBQuery1.FieldByName('END_BL').AsFloat;
-           ADOQuery1.FieldByName('tarif_l').Value:=IBQuery1.FieldByName('END_L').AsFloat;
-
-           ADOQuery1.Post;
-           if ADOQuery1.FieldByName('wid').Value='ot' then
-           begin
-           sss:=StringReplace(IBQuery2.FieldByName('nnn').Value, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
-           sss:=StringReplace(sss, 'Îïàëåííÿ', 'ÌÇÊ',[rfReplaceAll, rfIgnoreCase]);
-
-           ADOQuery1.Insert;
-           ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-           ADOQuery1.FieldByName('wid').Value:='om';
-           ADOQuery1.FieldByName('name').Value:=StringReplace(sss, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
-           ADOQuery1.FieldByName('tarif').Value:=IBQuery1.FieldByName('MZK').AsFloat;
-
-           ADOQuery1.Post;
-           end;
-
-
 
 
              IBQuery3.close;
@@ -780,17 +802,17 @@ Prores.Show;
                ADOQuery3.FieldByName('id_dom').Value:=IBQuery3.FieldByName('id_dom').AsInteger;
                ADOQuery3.FieldByName('id_house').Value:=IBQuery3.FieldByName('id_house').Value;
                ADOQuery3.FieldByName('dom').Value:=IBQuery3.FieldByName('dom').Value;
-               ADOQuery3.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').Value;
+               ADOQuery3.FieldByName('wid').Value:=IBQuery1.FieldByName('WID').Value;
                ADOQuery3.FieldByName('id_ul').Value:=IBQuery3.FieldByName('id_ul').Value;
                ADOQuery3.FieldByName('ul').Value:=IBQuery3.FieldByName('ul').Value;
                ADOQuery3.FieldByName('id_street').Value:=IBQuery3.FieldByName('id_street').Value;
                ADOQuery3.FieldByName('kl_ul').Value:=IBQuery3.FieldByName('kl_ul').Value;
-               ADOQuery3.FieldByName('norma').Value:=iif(IBQuery2.FieldByName('NORMA').Value=null,0,IBQuery2.FieldByName('NORMA').Value);
-               ADOQuery3.FieldByName('tarif').Value:=iif(IBQuery2.FieldByName('SUMM').Value=null,0,IBQuery2.FieldByName('SUMM').Value);
-               ADOQuery3.FieldByName('plan').Value:=iif(IBQuery2.FieldByName('SPLAN').Value=null,0,IBQuery2.FieldByName('SPLAN').Value);
-               ADOQuery3.FieldByName('fact').Value:=iif(IBQuery2.FieldByName('SFACT').Value=null,0,IBQuery2.FieldByName('SFACT').Value);
-               ADOQuery3.FieldByName('tarif_bl').Value:=iif(IBQuery2.FieldByName('SUMM_BL').Value=null,0,IBQuery2.FieldByName('SUMM_BL').Value);
-               ADOQuery3.FieldByName('tarif_l').Value:=iif(IBQuery2.FieldByName('SUMM_L').Value=null,0,IBQuery2.FieldByName('SUMM_L').Value);
+               ADOQuery3.FieldByName('norma').Value:=IBQuery1.FieldByName('NORMA').AsFloat;
+               ADOQuery3.FieldByName('tarif').Value:=IBQuery1.FieldByName('TARIF_END').AsFloat;
+               ADOQuery3.FieldByName('plan').Value:=IBQuery1.FieldByName('TARIF_PLAN').AsFloat;
+               ADOQuery3.FieldByName('fact').Value:=IBQuery1.FieldByName('TARIF_FACT').AsFloat;
+               ADOQuery3.FieldByName('tarif_bl').Value:=IBQuery1.FieldByName('END_BL').AsFloat;
+               ADOQuery3.FieldByName('tarif_l').Value:=IBQuery1.FieldByName('END_L').AsFloat;
                ADOQuery3.Post;
 
 
@@ -805,7 +827,7 @@ Prores.Show;
                    ADOQuery2.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
                    ADOQuery2.FieldByName('code_ser').Value:=IBQuery4.FieldByName('code_servi').Value;
                    ADOQuery2.FieldByName('name').Value:=StringReplace(IBQuery4.FieldByName('nnn').Value, '³', 'i',[rfReplaceAll, rfIgnoreCase]);
-                   ADOQuery2.FieldByName('wid').Value:=IBQuery2.FieldByName('WID').Value;
+                   ADOQuery2.FieldByName('wid').Value:=IBQuery1.FieldByName('WID').Value;
                    ADOQuery2.FieldByName('plan').Value:=iif(IBQuery4.FieldByName('s_plan').Value=null,0,IBQuery4.FieldByName('s_plan').Value);
                    ADOQuery2.FieldByName('fact').Value:=iif(IBQuery4.FieldByName('s_fact').Value=null,0,IBQuery4.FieldByName('s_fact').Value);
                    ADOQuery2.FieldByName('id_dom').Value:=IBQuery3.FieldByName('id_dom').Value;
@@ -820,12 +842,6 @@ Prores.Show;
 
              IBQuery3.Next;
              end;
-
-
-         IBQuery2.Next;
-         end;
-
-
 
         IBQuery1.Next;
         end;
