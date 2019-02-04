@@ -274,7 +274,8 @@ type
     vid_doc:integer;    //вид документа (приход,расход ...)
        { Public declarations }
     Period:TDate;
-    procedure Newmes(fl_newmes:Boolean;date:TDate);
+    procedure Newmes(date:TDate);
+    procedure expp(date:TDate);
     procedure AddToolbar(frm:TForm);
 
   end;
@@ -393,7 +394,7 @@ begin
     case MessageBox(handle,pchar('Ви дійсно бажаєте перейти на новий місяць?'),pchar(''),MB_OKCANCEL) of
       mrOK:begin
 
-           Newmes(true,IBPERIODDATA.Value);
+           Newmes(IBPERIODDATA.Value);
 
            end;
     end;
@@ -561,7 +562,7 @@ begin
 
 end;
 
-procedure TMain.Newmes(fl_newmes:Boolean;date:TDate);
+procedure TMain.Newmes(date:TDate);
 var fftt,ffin,ffdm,sss:string;
     FL_2DATE:integer;
 begin
@@ -575,9 +576,152 @@ IBTARIF_COMP.open;
 IBTARIF_DOM.open;
 IBTARIF_OTHER.open;
 Prores.Show;
-         if fl_newmes then
-           Prores.Label1.Caption:='Перехід на новий місяць'
-         else
+
+           Prores.Label1.Caption:='Перехід на новий місяць';
+
+
+         Application.ProcessMessages;
+
+
+
+
+         Prores.cxProgressBar1.Visible:=true;
+         Prores.cxProgressBar1.Position:=0;
+         Prores.cxProgressBar1.Properties.Min:=0;
+
+         IBQuery1.close;
+         IBQuery1.SQL.Text:='select * from vw_tm where data=:dt';
+         IBQuery1.ParamByName('dt').AsDate:=date;
+
+         IBQuery1.open;
+         IBQuery1.Last;
+         Prores.cxProgressBar1.Properties.Max:=IBQuery1.RecordCount-1;
+         Application.ProcessMessages;
+
+
+        IBQuery1.First;
+        while not IBQuery1.Eof do
+        begin
+          Prores.cxProgressBar1.Position:=Prores.cxProgressBar1.Position+1;
+          Application.ProcessMessages;
+          if not Prores.Showing then
+             Break;
+
+            IBTARIF_MES.Insert;
+            IBTARIF_MESID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
+            IBTARIF_MESDATA.Value:=IncMonth(date);
+            IBTARIF_MESTARIF_RN.Value:=iif(IBQuery1.FieldByName('TARIF_RK').Value=null,0,IBQuery1.FieldByName('TARIF_RK').Value);
+            IBTARIF_MESNORMA.Value:=iif(IBQuery1.FieldByName('NORMA').Value=null,0,IBQuery1.FieldByName('NORMA').Value);
+            if (trim(IBQuery1.FieldByName('WID').AsString)<>'ot') and (trim(IBQuery1.FieldByName('WID').AsString)<>'ub') then
+              IBTARIF_MESTARIF_END.AsCurrency:=IBQuery1.FieldByName('TARIF_END').AsCurrency;
+
+            if IBQuery1.FieldByName('FL_2CENA').AsInteger=1 then
+               IBTARIF_MESLICH_PN.Value:=IBQuery1.FieldByName('LICH_PK2').AsFloat
+            else
+               IBTARIF_MESLICH_PN.Value:=IBQuery1.FieldByName('LICH_PK').AsFloat;
+
+
+
+            IBTARIF_MESNOTE.AsString:=IBQuery1.FieldByName('NOTE').AsString;
+            IBTARIF_MESPLOS_BBI.AsFloat:=IBQuery1.FieldByName('PLOS_BBI').AsFloat;
+            IBTARIF_MESNSER_LICH.AsString:=IBQuery1.FieldByName('NSER_LICH').AsString;
+            IBTARIF_MESID_KOTEL.AsInteger:=IBQuery1.FieldByName('ID_KOTEL').AsInteger;
+            IBTARIF_MESPLOS_BB.AsFloat:=IBQuery1.FieldByName('PLOS_BB').AsFloat;
+            IBTARIF_MESPLOS_IN.AsFloat:=IBQuery1.FieldByName('PLOS_IN').AsFloat;
+            IBTARIF_MESPLOS_MZK.AsFloat:=IBQuery1.FieldByName('PLOS_MZK').AsFloat;
+            IBTARIF_MESID_VIDCENA.AsInteger:=IBQuery1.FieldByName('ID_VIDCENA').AsInteger;
+            IBTARIF_MESPROCENT.AsFloat:=IBQuery1.FieldByName('PROCENT').AsFloat;
+            IBTARIF_MESNO_LICH.AsInteger:=IBQuery1.FieldByName('NO_LICH').AsInteger;
+
+
+            IBTARIF_MES.Post;
+
+
+
+              IBQuery2.close;
+             IBQuery2.SQL.Text:='select * from tarif_dom where id_tarifmes=:idmes';
+             IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').AsInteger;
+             IBQuery2.open;
+             IBQuery2.First;
+             while not IBQuery2.Eof do
+             begin
+               IBTARIF_DOM.Insert;
+               IBTARIF_DOMID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
+               IBTARIF_DOMID_DOM.Value:=IBQuery2.FieldByName('ID_DOM').AsInteger;
+               IBTARIF_DOMNAME.Value:=IBQuery2.FieldByName('NAME').AsString;
+               IBTARIF_DOMID_TARIFMES.Value:=IBTARIF_MESID.AsInteger;
+               IBTARIF_DOM.Post;
+             IBQuery2.Next;
+             end;
+
+
+
+              IBQuery2.close;
+             IBQuery2.SQL.Text:='select * from tarif_other where id_tarifmes=:idmes';
+             IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').AsInteger;
+             IBQuery2.open;
+             IBQuery2.First;
+             while not IBQuery2.Eof do
+             begin
+
+                   IBTARIF_OTHER.Insert;
+                   IBTARIF_OTHERID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
+                   IBTARIF_OTHERID_DOMOTHER.Value:=IBQuery2.FieldByName('ID_DOMOTHER').AsInteger;
+
+                   if (IBQuery2.FieldByName('LICH_PK2').AsFloat<>0) and (FL_2DATE=1) then
+                      IBTARIF_OTHERLICH_PN.Value:=IBQuery2.FieldByName('LICH_PK2').AsFloat
+                   else
+                      IBTARIF_OTHERLICH_PN.Value:=IBQuery2.FieldByName('LICH_PK').AsFloat;
+
+                   IBTARIF_OTHERID_TARIFMES.Value:=IBTARIF_MESID.AsInteger;
+                   IBTARIF_OTHERID_VIDCENA.Value:=IBQuery2.FieldByName('ID_VIDCENA').AsInteger;
+                   IBTARIF_OTHERFL_LICH.Value:=IBQuery2.FieldByName('FL_LICH').AsInteger;
+                   IBTARIF_OTHERNORMA.Value:=IBQuery2.FieldByName('NORMA').AsFloat;
+                   IBTARIF_OTHERFL_MZK.Value:=IBQuery2.FieldByName('FL_MZK').AsInteger;
+                   IBTARIF_OTHER.Post;
+
+
+
+
+
+             IBQuery2.Next;
+             end;
+
+
+
+        IBQuery1.Next;
+        end;
+
+        Prores.cxProgressBar1.Position:=0;
+        Prores.Close;
+            IBPERIOD.Insert;
+            IBPERIODDATA.Value:=IncMonth(date);
+            IBPERIOD.Post;
+            IBTransaction1.CommitRetaining;
+            IBPERIOD.Close;
+            IBPERIOD.Open;
+            Period:=IBPERIODDATA.Value;
+            cxBarEditItem4.Caption:='                    '+mon_slovoDt(IBPERIODDATA.Value);
+
+          messagedlg('Перехід завершено!',mtInformation,[mbOK],0);
+
+end;
+
+procedure TMain.expp(date:TDate);
+var fftt,ffin,ffdm,sss:string;
+    FL_2DATE:integer;
+begin
+IBTARIF_MES.close;
+IBTARIF_COMP.close;
+IBTARIF_DOM.close;
+IBTARIF_OTHER.close;
+
+IBTARIF_MES.open;
+IBTARIF_COMP.open;
+IBTARIF_DOM.open;
+IBTARIF_OTHER.open;
+Prores.Show;
+
            Prores.Label1.Caption:='Вигрузка тарифів';
 
          Application.ProcessMessages;
@@ -621,10 +765,17 @@ Prores.Show;
          Prores.cxProgressBar1.Position:=0;
          Prores.cxProgressBar1.Properties.Min:=0;
 
-         IBQuery1.close;
-         IBQuery1.SQL.Text:='select * from vw_tm where data=:dt';
-         IBQuery1.ParamByName('dt').AsDate:=date;
+IBQuery1.close;
+IBQuery1.SQL.Clear;
+IBQuery1.SQL.Text:='execute procedure exp (:vidab,:dt)';
+IBQuery1.Prepare;
+IBQuery1.ParamByName('vidab').asString:='ns';
+IBQuery1.ParamByName('dt').AsDate:=date;
+IBQuery1.ExecSQL;
+IBTransaction1.CommitRetaining;
 
+         IBQuery1.close;
+         IBQuery1.SQL.Text:='select * from export';
          IBQuery1.open;
          IBQuery1.Last;
          Prores.cxProgressBar1.Properties.Max:=IBQuery1.RecordCount-1;
@@ -638,94 +789,14 @@ Prores.Show;
           Application.ProcessMessages;
           if not Prores.Showing then
              Break;
-          if fl_newmes then
-          begin
-            IBTARIF_MES.Insert;
-            IBTARIF_MESID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-            IBTARIF_MESDATA.Value:=IncMonth(date);
-            IBTARIF_MESTARIF_RN.Value:=iif(IBQuery1.FieldByName('TARIF_RK').Value=null,0,IBQuery1.FieldByName('TARIF_RK').Value);
-            IBTARIF_MESNORMA.Value:=iif(IBQuery1.FieldByName('NORMA').Value=null,0,IBQuery1.FieldByName('NORMA').Value);
-            if (trim(IBQuery1.FieldByName('WID').AsString)<>'ot') and (trim(IBQuery1.FieldByName('WID').AsString)<>'ub') then
-              IBTARIF_MESTARIF_END.AsCurrency:=IBQuery1.FieldByName('TARIF_END').AsCurrency;
-
-            if IBQuery1.FieldByName('FL_2CENA').AsInteger=1 then
-               IBTARIF_MESLICH_PN.Value:=IBQuery1.FieldByName('LICH_PK2').AsFloat
-            else
-               IBTARIF_MESLICH_PN.Value:=IBQuery1.FieldByName('LICH_PK').AsFloat;
-
-
-
-            IBTARIF_MESNOTE.AsString:=IBQuery1.FieldByName('NOTE').AsString;
-            IBTARIF_MESPLOS_BBI.AsFloat:=IBQuery1.FieldByName('PLOS_BBI').AsFloat;
-            IBTARIF_MESNSER_LICH.AsString:=IBQuery1.FieldByName('NSER_LICH').AsString;
-            IBTARIF_MESID_KOTEL.AsInteger:=IBQuery1.FieldByName('ID_KOTEL').AsInteger;
-            IBTARIF_MESPLOS_BB.AsFloat:=IBQuery1.FieldByName('PLOS_BB').AsFloat;
-            IBTARIF_MESPLOS_IN.AsFloat:=IBQuery1.FieldByName('PLOS_IN').AsFloat;
-            IBTARIF_MESPLOS_MZK.AsFloat:=IBQuery1.FieldByName('PLOS_MZK').AsFloat;
-            IBTARIF_MESID_VIDCENA.AsInteger:=IBQuery1.FieldByName('ID_VIDCENA').AsInteger;
-            IBTARIF_MESPROCENT.AsFloat:=IBQuery1.FieldByName('PROCENT').AsFloat;
-            IBTARIF_MESNO_LICH.AsInteger:=IBQuery1.FieldByName('NO_LICH').AsInteger;
-
-
-            IBTARIF_MES.Post;
-          end;
-
-          if fl_newmes then
-          begin
-              IBQuery2.close;
-             IBQuery2.SQL.Text:='select * from tarif_dom where id_tarifmes=:idmes';
-             IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').AsInteger;
-             IBQuery2.open;
-             IBQuery2.First;
-             while not IBQuery2.Eof do
-             begin
-               IBTARIF_DOM.Insert;
-               IBTARIF_DOMID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-               IBTARIF_DOMID_DOM.Value:=IBQuery2.FieldByName('ID_DOM').AsInteger;
-               IBTARIF_DOMNAME.Value:=IBQuery2.FieldByName('NAME').AsString;
-               IBTARIF_DOMID_TARIFMES.Value:=IBTARIF_MESID.AsInteger;
-               IBTARIF_DOM.Post;
-             IBQuery2.Next;
-             end;
-
-          end;
-
-              IBQuery2.close;
-             IBQuery2.SQL.Text:='select * from tarif_other where id_tarifmes=:idmes';
-             IBQuery2.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID').AsInteger;
-             IBQuery2.open;
-             IBQuery2.First;
-             while not IBQuery2.Eof do
-             begin
-                if fl_newmes then
-                begin
-                   IBTARIF_OTHER.Insert;
-                   IBTARIF_OTHERID_TARIF.Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-                   IBTARIF_OTHERID_DOMOTHER.Value:=IBQuery2.FieldByName('ID_DOMOTHER').AsInteger;
-
-                   if (IBQuery2.FieldByName('LICH_PK2').AsFloat<>0) and (FL_2DATE=1) then
-                      IBTARIF_OTHERLICH_PN.Value:=IBQuery2.FieldByName('LICH_PK2').AsFloat
-                   else
-                      IBTARIF_OTHERLICH_PN.Value:=IBQuery2.FieldByName('LICH_PK').AsFloat;
-
-                   IBTARIF_OTHERID_TARIFMES.Value:=IBTARIF_MESID.AsInteger;
-                   IBTARIF_OTHERID_VIDCENA.Value:=IBQuery2.FieldByName('ID_VIDCENA').AsInteger;
-                   IBTARIF_OTHERFL_LICH.Value:=IBQuery2.FieldByName('FL_LICH').AsInteger;
-                   IBTARIF_OTHERNORMA.Value:=IBQuery2.FieldByName('NORMA').AsFloat;
-                   IBTARIF_OTHERFL_MZK.Value:=IBQuery2.FieldByName('FL_MZK').AsInteger;
-                   IBTARIF_OTHER.Post;
-                end;
-
-                if IBQuery2.FieldByName('WIDAB').AsString='ns' then
-                begin
+                   if IBQuery1.FieldByName('TARIF_END').AsFloat<>0 then
+                   begin
 
                    ADOQuery1.Insert;
-                   ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-                   if IBTARIF_COMP.Locate('id_tarif',IBQuery1.FieldByName('ID_TARIF').AsInteger,[]) then
-                       ADOQuery1.FieldByName('kl').Value:=IBTARIF_COMPKL_NTAR.AsInteger;
-
+                   ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID').AsInteger;
+                   ADOQuery1.FieldByName('kl').Value:=IBQuery1.FieldByName('kl_old').AsInteger;
                    ADOQuery1.FieldByName('wid').Value:=IBQuery1.FieldByName('WID').AsString;
-                   ADOQuery1.FieldByName('name').Value:=StringReplace(IBQuery1.FieldByName('name').Value, 'і', 'i',[rfReplaceAll, rfIgnoreCase]);
+                   ADOQuery1.FieldByName('name').Value:=StringReplace(IBQuery1.FieldByName('TARIFNAM').Value, 'і', 'i',[rfReplaceAll, rfIgnoreCase]);
                    ADOQuery1.FieldByName('norma').Value:=IBQuery1.FieldByName('NORMA').AsFloat;
                    ADOQuery1.FieldByName('tarif').Value:=IBQuery1.FieldByName('TARIF_END').AsFloat;
                    ADOQuery1.FieldByName('plan').Value:=IBQuery1.FieldByName('TARIF_PLAN').AsFloat;
@@ -733,61 +804,27 @@ Prores.Show;
                    ADOQuery1.FieldByName('tarif_bl').Value:=IBQuery1.FieldByName('END_BL').AsFloat;
                    ADOQuery1.FieldByName('tarif_l').Value:=IBQuery1.FieldByName('END_L').AsFloat;
                    ADOQuery1.Post;
-
-                   if (ADOQuery1.FieldByName('wid').Value='ot') and (IBQuery1.FieldByName('MZK').AsFloat<>0) then
-                   begin
-                   sss:=StringReplace(IBQuery1.FieldByName('name').Value, 'і', 'i',[rfReplaceAll, rfIgnoreCase]);
-                   sss:=StringReplace(sss, 'Опалення', 'МЗК',[rfReplaceAll, rfIgnoreCase]);
-
-                   ADOQuery1.Insert;
-                   ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-                   ADOQuery1.FieldByName('wid').Value:='om';
-                   ADOQuery1.FieldByName('name').Value:=StringReplace(sss, 'і', 'i',[rfReplaceAll, rfIgnoreCase]);
-                   ADOQuery1.FieldByName('tarif').Value:=IBQuery1.FieldByName('MZK').AsFloat;
-
-                   ADOQuery1.Post;
                    end;
 
 
-                end;
 
-             IBQuery2.Next;
-             end;
-
-          if IBQuery1.FieldByName('WIDAB').AsString='ns' then
-          begin
-
-             ADOQuery1.Insert;
-             ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-             if IBTARIF_COMP.Locate('id_tarif',IBQuery1.FieldByName('ID_TARIF').AsInteger,[]) then
-                 ADOQuery1.FieldByName('kl').Value:=IBTARIF_COMPKL_NTAR.AsInteger;
-
-             ADOQuery1.FieldByName('wid').Value:=IBQuery1.FieldByName('WID').AsString;
-             ADOQuery1.FieldByName('name').Value:=StringReplace(IBQuery1.FieldByName('name').Value, 'і', 'i',[rfReplaceAll, rfIgnoreCase]);
-             ADOQuery1.FieldByName('norma').Value:=IBQuery1.FieldByName('NORMA').AsFloat;
-             ADOQuery1.FieldByName('tarif').Value:=IBQuery1.FieldByName('TARIF_END').AsFloat;
-             ADOQuery1.FieldByName('plan').Value:=IBQuery1.FieldByName('TARIF_PLAN').AsFloat;
-             ADOQuery1.FieldByName('fact').Value:=IBQuery1.FieldByName('TARIF_FACT').AsFloat;
-             ADOQuery1.FieldByName('tarif_bl').Value:=IBQuery1.FieldByName('END_BL').AsFloat;
-             ADOQuery1.FieldByName('tarif_l').Value:=IBQuery1.FieldByName('END_L').AsFloat;
-             ADOQuery1.Post;
-
-             if (ADOQuery1.FieldByName('wid').Value='ot') and (IBQuery1.FieldByName('MZK').AsFloat<>0) then
-             begin
-             sss:=StringReplace(IBQuery1.FieldByName('name').Value, 'і', 'i',[rfReplaceAll, rfIgnoreCase]);
-             sss:=StringReplace(sss, 'Опалення', 'МЗК',[rfReplaceAll, rfIgnoreCase]);
-
-             ADOQuery1.Insert;
-             ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID_TARIF').AsInteger;
-             ADOQuery1.FieldByName('wid').Value:='om';
-             ADOQuery1.FieldByName('name').Value:=StringReplace(sss, 'і', 'i',[rfReplaceAll, rfIgnoreCase]);
-             ADOQuery1.FieldByName('tarif').Value:=IBQuery1.FieldByName('MZK').AsFloat;
-
-             ADOQuery1.Post;
-             end;
+         IBQuery1.Next;
+         end;
 
 
-          end;
+         IBQuery1.close;
+         IBQuery1.SQL.Text:='select * from vw_tm where data=:dt';
+         IBQuery1.ParamByName('dt').AsDate:=date;
+
+         IBQuery1.open;
+         IBQuery1.Last;
+         Prores.cxProgressBar1.Properties.Max:=IBQuery1.RecordCount-1;
+         Application.ProcessMessages;
+
+
+        IBQuery1.First;
+        while not IBQuery1.Eof do
+        begin
 
 
              IBQuery3.close;
@@ -848,27 +885,14 @@ Prores.Show;
 
         Prores.cxProgressBar1.Position:=0;
         Prores.Close;
-          if fl_newmes then
-          begin
-            IBPERIOD.Insert;
-            IBPERIODDATA.Value:=IncMonth(date);
-            IBPERIOD.Post;
-            IBTransaction1.CommitRetaining;
-            IBPERIOD.Close;
-            IBPERIOD.Open;
-            Period:=IBPERIODDATA.Value;
-            cxBarEditItem4.Caption:='                    '+mon_slovoDt(IBPERIODDATA.Value);
-
-          messagedlg('Перехід завершено!',mtInformation,[mbOK],0);
-          end
-          else
-             messagedlg('Вигрузка завершена!',mtInformation,[mbOK],0);
+        messagedlg('Вигрузка завершена!',mtInformation,[mbOK],0);
 
             ADOQuery1.Close;
             ADOConnectionDBF.Connected:=false;
 
 
 end;
+
 
 
 

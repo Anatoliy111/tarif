@@ -409,7 +409,7 @@ var ddate:TDate;
 begin
   inherited;
   ddate:=cxLookupComboBox1.EditValue;
-Main.Newmes(false,ddate);
+Main.expp(ddate);
 end;
 
 procedure TTarifs.cxButton1Click(Sender: TObject);
