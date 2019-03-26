@@ -9,6 +9,8 @@
   inherited Panel2: TPanel
     inherited cxButton6: TcxButton
       OnClick = cxButton6Click
+      ExplicitLeft = 171
+      ExplicitTop = 2
     end
     inherited cxButton7: TcxButton
       OnClick = cxButton7Click
@@ -1510,7 +1512,7 @@
     ReportOptions.LastChange = 43439.396072280100000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
-    Left = 144
+    Left = 128
     Top = 408
   end
   object frxDBDataset1: TfrxDBDataset

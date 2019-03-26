@@ -11,7 +11,7 @@ uses
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
   cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm,
-  Data.Win.ADODB,SpView, cxStyles;
+  Data.Win.ADODB,SpView, cxStyles, frxClass, frxDesgn;
 
 type
   TMain = class(TForm)
@@ -239,6 +239,8 @@ type
     IBTARIF_OTHERMZK_GK2: TIBBCDField;
     IBTARIF_OTHERFL_MZK: TIntegerField;
     dxBarButton46: TdxBarButton;
+    frxReport1: TfrxReport;
+    frxDesigner1: TfrxDesigner;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -263,6 +265,7 @@ type
     procedure dxBarButton27Click(Sender: TObject);
     procedure dxBarButton43Click(Sender: TObject);
     procedure dxBarButton46Click(Sender: TObject);
+    procedure dxBarButton28Click(Sender: TObject);
     private
     { Private declarations }
     procedure ClickBarButton(Sender: TObject);
@@ -1002,6 +1005,11 @@ end;
 procedure TMain.dxBarButton27Click(Sender: TObject);
 begin
 FRRepForm.Show;
+end;
+
+procedure TMain.dxBarButton28Click(Sender: TObject);
+begin
+frxReport1.DesignReport();
 end;
 
 procedure TMain.dxBarButton30Click(Sender: TObject);

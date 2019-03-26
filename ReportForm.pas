@@ -596,12 +596,13 @@ end;
 procedure TReport.cxButton6Click(Sender: TObject);
 begin
   inherited;
-  if IBQuery1.Active then
+  if cxGrid1.visible then
      ExportGrid(cxGrid1);
-  if IBQuery2.Active then
+  if cxGrid2.visible then
+     ExportGrid(cxGrid2);
+  if cxGrid3.visible then
      ExportGrid(cxGrid3);
-  if IBQuery3.Active then
-     ExportGrid(cxGrid1);
+
 end;
 
 procedure TReport.cxButton7Click(Sender: TObject);
@@ -685,6 +686,8 @@ begin
   if  (Report <> nil) and (Report.Active) then Filename:=Report.Caption+' '+Filename;
   if  (Report1 <> nil) and (Report1.Active) then Filename:=Report1.Caption+' '+Filename;
   if  (Report2 <> nil) and (Report2.Active) then Filename:=Report2.Caption+' '+Filename;
+  if  (Report3 <> nil) and (Report3.Active) then Filename:=Report3.Caption+' '+Filename;
+  if  (Report4 <> nil) and (Report4.Active) then Filename:=Report4.Caption+' '+Filename;
       Filename:=Filename+' ('+fdata+').xls'
     end;
     sd.FileName := path + Filename;
