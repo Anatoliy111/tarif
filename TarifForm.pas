@@ -337,6 +337,10 @@ type
     cxGrid1DBTableView1SUMMZK_PDV: TcxGridDBColumn;
     cxGrid1DBTableView1ALLSUM: TcxGridDBColumn;
     cxGrid1DBTableView1ALLSUM_PDV: TcxGridDBColumn;
+    IBTARIF_OTHERMZK_GK1: TIBBCDField;
+    IBTARIF_OTHERMZK_GK2: TIBBCDField;
+    IBTARIF_OTHERPLOS_OB: TIBBCDField;
+    cxGridDBTableView1PLOS_OB: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -517,6 +521,33 @@ begin
       IBTARIFUPDBORG_VIDH.Value:=(IBQuery1.FieldByName('sum').AsFloat*IBTARIFUPDTARIF_RK.Value)*-1;
       IBTARIFUPD.post;
       end;
+
+
+
+         IBTARIF_OTHER.Close;
+         IBTARIF_OTHER.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
+         IBTARIF_OTHER.Open;
+         while not IBTARIF_OTHER.eof do
+         begin
+//         gkal:=normaosn*IBTARIF_OTHERPLOS_BB.AsFloat;
+           IBQuery1.Close;
+           IBQuery1.SQL.Text:='select sum(s_plan) splan, sum(s_fact) sfact from tarif_inf where id_tarifmes=:id and (id_tarvid=3 or id_tarvid=4)';
+           IBQuery1.ParamByName('id').Value:=IBTARIFUPDID.Value;
+           IBQuery1.Open;
+           IBQuery1.First;
+
+
+           IBTARIF_OTHER.Edit;
+           IBTARIF_OTHERSPLAN.Value:=SimpleRoundTo(IBTARIFUPDPLAN_BL.Value-IBQuery1.FieldByName('splan').AsFloat,-2);
+           IBTARIF_OTHERSFACT.Value:=SimpleRoundTo(IBTARIFUPDFACT_BL.Value-IBQuery1.FieldByName('sfact').AsFloat,-2);
+           IBTARIF_OTHERSEND.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('sfact').AsFloat,-2);
+           IBTARIF_OTHERSENDPDV.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('sfact').AsFloat,-2)*1.2;
+           IBTARIF_OTHER.Post;
+         IBTARIF_OTHER.Next;
+         end;
+
+
+
     end;
 
     if IBTARIFUPDWID.Value='ot' then
@@ -1452,6 +1483,7 @@ end;
 
 procedure TTarifs.Visible;
 var FL_2DATE, FL_OTHERLICH:integer;
+  I: Integer;
 begin
 
     DSTARIF_MES.Enabled:=false;
@@ -1473,36 +1505,45 @@ begin
     cxGrid1DBTableView1LICH_PN.Visible:=false;
     cxGrid1DBTableView1LICH_PK.Visible:=false;
     cxGrid1DBTableView1TARIF_PLAN.Editing:=true;
-    cxGridDBTableView1PLOS_BB.Visible:=false;
-    cxGridDBTableView1MZK.Visible:=false;
+
     cxGrid1DBTableView1MZK.Visible:=false;
-    cxGridDBTableView1SFACT.Visible:=false;
+
     cxGrid1DBTableView1BORG_VIDH.Visible:=false;
     cxGrid1DBTableView1NSER_LICH.Visible:=false;
     cxGrid1DBTableView1SUMOT.Visible:=false;
     cxGrid1DBTableView1SUMOTPDV.Visible:=false;
-    cxGridDBTableView1SUMOT.Visible:=false;
-    cxGridDBTableView1SUMOTPDV.Visible:=false;
-    cxGridDBTableView1SENDPDV.Visible:=false;
     cxGrid1DBTableView1LICH_GK.Visible:=false;
     cxGrid1DBTableView1TARIF_ENDPDV.Visible:=false;
     cxGrid1DBTableView1ID_VIDCENA.Visible:=false;
+    cxGrid1DBTableView1MZK_GK1.Visible:=false;
     cxGrid1DBTableView1MZK_GK2.Visible:=false;
 //    cxGridDBTableView1MZK_GK2.Visible:=false;
     cxGrid1DBTableView1TARIF_PLAN.Visible:=true;
-
     cxGrid1DBTableView1MZK_PDV.Visible:=false;
     cxGrid1DBTableView1SUMMZK.Visible:=false;
     cxGrid1DBTableView1SUMMZK_PDV.Visible:=false;
     cxGrid1DBTableView1ALLSUM.Visible:=false;
     cxGrid1DBTableView1ALLSUM_PDV.Visible:=false;
-
     cxGrid1DBTableView1PLOS_IN.Visible:=false;
     cxGrid1DBTableView1LICH_PN2.Visible:=false;
     cxGrid1DBTableView1LICH_PK2.Visible:=false;
     cxGrid1DBTableView1LICH_GK2.Visible:=false;
 
 
+    for I := 0 to cxGridDBTableView1.ColumnCount-1 do
+    begin
+        cxGridDBTableView1.Columns[I].Visible:=false;
+    end;
+
+
+
+//  cxGridDBTableView1PLOS_BB.Visible:=false;
+//    cxGridDBTableView1MZK.Visible:=false;
+//    cxGridDBTableView1SFACT.Visible:=false;
+//    cxGridDBTableView1SUMOT.Visible:=false;
+//    cxGridDBTableView1SUMOTPDV.Visible:=false;
+//    cxGridDBTableView1SENDPDV.Visible:=false;
+//    cxGridDBTableView1SPLAN.Visible:=false;
 
 
   if IBPOSLWID.Value='ub' then
@@ -1520,8 +1561,17 @@ begin
     cxGrid1DBTableView1TARIF_END.Options.Editing:=false;
     cxGrid1DBTableView1Column1.Visible:=true;
     cxButton2.Visible:=true;
+
+
+    cxGridDBTableView1ID_DOM.Visible:=true;
+    cxGridDBTableView1ID_OTHER.Visible:=true;
+    cxGridDBTableView1PLOS_OB.Visible:=true;
+
+    cxGridDBTableView1SPLAN.Visible:=true;
     cxGridDBTableView1SFACT.Visible:=true;
-    cxGrid1DBTableView1BORG_VIDH.Visible:=true;
+    cxGridDBTableView1SEND.Visible:=true;
+    cxGridDBTableView1SENDPDV.Visible:=true;
+
 
   end;
 
@@ -1535,6 +1585,15 @@ begin
          IBQuery1.First;
          FL_OTHERLICH:=IBQuery1.FieldByName('flich').AsInteger;
 
+    cxGridDBTableView1ID_DOM.Visible:=true;
+    cxGridDBTableView1ID_OTHER.Visible:=true;
+    cxGridDBTableView1LICH_GK.Visible:=true;
+    cxGridDBTableView1SEND.Visible:=true;
+    cxGridDBTableView1SENDPDV.Visible:=true;
+    cxGridDBTableView1ID_VIDCENA.Visible:=true;
+    cxGridDBTableView1ID_VIDAB.Visible:=true;
+    cxGridDBTableView1FL_LICH.Visible:=true;
+
     cxGrid1DBTableView1ID_VIDCENA.Visible:=true;
     cxGrid1DBTableView1NSER_LICH.Visible:=true;
     cxGrid1DBTableView1ID_KOTEL.Visible:=true;
@@ -1546,6 +1605,7 @@ begin
     cxGridDBTableView1PLOS_BB.Visible:=true;
     cxGridDBTableView1MZK.Visible:=true;
     cxGrid1DBTableView1MZK.Visible:=true;
+    cxGrid1DBTableView1MZK_GK1.Visible:=true;
     cxGrid1DBTableView1SUMOT.Visible:=true;
     cxGrid1DBTableView1SUMOTPDV.Visible:=true;
     cxGridDBTableView1SUMOT.Visible:=true;

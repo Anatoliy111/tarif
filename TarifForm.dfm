@@ -4,6 +4,7 @@
   ClientWidth = 928
   Position = poMainFormCenter
   OnCreate = FormCreate
+  ExplicitLeft = -142
   ExplicitWidth = 944
   ExplicitHeight = 699
   PixelsPerInch = 96
@@ -495,7 +496,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 164
+      Height = 132
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -510,13 +511,11 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 165
+      Top = 133
       Width = 167
-      Height = 201
+      Height = 233
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 69
-      ExplicitHeight = 297
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -650,6 +649,10 @@
           Options.Editing = False
           Width = 116
         end
+        object cxGridDBTableView1PLOS_OB: TcxGridDBColumn
+          Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
+          DataBinding.FieldName = 'PLOS_OB'
+        end
         object cxGridDBTableView1LICH_PN: TcxGridDBColumn
           Caption = #1055#1086#1082#1072#1079'. '#1085#1072' '#1087#1086#1095#1072#1090#1086#1082
           DataBinding.FieldName = 'LICH_PN'
@@ -680,6 +683,17 @@
           DataBinding.FieldName = 'LICH_GK2'
           PropertiesClassName = 'TcxCalcEditProperties'
         end
+        object cxGridDBTableView1SPLAN: TcxGridDBColumn
+          Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
+          DataBinding.FieldName = 'SPLAN'
+          Width = 91
+        end
+        object cxGridDBTableView1SFACT: TcxGridDBColumn
+          Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
+          DataBinding.FieldName = 'SFACT'
+          Visible = False
+          Width = 99
+        end
         object cxGridDBTableView1SEND: TcxGridDBColumn
           Caption = #1053#1072#1088#1072#1093'. '#1090#1072#1088#1080#1092
           DataBinding.FieldName = 'SEND'
@@ -708,18 +722,6 @@
           DataBinding.FieldName = 'SUMOTPDV'
           Options.Editing = False
           Width = 123
-        end
-        object cxGridDBTableView1SPLAN: TcxGridDBColumn
-          Caption = #1055#1083#1072#1085#1086#1074#1080#1081' '#1090#1072#1088#1080#1092
-          DataBinding.FieldName = 'SPLAN'
-          Visible = False
-          Width = 56
-        end
-        object cxGridDBTableView1SFACT: TcxGridDBColumn
-          Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092
-          DataBinding.FieldName = 'SFACT'
-          Visible = False
-          Width = 99
         end
         object cxGridDBTableView1ID_VIDCENA: TcxGridDBColumn
           Caption = #1042#1080#1076' '#1094#1110#1085#1080
@@ -773,6 +775,7 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -2987,9 +2990,9 @@
     SelectSQL.Strings = (
       
         'select TARIF_OTHER.*, DOM_OTHER.id_other, DOM_OTHER.plos_bb, DOM' +
-        '_OTHER.id_dom, OTHER.id_vidab from TARIF_OTHER, DOM_OTHER, OTHER' +
-        ' where TARIF_OTHER.id_tarifmes=:idmes and TARIF_OTHER.id_domothe' +
-        'r=DOM_OTHER.id and DOM_OTHER.id_other=OTHER.id')
+        '_OTHER.plos_ob,DOM_OTHER.id_dom, OTHER.id_vidab from TARIF_OTHER' +
+        ', DOM_OTHER, OTHER where TARIF_OTHER.id_tarifmes=:idmes and TARI' +
+        'F_OTHER.id_domother=DOM_OTHER.id and DOM_OTHER.id_other=OTHER.id')
     ModifySQL.Strings = (
       'update TARIF_OTHER'
       'set'
@@ -3170,6 +3173,24 @@
     object IBTARIF_OTHERFL_MZK: TIntegerField
       FieldName = 'FL_MZK'
       Origin = '"TARIF_OTHER"."FL_MZK"'
+    end
+    object IBTARIF_OTHERMZK_GK1: TIBBCDField
+      FieldName = 'MZK_GK1'
+      Origin = '"TARIF_OTHER"."MZK_GK1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERMZK_GK2: TIBBCDField
+      FieldName = 'MZK_GK2'
+      Origin = '"TARIF_OTHER"."MZK_GK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERPLOS_OB: TIBBCDField
+      FieldName = 'PLOS_OB'
+      Origin = '"DOM_OTHER"."PLOS_OB"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIF_OTHER: TDataSource
