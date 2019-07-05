@@ -4,7 +4,6 @@
   ClientWidth = 928
   Position = poMainFormCenter
   OnCreate = FormCreate
-  ExplicitLeft = -142
   ExplicitWidth = 944
   ExplicitHeight = 699
   PixelsPerInch = 96
@@ -496,7 +495,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 132
+      Height = 116
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -511,9 +510,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 133
+      Top = 117
       Width = 167
-      Height = 233
+      Height = 249
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -775,7 +774,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager

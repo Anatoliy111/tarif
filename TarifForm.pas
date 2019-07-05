@@ -542,6 +542,14 @@ begin
            IBTARIF_OTHERSFACT.Value:=SimpleRoundTo(IBTARIFUPDFACT_BL.Value-IBQuery1.FieldByName('sfact').AsFloat,-2);
            IBTARIF_OTHERSEND.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('sfact').AsFloat,-2);
            IBTARIF_OTHERSENDPDV.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('sfact').AsFloat,-2)*1.2;
+
+//           res:= IBTARIFUPDEND_BL.Value-IBTARIFUPDPLAN_BL.Value;
+
+           if (IBTARIF_OTHERSEND.Value>IBTARIF_OTHERSPLAN.Value) or (IBTARIF_OTHERSEND.Value<0) then
+           begin
+           IBTARIF_OTHERSEND.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('splan').AsFloat,-2);
+           IBTARIF_OTHERSENDPDV.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('splan').AsFloat,-2)*1.2;
+           end;
            IBTARIF_OTHER.Post;
          IBTARIF_OTHER.Next;
          end;

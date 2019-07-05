@@ -642,11 +642,11 @@ begin
 ' where idother not in'+
 ' (select OTHER.id from TARIF_OTHER, DOM_OTHER, OTHER, TARIF, TARIF_MES'+
 ' where TARIF_OTHER.id_domother=dom_other.ID and dom_other.id_other=other.id and TARIF_OTHER.id_tarif=tarif.id'+
-' and tarif.id_posl=:idposl'+
+' and TARIF_MES.id=:idmes'+
 ' and tarif_other.id_tarifmes=tarif_mes.id and tarif_mes.data=:dt)';
  IBQuery5.ParamByName('dt').Value:=Main.IBPERIODDATA.Value;
  IBQuery5.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
- IBQuery5.ParamByName('idposl').Value:=IBTARIF_MESID_POSL.Value;
+// IBQuery5.ParamByName('idposl').Value:=IBTARIF_MESID_POSL.Value;
  IBQuery5.Open;
 
  while not IBQuery5.Eof do
@@ -821,11 +821,12 @@ begin
  IBQuery1.Close;
  IBQuery1.SQL.Text:='select TARIF_OTHER.id_domother,TARIF_OTHER.id_tarifmes,OTHER.name from TARIF_OTHER, DOM_OTHER, OTHER, TARIF, TARIF_MES '+
                     'where TARIF_OTHER.id_domother=dom_other.ID and dom_other.id_other=other.id and TARIF_OTHER.id_tarif=tarif.id'+
-                    ' and tarif.id_posl=:idposl'+
+                    ' and tarif_mes.id=:idmes'+
                     ' and tarif_other.id_tarifmes=tarif_mes.id and tarif_mes.data=:dt and other.name=:nameother';
  IBQuery1.ParamByName('dt').Value:=Main.IBPERIODDATA.Value;
  IBQuery1.ParamByName('nameother').Value:=DisplayValue;
- IBQuery1.ParamByName('idposl').Value:=IBTARIF_MESID_POSL.Value;
+// IBQuery1.ParamByName('idposl').Value:=IBTARIF_MESID_POSL.Value;
+  IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
  IBQuery1.Open;
 
  if IBQuery1.RecordCount<>0 then
