@@ -576,6 +576,10 @@ begin
          cenaosn2:=IBQuery1.FieldByName('TARIF_SUM2').AsFloat;
          cenamzk2:=IBQuery1.FieldByName('TARIF_MZK2').AsFloat;
 
+         if IBTARIFUPDNSER_LICH.Value<>'NO' then
+         begin
+
+
           IBTARIFUPD.edit;
           if IBTARIFUPDLICH_PK.AsFloat=0 then
              IBTARIFUPDLICH_PK.AsFloat:=IBTARIFUPDLICH_PN.AsFloat;
@@ -596,6 +600,7 @@ begin
             IBTARIFUPDLICH_GK2.AsFloat:= IBTARIFUPDLICH_PK2.AsFloat-IBTARIFUPDLICH_PN2.AsFloat;
 
           IBTARIFUPD.post;
+         end;
 
          gkal1:=IBTARIFUPDLICH_GK.AsFloat;
          gkal2:=IBTARIFUPDLICH_GK2.AsFloat;
@@ -743,10 +748,41 @@ begin
 
            if IBTARIF_OTHERFL_LICH.Value=1 then
            begin
+             if IBTARIF_OTHERLICH_PK.AsFloat=0 then
+             begin
+                IBTARIF_OTHER.Edit;
+                IBTARIF_OTHERLICH_PK.AsFloat:=IBTARIF_OTHERLICH_PN.AsFloat;
+//                IBTARIF_OTHER.Post;
+             end;
+
+             if IBTARIF_OTHERLICH_PK2.AsFloat=0 then
+             begin
+                IBTARIF_OTHER.Edit;
+                IBTARIF_OTHERLICH_PK2.AsFloat:=IBTARIF_OTHERLICH_PN2.AsFloat;
+//                IBTARIF_OTHER.Post;
+
+             end;
+
+             IBTARIF_OTHER.Edit;
+                IBTARIF_OTHERLICH_GK.AsFloat:= IBTARIF_OTHERLICH_PK.AsFloat-IBTARIF_OTHERLICH_PN.AsFloat;
+                IBTARIF_OTHERLICH_GK2.AsFloat:= IBTARIF_OTHERLICH_PK2.AsFloat-IBTARIF_OTHERLICH_PN2.AsFloat;
+             IBTARIF_OTHER.Post;
+
+             if IBTARIF_OTHERPLOS_BB.AsFloat<>0 then
+             begin
+
               normaother1:=IBTARIF_OTHERLICH_GK.AsFloat/IBTARIF_OTHERPLOS_BB.AsFloat;
-              gkalother1:=IBTARIF_OTHERLICH_GK.AsFloat;
               normaother2:=IBTARIF_OTHERLICH_GK2.AsFloat/IBTARIF_OTHERPLOS_BB.AsFloat;
+             end
+             else
+             begin
+               normaother1:=0;
+               normaother2:=0;
+             end;
+
+              gkalother1:=IBTARIF_OTHERLICH_GK.AsFloat;
               gkalother2:=IBTARIF_OTHERLICH_GK2.AsFloat;
+
            end
            else
            begin

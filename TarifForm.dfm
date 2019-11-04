@@ -495,7 +495,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 116
+      Height = 84
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -510,9 +510,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 117
+      Top = 85
       Width = 167
-      Height = 249
+      Height = 281
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
