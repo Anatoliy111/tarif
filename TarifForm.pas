@@ -576,6 +576,27 @@ begin
          cenaosn2:=IBQuery1.FieldByName('TARIF_SUM2').AsFloat;
          cenamzk2:=IBQuery1.FieldByName('TARIF_MZK2').AsFloat;
 
+          IBTARIFUPD.edit;
+          if IBTARIFUPDLICH_PK.AsFloat=0 then
+             IBTARIFUPDLICH_PK.AsFloat:=IBTARIFUPDLICH_PN.AsFloat;
+
+          if IBTARIFUPDPROCENT.AsFloat<>0 then
+            IBTARIFUPDLICH_GK.AsFloat:= IBTARIFUPDLICH_PK.AsFloat-IBTARIFUPDLICH_PN.AsFloat-(((IBTARIFUPDLICH_PK.AsFloat-IBTARIFUPDLICH_PN.AsFloat)/100)*IBTARIFUPDPROCENT.AsFloat)
+          else
+            IBTARIFUPDLICH_GK.AsFloat:= IBTARIFUPDLICH_PK.AsFloat-IBTARIFUPDLICH_PN.AsFloat;
+
+
+
+          if IBTARIFUPDLICH_PK2.AsFloat=0 then
+             IBTARIFUPDLICH_PK2.AsFloat:=IBTARIFUPDLICH_PN2.AsFloat;
+
+          if IBTARIFUPDPROCENT.AsFloat<>0 then
+            IBTARIFUPDLICH_GK2.AsFloat:= IBTARIFUPDLICH_PK2.AsFloat-IBTARIFUPDLICH_PN2.AsFloat-(((IBTARIFUPDLICH_PK2.AsFloat-IBTARIFUPDLICH_PN2.AsFloat)/100)*IBTARIFUPDPROCENT.AsFloat)
+          else
+            IBTARIFUPDLICH_GK2.AsFloat:= IBTARIFUPDLICH_PK2.AsFloat-IBTARIFUPDLICH_PN2.AsFloat;
+
+          IBTARIFUPD.post;
+
          gkal1:=IBTARIFUPDLICH_GK.AsFloat;
          gkal2:=IBTARIFUPDLICH_GK2.AsFloat;
 
