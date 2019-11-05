@@ -11,7 +11,7 @@ uses
   IBX.IBCustomDataSet, cxLabel, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, cxDBLabel,
   cxTextEdit, cxMemo, cxDBEdit, cxDBLookupComboBox, IBX.IBQuery, cxCalc,
-  cxCheckBox;
+  cxCheckBox, cxGroupBox, cxRadioGroup;
 
 type
   TInsTar = class(TAllMDICh)
@@ -142,7 +142,6 @@ type
     IBQuery3SCHET2: TIBStringField;
     IBQuery4: TIBQuery;
     IBQuery5: TIBQuery;
-    cxDBCheckBox1: TcxDBCheckBox;
     IBTARIF_MESMZK: TIBBCDField;
     IBTARIF_MESBORG_VIDH: TIBBCDField;
     IBTARIF_MESNO_LICH: TIntegerField;
@@ -186,6 +185,8 @@ type
     IBTARIF_MESMZK_GK1: TIBBCDField;
     IBTARIF_MESMZK_GK2: TIBBCDField;
     IBTARIF_MESID_VIDAB: TIntegerField;
+    cxDBRadioGroup1: TcxDBRadioGroup;
+    cxCheckBox1: TcxCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -220,9 +221,10 @@ type
       Sender: TObject);
     procedure IBTARIF_MESPLOS_BBChange(Sender: TField);
     procedure IBTARIF_MESAfterPost(DataSet: TDataSet);
-    procedure cxDBCheckBox1Click(Sender: TObject);
     procedure IBTARIFAfterPost(DataSet: TDataSet);
     procedure IBUPDTDOMAfterPost(DataSet: TDataSet);
+    procedure RadioButton1Click(Sender: TObject);
+    procedure cxCheckBox1Click(Sender: TObject);
   private
 
     { Private declarations }
@@ -391,8 +393,8 @@ begin
     cxGridDBTableView2ID_KOTEL.Visible:=false;
     cxGridDBTableView1PLOS_BB.Visible:=false;
     cxGrid1DBTableView1PLOS_BB.Visible:=false;
-    cxDBCheckBox1.Visible:=false;
-
+    cxCheckBox1.Visible:=false;
+    cxDBRadioGroup1.Visible:=false;
     cxGridDBTableView2PLOS_IN.Visible:=false;
     cxGridDBTableView2PLOS_MZK.Visible:=false;
     cxGridDBTableView2PROCENT.Visible:=false;
@@ -405,11 +407,13 @@ begin
     cxGridDBTableView2ID_KOTEL.Visible:=true;
     cxGridDBTableView1PLOS_BB.Visible:=true;
     cxGrid1DBTableView1PLOS_BB.Visible:=true;
-    cxDBCheckBox1.Visible:=true;
+    cxDBRadioGroup1.Visible:=true;
+    cxCheckBox1.Visible:=true;
     cxGridDBTableView2PLOS_IN.Visible:=true;
     cxGridDBTableView2PLOS_MZK.Visible:=true;
     cxGridDBTableView2PROCENT.Visible:=true;
     cxGridDBTableView2ID_VIDCENA.Visible:=true;
+
   end;
 
 
@@ -736,27 +740,40 @@ iddom:=0;
     end;
 end;
 
-procedure TInsTar.cxDBCheckBox1Click(Sender: TObject);
+procedure TInsTar.cxCheckBox1Click(Sender: TObject);
 begin
   inherited;
-  if cxDBCheckBox1.Checked then
+  if cxCheckBox1.Checked then
   begin
     if IBTARIF_MES.RecordCount>1 then
     begin
-      cxDBCheckBox1.Checked:=false;
+      cxCheckBox1.Checked:=false;
       Application.MessageBox('Тариф без лічильників неможе бути використаний в подвійному тарифі !!! ','Ошибка',16)
     end;
   end;
-  if not cxDBCheckBox1.Checked then
+  if not cxCheckBox1.Checked then
   begin
     if IBTARIF_DOM1.RecordCount>1 then
     begin
-      cxDBCheckBox1.Checked:=true;
+      cxCheckBox1.Checked:=true;
       Application.MessageBox('Тариф з лічильником використовує тільки один будинок. Видаліть лишні будинки !!! ','Ошибка',16)
     end;
   end;
-  if cxDBCheckBox1.Checked then
-     IBTARIF_MESNSER_LICH.Value:='NO';
+
+  IBTARIF_MES.Edit;
+  if cxCheckBox1.Checked then
+  begin
+    // IBTARIF_MESNSER_LICH.Value:='NO';
+     cxDBRadioGroup1.Enabled:=true;
+     if IBTARIF_MESNO_LICH.Value=0 then IBTARIF_MESNO_LICH.Value:=1;
+  end;
+  if not cxCheckBox1.Checked then
+  begin
+     IBTARIF_MESNSER_LICH.Value:='';
+     cxDBRadioGroup1.Enabled:=false;
+     IBTARIF_MESNO_LICH.Value:=0;
+  end;
+  IBTARIF_MES.Post;
 end;
 
 procedure TInsTar.cxGrid1DBTableView1ID_DOMPropertiesEditValueChanged(
@@ -926,11 +943,7 @@ IBTARIF_MES.Open;
 IBTARIF_DOM1.Open;
 IBTARIF_OTHER.Open;
 
-
-
-
 Visible;
-
 end;
 
 procedure TInsTar.IBTARIFAfterPost(DataSet: TDataSet);
@@ -1090,6 +1103,12 @@ procedure TInsTar.IBUPDTDOMBeforePost(DataSet: TDataSet);
 begin
   inherited;
 fl_postt:=1;
+end;
+
+procedure TInsTar.RadioButton1Click(Sender: TObject);
+begin
+  inherited;
+ IBTARIF_MESNO_LICH.Value:=1;
 end;
 
 end.

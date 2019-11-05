@@ -4,26 +4,34 @@ inherited InsTar: TInsTar
   ClientWidth = 965
   Position = poDefault
   OnCreate = FormCreate
+  ExplicitLeft = -245
   ExplicitWidth = 981
   ExplicitHeight = 680
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
     Width = 965
+    Height = 57
     ExplicitWidth = 965
+    ExplicitHeight = 57
     inherited cxButton6: TcxButton
+      Height = 55
       Visible = False
     end
     inherited cxButton7: TcxButton
+      Height = 55
       OnClick = cxButton7Click
     end
     inherited cxButton8: TcxButton
+      Height = 55
       OnClick = cxButton8Click
     end
     inherited cxButton9: TcxButton
+      Height = 55
       OnClick = cxButton9Click
     end
     inherited cxButton5: TcxButton
+      Height = 55
       Visible = False
     end
     object cxDBLabel2: TcxDBLabel
@@ -40,18 +48,31 @@ inherited InsTar: TInsTar
       Height = 21
       Width = 121
     end
-    object cxDBCheckBox1: TcxDBCheckBox
-      Left = 795
-      Top = 7
-      Caption = #1041#1077#1079' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1110#1074
+    object cxDBRadioGroup1: TcxDBRadioGroup
+      Left = 770
+      Top = -8
       DataBinding.DataField = 'NO_LICH'
       DataBinding.DataSource = DSTARIF_MES
-      Properties.NullStyle = nssUnchecked
-      Properties.ValueChecked = 1
-      Properties.ValueGrayed = 0
-      Properties.ValueUnchecked = 0
+      Properties.ImmediatePost = True
+      Properties.Items = <
+        item
+          Caption = #1088#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1087#1086' '#1043#1082#1072#1083
+          Value = 1
+        end
+        item
+          Caption = #1088#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1087#1086' '#1090#1072#1088#1080#1092#1091
+          Value = 2
+        end>
       TabOrder = 6
-      OnClick = cxDBCheckBox1Click
+      Height = 59
+      Width = 185
+    end
+    object cxCheckBox1: TcxCheckBox
+      Left = 662
+      Top = 15
+      Caption = #1041#1077#1079' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1110#1074
+      TabOrder = 7
+      OnClick = cxCheckBox1Click
     end
   end
   inherited Panel4: TPanel
@@ -86,11 +107,13 @@ inherited InsTar: TInsTar
   end
   object cxGrid1: TcxGrid [2]
     Left = 613
-    Top = 321
+    Top = 337
     Width = 352
-    Height = 252
+    Height = 236
     Align = alRight
     TabOrder = 2
+    ExplicitTop = 321
+    ExplicitHeight = 252
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -162,11 +185,13 @@ inherited InsTar: TInsTar
   end
   object cxGrid2: TcxGrid [3]
     Left = 0
-    Top = 321
+    Top = 337
     Width = 613
-    Height = 252
+    Height = 236
     Align = alClient
     TabOrder = 3
+    ExplicitTop = 321
+    ExplicitHeight = 252
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -296,11 +321,12 @@ inherited InsTar: TInsTar
   end
   object Panel5: TPanel [5]
     Left = 0
-    Top = 41
+    Top = 57
     Width = 965
     Height = 208
     Align = alTop
     TabOrder = 5
+    ExplicitTop = 41
     object cxDBMemo1: TcxDBMemo
       Left = 1
       Top = 152
@@ -435,11 +461,12 @@ inherited InsTar: TInsTar
   end
   object Panel6: TPanel [6]
     Left = 0
-    Top = 249
+    Top = 265
     Width = 965
     Height = 72
     Align = alTop
     TabOrder = 6
+    ExplicitTop = 249
     object cxLabel3: TcxLabel
       Left = 8
       Top = 51

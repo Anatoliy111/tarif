@@ -576,7 +576,7 @@ begin
          cenaosn2:=IBQuery1.FieldByName('TARIF_SUM2').AsFloat;
          cenamzk2:=IBQuery1.FieldByName('TARIF_MZK2').AsFloat;
 
-         if IBTARIFUPDNSER_LICH.Value<>'NO' then
+         if IBTARIFUPDNO_LICH.Value=0 then
          begin
 
 
@@ -667,7 +667,7 @@ begin
       send1:=normaosn1*cenaosn1;
       send2:=normaosn2*cenaosn2;
 
-       if IBTARIFUPDNO_LICH.Value=0 then
+       if IBTARIFUPDNO_LICH.Value<2 then
        begin
 
          IBTARIFUPD.Edit;
@@ -1168,6 +1168,16 @@ begin
  ChangeTar.Update(IBTARIF_MESID.Value,IBTARIF_DOMID_DOM.Value);
  ChangeTar.Calcplos(IBTARIF_MESID.Value);
  ChangeTar.Update(IBTARIF_MESID.Value,IBTARIF_DOMID_DOM.Value);
+     if  ChangeTar.IBTARIF_MESNO_LICH.Value=0 then
+    begin
+      ChangeTar.cxDBRadioGroup1.Enabled:=false;
+      ChangeTar.cxCheckBox1.Checked:=false;
+    end
+    else
+    begin
+      ChangeTar.cxDBRadioGroup1.Enabled:=true;
+      ChangeTar.cxCheckBox1.Checked:=true;
+    end;
  Main.AddToolBar(ChangeTar);
  end
  else
