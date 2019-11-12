@@ -495,7 +495,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 68
+      Height = 52
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -510,9 +510,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 69
+      Top = 53
       Width = 167
-      Height = 297
+      Height = 313
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -859,7 +859,7 @@
       
         '   MZK_CENA1, MZK_CENA2, MZK_ALLSUMM2IND, MZK_PDV, SUMMZK, SUMMZ' +
         'K_PDV, '
-      '   ALLSUM, ALLSUM_PDV)'
+      '   ALLSUM, ALLSUM_PDV,MZK_PROCENT)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -885,7 +885,9 @@
       
         '   :MZK_SUMM2IND1, :MZK_SUMM2IND2, :MZK_CENA1, :MZK_CENA2, :MZK_' +
         'ALLSUMM2IND, '
-      '   :MZK_PDV, :SUMMZK, :SUMMZK_PDV, :ALLSUM, :ALLSUM_PDV)')
+      
+        '   :MZK_PDV, :SUMMZK, :SUMMZK_PDV, :ALLSUM, :ALLSUM_PDV, :MZK_PR' +
+        'OCENT)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -946,7 +948,8 @@
       '  SUMMZK,'
       '  SUMMZK_PDV,'
       '  ALLSUM,'
-      '  ALLSUM_PDV'
+      '  ALLSUM_PDV,'
+      '  MZK_PROCENT'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1017,7 +1020,8 @@
       '  SUMMZK = :SUMMZK,'
       '  SUMMZK_PDV = :SUMMZK_PDV,'
       '  ALLSUM = :ALLSUM,'
-      '  ALLSUM_PDV = :ALLSUM_PDV'
+      '  ALLSUM_PDV = :ALLSUM_PDV,'
+      '  MZK_PROCENT = :MZK_PROCENT'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1379,6 +1383,10 @@
       Origin = '"TARIF_MES"."ALLSUM_PDV"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIFUPDMZK_PROCENT: TIntegerField
+      FieldName = 'MZK_PROCENT'
+      Origin = '"TARIF_MES"."MZK_PROCENT"'
     end
   end
   object DSTARIFUPD: TDataSource
@@ -2002,7 +2010,7 @@
       
         '   MZK_CENA1, MZK_CENA2, MZK_ALLSUMM2IND, MZK_PDV, SUMMZK, SUMMZ' +
         'K_PDV, '
-      '   ALLSUM, ALLSUM_PDV)'
+      '   ALLSUM, ALLSUM_PDV, MZK_PROCENT)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -2028,7 +2036,9 @@
       
         '   :MZK_SUMM2IND1, :MZK_SUMM2IND2, :MZK_CENA1, :MZK_CENA2, :MZK_' +
         'ALLSUMM2IND, '
-      '   :MZK_PDV, :SUMMZK, :SUMMZK_PDV, :ALLSUM, :ALLSUM_PDV)')
+      
+        '   :MZK_PDV, :SUMMZK, :SUMMZK_PDV, :ALLSUM, :ALLSUM_PDV, :MZK_PR' +
+        'OCENT)')
     RefreshSQL.Strings = (
       'Select '
       ' TARIF_MES.ID,'
@@ -2090,6 +2100,7 @@
       '  TARIF_MES.SUMMZK_PDV,'
       '  TARIF_MES.ALLSUM,'
       '  TARIF_MES.ALLSUM_PDV,'
+      '  TARIF_MES.MZK_PROCENT,'
       '  TARIF.NAME'
       'from TARIF_MES, TARIF'
       'where'
@@ -2519,6 +2530,10 @@
       Origin = '"TARIF_MES"."ALLSUM_PDV"'
       Precision = 18
       Size = 2
+    end
+    object IBTARIF_MESMZK_PROCENT: TIntegerField
+      FieldName = 'MZK_PROCENT'
+      Origin = '"TARIF_MES"."MZK_PROCENT"'
     end
   end
   object DSTARIF_MES: TDataSource

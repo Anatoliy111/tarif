@@ -341,6 +341,8 @@ type
     IBTARIF_OTHERMZK_GK2: TIBBCDField;
     IBTARIF_OTHERPLOS_OB: TIBBCDField;
     cxGridDBTableView1PLOS_OB: TcxGridDBColumn;
+    IBTARIFUPDMZK_PROCENT: TIntegerField;
+    IBTARIF_MESMZK_PROCENT: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -608,8 +610,17 @@ begin
          plosallmzk:=IBTARIFUPDPLOS_BBI.AsFloat+IBTARIFUPDPLOS_IN.AsFloat+IBTARIFUPDPLOS_MZK.AsFloat;
          gkalkv1:=gkal1/plosallmzk*(IBTARIFUPDPLOS_BBI.AsFloat+IBTARIFUPDPLOS_IN.AsFloat);
          gkalkv2:=gkal2/plosallmzk*(IBTARIFUPDPLOS_BBI.AsFloat+IBTARIFUPDPLOS_IN.AsFloat);
-         gkalmzk1:=gkal1-gkalkv1;
-         gkalmzk2:=gkal2-gkalkv2;
+//         gkalmzk1:=gkal1-gkalkv1;
+//         gkalmzk2:=gkal2-gkalkv2;
+gkalmzk1:=0;
+gkalmzk1:=0;
+         if IBTARIFUPDMZK_PROCENT.AsInteger<>0 then
+         begin
+
+         gkalmzk1:=SimpleRoundTo((gkal1/100)*IBTARIFUPDMZK_PROCENT.AsInteger,-3);
+         gkalmzk2:=SimpleRoundTo((gkal2/100)*IBTARIFUPDMZK_PROCENT.AsInteger,-3);
+         end;
+
          gkalmzkco1:=gkalmzk1/(IBTARIFUPDPLOS_BBI.AsFloat+IBTARIFUPDPLOS_IN.AsFloat)*IBTARIFUPDPLOS_BBI.AsFloat;
          gkalmzkco2:=gkalmzk2/(IBTARIFUPDPLOS_BBI.AsFloat+IBTARIFUPDPLOS_IN.AsFloat)*IBTARIFUPDPLOS_BBI.AsFloat;
          gkalmzkin1:=gkalmzk1-gkalmzkco1;

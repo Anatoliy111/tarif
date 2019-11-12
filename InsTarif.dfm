@@ -4,7 +4,7 @@ inherited InsTar: TInsTar
   ClientWidth = 965
   Position = poDefault
   OnCreate = FormCreate
-  ExplicitLeft = -245
+  ExplicitLeft = -139
   ExplicitWidth = 981
   ExplicitHeight = 680
   PixelsPerInch = 96
@@ -17,22 +17,27 @@ inherited InsTar: TInsTar
     inherited cxButton6: TcxButton
       Height = 55
       Visible = False
+      ExplicitHeight = 55
     end
     inherited cxButton7: TcxButton
       Height = 55
       OnClick = cxButton7Click
+      ExplicitHeight = 55
     end
     inherited cxButton8: TcxButton
       Height = 55
       OnClick = cxButton8Click
+      ExplicitHeight = 55
     end
     inherited cxButton9: TcxButton
       Height = 55
       OnClick = cxButton9Click
+      ExplicitHeight = 55
     end
     inherited cxButton5: TcxButton
       Height = 55
       Visible = False
+      ExplicitHeight = 55
     end
     object cxDBLabel2: TcxDBLabel
       Left = 338
@@ -112,8 +117,6 @@ inherited InsTar: TInsTar
     Height = 236
     Align = alRight
     TabOrder = 2
-    ExplicitTop = 321
-    ExplicitHeight = 252
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -190,8 +193,6 @@ inherited InsTar: TInsTar
     Height = 236
     Align = alClient
     TabOrder = 3
-    ExplicitTop = 321
-    ExplicitHeight = 252
     object cxGridDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -326,7 +327,6 @@ inherited InsTar: TInsTar
     Height = 208
     Align = alTop
     TabOrder = 5
-    ExplicitTop = 41
     object cxDBMemo1: TcxDBMemo
       Left = 1
       Top = 152
@@ -395,7 +395,7 @@ inherited InsTar: TInsTar
         object cxGridDBTableView2NAME: TcxGridDBColumn
           Caption = #1053#1072#1079#1074#1072' '#1090#1072#1088#1080#1092#1091
           DataBinding.FieldName = 'NAME'
-          Width = 219
+          Width = 186
         end
         object cxGridDBTableView2ID_VIDCENA: TcxGridDBColumn
           Caption = #1042#1080#1076' '#1094#1110#1085#1080
@@ -407,34 +407,43 @@ inherited InsTar: TInsTar
               FieldName = 'NAME'
             end>
           Properties.ListSource = Tarifs.DSVIDAB
+          Width = 54
         end
         object cxGridDBTableView2NSER_LICH: TcxGridDBColumn
           Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
           DataBinding.FieldName = 'NSER_LICH'
-          Width = 115
+          Width = 98
         end
         object cxGridDBTableView2PLOS_BB: TcxGridDBColumn
           Caption = #1054#1087'.'#1087#1083#1086#1097#1072' '#1087#1086' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1091
           DataBinding.FieldName = 'PLOS_BB'
           PropertiesClassName = 'TcxCalcEditProperties'
           Properties.OnEditValueChanged = cxGridDBTableView2PLOS_BBPropertiesEditValueChanged
-          Width = 119
+          Width = 101
         end
         object cxGridDBTableView2PLOS_OBL: TcxGridDBColumn
           Caption = #1055#1083#1086#1097#1072' '#1073#1077#1079' '#1110#1085#1096#1080#1093
           DataBinding.FieldName = 'PLOS_BBI'
           Options.Editing = False
-          Width = 112
+          Width = 95
         end
         object cxGridDBTableView2PLOS_IN: TcxGridDBColumn
           Caption = #1055#1083#1086#1097#1072' '#1110#1085#1076#1080#1074#1110#1076'.'#1086#1087#1072#1083
           DataBinding.FieldName = 'PLOS_IN'
           PropertiesClassName = 'TcxCalcEditProperties'
+          Width = 100
         end
         object cxGridDBTableView2PLOS_MZK: TcxGridDBColumn
           Caption = #1055#1083#1086#1097#1072' '#1052#1047#1050
           DataBinding.FieldName = 'PLOS_MZK'
           PropertiesClassName = 'TcxCalcEditProperties'
+          Width = 84
+        end
+        object cxGridDBTableView2MZK_PROCENT: TcxGridDBColumn
+          Caption = #1042#1110#1076#1089#1086#1090#1086#1082' '#1052#1047#1050
+          DataBinding.FieldName = 'MZK_PROCENT'
+          PropertiesClassName = 'TcxCalcEditProperties'
+          Width = 82
         end
         object cxGridDBTableView2ID_KOTEL: TcxGridDBColumn
           Caption = #1050#1086#1090#1077#1083#1100#1085#1103
@@ -446,12 +455,13 @@ inherited InsTar: TInsTar
               FieldName = 'NAME'
             end>
           Properties.ListSource = DSKOTEL
-          Width = 86
+          Width = 68
         end
         object cxGridDBTableView2PROCENT: TcxGridDBColumn
           Caption = #1055#1088#1086#1094#1077#1085#1090
           DataBinding.FieldName = 'PROCENT'
           PropertiesClassName = 'TcxCalcEditProperties'
+          Width = 93
         end
       end
       object cxGridLevel2: TcxGridLevel
@@ -466,7 +476,6 @@ inherited InsTar: TInsTar
     Height = 72
     Align = alTop
     TabOrder = 6
-    ExplicitTop = 249
     object cxLabel3: TcxLabel
       Left = 8
       Top = 51
@@ -1069,6 +1078,7 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = False
     Left = 16
     Top = 520
   end
@@ -1410,7 +1420,7 @@ inherited InsTar: TInsTar
       
         '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
         'CH, PLOS_IN, '
-      '   PLOS_MZK, ID_VIDCENA, PROCENT, ID_VIDAB)'
+      '   PLOS_MZK, ID_VIDCENA, PROCENT, ID_VIDAB,MZK_PROCENT)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -1423,7 +1433,7 @@ inherited InsTar: TInsTar
         'G_VIDH, '
       
         '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :ID_VIDCENA, :PROCENT, :ID_VID' +
-        'AB)')
+        'AB,:MZK_PROCENT)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1465,7 +1475,8 @@ inherited InsTar: TInsTar
       '  FL_2CENA,'
       '  MZK_GK1,'
       '  MZK_GK2,'
-      '  ID_VIDAB'
+      '  ID_VIDAB,'
+      '  MZK_PROCENT'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -1503,7 +1514,8 @@ inherited InsTar: TInsTar
       '  PLOS_MZK = :PLOS_MZK,'
       '  ID_VIDCENA = :ID_VIDCENA,'
       '  PROCENT = :PROCENT,'
-      '  ID_VIDAB = :ID_VIDAB'
+      '  ID_VIDAB = :ID_VIDAB,'
+      '  MZK_PROCENT = :MZK_PROCENT'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1743,6 +1755,124 @@ inherited InsTar: TInsTar
     object IBTARIF_MESID_VIDAB: TIntegerField
       FieldName = 'ID_VIDAB'
       Origin = '"TARIF_MES"."ID_VIDAB"'
+    end
+    object IBTARIF_MESMZK_PLOSALL: TIBBCDField
+      FieldName = 'MZK_PLOSALL'
+      Origin = '"TARIF_MES"."MZK_PLOSALL"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_GKKV1: TIBBCDField
+      FieldName = 'MZK_GKKV1'
+      Origin = '"TARIF_MES"."MZK_GKKV1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKKV2: TIBBCDField
+      FieldName = 'MZK_GKKV2'
+      Origin = '"TARIF_MES"."MZK_GKKV2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKALL1: TIBBCDField
+      FieldName = 'MZK_GKALL1'
+      Origin = '"TARIF_MES"."MZK_GKALL1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKALL2: TIBBCDField
+      FieldName = 'MZK_GKALL2'
+      Origin = '"TARIF_MES"."MZK_GKALL2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKCO1: TIBBCDField
+      FieldName = 'MZK_GKCO1'
+      Origin = '"TARIF_MES"."MZK_GKCO1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKCO2: TIBBCDField
+      FieldName = 'MZK_GKCO2'
+      Origin = '"TARIF_MES"."MZK_GKCO2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKM2IND1: TIBBCDField
+      FieldName = 'MZK_GKM2IND1'
+      Origin = '"TARIF_MES"."MZK_GKM2IND1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKM2IND2: TIBBCDField
+      FieldName = 'MZK_GKM2IND2'
+      Origin = '"TARIF_MES"."MZK_GKM2IND2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_SUMM2IND1: TIBBCDField
+      FieldName = 'MZK_SUMM2IND1'
+      Origin = '"TARIF_MES"."MZK_SUMM2IND1"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_SUMM2IND2: TIBBCDField
+      FieldName = 'MZK_SUMM2IND2'
+      Origin = '"TARIF_MES"."MZK_SUMM2IND2"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_CENA1: TIBBCDField
+      FieldName = 'MZK_CENA1'
+      Origin = '"TARIF_MES"."MZK_CENA1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESMZK_CENA2: TIBBCDField
+      FieldName = 'MZK_CENA2'
+      Origin = '"TARIF_MES"."MZK_CENA2"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESMZK_ALLSUMM2IND: TIBBCDField
+      FieldName = 'MZK_ALLSUMM2IND'
+      Origin = '"TARIF_MES"."MZK_ALLSUMM2IND"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_PDV: TIBBCDField
+      FieldName = 'MZK_PDV'
+      Origin = '"TARIF_MES"."MZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESSUMMZK: TIBBCDField
+      FieldName = 'SUMMZK'
+      Origin = '"TARIF_MES"."SUMMZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESSUMMZK_PDV: TIBBCDField
+      FieldName = 'SUMMZK_PDV'
+      Origin = '"TARIF_MES"."SUMMZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESALLSUM: TIBBCDField
+      FieldName = 'ALLSUM'
+      Origin = '"TARIF_MES"."ALLSUM"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESALLSUM_PDV: TIBBCDField
+      FieldName = 'ALLSUM_PDV'
+      Origin = '"TARIF_MES"."ALLSUM_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_PROCENT: TIntegerField
+      FieldName = 'MZK_PROCENT'
+      Origin = '"TARIF_MES"."MZK_PROCENT"'
     end
   end
   object DSTARIF_MES: TDataSource

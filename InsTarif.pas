@@ -187,6 +187,27 @@ type
     IBTARIF_MESID_VIDAB: TIntegerField;
     cxDBRadioGroup1: TcxDBRadioGroup;
     cxCheckBox1: TcxCheckBox;
+    IBTARIF_MESMZK_PLOSALL: TIBBCDField;
+    IBTARIF_MESMZK_GKKV1: TIBBCDField;
+    IBTARIF_MESMZK_GKKV2: TIBBCDField;
+    IBTARIF_MESMZK_GKALL1: TIBBCDField;
+    IBTARIF_MESMZK_GKALL2: TIBBCDField;
+    IBTARIF_MESMZK_GKCO1: TIBBCDField;
+    IBTARIF_MESMZK_GKCO2: TIBBCDField;
+    IBTARIF_MESMZK_GKM2IND1: TIBBCDField;
+    IBTARIF_MESMZK_GKM2IND2: TIBBCDField;
+    IBTARIF_MESMZK_SUMM2IND1: TIBBCDField;
+    IBTARIF_MESMZK_SUMM2IND2: TIBBCDField;
+    IBTARIF_MESMZK_CENA1: TIBBCDField;
+    IBTARIF_MESMZK_CENA2: TIBBCDField;
+    IBTARIF_MESMZK_ALLSUMM2IND: TIBBCDField;
+    IBTARIF_MESMZK_PDV: TIBBCDField;
+    IBTARIF_MESSUMMZK: TIBBCDField;
+    IBTARIF_MESSUMMZK_PDV: TIBBCDField;
+    IBTARIF_MESALLSUM: TIBBCDField;
+    IBTARIF_MESALLSUM_PDV: TIBBCDField;
+    IBTARIF_MESMZK_PROCENT: TIntegerField;
+    cxGridDBTableView2MZK_PROCENT: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -397,6 +418,7 @@ begin
     cxDBRadioGroup1.Visible:=false;
     cxGridDBTableView2PLOS_IN.Visible:=false;
     cxGridDBTableView2PLOS_MZK.Visible:=false;
+    cxGridDBTableView2MZK_PROCENT.Visible:=false;
     cxGridDBTableView2PROCENT.Visible:=false;
     cxGridDBTableView2ID_VIDCENA.Visible:=false;
   if poslwid='ot' then
@@ -411,6 +433,7 @@ begin
     cxCheckBox1.Visible:=true;
     cxGridDBTableView2PLOS_IN.Visible:=true;
     cxGridDBTableView2PLOS_MZK.Visible:=true;
+    cxGridDBTableView2MZK_PROCENT.Visible:=true;
     cxGridDBTableView2PROCENT.Visible:=true;
     cxGridDBTableView2ID_VIDCENA.Visible:=true;
 
