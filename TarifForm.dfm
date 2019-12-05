@@ -495,7 +495,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 164
+      Height = 148
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -510,13 +510,11 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 165
+      Top = 149
       Width = 167
-      Height = 201
+      Height = 217
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 120
-      ExplicitHeight = 246
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM
@@ -776,6 +774,7 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -3005,9 +3004,10 @@
     SelectSQL.Strings = (
       
         'select TARIF_OTHER.*, DOM_OTHER.id_other, DOM_OTHER.plos_bb, DOM' +
-        '_OTHER.plos_ob,DOM_OTHER.id_dom, OTHER.id_vidab from TARIF_OTHER' +
-        ', DOM_OTHER, OTHER where TARIF_OTHER.id_tarifmes=:idmes and TARI' +
-        'F_OTHER.id_domother=DOM_OTHER.id and DOM_OTHER.id_other=OTHER.id')
+        '_OTHER.plos_ob,DOM_OTHER.id_dom, OTHER.id_vidab from TARIF_OTHER'
+      'inner join DOM_OTHER on TARIF_OTHER.id_domother=DOM_OTHER.id'
+      'inner join OTHER on DOM_OTHER.id_other=OTHER.id'
+      'where TARIF_OTHER.id_tarifmes=:idmes')
     ModifySQL.Strings = (
       'update TARIF_OTHER'
       'set'
@@ -3092,12 +3092,6 @@
     object IBTARIF_OTHERID_OTHER: TIntegerField
       FieldName = 'ID_OTHER'
       Origin = '"DOM_OTHER"."ID_OTHER"'
-    end
-    object IBTARIF_OTHERPLOS_BB: TIBBCDField
-      FieldName = 'PLOS_BB'
-      Origin = '"DOM_OTHER"."PLOS_BB"'
-      Precision = 18
-      Size = 2
     end
     object IBTARIF_OTHERID_DOM: TIntegerField
       FieldName = 'ID_DOM'
@@ -3204,6 +3198,12 @@
     object IBTARIF_OTHERPLOS_OB: TIBBCDField
       FieldName = 'PLOS_OB'
       Origin = '"DOM_OTHER"."PLOS_OB"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERPLOS_BB: TIBBCDField
+      FieldName = 'PLOS_BB'
+      Origin = '"DOM_OTHER"."PLOS_BB"'
       Precision = 18
       Size = 2
     end

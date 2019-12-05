@@ -180,7 +180,6 @@ type
     IBTARIF_OTHERSEND: TIBBCDField;
     IBTARIF_OTHERMZK: TIBBCDField;
     IBTARIF_OTHERID_OTHER: TIntegerField;
-    IBTARIF_OTHERPLOS_BB: TIBBCDField;
     IBTARIF_OTHERID_DOM: TIntegerField;
     IBTARIF_OTHERID_VIDAB: TIntegerField;
     DSTARIF_OTHER: TDataSource;
@@ -343,6 +342,7 @@ type
     cxGridDBTableView1PLOS_OB: TcxGridDBColumn;
     IBTARIFUPDMZK_PROCENT: TIntegerField;
     IBTARIF_MESMZK_PROCENT: TIntegerField;
+    IBTARIF_OTHERPLOS_BB: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -745,6 +745,10 @@ gkalmzk1:=0;
          IBTARIF_OTHER.Close;
          IBTARIF_OTHER.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
          IBTARIF_OTHER.Open;
+
+
+
+
          while not IBTARIF_OTHER.eof do
          begin
 //         gkal:=normaosn*IBTARIF_OTHERPLOS_BB.AsFloat;
@@ -754,6 +758,16 @@ gkalmzk1:=0;
            IBQuery1.ParamByName('dmes').Value:=IBTARIFUPDDATA.Value;
            IBQuery1.Open;
            IBQuery1.First;
+
+           IBQuery2.Close;
+           IBQuery2.SQL.Text:='select first 1 * from DOM_OTHER where DOM_OTHER.id=:id';
+           IBQuery2.ParamByName('id').Value:=IBTARIF_OTHERID_DOMOTHER.Value;
+           IBQuery2.Open;
+           IBQuery2.First;
+           IBQuery2.FieldByName('PLOS_BB').AsFloat;
+
+
+
            cenaother1:=IBQuery1.FieldByName('TARIF_SUM1').AsFloat;
            cenaother2:=IBQuery1.FieldByName('TARIF_SUM2').AsFloat;
 
@@ -779,11 +793,15 @@ gkalmzk1:=0;
                 IBTARIF_OTHERLICH_GK2.AsFloat:= IBTARIF_OTHERLICH_PK2.AsFloat-IBTARIF_OTHERLICH_PN2.AsFloat;
              IBTARIF_OTHER.Post;
 
-             if IBTARIF_OTHERPLOS_BB.AsFloat<>0 then
+
+
+
+
+             if IBQuery2.FieldByName('PLOS_BB').AsFloat<>0 then
              begin
 
-              normaother1:=IBTARIF_OTHERLICH_GK.AsFloat/IBTARIF_OTHERPLOS_BB.AsFloat;
-              normaother2:=IBTARIF_OTHERLICH_GK2.AsFloat/IBTARIF_OTHERPLOS_BB.AsFloat;
+              normaother1:=IBTARIF_OTHERLICH_GK.AsFloat/IBQuery2.FieldByName('PLOS_BB').AsFloat;
+              normaother2:=IBTARIF_OTHERLICH_GK2.AsFloat/IBQuery2.FieldByName('PLOS_BB').AsFloat;
              end
              else
              begin
@@ -798,9 +816,9 @@ gkalmzk1:=0;
            else
            begin
               normaother1:=normaosn1;
-              gkalother1:=SimpleRoundTo(normaother1*IBTARIF_OTHERPLOS_BB.AsFloat,-3);
+              gkalother1:=SimpleRoundTo(normaother1*IBQuery2.FieldByName('PLOS_BB').AsFloat,-3);
               normaother2:=normaosn2;
-              gkalother2:=SimpleRoundTo(normaother2*IBTARIF_OTHERPLOS_BB.AsFloat,-3);
+              gkalother2:=SimpleRoundTo(normaother2*IBQuery2.FieldByName('PLOS_BB').AsFloat,-3);
            end;
 
           sotend1:=normaother1*cenaother1;
@@ -828,8 +846,8 @@ gkalmzk1:=0;
            end;
            if widab='ns' then
            begin
-             IBTARIF_OTHERSUMOT.Value:=SimpleRoundTo(sotend1+sotend2,-2)*IBTARIF_OTHERPLOS_BB.AsFloat;
-             IBTARIF_OTHERSUMOTPDV.Value:=(SimpleRoundTo(sotend1+sotend2,-2)*IBTARIF_OTHERPLOS_BB.AsFloat)*1.2;
+             IBTARIF_OTHERSUMOT.Value:=SimpleRoundTo(sotend1+sotend2,-2)*IBQuery2.FieldByName('PLOS_BB').AsFloat;
+             IBTARIF_OTHERSUMOTPDV.Value:=(SimpleRoundTo(sotend1+sotend2,-2)*IBQuery2.FieldByName('PLOS_BB').AsFloat)*1.2;
            end
            else
            begin
