@@ -343,6 +343,7 @@ type
     IBTARIFUPDMZK_PROCENT: TIntegerField;
     IBTARIF_MESMZK_PROCENT: TIntegerField;
     IBTARIF_OTHERPLOS_BB: TIBBCDField;
+    cxGrid1DBTableView1ID_TARIF: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -532,6 +533,9 @@ begin
          while not IBTARIF_OTHER.eof do
          begin
 //         gkal:=normaosn*IBTARIF_OTHERPLOS_BB.AsFloat;
+           if IBTARIFUPDID_TARIF.Value=884 then
+              IBTARIFUPDID_TARIF.Value;
+
            IBQuery1.Close;
            IBQuery1.SQL.Text:='select sum(s_plan) splan, sum(s_fact) sfact from tarif_inf where id_tarifmes=:id and (id_tarvid=3 or id_tarvid=4)';
            IBQuery1.ParamByName('id').Value:=IBTARIFUPDID.Value;
@@ -549,8 +553,10 @@ begin
 
            if (IBTARIF_OTHERSEND.Value>IBTARIF_OTHERSPLAN.Value) or (IBTARIF_OTHERSEND.Value<0) then
            begin
-           IBTARIF_OTHERSEND.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('splan').AsFloat,-2);
-           IBTARIF_OTHERSENDPDV.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('splan').AsFloat,-2)*1.2;
+           IBTARIF_OTHERSEND.Value:=IBTARIF_OTHERSPLAN.Value;
+           IBTARIF_OTHERSENDPDV.Value:=IBTARIF_OTHERSPLAN.Value*1.2;
+           //IBTARIF_OTHERSEND.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('splan').AsFloat,-2);
+           //IBTARIF_OTHERSENDPDV.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('splan').AsFloat,-2)*1.2;
            end;
            IBTARIF_OTHER.Post;
          IBTARIF_OTHER.Next;
@@ -1674,7 +1680,7 @@ begin
     cxGridDBTableView1SPLAN.Visible:=true;
     cxGridDBTableView1SFACT.Visible:=true;
     cxGridDBTableView1SEND.Visible:=true;
-    cxGridDBTableView1SENDPDV.Visible:=true;
+    cxGridDBTableView1SENDPDV.Visible:=false;
 
 
   end;

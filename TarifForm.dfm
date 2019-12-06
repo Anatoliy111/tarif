@@ -4,6 +4,7 @@
   ClientWidth = 928
   Position = poMainFormCenter
   OnCreate = FormCreate
+  ExplicitLeft = 4
   ExplicitWidth = 944
   ExplicitHeight = 699
   PixelsPerInch = 96
@@ -179,6 +180,10 @@
       OptionsView.Footer = True
       OptionsView.FooterMultiSummaries = True
       OptionsView.GroupByBox = False
+      object cxGrid1DBTableView1ID_TARIF: TcxGridDBColumn
+        Caption = 'ID'
+        DataBinding.FieldName = 'ID_TARIF'
+      end
       object cxGrid1DBTableView1ID: TcxGridDBColumn
         DataBinding.FieldName = 'ID'
         Visible = False
@@ -495,7 +500,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 148
+      Height = 132
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -510,9 +515,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 149
+      Top = 133
       Width = 167
-      Height = 217
+      Height = 233
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -701,6 +706,7 @@
         object cxGridDBTableView1SENDPDV: TcxGridDBColumn
           Caption = #1053#1072#1088#1072#1093'. '#1090#1072#1088#1080#1092' '#1079' '#1055#1044#1042
           DataBinding.FieldName = 'SENDPDV'
+          Visible = False
           Options.Editing = False
           Width = 111
         end
@@ -774,7 +780,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
