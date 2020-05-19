@@ -23,7 +23,11 @@
     Left = 608
     Top = 56
     Bitmap = {
+<<<<<<< HEAD
       494C010105000900000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+=======
+      494C010105000900FC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+>>>>>>> origin/master
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -1282,7 +1286,11 @@
     Left = 608
     Top = 112
     Bitmap = {
+<<<<<<< HEAD
       494C010112001400000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+=======
+      494C010112001400FC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+>>>>>>> origin/master
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2130,7 +2138,11 @@
     Left = 568
     Top = 176
     Bitmap = {
+<<<<<<< HEAD
       494C010107000900000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+=======
+      494C010107000900FC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+>>>>>>> origin/master
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2453,6 +2465,7 @@
     Top = 368
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultDatabase = DataM.IBDatabase1
     Params.Strings = (
       'read_committed'
@@ -2687,8 +2700,23 @@
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
       
+<<<<<<< HEAD
         '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA,MZK_PRO' +
         'CENT)'
+=======
+        '   LICH_GK2, ID_VIDCENA, PROCENT, CENA1, CENA2, FL_2CENA, MZK_GK' +
+        '1, MZK_GK2, '
+      
+        '   ID_VIDAB, MZK_PLOSALL, MZK_GKKV1, MZK_GKKV2, MZK_GKALL1, MZK_' +
+        'GKALL2, '
+      
+        '   MZK_GKCO1, MZK_GKCO2, MZK_GKM2IND1, MZK_GKM2IND2, MZK_SUMM2IN' +
+        'D1, MZK_SUMM2IND2, '
+      
+        '   MZK_CENA1, MZK_CENA2, MZK_ALLSUMM2IND, MZK_PDV, SUMMZK, SUMMZ' +
+        'K_PDV, '
+      '   ALLSUM, ALLSUM_PDV, MZK_PROCENT)'
+>>>>>>> origin/master
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -2703,9 +2731,27 @@
         '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
         'TARIF_ENDPDV, '
       
+<<<<<<< HEAD
         '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA1, :CENA2,' +
         ' :PROCENT, '
       '   :FL_2CENA,:MZK_PROCENT)')
+=======
+        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :PROCENT, :CENA' +
+        '1, :CENA2, '
+      
+        '   :FL_2CENA, :MZK_GK1, :MZK_GK2, :ID_VIDAB, :MZK_PLOSALL, :MZK_' +
+        'GKKV1, '
+      
+        '   :MZK_GKKV2, :MZK_GKALL1, :MZK_GKALL2, :MZK_GKCO1, :MZK_GKCO2,' +
+        ' :MZK_GKM2IND1, '
+      
+        '   :MZK_GKM2IND2, :MZK_SUMM2IND1, :MZK_SUMM2IND2, :MZK_CENA1, :M' +
+        'ZK_CENA2, '
+      
+        '   :MZK_ALLSUMM2IND, :MZK_PDV, :SUMMZK, :SUMMZK_PDV, :ALLSUM, :A' +
+        'LLSUM_PDV, '
+      '   :MZK_PROCENT)')
+>>>>>>> origin/master
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -2741,10 +2787,37 @@
       '  LICH_PK2,'
       '  LICH_GK2,'
       '  ID_VIDCENA,'
+      '  PROCENT,'
       '  CENA1,'
       '  CENA2,'
+<<<<<<< HEAD
       '  PROCENT,'
       '  FL_2CENA,'
+=======
+      '  FL_2CENA,'
+      '  MZK_GK1,'
+      '  MZK_GK2,'
+      '  ID_VIDAB,'
+      '  MZK_PLOSALL,'
+      '  MZK_GKKV1,'
+      '  MZK_GKKV2,'
+      '  MZK_GKALL1,'
+      '  MZK_GKALL2,'
+      '  MZK_GKCO1,'
+      '  MZK_GKCO2,'
+      '  MZK_GKM2IND1,'
+      '  MZK_GKM2IND2,'
+      '  MZK_SUMM2IND1,'
+      '  MZK_SUMM2IND2,'
+      '  MZK_CENA1,'
+      '  MZK_CENA2,'
+      '  MZK_ALLSUMM2IND,'
+      '  MZK_PDV,'
+      '  SUMMZK,'
+      '  SUMMZK_PDV,'
+      '  ALLSUM,'
+      '  ALLSUM_PDV,'
+>>>>>>> origin/master
       '  MZK_PROCENT'
       'from TARIF_MES '
       'where'
@@ -2787,10 +2860,37 @@
       '  LICH_PK2 = :LICH_PK2,'
       '  LICH_GK2 = :LICH_GK2,'
       '  ID_VIDCENA = :ID_VIDCENA,'
+      '  PROCENT = :PROCENT,'
       '  CENA1 = :CENA1,'
       '  CENA2 = :CENA2,'
+<<<<<<< HEAD
       '  PROCENT = :PROCENT,'
       '  FL_2CENA = :FL_2CENA,'
+=======
+      '  FL_2CENA = :FL_2CENA,'
+      '  MZK_GK1 = :MZK_GK1,'
+      '  MZK_GK2 = :MZK_GK2,'
+      '  ID_VIDAB = :ID_VIDAB,'
+      '  MZK_PLOSALL = :MZK_PLOSALL,'
+      '  MZK_GKKV1 = :MZK_GKKV1,'
+      '  MZK_GKKV2 = :MZK_GKKV2,'
+      '  MZK_GKALL1 = :MZK_GKALL1,'
+      '  MZK_GKALL2 = :MZK_GKALL2,'
+      '  MZK_GKCO1 = :MZK_GKCO1,'
+      '  MZK_GKCO2 = :MZK_GKCO2,'
+      '  MZK_GKM2IND1 = :MZK_GKM2IND1,'
+      '  MZK_GKM2IND2 = :MZK_GKM2IND2,'
+      '  MZK_SUMM2IND1 = :MZK_SUMM2IND1,'
+      '  MZK_SUMM2IND2 = :MZK_SUMM2IND2,'
+      '  MZK_CENA1 = :MZK_CENA1,'
+      '  MZK_CENA2 = :MZK_CENA2,'
+      '  MZK_ALLSUMM2IND = :MZK_ALLSUMM2IND,'
+      '  MZK_PDV = :MZK_PDV,'
+      '  SUMMZK = :SUMMZK,'
+      '  SUMMZK_PDV = :SUMMZK_PDV,'
+      '  ALLSUM = :ALLSUM,'
+      '  ALLSUM_PDV = :ALLSUM_PDV,'
+>>>>>>> origin/master
       '  MZK_PROCENT = :MZK_PROCENT'
       'where'
       '  ID = :OLD_ID')

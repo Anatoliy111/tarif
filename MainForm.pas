@@ -659,7 +659,7 @@ Prores.Show;
             IBTARIF_MESPROCENT.AsFloat:=IBQuery1.FieldByName('PROCENT').AsFloat;
             IBTARIF_MESMZK_PROCENT.AsInteger:=IBQuery1.FieldByName('MZK_PROCENT').AsInteger;
             IBTARIF_MESNO_LICH.AsInteger:=IBQuery1.FieldByName('NO_LICH').AsInteger;
-
+            IBTARIF_MESMZK_PROCENT.AsString:=IBQuery1.FieldByName('MZK_PROCENT').AsString;
 
             IBTARIF_MES.Post;
 
