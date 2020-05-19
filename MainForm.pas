@@ -241,29 +241,6 @@ type
     dxBarButton46: TdxBarButton;
     frxReport1: TfrxReport;
     frxDesigner1: TfrxDesigner;
-    IBTARIF_MESMZK_GK1: TIBBCDField;
-    IBTARIF_MESMZK_GK2: TIBBCDField;
-    IBTARIF_MESID_VIDAB: TIntegerField;
-    IBTARIF_MESMZK_PLOSALL: TIBBCDField;
-    IBTARIF_MESMZK_GKKV1: TIBBCDField;
-    IBTARIF_MESMZK_GKKV2: TIBBCDField;
-    IBTARIF_MESMZK_GKALL1: TIBBCDField;
-    IBTARIF_MESMZK_GKALL2: TIBBCDField;
-    IBTARIF_MESMZK_GKCO1: TIBBCDField;
-    IBTARIF_MESMZK_GKCO2: TIBBCDField;
-    IBTARIF_MESMZK_GKM2IND1: TIBBCDField;
-    IBTARIF_MESMZK_GKM2IND2: TIBBCDField;
-    IBTARIF_MESMZK_SUMM2IND1: TIBBCDField;
-    IBTARIF_MESMZK_SUMM2IND2: TIBBCDField;
-    IBTARIF_MESMZK_CENA1: TIBBCDField;
-    IBTARIF_MESMZK_CENA2: TIBBCDField;
-    IBTARIF_MESMZK_ALLSUMM2IND: TIBBCDField;
-    IBTARIF_MESMZK_PDV: TIBBCDField;
-    IBTARIF_MESSUMMZK: TIBBCDField;
-    IBTARIF_MESSUMMZK_PDV: TIBBCDField;
-    IBTARIF_MESALLSUM: TIBBCDField;
-    IBTARIF_MESALLSUM_PDV: TIBBCDField;
-    IBTARIF_MESMZK_PROCENT: TIntegerField;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -657,9 +634,8 @@ Prores.Show;
             IBTARIF_MESPLOS_MZK.AsFloat:=IBQuery1.FieldByName('PLOS_MZK').AsFloat;
             IBTARIF_MESID_VIDCENA.AsInteger:=IBQuery1.FieldByName('ID_VIDCENA').AsInteger;
             IBTARIF_MESPROCENT.AsFloat:=IBQuery1.FieldByName('PROCENT').AsFloat;
-            IBTARIF_MESMZK_PROCENT.AsInteger:=IBQuery1.FieldByName('MZK_PROCENT').AsInteger;
             IBTARIF_MESNO_LICH.AsInteger:=IBQuery1.FieldByName('NO_LICH').AsInteger;
-
+            IBTARIF_MESMZK_PROCENT.AsString:=IBQuery1.FieldByName('MZK_PROCENT').AsString;
 
             IBTARIF_MES.Post;
 
