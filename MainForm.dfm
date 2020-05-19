@@ -23,7 +23,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900F80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -1282,7 +1282,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400F80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2130,7 +2130,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900F80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2686,7 +2686,9 @@
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
-      '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA)'
+      
+        '   LICH_GK2, ID_VIDCENA, CENA1, CENA2, PROCENT, FL_2CENA,MZK_PRO' +
+        'CENT)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -2703,7 +2705,7 @@
       
         '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :CENA1, :CENA2,' +
         ' :PROCENT, '
-      '   :FL_2CENA)')
+      '   :FL_2CENA,:MZK_PROCENT)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -2742,7 +2744,8 @@
       '  CENA1,'
       '  CENA2,'
       '  PROCENT,'
-      '  FL_2CENA'
+      '  FL_2CENA,'
+      '  MZK_PROCENT'
       'from TARIF_MES '
       'where'
       '  ID = :ID')
@@ -2787,7 +2790,8 @@
       '  CENA1 = :CENA1,'
       '  CENA2 = :CENA2,'
       '  PROCENT = :PROCENT,'
-      '  FL_2CENA = :FL_2CENA'
+      '  FL_2CENA = :FL_2CENA,'
+      '  MZK_PROCENT = :MZK_PROCENT'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -3001,6 +3005,140 @@
     object IBTARIF_MESFL_2CENA: TIntegerField
       FieldName = 'FL_2CENA'
       Origin = '"TARIF_MES"."FL_2CENA"'
+    end
+    object IBTARIF_MESMZK_GK1: TIBBCDField
+      FieldName = 'MZK_GK1'
+      Origin = '"TARIF_MES"."MZK_GK1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GK2: TIBBCDField
+      FieldName = 'MZK_GK2'
+      Origin = '"TARIF_MES"."MZK_GK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESID_VIDAB: TIntegerField
+      FieldName = 'ID_VIDAB'
+      Origin = '"TARIF_MES"."ID_VIDAB"'
+    end
+    object IBTARIF_MESMZK_PLOSALL: TIBBCDField
+      FieldName = 'MZK_PLOSALL'
+      Origin = '"TARIF_MES"."MZK_PLOSALL"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_GKKV1: TIBBCDField
+      FieldName = 'MZK_GKKV1'
+      Origin = '"TARIF_MES"."MZK_GKKV1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKKV2: TIBBCDField
+      FieldName = 'MZK_GKKV2'
+      Origin = '"TARIF_MES"."MZK_GKKV2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKALL1: TIBBCDField
+      FieldName = 'MZK_GKALL1'
+      Origin = '"TARIF_MES"."MZK_GKALL1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKALL2: TIBBCDField
+      FieldName = 'MZK_GKALL2'
+      Origin = '"TARIF_MES"."MZK_GKALL2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKCO1: TIBBCDField
+      FieldName = 'MZK_GKCO1'
+      Origin = '"TARIF_MES"."MZK_GKCO1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKCO2: TIBBCDField
+      FieldName = 'MZK_GKCO2'
+      Origin = '"TARIF_MES"."MZK_GKCO2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKM2IND1: TIBBCDField
+      FieldName = 'MZK_GKM2IND1'
+      Origin = '"TARIF_MES"."MZK_GKM2IND1"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_GKM2IND2: TIBBCDField
+      FieldName = 'MZK_GKM2IND2'
+      Origin = '"TARIF_MES"."MZK_GKM2IND2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_MESMZK_SUMM2IND1: TIBBCDField
+      FieldName = 'MZK_SUMM2IND1'
+      Origin = '"TARIF_MES"."MZK_SUMM2IND1"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_SUMM2IND2: TIBBCDField
+      FieldName = 'MZK_SUMM2IND2'
+      Origin = '"TARIF_MES"."MZK_SUMM2IND2"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_CENA1: TIBBCDField
+      FieldName = 'MZK_CENA1'
+      Origin = '"TARIF_MES"."MZK_CENA1"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESMZK_CENA2: TIBBCDField
+      FieldName = 'MZK_CENA2'
+      Origin = '"TARIF_MES"."MZK_CENA2"'
+      Precision = 18
+      Size = 4
+    end
+    object IBTARIF_MESMZK_ALLSUMM2IND: TIBBCDField
+      FieldName = 'MZK_ALLSUMM2IND'
+      Origin = '"TARIF_MES"."MZK_ALLSUMM2IND"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_PDV: TIBBCDField
+      FieldName = 'MZK_PDV'
+      Origin = '"TARIF_MES"."MZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESSUMMZK: TIBBCDField
+      FieldName = 'SUMMZK'
+      Origin = '"TARIF_MES"."SUMMZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESSUMMZK_PDV: TIBBCDField
+      FieldName = 'SUMMZK_PDV'
+      Origin = '"TARIF_MES"."SUMMZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESALLSUM: TIBBCDField
+      FieldName = 'ALLSUM'
+      Origin = '"TARIF_MES"."ALLSUM"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESALLSUM_PDV: TIBBCDField
+      FieldName = 'ALLSUM_PDV'
+      Origin = '"TARIF_MES"."ALLSUM_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_MESMZK_PROCENT: TIntegerField
+      FieldName = 'MZK_PROCENT'
+      Origin = '"TARIF_MES"."MZK_PROCENT"'
     end
   end
   object DSTARIF_MES: TDataSource
