@@ -1,18 +1,17 @@
 inherited InsTar: TInsTar
   Caption = 'InsTar'
   ClientHeight = 642
-  ClientWidth = 965
+  ClientWidth = 1012
   Position = poDefault
   OnCreate = FormCreate
-  ExplicitLeft = -139
-  ExplicitWidth = 981
+  ExplicitWidth = 1028
   ExplicitHeight = 680
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
-    Width = 965
+    Width = 1012
     Height = 57
-    ExplicitWidth = 965
+    ExplicitWidth = 1012
     ExplicitHeight = 57
     inherited cxButton6: TcxButton
       Height = 55
@@ -53,47 +52,21 @@ inherited InsTar: TInsTar
       Height = 21
       Width = 121
     end
-    object cxDBRadioGroup1: TcxDBRadioGroup
-      Left = 770
-      Top = -8
-      DataBinding.DataField = 'NO_LICH'
-      DataBinding.DataSource = DSTARIF_MES
-      Properties.ImmediatePost = True
-      Properties.Items = <
-        item
-          Caption = #1088#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1087#1086' '#1043#1082#1072#1083
-          Value = 1
-        end
-        item
-          Caption = #1088#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1087#1086' '#1090#1072#1088#1080#1092#1091
-          Value = 2
-        end>
-      TabOrder = 6
-      Height = 59
-      Width = 185
-    end
-    object cxCheckBox1: TcxCheckBox
-      Left = 662
-      Top = 15
-      Caption = #1041#1077#1079' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1110#1074
-      TabOrder = 7
-      OnClick = cxCheckBox1Click
-    end
   end
   inherited Panel4: TPanel
     Top = 573
-    Width = 965
+    Width = 1012
     ExplicitTop = 573
-    ExplicitWidth = 965
+    ExplicitWidth = 1012
     inherited Panel3: TPanel
-      Left = 808
-      ExplicitLeft = 808
+      Left = 855
+      ExplicitLeft = 855
       inherited cxButton4: TcxButton
         Visible = False
       end
     end
     inherited dxStatusBar1: TdxStatusBar
-      Width = 957
+      Width = 1004
       Panels = <
         item
           PanelStyleClassName = 'TdxStatusBarTextPanelStyle'
@@ -107,11 +80,11 @@ inherited InsTar: TInsTar
           ParentBiDiMode = False
           Text = '11111111111'
         end>
-      ExplicitWidth = 957
+      ExplicitWidth = 1004
     end
   end
   object cxGrid1: TcxGrid [2]
-    Left = 613
+    Left = 660
     Top = 337
     Width = 352
     Height = 236
@@ -189,7 +162,7 @@ inherited InsTar: TInsTar
   object cxGrid2: TcxGrid [3]
     Left = 0
     Top = 337
-    Width = 613
+    Width = 660
     Height = 236
     Align = alClient
     TabOrder = 3
@@ -323,7 +296,7 @@ inherited InsTar: TInsTar
   object Panel5: TPanel [5]
     Left = 0
     Top = 57
-    Width = 965
+    Width = 1012
     Height = 208
     Align = alTop
     TabOrder = 5
@@ -335,12 +308,12 @@ inherited InsTar: TInsTar
       DataBinding.DataSource = DSTARIF_MES
       TabOrder = 0
       Height = 55
-      Width = 963
+      Width = 1010
     end
     object cxGrid3: TcxGrid
       Left = 1
       Top = 1
-      Width = 963
+      Width = 1010
       Height = 151
       Align = alClient
       TabOrder = 1
@@ -395,7 +368,7 @@ inherited InsTar: TInsTar
         object cxGridDBTableView2NAME: TcxGridDBColumn
           Caption = #1053#1072#1079#1074#1072' '#1090#1072#1088#1080#1092#1091
           DataBinding.FieldName = 'NAME'
-          Width = 186
+          Width = 183
         end
         object cxGridDBTableView2ID_VIDCENA: TcxGridDBColumn
           Caption = #1042#1080#1076' '#1094#1110#1085#1080
@@ -407,43 +380,56 @@ inherited InsTar: TInsTar
               FieldName = 'NAME'
             end>
           Properties.ListSource = Tarifs.DSVIDAB
-          Width = 54
+          Width = 53
+        end
+        object cxGridDBTableView2NO_LICH: TcxGridDBColumn
+          Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
+          DataBinding.FieldName = 'NO_LICH'
+          PropertiesClassName = 'TcxLookupComboBoxProperties'
+          Properties.KeyFieldNames = 'Val'
+          Properties.ListColumns = <
+            item
+              FieldName = 'name'
+            end>
+          Properties.ListSource = DSMEM
+          Options.AutoWidthSizable = False
+          Width = 150
         end
         object cxGridDBTableView2NSER_LICH: TcxGridDBColumn
-          Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
+          Caption = #8470' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072
           DataBinding.FieldName = 'NSER_LICH'
-          Width = 98
+          Width = 88
         end
         object cxGridDBTableView2PLOS_BB: TcxGridDBColumn
           Caption = #1054#1087'.'#1087#1083#1086#1097#1072' '#1087#1086' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1091
           DataBinding.FieldName = 'PLOS_BB'
           PropertiesClassName = 'TcxCalcEditProperties'
           Properties.OnEditValueChanged = cxGridDBTableView2PLOS_BBPropertiesEditValueChanged
-          Width = 101
+          Width = 87
         end
         object cxGridDBTableView2PLOS_OBL: TcxGridDBColumn
           Caption = #1055#1083#1086#1097#1072' '#1073#1077#1079' '#1110#1085#1096#1080#1093
           DataBinding.FieldName = 'PLOS_BBI'
           Options.Editing = False
-          Width = 95
+          Width = 91
         end
         object cxGridDBTableView2PLOS_IN: TcxGridDBColumn
           Caption = #1055#1083#1086#1097#1072' '#1110#1085#1076#1080#1074#1110#1076'.'#1086#1087#1072#1083
           DataBinding.FieldName = 'PLOS_IN'
           PropertiesClassName = 'TcxCalcEditProperties'
-          Width = 100
+          Width = 109
         end
         object cxGridDBTableView2PLOS_MZK: TcxGridDBColumn
           Caption = #1055#1083#1086#1097#1072' '#1052#1047#1050
           DataBinding.FieldName = 'PLOS_MZK'
           PropertiesClassName = 'TcxCalcEditProperties'
-          Width = 84
+          Width = 67
         end
         object cxGridDBTableView2MZK_PROCENT: TcxGridDBColumn
           Caption = #1042#1110#1076#1089#1086#1090#1086#1082' '#1052#1047#1050
           DataBinding.FieldName = 'MZK_PROCENT'
           PropertiesClassName = 'TcxCalcEditProperties'
-          Width = 82
+          Width = 72
         end
         object cxGridDBTableView2ID_KOTEL: TcxGridDBColumn
           Caption = #1050#1086#1090#1077#1083#1100#1085#1103
@@ -455,13 +441,13 @@ inherited InsTar: TInsTar
               FieldName = 'NAME'
             end>
           Properties.ListSource = DSKOTEL
-          Width = 68
+          Width = 52
         end
         object cxGridDBTableView2PROCENT: TcxGridDBColumn
           Caption = #1055#1088#1086#1094#1077#1085#1090
           DataBinding.FieldName = 'PROCENT'
           PropertiesClassName = 'TcxCalcEditProperties'
-          Width = 93
+          Width = 56
         end
       end
       object cxGridLevel2: TcxGridLevel
@@ -472,7 +458,7 @@ inherited InsTar: TInsTar
   object Panel6: TPanel [6]
     Left = 0
     Top = 265
-    Width = 965
+    Width = 1012
     Height = 72
     Align = alTop
     TabOrder = 6
@@ -778,7 +764,7 @@ inherited InsTar: TInsTar
       OnClick = cxButton14Click
     end
     object Panel7: TPanel
-      Left = 613
+      Left = 660
       Top = 1
       Width = 351
       Height = 70
@@ -1078,7 +1064,6 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = False
     Left = 16
     Top = 520
   end
@@ -2283,5 +2268,29 @@ inherited InsTar: TInsTar
       '')
     Left = 128
     Top = 280
+  end
+  object dxMemData1: TdxMemData
+    Active = True
+    Indexes = <>
+    Persistent.Data = {
+      5665728FC2F5285C8FFE3F02000000040000000300040056616C000F00000001
+      0005006E616D650001000000000109000000CBB3F7E8EBFCEDE8EA0101000000
+      010D000000C1E5E720EBB3F72E20C3CAE0EB0102000000010E000000C1E5E720
+      EBB3F72E20F2E0F0E8F4}
+    SortOptions = []
+    Left = 192
+    Top = 368
+    object dxMemData1Val: TIntegerField
+      FieldName = 'Val'
+    end
+    object dxMemData1name: TStringField
+      FieldName = 'name'
+      Size = 15
+    end
+  end
+  object DSMEM: TDataSource
+    DataSet = dxMemData1
+    Left = 256
+    Top = 368
   end
 end
