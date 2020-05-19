@@ -241,6 +241,7 @@ type
     dxBarButton46: TdxBarButton;
     frxReport1: TfrxReport;
     frxDesigner1: TfrxDesigner;
+    IBTARIF_MESMZK_PROCENT: TIntegerField;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);

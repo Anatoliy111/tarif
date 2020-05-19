@@ -11,7 +11,7 @@ uses
   IBX.IBCustomDataSet, cxLabel, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, cxDBLabel,
   cxTextEdit, cxMemo, cxDBEdit, cxDBLookupComboBox, IBX.IBQuery, cxCalc,
-  cxCheckBox, cxGroupBox, cxRadioGroup;
+  cxCheckBox, cxGroupBox, cxRadioGroup, dxmdaset;
 
 type
   TInsTar = class(TAllMDICh)
@@ -185,8 +185,6 @@ type
     IBTARIF_MESMZK_GK1: TIBBCDField;
     IBTARIF_MESMZK_GK2: TIBBCDField;
     IBTARIF_MESID_VIDAB: TIntegerField;
-    cxDBRadioGroup1: TcxDBRadioGroup;
-    cxCheckBox1: TcxCheckBox;
     IBTARIF_MESMZK_PLOSALL: TIBBCDField;
     IBTARIF_MESMZK_GKKV1: TIBBCDField;
     IBTARIF_MESMZK_GKKV2: TIBBCDField;
@@ -208,6 +206,11 @@ type
     IBTARIF_MESALLSUM_PDV: TIBBCDField;
     IBTARIF_MESMZK_PROCENT: TIntegerField;
     cxGridDBTableView2MZK_PROCENT: TcxGridDBColumn;
+    cxGridDBTableView2NO_LICH: TcxGridDBColumn;
+    dxMemData1: TdxMemData;
+    dxMemData1val: TIntegerField;
+    dxMemData1lich: TStringField;
+    DSMEM: TDataSource;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -245,7 +248,6 @@ type
     procedure IBTARIFAfterPost(DataSet: TDataSet);
     procedure IBUPDTDOMAfterPost(DataSet: TDataSet);
     procedure RadioButton1Click(Sender: TObject);
-    procedure cxCheckBox1Click(Sender: TObject);
   private
 
     { Private declarations }
@@ -408,14 +410,13 @@ begin
 
 
     cxGridDBTableView2NSER_LICH.Visible:=false;
+    cxGridDBTableView2NO_LICH.Visible:=false;
     cxGridDBTableView2PLOS_BB.Visible:=false;
     cxGridDBTableView2PLOS_OBL.Visible:=false;
 
     cxGridDBTableView2ID_KOTEL.Visible:=false;
     cxGridDBTableView1PLOS_BB.Visible:=false;
     cxGrid1DBTableView1PLOS_BB.Visible:=false;
-    cxCheckBox1.Visible:=false;
-    cxDBRadioGroup1.Visible:=false;
     cxGridDBTableView2PLOS_IN.Visible:=false;
     cxGridDBTableView2PLOS_MZK.Visible:=false;
     cxGridDBTableView2MZK_PROCENT.Visible:=false;
@@ -423,14 +424,13 @@ begin
     cxGridDBTableView2ID_VIDCENA.Visible:=false;
   if poslwid='ot' then
   begin
+    cxGridDBTableView2NO_LICH.Visible:=true;
     cxGridDBTableView2NSER_LICH.Visible:=true;
     cxGridDBTableView2PLOS_BB.Visible:=true;
     cxGridDBTableView2PLOS_OBL.Visible:=true;
     cxGridDBTableView2ID_KOTEL.Visible:=true;
     cxGridDBTableView1PLOS_BB.Visible:=true;
     cxGrid1DBTableView1PLOS_BB.Visible:=true;
-    cxDBRadioGroup1.Visible:=true;
-    cxCheckBox1.Visible:=true;
     cxGridDBTableView2PLOS_IN.Visible:=true;
     cxGridDBTableView2PLOS_MZK.Visible:=true;
     cxGridDBTableView2MZK_PROCENT.Visible:=true;
@@ -763,42 +763,6 @@ iddom:=0;
     end;
 end;
 
-procedure TInsTar.cxCheckBox1Click(Sender: TObject);
-begin
-  inherited;
-  if cxCheckBox1.Checked then
-  begin
-    if IBTARIF_MES.RecordCount>1 then
-    begin
-      cxCheckBox1.Checked:=false;
-      Application.MessageBox('Тариф без лічильників неможе бути використаний в подвійному тарифі !!! ','Ошибка',16)
-    end;
-  end;
-  if not cxCheckBox1.Checked then
-  begin
-    if IBTARIF_DOM1.RecordCount>1 then
-    begin
-      cxCheckBox1.Checked:=true;
-      Application.MessageBox('Тариф з лічильником використовує тільки один будинок. Видаліть лишні будинки !!! ','Ошибка',16)
-    end;
-  end;
-
-  IBTARIF_MES.Edit;
-  if cxCheckBox1.Checked then
-  begin
-    // IBTARIF_MESNSER_LICH.Value:='NO';
-     cxDBRadioGroup1.Enabled:=true;
-     if IBTARIF_MESNO_LICH.Value=0 then IBTARIF_MESNO_LICH.Value:=1;
-  end;
-  if not cxCheckBox1.Checked then
-  begin
-     IBTARIF_MESNSER_LICH.Value:='';
-     cxDBRadioGroup1.Enabled:=false;
-     IBTARIF_MESNO_LICH.Value:=0;
-  end;
-  IBTARIF_MES.Post;
-end;
-
 procedure TInsTar.cxGrid1DBTableView1ID_DOMPropertiesEditValueChanged(
   Sender: TObject);
 begin
@@ -965,6 +929,7 @@ IBKOTEL.Open;
 IBTARIF_MES.Open;
 IBTARIF_DOM1.Open;
 IBTARIF_OTHER.Open;
+dxMemData1.Open;
 
 Visible;
 end;
@@ -1135,3 +1100,4 @@ begin
 end;
 
 end.
+

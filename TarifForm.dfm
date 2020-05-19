@@ -4,7 +4,6 @@
   ClientWidth = 928
   Position = poMainFormCenter
   OnCreate = FormCreate
-  ExplicitLeft = 4
   ExplicitWidth = 944
   ExplicitHeight = 699
   PixelsPerInch = 96
@@ -240,9 +239,17 @@
       end
       object cxGrid1DBTableView1NSER_LICH: TcxGridDBColumn
         Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
-        DataBinding.FieldName = 'NSER_LICH'
+        DataBinding.FieldName = 'NO_LICH'
+        PropertiesClassName = 'TcxLookupComboBoxProperties'
+        Properties.KeyFieldNames = 'val'
+        Properties.ListColumns = <
+          item
+            FieldName = 'lich'
+          end>
+        Properties.ListSource = DSMEM
+        Properties.ReadOnly = True
         Options.Editing = False
-        Width = 36
+        Width = 108
       end
       object cxGrid1DBTableView1PLOS_BBI: TcxGridDBColumn
         Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
@@ -500,7 +507,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 132
+      Height = 116
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -515,9 +522,9 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 133
+      Top = 117
       Width = 167
-      Height = 233
+      Height = 249
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -3268,6 +3275,29 @@
   object DSKOTEL: TDataSource
     DataSet = IBKOTEL
     Left = 640
+    Top = 472
+  end
+  object dxMemData1: TdxMemData
+    Indexes = <>
+    Persistent.Data = {
+      5665728FC2F5285C8FFE3F02000000040000000300040076616C000F00000001
+      0005006C6963680001000000000109000000CBB3F7E8EBFCEDE8EA0101000000
+      010D000000C1E5E720EBB3F72E20E3CAE0EB0102000000010E000000C1E5E720
+      EBB3F72E20F2E0F0E8F4}
+    SortOptions = []
+    Left = 168
+    Top = 472
+    object dxMemData1val: TIntegerField
+      FieldName = 'val'
+    end
+    object dxMemData1lich: TStringField
+      FieldName = 'lich'
+      Size = 15
+    end
+  end
+  object DSMEM: TDataSource
+    DataSet = dxMemData1
+    Left = 224
     Top = 472
   end
 end
