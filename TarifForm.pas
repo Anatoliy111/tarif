@@ -12,7 +12,7 @@ uses
   cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst, Vcl.Menus,
   cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit,
   cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons, IBX.IBQuery, inifiles,
-  cxButtonEdit, cxCalc, cxMemo, cxDBEdit, cxCheckBox;
+  cxButtonEdit, cxCalc, cxMemo, cxDBEdit, cxCheckBox, dxmdaset;
 
 type
   TTarifs = class(TAllMDICh)
@@ -344,6 +344,10 @@ type
     IBTARIF_MESMZK_PROCENT: TIntegerField;
     IBTARIF_OTHERPLOS_BB: TIBBCDField;
     cxGrid1DBTableView1ID_TARIF: TcxGridDBColumn;
+    dxMemData1: TdxMemData;
+    dxMemData1Val: TIntegerField;
+    dxMemData1name: TStringField;
+    DSMEM: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -1203,16 +1207,6 @@ begin
  ChangeTar.Update(IBTARIF_MESID.Value,IBTARIF_DOMID_DOM.Value);
  ChangeTar.Calcplos(IBTARIF_MESID.Value);
  ChangeTar.Update(IBTARIF_MESID.Value,IBTARIF_DOMID_DOM.Value);
-     if  ChangeTar.IBTARIF_MESNO_LICH.Value=0 then
-    begin
-      ChangeTar.cxDBRadioGroup1.Enabled:=false;
-      ChangeTar.cxCheckBox1.Checked:=false;
-    end
-    else
-    begin
-      ChangeTar.cxDBRadioGroup1.Enabled:=true;
-      ChangeTar.cxCheckBox1.Checked:=true;
-    end;
  Main.AddToolBar(ChangeTar);
  end
  else
