@@ -507,7 +507,7 @@
       Left = 1
       Top = 1
       Width = 167
-      Height = 116
+      Height = 212
       Align = alTop
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -522,11 +522,13 @@
     end
     object cxGrid3: TcxGrid
       Left = 1
-      Top = 117
+      Top = 213
       Width = 167
-      Height = 249
+      Height = 153
       Align = alClient
       TabOrder = 1
+      ExplicitTop = 101
+      ExplicitHeight = 265
       object cxGridDBTableView2: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = DSTARIF_DOM

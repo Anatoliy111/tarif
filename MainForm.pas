@@ -505,6 +505,9 @@ begin
     ADOCommand1.CommandText:='create table '+ffile+' (id_tarif Numeric(10,0),'+
                                                    ' kl Numeric(5,0),'+
                                                    ' wid Character(2),'+
+                                                   ' kl_ul Numeric(10,0),'+
+                                                   ' ul Character(40),'+
+                                                   ' dom Character(5),'+
                                                    ' name Character(50),'+
                                                    ' tarif Numeric(9,4),'+
                                                    ' tarif_bl Numeric(9,4),'+
@@ -742,7 +745,7 @@ Prores.Show;
               exit;
             end;
             ffdm:=OpenKvart('tr',date);
-            if ffin='' then
+            if ffdm='' then
             begin
               Prores.Close;
               exit;
@@ -796,6 +799,13 @@ IBTransaction1.CommitRetaining;
                    if IBQuery1.FieldByName('TARIF_END').AsFloat<>0 then
                    begin
 
+                                IBQuery3.close;
+                                IBQuery3.SQL.Text:='select tarif_dom.*, dom.id_house, dom.id_ul, dom.dom, ul.name as ul, ul.id_street, ul.kl as kl_ul from tarif_dom, dom, ul where tarif_dom.id_tarifmes=:idmes and tarif_dom.id_dom=dom.id and dom.id_ul=ul.id';
+                                IBQuery3.ParamByName('idmes').Value:=IBQuery1.FieldByName('ID_TARIFMES').Value;
+                                IBQuery3.open;
+                                IBQuery3.last;
+
+
                    ADOQuery1.Insert;
                    ADOQuery1.FieldByName('id_tarif').Value:=IBQuery1.FieldByName('ID').AsInteger;
                    ADOQuery1.FieldByName('kl').Value:=IBQuery1.FieldByName('kl_old').AsInteger;
@@ -807,6 +817,14 @@ IBTransaction1.CommitRetaining;
                    ADOQuery1.FieldByName('fact').Value:=IBQuery1.FieldByName('TARIF_FACT').AsFloat;
                    ADOQuery1.FieldByName('tarif_bl').Value:=IBQuery1.FieldByName('END_BL').AsFloat;
                    ADOQuery1.FieldByName('tarif_l').Value:=IBQuery1.FieldByName('END_L').AsFloat;
+                   if IBQuery3.RecordCount=1 then
+                   begin
+                     ADOQuery1.FieldByName('dom').Value:=IBQuery3.FieldByName('dom').Value;
+                     ADOQuery1.FieldByName('kl_ul').Value:=IBQuery3.FieldByName('kl_ul').Value;
+                     ADOQuery1.FieldByName('ul').Value:=IBQuery3.FieldByName('ul').Value;
+                   end;
+
+
                    ADOQuery1.Post;
                    end;
 

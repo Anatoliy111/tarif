@@ -264,11 +264,14 @@ begin
       //            res:= IBUL.Lookup('kl',DB.FieldByName('kl').Value ,'kl');
                      if not IBUL.Locate('kl',ADOQuery1.FieldByName('kl').Value,[]) then
                      begin
+                        if ADOQuery1.FieldByName('ul').Value<>null  then
+                        begin
                         IBUL.Insert;
                         IBULKL.Value:=ADOQuery1.FieldByName('kl').Value;
                         IBULNAME.Value:=ADOQuery1.FieldByName('ul').Value;
                         IBULVAL.Value:=ADOQuery1.FieldByName('val').Value;
-                        IBUL.Post
+                        IBUL.Post;
+                        end;
                      end
                      else
                      begin
