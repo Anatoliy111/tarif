@@ -348,6 +348,10 @@ type
     DSMEM: TDataSource;
     dxMemData1val: TIntegerField;
     dxMemData1lich: TStringField;
+    IBTARIF_OTHERLICH_PGK: TIBBCDField;
+    IBTARIF_OTHERLICH_PGK2: TIBBCDField;
+    cxGridDBTableView1LICH_PGK: TcxGridDBColumn;
+    cxGridDBTableView1LICH_PGK2: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -415,7 +419,7 @@ uses registry, cxGridExportLink, comobj, MainForm, InsertForm, Ins, mytools, Dat
 {$R *.dfm}
 
 
-procedure TTarifs.cxButton10Click(Sender: TObject);
+procedure TTarifs.cxButton10Click(Sender: TObject); //вигрузка
 var ddate:TDate;
 begin
   inherited;
@@ -423,15 +427,15 @@ begin
 Main.expp(ddate);
 end;
 
-procedure TTarifs.cxButton1Click(Sender: TObject);
+procedure TTarifs.cxButton1Click(Sender: TObject);      //розрахунок
 var res,res1,res2:currency;
     widab:string;
     rrr:Variant;
     fl_rasch:Boolean;
     fl_2cena:Integer;
     plosallmzk,plosothlich:double;
-    cenaosn1,cenamzk1,cenaother1,gkal1,gkalother1,normaosn1,normaother1,gkalkv1,gkalmzk1,gkalmzkco1,gkalmzkin1,send1,sotend1,sinend1,gkalm2in1,gkalothlich1:double;
-    cenaosn2,cenamzk2,cenaother2,gkal2,gkalother2,normaosn2,normaother2,gkalkv2,gkalmzk2,gkalmzkco2,gkalmzkin2,send2,sotend2,sinend2,gkalm2in2,gkalothlich2:double;
+    cenaosn1,cenamzk1,cenaother1,gkal1,gkalother1,normaosn1,normaother1,gkalkv1,gkalmzk1,gkalmzkco1,gkalmzkin1,send1,sotend1,sinend1,gkalm2in1,gkalothlich1,gkalothpoklich1,sereddom1,seredchast1,seredoth1:double;
+    cenaosn2,cenamzk2,cenaother2,gkal2,gkalother2,normaosn2,normaother2,gkalkv2,gkalmzk2,gkalmzkco2,gkalmzkin2,send2,sotend2,sinend2,gkalm2in2,gkalothlich2,gkalothpoklich2,sereddom2,seredchast2,seredoth2:double;
 
 begin
   inherited;
@@ -647,19 +651,86 @@ gkalmzk1:=0;
          gkalm2in2:=0;
          end;
 
+
+
+
+
+
+
+
           IBQuery1.Close;
           IBQuery1.SQL.Text:='select sum(DOM_OTHER.plos_bb) as plos from TARIF_OTHER, DOM_OTHER where TARIF_OTHER.id_tarifmes=:idmes and TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.fl_lich=1';
           IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
           IBQuery1.Open;
           IBQuery1.First;
+          //площа по іншим
           plosothlich:=IBQuery1.FieldByName('plos').AsFloat;
+
+    //poзрахунок донарахування по іншим
+
+          IBQuery1.Close;
+          IBQuery1.SQL.Text:='select sum(TARIF_OTHER.LICH_PGK) as LICH_PGK from TARIF_OTHER, DOM_OTHER where TARIF_OTHER.id_tarifmes=:idmes and TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.fl_lich=1';
+          IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
+          IBQuery1.Open;
+          IBQuery1.First;
+          //сума гкал по іншим по лічильнику
+          gkalothpoklich1:=IBQuery1.FieldByName('LICH_PGK').AsFloat;
+
+          IBQuery1.Close;
+          IBQuery1.SQL.Text:='select sum(TARIF_OTHER.LICH_PGK2) as LICH_PGK2 from TARIF_OTHER, DOM_OTHER where TARIF_OTHER.id_tarifmes=:idmes and TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.fl_lich=1';
+          IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
+          IBQuery1.Open;
+          IBQuery1.First;
+          //сума гкал по іншим по лічильнику
+          gkalothpoklich2:=IBQuery1.FieldByName('LICH_PGK2').AsFloat;
+
+         //середнє споживання  на м2 по будинку
+         sereddom1:=(gkal1-gkalothpoklich1)/IBTARIFUPDPLOS_BBI.AsFloat;
+         sereddom2:=(gkal2-gkalothpoklich2)/IBTARIFUPDPLOS_BBI.AsFloat;
+         //середня мінімальна частка по будинку
+         seredchast1:=sereddom1*0.5;
+         seredchast2:=sereddom2*0.5;
+
+         IBTARIF_OTHER.Close;
+         IBTARIF_OTHER.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
+         IBTARIF_OTHER.Open;
+         IBTARIF_OTHER.First;
+
+
+
+         while not IBTARIF_OTHER.eof do
+         begin
+           if IBTARIF_OTHERPLOS_BB.Value<>0 then
+           begin
+           //середня споживання на м2 по  приміщенням с лічильн.
+            seredoth1:=IBTARIF_OTHERLICH_PGK.Value/IBTARIF_OTHERPLOS_BB.Value;
+            seredoth2:=IBTARIF_OTHERLICH_PGK2.Value/IBTARIF_OTHERPLOS_BB.Value;
+
+             if seredoth1<sereddom1 then
+             begin
+               IBTARIF_OTHER.Edit;
+               IBTARIF_OTHERLICH_GK.Value:=IBTARIF_OTHERLICH_PGK.Value+((seredchast1-seredoth1)*IBTARIF_OTHERPLOS_BB.Value);
+               IBTARIF_OTHER.Post;
+             end;
+
+             if seredoth2<sereddom2 then
+             begin
+               IBTARIF_OTHER.Edit;
+               IBTARIF_OTHERLICH_GK2.Value:=IBTARIF_OTHERLICH_PGK2.Value+((seredchast2-seredoth2)*IBTARIF_OTHERPLOS_BB.Value);;
+               IBTARIF_OTHER.Post;
+             end;
+           end;
+         IBTARIF_OTHER.Next;
+         end;
+
+
 
           IBQuery1.Close;
           IBQuery1.SQL.Text:='select sum(TARIF_OTHER.LICH_GK) as LICH_GK from TARIF_OTHER, DOM_OTHER where TARIF_OTHER.id_tarifmes=:idmes and TARIF_OTHER.id_domother=DOM_OTHER.id and TARIF_OTHER.fl_lich=1';
           IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
           IBQuery1.Open;
           IBQuery1.First;
-
+          //сума гкал по іншим включно з донарахуванням
           gkalothlich1:=IBQuery1.FieldByName('LICH_GK').AsFloat;
 
           IBQuery1.Close;
@@ -667,10 +738,10 @@ gkalmzk1:=0;
           IBQuery1.ParamByName('idmes').Value:=IBTARIFUPDID.Value;
           IBQuery1.Open;
           IBQuery1.First;
-
+          //сума гкал по іншим включно з донарахуванням
           gkalothlich2:=IBQuery1.FieldByName('LICH_GK2').AsFloat;
 
-
+          //норма
           normaosn1:=(gkal1-gkalmzkin1-gkalothlich1)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
           normaosn2:=(gkal2-gkalmzkin2-gkalothlich2)/(IBTARIFUPDPLOS_BB.AsFloat-plosothlich);
 
@@ -798,10 +869,10 @@ gkalmzk1:=0;
 
              end;
 
-             IBTARIF_OTHER.Edit;
-                IBTARIF_OTHERLICH_GK.AsFloat:= IBTARIF_OTHERLICH_PK.AsFloat-IBTARIF_OTHERLICH_PN.AsFloat;
-                IBTARIF_OTHERLICH_GK2.AsFloat:= IBTARIF_OTHERLICH_PK2.AsFloat-IBTARIF_OTHERLICH_PN2.AsFloat;
-             IBTARIF_OTHER.Post;
+//             IBTARIF_OTHER.Edit;
+//                IBTARIF_OTHERLICH_GK.AsFloat:= IBTARIF_OTHERLICH_PK.AsFloat-IBTARIF_OTHERLICH_PN.AsFloat;
+//                IBTARIF_OTHERLICH_GK2.AsFloat:= IBTARIF_OTHERLICH_PK2.AsFloat-IBTARIF_OTHERLICH_PN2.AsFloat;
+//             IBTARIF_OTHER.Post;
 
 
 
@@ -933,13 +1004,14 @@ gkalmzk1:=0;
   end;
   IBTARIFUPD.close;
         Prores.cxProgressBar1.Position:=0;
-        Prores.Close;
+
         cxButton7.Click;
 
   IBSERVICE.Edit;
   IBSERVICEFL_RASH.Value:=1;
   IBSERVICE.Post;
 
+      Prores.Close;
       messagedlg('Розрахунок завершено!',mtInformation,[mbOK],0);
 
 
@@ -966,7 +1038,7 @@ begin
 
 end;
 
-procedure TTarifs.cxButton2Click(Sender: TObject);
+procedure TTarifs.cxButton2Click(Sender: TObject);  //softproekt
 var s,ss,ssql:string;
     res:Currency;
 begin
@@ -1435,6 +1507,7 @@ begin
       cxGridDBTableView1LICH_PN2.Visible:=true;
       cxGridDBTableView1LICH_PK2.Visible:=true;
       cxGridDBTableView1LICH_GK2.Visible:=true;
+      cxGridDBTableView1LICH_PGK2.Visible:=true;
       cxGridDBTableView1LICH_GK.Options.Editing:=true;
     end
     else
@@ -1444,6 +1517,7 @@ begin
       cxGridDBTableView1LICH_PN2.Visible:=false;
       cxGridDBTableView1LICH_PK2.Visible:=false;
       cxGridDBTableView1LICH_GK2.Visible:=false;
+      cxGridDBTableView1LICH_PGK2.Visible:=false;
     end;
 
     if IBTARIF_MESFL_2CENA.Value=1 then
@@ -1454,6 +1528,7 @@ begin
       cxGridDBTableView1LICH_PN2.Visible:=true;
       cxGridDBTableView1LICH_PK2.Visible:=true;
       cxGridDBTableView1LICH_GK2.Visible:=true;
+      cxGridDBTableView1LICH_PGK2.Visible:=true;
       cxGrid1DBTableView1MZK_GK2.Visible:=true;
 //      cxGridDBTableView1MZK_GK2.Visible:=true;
     end
@@ -1465,6 +1540,7 @@ begin
       cxGridDBTableView1LICH_PN2.Visible:=false;
       cxGridDBTableView1LICH_PK2.Visible:=false;
       cxGridDBTableView1LICH_GK2.Visible:=false;
+      cxGridDBTableView1LICH_PGK2.Visible:=false;
       cxGrid1DBTableView1MZK_GK2.Visible:=false;
 //      cxGridDBTableView1MZK_GK2.Visible:=false;
     end;
@@ -1692,6 +1768,7 @@ begin
     cxGridDBTableView1ID_DOM.Visible:=true;
     cxGridDBTableView1ID_OTHER.Visible:=true;
     cxGridDBTableView1LICH_GK.Visible:=true;
+    cxGridDBTableView1LICH_PGK.Visible:=true;
     cxGridDBTableView1SEND.Visible:=true;
     cxGridDBTableView1SENDPDV.Visible:=true;
     cxGridDBTableView1ID_VIDCENA.Visible:=true;
@@ -1966,7 +2043,7 @@ begin
   if IBTARIF_OTHERFL_LICH.Value=1 then
   begin
   IBTARIF_OTHER.edit;
-  IBTARIF_OTHERLICH_GK2.AsFloat:= IBTARIF_OTHERLICH_PK2.AsFloat-IBTARIF_OTHERLICH_PN2.AsFloat;
+  IBTARIF_OTHERLICH_PGK2.AsFloat:= IBTARIF_OTHERLICH_PK2.AsFloat-IBTARIF_OTHERLICH_PN2.AsFloat;
   IBTARIF_OTHER.post;
   end
   else
@@ -1979,7 +2056,7 @@ begin
     if IBTARIF_OTHERFL_LICH.Value=1 then
   begin
   IBTARIF_OTHER.edit;
-  IBTARIF_OTHERLICH_GK.AsFloat:= IBTARIF_OTHERLICH_PK.AsFloat-IBTARIF_OTHERLICH_PN.AsFloat;
+  IBTARIF_OTHERLICH_PGK.AsFloat:= IBTARIF_OTHERLICH_PK.AsFloat-IBTARIF_OTHERLICH_PN.AsFloat;
   IBTARIF_OTHER.post;
   end
   else
@@ -1992,7 +2069,7 @@ begin
  if IBTARIF_OTHERFL_LICH.Value=1 then
   begin
   IBTARIF_OTHER.edit;
-  IBTARIF_OTHERLICH_GK2.AsFloat:= IBTARIF_OTHERLICH_PK2.AsFloat-IBTARIF_OTHERLICH_PN2.AsFloat;
+  IBTARIF_OTHERLICH_PGK2.AsFloat:= IBTARIF_OTHERLICH_PK2.AsFloat-IBTARIF_OTHERLICH_PN2.AsFloat;
   IBTARIF_OTHER.post;
   end
   else
@@ -2005,7 +2082,7 @@ begin
     if IBTARIF_OTHERFL_LICH.Value=1 then
   begin
   IBTARIF_OTHER.edit;
-  IBTARIF_OTHERLICH_GK.AsFloat:= IBTARIF_OTHERLICH_PK.AsFloat-IBTARIF_OTHERLICH_PN.AsFloat;
+  IBTARIF_OTHERLICH_PGK.AsFloat:= IBTARIF_OTHERLICH_PK.AsFloat-IBTARIF_OTHERLICH_PN.AsFloat;
   IBTARIF_OTHER.post;
   end
   else
