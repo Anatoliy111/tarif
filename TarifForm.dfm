@@ -4,7 +4,6 @@
   ClientWidth = 928
   Position = poMainFormCenter
   OnCreate = FormCreate
-  ExplicitTop = -6
   ExplicitWidth = 944
   ExplicitHeight = 699
   PixelsPerInch = 96
@@ -26,8 +25,8 @@
       OnClick = cxButton9Click
     end
     object cxButton1: TcxButton [4]
-      Left = 211
-      Top = 1
+      Left = 217
+      Top = 2
       Width = 120
       Height = 39
       Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
@@ -801,7 +800,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager

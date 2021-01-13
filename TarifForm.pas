@@ -533,6 +533,13 @@ begin
       IBTARIFUPD.post;
       end;
 
+      if IBTARIFUPDTARIF_RK.Value=0then
+      begin
+      IBTARIFUPD.Edit;
+      IBTARIFUPDBORG_VIDH.Value:=0;
+      IBTARIFUPD.post;
+      end;
+
 
 
          IBTARIF_OTHER.Close;
