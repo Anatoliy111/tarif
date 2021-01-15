@@ -11,7 +11,7 @@ uses
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
   cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm,
-  Data.Win.ADODB,SpView, cxStyles, frxClass, frxDesgn;
+  Data.Win.ADODB,SpView, cxStyles, frxClass, frxDesgn, cxLocalization;
 
 type
   TMain = class(TForm)
@@ -242,6 +242,7 @@ type
     frxReport1: TfrxReport;
     frxDesigner1: TfrxDesigner;
     IBTARIF_MESMZK_PROCENT: TIntegerField;
+    cxLocalizer1: TcxLocalizer;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -1183,6 +1184,11 @@ IBPERIOD.open;
 cxBarEditItem4.Caption:='                    '+mon_slovoDt(IBPERIODDATA.Value);
 Period:=IBPERIODDATA.Value;
 IBSERVICE.open;
+
+   cxLocalizer1.Active:=false;
+   cxLocalizer1.FileName:=GetCurrentDir+'\Ukr.INI';
+   cxLocalizer1.Active:=true;
+   cxLocalizer1.Locale:=1058;
 end;
 
 //
