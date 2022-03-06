@@ -1676,6 +1676,7 @@ begin
     DSTARIF_MES.Enabled:=false;
 
     cxGrid1DBTableView1TARIF_FACT.Visible:=false;
+    cxGrid1DBTableView1FACT_BL.Visible:=false; //////
     cxGrid1DBTableView1TARIF_RN.Visible:=false;
     cxGrid1DBTableView1TARIF_RK.Visible:=false;
     cxGrid1DBTableView1NORMA.Visible:=true;
@@ -1738,12 +1739,14 @@ begin
     cxGrid1DBTableView1TARIF_PLAN.Editing:=false;
     cxGrid1DBTableView1TARIF_PLAN.Options.Editing:=false;
     cxGrid1DBTableView1TARIF_FACT.Visible:=true;
+    cxGrid1DBTableView1FACT_BL.Visible:=true;
     cxGrid1DBTableView1TARIF_RN.Visible:=true;
     cxGrid1DBTableView1TARIF_RK.Visible:=true;
     cxGrid1DBTableView1NORMA.Visible:=false;
     cxGrid1DBTableView1END_BL.Visible:=true;
     cxGrid1DBTableView1END_L.Visible:=true;
-    cxGrid1DBTableView1TARIF_FACT.Editing:=false;
+    cxGrid1DBTableView1TARIF_FACT.Editing:=true;
+    cxGrid1DBTableView1FACT_BL.Editing:=true;
     cxGrid1DBTableView1TARIF_END.Editing:=false;
     cxGrid1DBTableView1TARIF_END.Options.Editing:=false;
     cxGrid1DBTableView1Column1.Visible:=true;

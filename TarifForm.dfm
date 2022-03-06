@@ -299,6 +299,12 @@
         DataBinding.FieldName = 'TARIF_FACT'
         PropertiesClassName = 'TcxCalcEditProperties'
       end
+      object cxGrid1DBTableView1FACT_BL: TcxGridDBColumn
+        Caption = #1060#1072#1082#1090#1080#1095#1085#1080#1081' '#1090#1072#1088#1080#1092' ('#1041#1051')'
+        DataBinding.FieldName = 'FACT_BL'
+        PropertiesClassName = 'TcxCalcEditProperties'
+        Width = 121
+      end
       object cxGrid1DBTableView1TARIF_RN: TcxGridDBColumn
         Caption = #1042#1110#1076#1093'.'#1090#1072#1088'.'#1079#1072'.'#1087#1086#1087#1077#1088'.'#1084#1110#1089#1103#1094#1100' '
         DataBinding.FieldName = 'TARIF_RN'
@@ -388,11 +394,6 @@
       end
       object cxGrid1DBTableView1PLAN_BL: TcxGridDBColumn
         DataBinding.FieldName = 'PLAN_BL'
-        Visible = False
-        Options.Editing = False
-      end
-      object cxGrid1DBTableView1FACT_BL: TcxGridDBColumn
-        DataBinding.FieldName = 'FACT_BL'
         Visible = False
         Options.Editing = False
       end
