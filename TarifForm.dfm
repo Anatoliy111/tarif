@@ -628,6 +628,15 @@
         OptionsView.CellAutoHeight = True
         OptionsView.Footer = True
         OptionsView.GroupByBox = False
+        object cxGridDBTableView1FL_NONACH: TcxGridDBColumn
+          Caption = #1053#1077' '#1085#1072#1088#1072#1093'.'
+          DataBinding.FieldName = 'FL_NONACH'
+          PropertiesClassName = 'TcxCheckBoxProperties'
+          Properties.NullStyle = nssUnchecked
+          Properties.ReadOnly = True
+          Properties.ValueChecked = '1'
+          Properties.ValueUnchecked = '0'
+        end
         object cxGridDBTableView1ID_DOM: TcxGridDBColumn
           Caption = #1041#1091#1076#1080#1085#1086#1082
           DataBinding.FieldName = 'ID_DOM'
@@ -2986,7 +2995,7 @@
         ', LICH_PN2, '
       
         '   LICH_PK2, LICH_PGK2, LICH_GK2, CENA1, CENA2, MZK_GK1, MZK_GK2' +
-        ', FL_MZK)'
+        ', FL_MZK, FL_NONACH)'
       'values'
       
         '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
@@ -2997,7 +3006,7 @@
       
         '   :LICH_GK, :LICH_PN2, :LICH_PK2, :LICH_PGK2, :LICH_GK2, :CENA1' +
         ', :CENA2, '
-      '   :MZK_GK1, :MZK_GK2, :FL_MZK)')
+      '   :MZK_GK1, :MZK_GK2, :FL_MZK, :FL_NONACH)')
     RefreshSQL.Strings = (
       'Select '
       '  TARIF_OTHER.ID,'
@@ -3027,6 +3036,7 @@
       '  TARIF_OTHER.MZK_GK1,'
       '  TARIF_OTHER.MZK_GK2,'
       '  TARIF_OTHER.FL_MZK,'
+      '  TARIF_OTHER.FL_NONACH,'
       '  DOM_OTHER.id_other, '
       '  DOM_OTHER.plos_bb, '
       '  DOM_OTHER.plos_ob,'
@@ -3069,7 +3079,8 @@
       '  CENA2 = :CENA2,'
       '  MZK_GK1 = :MZK_GK1,'
       '  MZK_GK2 = :MZK_GK2,'
-      '  FL_MZK = :FL_MZK'
+      '  FL_MZK = :FL_MZK,'
+      '  FL_NONACH = :FL_NONACH'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -3254,6 +3265,10 @@
       Origin = '"TARIF_OTHER"."LICH_PGK2"'
       Precision = 18
       Size = 3
+    end
+    object IBTARIF_OTHERFL_NONACH: TIntegerField
+      FieldName = 'FL_NONACH'
+      Origin = '"TARIF_OTHER"."FL_NONACH"'
     end
   end
   object DSTARIF_OTHER: TDataSource

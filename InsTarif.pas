@@ -211,6 +211,8 @@ type
     dxMemData1val: TIntegerField;
     dxMemData1lich: TStringField;
     DSMEM: TDataSource;
+    IBTARIF_OTHERFL_NONACH: TIntegerField;
+    cxGridDBTableView1FL_NONACH: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);

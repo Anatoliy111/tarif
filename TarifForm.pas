@@ -352,6 +352,8 @@ type
     IBTARIF_OTHERLICH_PGK2: TIBBCDField;
     cxGridDBTableView1LICH_PGK: TcxGridDBColumn;
     cxGridDBTableView1LICH_PGK2: TcxGridDBColumn;
+    IBTARIF_OTHERFL_NONACH: TIntegerField;
+    cxGridDBTableView1FL_NONACH: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -573,6 +575,13 @@ begin
            //IBTARIF_OTHERSEND.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('splan').AsFloat,-2);
            //IBTARIF_OTHERSENDPDV.Value:=SimpleRoundTo(IBTARIFUPDEND_BL.Value-IBQuery1.FieldByName('splan').AsFloat,-2)*1.2;
            end;
+
+           if IBTARIF_OTHERFL_NONACH.Value=1 then
+           begin
+             IBTARIF_OTHERSEND.Value:=0;
+             IBTARIF_OTHERSENDPDV.Value:=0;
+           end;
+
            IBTARIF_OTHER.Post;
          IBTARIF_OTHER.Next;
          end;
@@ -855,9 +864,16 @@ gkalmzk1:=0;
            IBQuery2.FieldByName('PLOS_BB').AsFloat;
 
 
-
-           cenaother1:=IBQuery1.FieldByName('TARIF_SUM1').AsFloat;
-           cenaother2:=IBQuery1.FieldByName('TARIF_SUM2').AsFloat;
+           if IBTARIF_OTHERFL_NONACH.Value=0 then
+           begin
+             cenaother1:=IBQuery1.FieldByName('TARIF_SUM1').AsFloat;
+             cenaother2:=IBQuery1.FieldByName('TARIF_SUM2').AsFloat;
+           end
+           else
+           begin
+             cenaother1:=0;
+             cenaother2:=0;
+           end;
 
            if IBTARIF_OTHERFL_LICH.Value=1 then
            begin
@@ -1732,7 +1748,7 @@ begin
 //    cxGridDBTableView1SUMOTPDV.Visible:=false;
 //    cxGridDBTableView1SENDPDV.Visible:=false;
 //    cxGridDBTableView1SPLAN.Visible:=false;
-
+  cxGridDBTableView1FL_NONACH.Visible:=true;
 
   if IBPOSLWID.Value='ub' then
   begin

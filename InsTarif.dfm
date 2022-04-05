@@ -215,7 +215,7 @@ inherited InsTar: TInsTar
         Properties.ListSource = Tarifs.DSDOM
         Properties.ReadOnly = True
         Options.Editing = False
-        Width = 93
+        Width = 84
       end
       object cxGridDBTableView1ID_OTHER: TcxGridDBColumn
         Caption = #1053#1072#1081#1084#1077#1085#1091#1074#1072#1085#1085#1103
@@ -231,13 +231,13 @@ inherited InsTar: TInsTar
           end>
         Properties.ListSource = DSQuery2
         Properties.OnValidate = cxGridDBTableView1ID_OTHERPropertiesValidate
-        Width = 231
+        Width = 241
       end
       object cxGridDBTableView1PLOS_BB: TcxGridDBColumn
         Caption = #1054#1087#1072#1083#1102#1074#1072#1083#1100#1085#1072' '#1087#1083#1086#1097#1072
         DataBinding.FieldName = 'PLOS_BB'
         Options.Editing = False
-        Width = 75
+        Width = 50
       end
       object cxGridDBTableView1ID_VIDCENA: TcxGridDBColumn
         Caption = #1042#1080#1076' '#1094#1110#1085#1080
@@ -249,7 +249,7 @@ inherited InsTar: TInsTar
             FieldName = 'NAME'
           end>
         Properties.ListSource = Tarifs.DSVIDAB
-        Width = 53
+        Width = 45
       end
       object cxGridDBTableView1ID_VIDAB: TcxGridDBColumn
         Caption = #1042#1080#1076' '#1072#1073#1086#1085'.'
@@ -263,7 +263,7 @@ inherited InsTar: TInsTar
         Properties.ListSource = Tarifs.DSVIDAB
         Properties.ReadOnly = True
         Options.Editing = False
-        Width = 61
+        Width = 52
       end
       object cxGridDBTableView1FL_LICH: TcxGridDBColumn
         Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
@@ -272,7 +272,7 @@ inherited InsTar: TInsTar
         Properties.NullStyle = nssUnchecked
         Properties.ValueChecked = 1
         Properties.ValueUnchecked = 0
-        Width = 24
+        Width = 20
       end
       object cxGridDBTableView1FL_MZK: TcxGridDBColumn
         Caption = #1053#1072#1088#1072#1093'.'#1052#1047#1050
@@ -281,7 +281,16 @@ inherited InsTar: TInsTar
         Properties.NullStyle = nssUnchecked
         Properties.ValueChecked = '1'
         Properties.ValueUnchecked = '0'
-        Width = 62
+        Width = 58
+      end
+      object cxGridDBTableView1FL_NONACH: TcxGridDBColumn
+        Caption = #1053#1077' '#1085#1072#1088'.'
+        DataBinding.FieldName = 'FL_NONACH'
+        PropertiesClassName = 'TcxCheckBoxProperties'
+        Properties.NullStyle = nssUnchecked
+        Properties.ValueChecked = '1'
+        Properties.ValueUnchecked = '0'
+        Width = 49
       end
     end
     object cxGridLevel1: TcxGridLevel
@@ -1063,6 +1072,7 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = False
     Left = 16
     Top = 520
   end
@@ -1142,12 +1152,12 @@ inherited InsTar: TInsTar
       
         '  (ID, ID_TARIF, ID_TARIFMES, ID_DOMOTHER, SPLAN, SFACT, NORMA, ' +
         'SEND, MZK, '
-      '   FL_LICH, ID_VIDCENA, FL_MZK)'
+      '   FL_LICH, ID_VIDCENA, FL_MZK, FL_NONACH)'
       'values'
       
         '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
         'NORMA, '
-      '   :SEND, :MZK, :FL_LICH, :ID_VIDCENA, :FL_MZK)')
+      '   :SEND, :MZK, :FL_LICH, :ID_VIDCENA, :FL_MZK, :FL_NONACH)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -1201,7 +1211,8 @@ inherited InsTar: TInsTar
       '  MZK = :MZK,'
       '  FL_LICH = :FL_LICH,'
       '  ID_VIDCENA = :ID_VIDCENA,'
-      '  FL_MZK = :FL_MZK'
+      '  FL_MZK = :FL_MZK,'
+      '  FL_NONACH = :FL_NONACH'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -1364,6 +1375,10 @@ inherited InsTar: TInsTar
     object IBTARIF_OTHERFL_MZK: TIntegerField
       FieldName = 'FL_MZK'
       Origin = '"TARIF_OTHER"."FL_MZK"'
+    end
+    object IBTARIF_OTHERFL_NONACH: TIntegerField
+      FieldName = 'FL_NONACH'
+      Origin = '"TARIF_OTHER"."FL_NONACH"'
     end
   end
   object DSTARIF_OTHER: TDataSource
