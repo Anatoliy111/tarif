@@ -15,7 +15,7 @@
     Height = 596
     Align = alClient
     TabOrder = 2
-    Properties.ActivePage = cxTabSheet8
+    Properties.ActivePage = cxTabSheet4
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 2
     ClientRectBottom = 592
@@ -709,8 +709,31 @@
         object cxTextEdit5: TcxTextEdit
           Left = 7
           Top = 28
+          AutoSize = False
+          Properties.MaxLength = 10
           TabOrder = 1
+          Height = 21
           Width = 429
+        end
+        object cxLabel20: TcxLabel
+          Left = 442
+          Top = 42
+          Caption = 'ns - '#1053#1072#1089#1077#1083#1077#1085#1085#1103
+        end
+        object cxLabel21: TcxLabel
+          Left = 527
+          Top = 42
+          Caption = 'bg - '#1041#1102#1076#1078#1077#1090
+        end
+        object cxLabel22: TcxLabel
+          Left = 601
+          Top = 42
+          Caption = 'in - '#1110#1085#1096#1110
+        end
+        object cxLabel23: TcxLabel
+          Left = 498
+          Top = 28
+          Caption = #1042#1080#1076#1080' '#1088#1086#1079#1088#1072#1093#1091#1085#1082#1110#1074
         end
       end
       object cxGrid4: TcxGrid
@@ -1079,7 +1102,6 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = True
     Top = 696
   end
   object IBPOSL: TIBDataSet

@@ -206,6 +206,10 @@ type
     cxGridDBTableView3WID: TcxGridDBColumn;
     cxLabel18: TcxLabel;
     cxLabel19: TcxLabel;
+    cxLabel20: TcxLabel;
+    cxLabel21: TcxLabel;
+    cxLabel22: TcxLabel;
+    cxLabel23: TcxLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure IBPOSLBeforePost(DataSet: TDataSet);
@@ -458,6 +462,8 @@ begin
       end;
       if cxPageControl1.ActivePageIndex=3 then
       begin
+        if IBTARIF_CENA.Locate('id_vidab',IBVIDABID.Value,[]) then
+           IBTARIF_CENA.Delete;
         IBVIDAB.Delete;
         fl_post:=1;
       end;
@@ -584,6 +590,21 @@ begin
         IBVIDABNAME.Value:=cxTextEdit5.Text;
         IBVIDAB.Post;
         cxTextEdit5.Text:='';
+
+        IBQMES.Close;
+        IBQMES.Open;
+
+          IBTARIF_CENA.Insert;
+          IBTARIF_CENA.Edit;
+          IBTARIF_CENADATE_MES.Value:=IBQMESDATE_MES.Value;
+          IBTARIF_CENAID_VIDAB.Value:=IBVIDABID.Value;
+          if cxCheckBox1.Checked then
+          begin
+            IBTARIF_CENAFL_2DATE.Value:=1;
+            IBTARIF_CENADATE_N1.Value:=cxDateEdit1.EditValue;
+          end;
+          IBTARIF_CENA.Post;
+
       end
       else
         Application.MessageBox('Такий вид вже існує','Ошибка',16)
