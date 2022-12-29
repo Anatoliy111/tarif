@@ -11,7 +11,8 @@ uses
   Data.DB, IBX.IBCustomDataSet, IBX.IBDatabase, cxRichEdit, cxTextEdit,
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
   cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm,
-  Data.Win.ADODB,SpView, cxStyles, frxClass, frxDesgn, cxLocalization;
+  Data.Win.ADODB,SpView, cxStyles, frxClass, frxDesgn, cxLocalization,
+  IBX.IBStoredProc;
 
 type
   TMain = class(TForm)
@@ -243,6 +244,7 @@ type
     frxDesigner1: TfrxDesigner;
     IBTARIF_MESMZK_PROCENT: TIntegerField;
     cxLocalizer1: TcxLocalizer;
+    IBStoredProc1: TIBStoredProc;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);
@@ -516,7 +518,8 @@ begin
                                                    ' plan Numeric(9,4),'+
                                                    ' fact Numeric(9,4),'+
                                                    ' norma Numeric(9,3),'+
-                                                   ' lift Numeric(1,0))';
+                                                   ' lift Numeric(1,0),'+
+                                                   ' tarsubs Numeric(9,4))';
     ADOCommand1.Execute;
     end;
     if ff='in' then
@@ -782,6 +785,11 @@ IBQuery1.ParamByName('dt').AsDate:=date;
 IBQuery1.ExecSQL;
 IBTransaction1.CommitRetaining;
 
+//IBStoredProc1.StoredProcedureNames:='CENA_OPAL';
+IBStoredProc1.ParamByName('WID').AsString := 'ns';
+IBStoredProc1.ExecProc;
+//ShowMessage(IBStoredProc1.ParamByName('CENA_OT').AsFloat);
+
          IBQuery1.close;
          IBQuery1.SQL.Text:='select * from export';
          IBQuery1.open;
@@ -818,6 +826,12 @@ IBTransaction1.CommitRetaining;
                    ADOQuery1.FieldByName('fact').Value:=IBQuery1.FieldByName('TARIF_FACT').AsFloat;
                    ADOQuery1.FieldByName('tarif_bl').Value:=IBQuery1.FieldByName('END_BL').AsFloat;
                    ADOQuery1.FieldByName('tarif_l').Value:=IBQuery1.FieldByName('END_L').AsFloat;
+                   ADOQuery1.FieldByName('tarsubs').Value:=IBQuery1.FieldByName('TARIF_END').AsFloat;
+                   if IBQuery1.FieldByName('WID').AsString='ot' then
+                      ADOQuery1.FieldByName('tarsubs').Value:=roundMy(IBStoredProc1.ParamByName('CENA_OT').AsFloat*1.2,2);
+                   if IBQuery1.FieldByName('WID').AsString='om' then
+                      ADOQuery1.FieldByName('tarsubs').Value:=roundMy(IBStoredProc1.ParamByName('CENA_MZK').AsFloat*1.2,2);
+
                    if IBQuery3.RecordCount=1 then
                    begin
                      ADOQuery1.FieldByName('dom').Value:=IBQuery3.FieldByName('dom').Value;
