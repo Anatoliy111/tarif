@@ -394,6 +394,7 @@ type
     procedure IBTARIF_OTHERLICH_PKChange(Sender: TField);
     procedure DSPOSLDataChange(Sender: TObject; Field: TField);
     procedure IBTARIF_MESAfterPost(DataSet: TDataSet);
+    procedure IBTARIF_MESTARIF_FACTChange(Sender: TField);
   private
   procedure Enables(val:boolean);
   procedure Visible;
@@ -1752,8 +1753,8 @@ begin
 
   if IBPOSLWID.Value='ub' then
   begin
-    cxGrid1DBTableView1TARIF_PLAN.Editing:=false;
-    cxGrid1DBTableView1TARIF_PLAN.Options.Editing:=false;
+    cxGrid1DBTableView1TARIF_PLAN.Editing:=true;
+    cxGrid1DBTableView1TARIF_PLAN.Options.Editing:=true;
     cxGrid1DBTableView1TARIF_FACT.Visible:=true;
     cxGrid1DBTableView1FACT_BL.Visible:=true;
     cxGrid1DBTableView1TARIF_RN.Visible:=true;
@@ -2061,6 +2062,14 @@ begin
     IBTARIFNAME.Value:=IBTARIF_MESNAME.Value;
     IBTARIF.Post;
   end;
+end;
+
+procedure TTarifs.IBTARIF_MESTARIF_FACTChange(Sender: TField);
+begin
+  inherited;
+  IBTARIF_MES.edit;
+  IBTARIF_MESTARIF_PLAN.AsFloat:= IBTARIF_MESTARIF_FACT.AsFloat;
+  IBTARIF_MES.post;
 end;
 
 procedure TTarifs.IBTARIF_OTHERLICH_PK2Change(Sender: TField);

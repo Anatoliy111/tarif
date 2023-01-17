@@ -2242,6 +2242,7 @@
     object IBTARIF_MESTARIF_FACT: TIBBCDField
       FieldName = 'TARIF_FACT'
       Origin = '"TARIF_MES"."TARIF_FACT"'
+      OnChange = IBTARIF_MESTARIF_FACTChange
       Precision = 18
       Size = 4
     end
