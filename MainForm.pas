@@ -623,8 +623,23 @@ Prores.Show;
             IBTARIF_MESDATA.Value:=IncMonth(date);
             IBTARIF_MESTARIF_RN.Value:=iif(IBQuery1.FieldByName('TARIF_RK').Value=null,0,IBQuery1.FieldByName('TARIF_RK').Value);
             IBTARIF_MESNORMA.Value:=iif(IBQuery1.FieldByName('NORMA').Value=null,0,IBQuery1.FieldByName('NORMA').Value);
-            if (trim(IBQuery1.FieldByName('WID').AsString)<>'ot') and (trim(IBQuery1.FieldByName('WID').AsString)<>'ub') then
+            if (trim(IBQuery1.FieldByName('WID').AsString)<>'ot') then
               IBTARIF_MESTARIF_END.AsCurrency:=IBQuery1.FieldByName('TARIF_END').AsCurrency;
+            if (trim(IBQuery1.FieldByName('WID').AsString)='ub') then
+            begin
+              IBTARIF_MESTARIF_PLAN.AsCurrency:=IBQuery1.FieldByName('TARIF_PLAN').AsCurrency;
+              IBTARIF_MESTARIF_FACT.AsCurrency:=IBQuery1.FieldByName('TARIF_FACT').AsCurrency;
+              IBTARIF_MESFACT_BL.AsCurrency:=IBQuery1.FieldByName('FACT_BL').AsCurrency;
+              IBTARIF_MESEND_BL.AsCurrency:=IBQuery1.FieldByName('END_BL').AsCurrency;
+              IBTARIF_MESEND_L.AsCurrency:=IBQuery1.FieldByName('END_L').AsCurrency;
+//              IBTARIF_MESTARIF_END.AsCurrency:=IBQuery1.FieldByName('TARIF_END').AsCurrency;
+//              IBTARIF_MESTARIF_END.AsCurrency:=IBQuery1.FieldByName('TARIF_END').AsCurrency;
+//              IBTARIF_MESTARIF_END.AsCurrency:=IBQuery1.FieldByName('TARIF_END').AsCurrency;
+//              IBTARIF_MESTARIF_END.AsCurrency:=IBQuery1.FieldByName('TARIF_END').AsCurrency;
+            end;
+
+
+
 
             if IBQuery1.FieldByName('FL_2CENA').AsInteger=1 then
                IBTARIF_MESLICH_PN.Value:=IBQuery1.FieldByName('LICH_PK2').AsFloat

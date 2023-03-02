@@ -809,6 +809,7 @@
     end
   end
   inherited IBTransaction1: TIBTransaction
+    Active = True
     Top = 600
   end
   object dxBarManager1: TdxBarManager
@@ -990,10 +991,11 @@
       '  ID = :ID')
     SelectSQL.Strings = (
       
-        'select tarif_mes.*,posl.wid, posl.name as posl, tarif_dom.name a' +
-        's dom, tarif_dom.id_dom from TARIF, TARIF_MES, POSL, TARIF_DOM w' +
-        'here tarif_mes.data=:dt and tarif.id_posl=posl.id and tarif_mes.' +
-        'id_tarif=tarif.id and tarif_mes.id=tarif_dom.id_tarifmes')
+        'select tarif.name, tarif_mes.*,posl.wid, posl.name as posl, tari' +
+        'f_dom.name as dom, tarif_dom.id_dom from TARIF, TARIF_MES, POSL,' +
+        ' TARIF_DOM where tarif_mes.data=:dt and tarif.id_posl=posl.id an' +
+        'd tarif_mes.id_tarif=tarif.id and tarif_mes.id=tarif_dom.id_tari' +
+        'fmes')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'
@@ -1422,6 +1424,11 @@
     object IBTARIFUPDMZK_PROCENT: TIntegerField
       FieldName = 'MZK_PROCENT'
       Origin = '"TARIF_MES"."MZK_PROCENT"'
+    end
+    object IBTARIFUPDNAME: TIBStringField
+      FieldName = 'NAME'
+      Origin = '"TARIF"."NAME"'
+      Size = 50
     end
   end
   object DSTARIFUPD: TDataSource
