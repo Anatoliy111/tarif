@@ -4,6 +4,8 @@
   ClientWidth = 928
   Position = poMainFormCenter
   OnCreate = FormCreate
+  ExplicitLeft = -12
+  ExplicitTop = -146
   ExplicitWidth = 944
   ExplicitHeight = 699
   PixelsPerInch = 96
@@ -417,6 +419,11 @@
             FieldName = 'NAME'
           end>
         Properties.ListSource = DSKOTEL
+        Options.Editing = False
+      end
+      object cxGrid1DBTableView1MZK_PROCENT: TcxGridDBColumn
+        Caption = #1052#1047#1050' '#1074#1110#1076#1089#1086#1090#1086#1082
+        DataBinding.FieldName = 'MZK_PROCENT'
         Options.Editing = False
       end
     end
@@ -878,24 +885,24 @@
         '   TARIF_END, PLAN_BL, FACT_BL, END_BL, END_L, LICH_PN, LICH_PK,' +
         ' NOTE, '
       
-        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, BORG_VIDH, NO_LICH, P' +
-        'LOS_IN, '
+        '   PLOS_BBI, NSER_LICH, ID_KOTEL, PLOS_BB, MZK, BORG_VIDH, NO_LI' +
+        'CH, PLOS_IN, '
       
         '   PLOS_MZK, SUMOT, SUMOTPDV, LICH_GK, TARIF_ENDPDV, LICH_PN2, L' +
         'ICH_PK2, '
       
-        '   LICH_GK2, ID_VIDCENA, PROCENT, CENA1, CENA2, FL_2CENA, ID_VID' +
-        'AB, MZK_GK1, '
+        '   LICH_GK2, ID_VIDCENA, PROCENT, CENA1, CENA2, FL_2CENA, MZK_GK' +
+        '1, MZK_GK2, '
       
-        '   MZK_GK2, MZK, MZK_PLOSALL, MZK_GKKV1, MZK_GKKV2, MZK_GKALL1, ' +
-        'MZK_GKALL2, '
+        '   ID_VIDAB, MZK_PLOSALL, MZK_GKKV1, MZK_GKKV2, MZK_GKALL1, MZK_' +
+        'GKALL2, '
       
         '   MZK_GKCO1, MZK_GKCO2, MZK_GKM2IND1, MZK_GKM2IND2, MZK_SUMM2IN' +
         'D1, MZK_SUMM2IND2, '
       
         '   MZK_CENA1, MZK_CENA2, MZK_ALLSUMM2IND, MZK_PDV, SUMMZK, SUMMZ' +
         'K_PDV, '
-      '   ALLSUM, ALLSUM_PDV,MZK_PROCENT)'
+      '   ALLSUM, ALLSUM_PDV, MZK_PROCENT)'
       'values'
       
         '  (:ID, :ID_TARIF, :DATA, :TARIF_PLAN, :TARIF_FACT, :TARIF_RN, :' +
@@ -904,26 +911,27 @@
         '   :NORMA, :TARIF_END, :PLAN_BL, :FACT_BL, :END_BL, :END_L, :LIC' +
         'H_PN, :LICH_PK, '
       
-        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :BORG_VIDH' +
-        ', :NO_LICH, '
+        '   :NOTE, :PLOS_BBI, :NSER_LICH, :ID_KOTEL, :PLOS_BB, :MZK, :BOR' +
+        'G_VIDH, '
       
-        '   :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :TARIF_ENDP' +
-        'DV, :LICH_PN2, '
+        '   :NO_LICH, :PLOS_IN, :PLOS_MZK, :SUMOT, :SUMOTPDV, :LICH_GK, :' +
+        'TARIF_ENDPDV, '
       
-        '   :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :PROCENT, :CENA1, :CENA2, ' +
-        ':FL_2CENA, '
+        '   :LICH_PN2, :LICH_PK2, :LICH_GK2, :ID_VIDCENA, :PROCENT, :CENA' +
+        '1, :CENA2, '
       
-        '   :ID_VIDAB, :MZK_GK1, :MZK_GK2, :MZK, :MZK_PLOSALL, :MZK_GKKV1' +
-        ', :MZK_GKKV2, '
+        '   :FL_2CENA, :MZK_GK1, :MZK_GK2, :ID_VIDAB, :MZK_PLOSALL, :MZK_' +
+        'GKKV1, '
       
-        '   :MZK_GKALL1, :MZK_GKALL2, :MZK_GKCO1, :MZK_GKCO2, :MZK_GKM2IN' +
-        'D1, :MZK_GKM2IND2, '
+        '   :MZK_GKKV2, :MZK_GKALL1, :MZK_GKALL2, :MZK_GKCO1, :MZK_GKCO2,' +
+        ' :MZK_GKM2IND1, '
       
-        '   :MZK_SUMM2IND1, :MZK_SUMM2IND2, :MZK_CENA1, :MZK_CENA2, :MZK_' +
-        'ALLSUMM2IND, '
+        '   :MZK_GKM2IND2, :MZK_SUMM2IND1, :MZK_SUMM2IND2, :MZK_CENA1, :M' +
+        'ZK_CENA2, '
       
-        '   :MZK_PDV, :SUMMZK, :SUMMZK_PDV, :ALLSUM, :ALLSUM_PDV, :MZK_PR' +
-        'OCENT)')
+        '   :MZK_ALLSUMM2IND, :MZK_PDV, :SUMMZK, :SUMMZK_PDV, :ALLSUM, :A' +
+        'LLSUM_PDV, '
+      '   :MZK_PROCENT)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -946,6 +954,7 @@
       '  NSER_LICH,'
       '  ID_KOTEL,'
       '  PLOS_BB,'
+      '  MZK,'
       '  BORG_VIDH,'
       '  NO_LICH,'
       '  PLOS_IN,'
@@ -962,10 +971,9 @@
       '  CENA1,'
       '  CENA2,'
       '  FL_2CENA,'
-      '  ID_VIDAB,'
       '  MZK_GK1,'
       '  MZK_GK2,'
-      '  MZK,'
+      '  ID_VIDAB,'
       '  MZK_PLOSALL,'
       '  MZK_GKKV1,'
       '  MZK_GKKV2,'
@@ -991,11 +999,11 @@
       '  ID = :ID')
     SelectSQL.Strings = (
       
-        'select tarif.name, tarif_mes.*,posl.wid, posl.name as posl, tari' +
-        'f_dom.name as dom, tarif_dom.id_dom from TARIF, TARIF_MES, POSL,' +
-        ' TARIF_DOM where tarif_mes.data=:dt and tarif.id_posl=posl.id an' +
-        'd tarif_mes.id_tarif=tarif.id and tarif_mes.id=tarif_dom.id_tari' +
-        'fmes')
+        'select tarif_mes.*, tarif.name as name, posl.wid, posl.name as p' +
+        'osl, tarif_dom.name as dom, tarif_dom.id_dom from TARIF, TARIF_M' +
+        'ES, POSL, TARIF_DOM where tarif_mes.data=:dt and tarif.id_posl=p' +
+        'osl.id and tarif_mes.id_tarif=tarif.id and tarif_mes.id=tarif_do' +
+        'm.id_tarifmes')
     ModifySQL.Strings = (
       'update TARIF_MES'
       'set'
@@ -1019,6 +1027,7 @@
       '  NSER_LICH = :NSER_LICH,'
       '  ID_KOTEL = :ID_KOTEL,'
       '  PLOS_BB = :PLOS_BB,'
+      '  MZK = :MZK,'
       '  BORG_VIDH = :BORG_VIDH,'
       '  NO_LICH = :NO_LICH,'
       '  PLOS_IN = :PLOS_IN,'
@@ -1035,10 +1044,9 @@
       '  CENA1 = :CENA1,'
       '  CENA2 = :CENA2,'
       '  FL_2CENA = :FL_2CENA,'
-      '  ID_VIDAB = :ID_VIDAB,'
       '  MZK_GK1 = :MZK_GK1,'
       '  MZK_GK2 = :MZK_GK2,'
-      '  MZK = :MZK,'
+      '  ID_VIDAB = :ID_VIDAB,'
       '  MZK_PLOSALL = :MZK_PLOSALL,'
       '  MZK_GKKV1 = :MZK_GKKV1,'
       '  MZK_GKKV2 = :MZK_GKKV2,'
@@ -1636,7 +1644,7 @@
   end
   object DSTARIF_COMP: TDataSource
     DataSet = IBTARIF_COMP
-    Left = 88
+    Left = 104
     Top = 536
   end
   object IBQSoftproect1: TIBQuery

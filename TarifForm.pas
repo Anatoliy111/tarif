@@ -340,7 +340,6 @@ type
     IBTARIF_OTHERMZK_GK2: TIBBCDField;
     IBTARIF_OTHERPLOS_OB: TIBBCDField;
     cxGridDBTableView1PLOS_OB: TcxGridDBColumn;
-    IBTARIFUPDMZK_PROCENT: TIntegerField;
     IBTARIF_MESMZK_PROCENT: TIntegerField;
     IBTARIF_OTHERPLOS_BB: TIBBCDField;
     cxGrid1DBTableView1ID_TARIF: TcxGridDBColumn;
@@ -354,7 +353,9 @@ type
     cxGridDBTableView1LICH_PGK2: TcxGridDBColumn;
     IBTARIF_OTHERFL_NONACH: TIntegerField;
     cxGridDBTableView1FL_NONACH: TcxGridDBColumn;
+    IBTARIFUPDMZK_PROCENT: TIntegerField;
     IBTARIFUPDNAME: TIBStringField;
+    cxGrid1DBTableView1MZK_PROCENT: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -606,6 +607,9 @@ begin
           if IBTARIFUPDWID.Value='ot' then
           begin
           fl_rasch:=true;
+               if IBTARIFUPDID_TARIF.Value=767 then
+                   IBTARIFUPDID.Value;
+
 
                IBQuery1.Close;
                IBQuery1.SQL.Text:='select first 1 * from TARIF_CENA where id_vidab=:idvidcena and date_mes<=:dmes order by date_mes desc';
@@ -655,7 +659,7 @@ begin
       //         gkalmzk1:=gkal1-gkalkv1;
       //         gkalmzk2:=gkal2-gkalkv2;
       gkalmzk1:=0;
-      gkalmzk1:=0;
+      gkalmzk2:=0;
                if IBTARIFUPDMZK_PROCENT.AsInteger<>0 then
                begin
 
@@ -675,8 +679,8 @@ begin
                end
                else
                begin
-               gkalm2in1:=0;
-               gkalm2in2:=0;
+                 gkalm2in1:=0;
+                 gkalm2in2:=0;
                end;
 
 
