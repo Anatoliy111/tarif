@@ -12,7 +12,9 @@ uses
   cxLookAndFeelPainters, cxNavigator, Vcl.StdCtrls, Vcl.CheckLst, Vcl.Menus,
   cxLabel, cxButtons, Vcl.ExtCtrls, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit,
   cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Vcl.Buttons, IBX.IBQuery, inifiles,
-  cxButtonEdit, cxCalc, cxMemo, cxDBEdit, cxCheckBox, dxmdaset;
+  cxButtonEdit, cxCalc, cxMemo, cxDBEdit, cxCheckBox, dxmdaset, dxSkinsCore,
+  dxSkinsDefaultPainters, dxSkinsdxStatusBarPainter, dxSkinscxPCPainter,
+  dxSkinsdxBarPainter;
 
 type
   TTarifs = class(TAllMDICh)
@@ -356,6 +358,18 @@ type
     IBTARIFUPDMZK_PROCENT: TIntegerField;
     IBTARIFUPDNAME: TIBStringField;
     cxGrid1DBTableView1MZK_PROCENT: TcxGridDBColumn;
+    IBTARIF_OTHERMZK_PDV: TIBBCDField;
+    IBTARIF_OTHERSUMMZK: TIBBCDField;
+    IBTARIF_OTHERSUMMZK_PDV: TIBBCDField;
+    cxGridDBTableView1MZK_GK1: TcxGridDBColumn;
+    cxGridDBTableView1MZK_GK2: TcxGridDBColumn;
+    cxGridDBTableView1MZK_PDV: TcxGridDBColumn;
+    cxGridDBTableView1SUMMZK: TcxGridDBColumn;
+    cxGridDBTableView1SUMMZK_PDV: TcxGridDBColumn;
+    IBTARIF_OTHERALLSUM: TIBBCDField;
+    IBTARIF_OTHERALLSUM_PDV: TIBBCDField;
+    cxGridDBTableView1ALLSUM: TcxGridDBColumn;
+    cxGridDBTableView1ALLSUM_PDV: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -732,6 +746,11 @@ begin
 
                while not IBTARIF_OTHER.eof do
                begin
+                 if IBTARIF_OTHERFL_MZK.Value=1 then
+                 begin
+                   IBTARIF_OTHERPLOS_BB.Value;
+                 end;
+
                  if IBTARIF_OTHERPLOS_BB.Value<>0 then
                  begin
                  //середня споживання на м2 по  приміщенням с лічильн.
@@ -878,6 +897,11 @@ begin
                  IBQuery2.Open;
                  IBQuery2.First;
                  IBQuery2.FieldByName('PLOS_BB').AsFloat;
+
+                 if IBTARIF_OTHERFL_MZK.Value=1 then
+                 begin
+                   IBTARIF_OTHERFL_MZK.Value;
+                 end;
 
 
                  if IBTARIF_OTHERFL_NONACH.Value=0 then

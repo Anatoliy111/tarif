@@ -12,7 +12,7 @@ uses
   cxHyperLinkEdit, dxRatingControl, dxSparkline, dxToggleSwitch,Spravoch,AllMDIChild,
   cxRadioGroup, cxTrackBar, dxRibbonGallery, IBX.IBQuery, ReportForm,
   Data.Win.ADODB,SpView, cxStyles, frxClass, frxDesgn, cxLocalization,
-  IBX.IBStoredProc;
+  IBX.IBStoredProc, dxSkinsDefaultPainters, dxSkinsdxBarPainter;
 
 type
   TMain = class(TForm)
@@ -245,6 +245,14 @@ type
     IBTARIF_MESMZK_PROCENT: TIntegerField;
     cxLocalizer1: TcxLocalizer;
     IBStoredProc1: TIBStoredProc;
+    IBTARIF_OTHERLICH_PGK: TIBBCDField;
+    IBTARIF_OTHERLICH_PGK2: TIBBCDField;
+    IBTARIF_OTHERFL_NONACH: TIntegerField;
+    IBTARIF_OTHERMZK_PDV: TIBBCDField;
+    IBTARIF_OTHERSUMMZK: TIBBCDField;
+    IBTARIF_OTHERSUMMZK_PDV: TIBBCDField;
+    IBTARIF_OTHERALLSUM: TIBBCDField;
+    IBTARIF_OTHERALLSUM_PDV: TIBBCDField;
     procedure Button1Click(Sender: TObject);
     procedure dxBarButton34Click(Sender: TObject);
     procedure dxBarButton19Click(Sender: TObject);

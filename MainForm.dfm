@@ -23,7 +23,7 @@
     Left = 608
     Top = 56
     Bitmap = {
-      494C010105000900180110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       00000000000000000000000000000000000000000000000000006473C1004254
       B300000000000000000000000000000000000000000000000000000000000000
@@ -1274,7 +1274,7 @@
     Left = 608
     Top = 112
     Bitmap = {
-      494C010112001400180110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112001400200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2122,7 +2122,7 @@
     Left = 568
     Top = 176
     Bitmap = {
-      494C010107000900180110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900200110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000F5F3F500CFE0F40000000000000000000000
@@ -2445,6 +2445,7 @@
     Top = 368
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultDatabase = DataM.IBDatabase1
     Params.Strings = (
       'read_committed'
@@ -3294,7 +3295,7 @@
       
         '   LICH_PN, LICH_PK, LICH_GK, LICH_PN2, LICH_PK2, LICH_GK2, FL_L' +
         'ICH, ID_VIDCENA, '
-      '   FL_MZK)'
+      '   FL_MZK, MZK_PDV, SUMMZK, SUMMZK_PDV, ALLSUM, ALLSUM_PDV)'
       'values'
       
         '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
@@ -3302,7 +3303,10 @@
       
         '   :SEND, :MZK, :LICH_PN, :LICH_PK, :LICH_GK, :LICH_PN2, :LICH_P' +
         'K2, :LICH_GK2, '
-      '   :FL_LICH, :ID_VIDCENA, :FL_MZK)')
+      
+        '   :FL_LICH, :ID_VIDCENA, :FL_MZK, :MZK_PDV, :SUMMZK, :SUMMZK_PD' +
+        'V, :ALLSUM, '
+      '   :ALLSUM_PDV)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -3319,9 +3323,11 @@
       '  SENDPDV,'
       '  LICH_PN,'
       '  LICH_PK,'
+      '  LICH_PGK,'
       '  LICH_GK,'
       '  LICH_PN2,'
       '  LICH_PK2,'
+      '  LICH_PGK2,'
       '  LICH_GK2,'
       '  FL_LICH,'
       '  ID_VIDCENA,'
@@ -3329,7 +3335,13 @@
       '  CENA2,'
       '  MZK_GK1,'
       '  MZK_GK2,'
-      '  FL_MZK'
+      '  FL_MZK,'
+      '  FL_NONACH,'
+      '  MZK_PDV,'
+      '  SUMMZK,'
+      '  SUMMZK_PDV,'
+      '  ALLSUM,'
+      '  ALLSUM_PDV'
       'from TARIF_OTHER '
       'where'
       '  ID = :ID')
@@ -3355,7 +3367,12 @@
       '  LICH_GK2 = :LICH_GK2,'
       '  FL_LICH = :FL_LICH,'
       '  ID_VIDCENA = :ID_VIDCENA,'
-      '  FL_MZK = :FL_MZK'
+      '  FL_MZK = :FL_MZK,'
+      '  MZK_PDV = :MZK_PDV,'
+      '  SUMMZK = :SUMMZK,'
+      '  SUMMZK_PDV = :SUMMZK_PDV,'
+      '  ALLSUM = :ALLSUM,'
+      '  ALLSUM_PDV = :ALLSUM_PDV'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -3500,6 +3517,52 @@
     object IBTARIF_OTHERFL_MZK: TIntegerField
       FieldName = 'FL_MZK'
       Origin = '"TARIF_OTHER"."FL_MZK"'
+    end
+    object IBTARIF_OTHERLICH_PGK: TIBBCDField
+      FieldName = 'LICH_PGK'
+      Origin = '"TARIF_OTHER"."LICH_PGK"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERLICH_PGK2: TIBBCDField
+      FieldName = 'LICH_PGK2'
+      Origin = '"TARIF_OTHER"."LICH_PGK2"'
+      Precision = 18
+      Size = 3
+    end
+    object IBTARIF_OTHERFL_NONACH: TIntegerField
+      FieldName = 'FL_NONACH'
+      Origin = '"TARIF_OTHER"."FL_NONACH"'
+    end
+    object IBTARIF_OTHERMZK_PDV: TIBBCDField
+      FieldName = 'MZK_PDV'
+      Origin = '"TARIF_OTHER"."MZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERSUMMZK: TIBBCDField
+      FieldName = 'SUMMZK'
+      Origin = '"TARIF_OTHER"."SUMMZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERSUMMZK_PDV: TIBBCDField
+      FieldName = 'SUMMZK_PDV'
+      Origin = '"TARIF_OTHER"."SUMMZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERALLSUM: TIBBCDField
+      FieldName = 'ALLSUM'
+      Origin = '"TARIF_OTHER"."ALLSUM"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERALLSUM_PDV: TIBBCDField
+      FieldName = 'ALLSUM_PDV'
+      Origin = '"TARIF_OTHER"."ALLSUM_PDV"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIF_OTHER: TDataSource

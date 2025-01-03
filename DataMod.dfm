@@ -5,7 +5,7 @@ object DataM: TDataM
   Width = 645
   object IBDatabase1: TIBDatabase
     Connected = True
-    DatabaseName = 'D:\WORK\KOMUN\TARIF\TARIF.FDB'
+    DatabaseName = 'C:\temp\base\TARIF.FDB'
     Params.Strings = (
       'user_name=sysdba'
       'password=masterkey')
