@@ -1,19 +1,17 @@
 ﻿inherited Tarifs: TTarifs
   Caption = #1058#1072#1088#1080#1092#1080
   ClientHeight = 661
-  ClientWidth = 928
+  ClientWidth = 1061
   Position = poMainFormCenter
   OnCreate = FormCreate
-  ExplicitLeft = -12
-  ExplicitTop = -146
-  ExplicitWidth = 944
-  ExplicitHeight = 699
+  ExplicitWidth = 1077
+  ExplicitHeight = 700
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
-    Width = 928
+    Width = 1061
     TabOrder = 3
-    ExplicitWidth = 928
+    ExplicitWidth = 1061
     inherited cxButton6: TcxButton
       OnClick = cxButton6Click
     end
@@ -45,8 +43,8 @@
       OnClick = cxButton5Click
     end
     object cxButton10: TcxButton
-      Left = 331
-      Top = 1
+      Left = 340
+      Top = 2
       Width = 120
       Height = 39
       Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
@@ -62,7 +60,7 @@
   object cxGrid1: TcxGrid [1]
     Left = 169
     Top = 89
-    Width = 759
+    Width = 892
     Height = 367
     Align = alClient
     TabOrder = 1
@@ -434,7 +432,7 @@
   object Panel1: TPanel [2]
     Left = 0
     Top = 41
-    Width = 928
+    Width = 1061
     Height = 48
     Align = alTop
     TabOrder = 2
@@ -474,16 +472,16 @@
   end
   inherited Panel4: TPanel
     Top = 608
-    Width = 928
+    Width = 1061
     Height = 53
     TabOrder = 0
     ExplicitTop = 608
-    ExplicitWidth = 928
+    ExplicitWidth = 1061
     ExplicitHeight = 53
     inherited Panel3: TPanel
-      Left = 771
+      Left = 904
       Height = 28
-      ExplicitLeft = 771
+      ExplicitLeft = 904
       ExplicitHeight = 28
       inherited cxButton4: TcxButton
         Top = 3
@@ -496,10 +494,10 @@
     end
     inherited dxStatusBar1: TdxStatusBar
       Top = 32
-      Width = 920
+      Width = 1053
       Height = 17
       ExplicitTop = 32
-      ExplicitWidth = 920
+      ExplicitWidth = 1053
       ExplicitHeight = 17
     end
   end
@@ -566,7 +564,7 @@
   object Panel6: TPanel [5]
     Left = 0
     Top = 456
-    Width = 928
+    Width = 1061
     Height = 152
     Align = alBottom
     Caption = 'Panel6'
@@ -574,7 +572,7 @@
     object cxGrid2: TcxGrid
       Left = 1
       Top = 1
-      Width = 722
+      Width = 855
       Height = 150
       Align = alClient
       TabOrder = 0
@@ -746,11 +744,23 @@
           Options.Editing = False
           Width = 111
         end
+        object cxGridDBTableView1MZK_GK1: TcxGridDBColumn
+          Caption = #1052#1047#1050' '#1043#1082#1072#1083
+          DataBinding.FieldName = 'MZK_GK1'
+        end
+        object cxGridDBTableView1MZK_GK2: TcxGridDBColumn
+          Caption = #1052#1047#1050' '#1043#1082#1072#1083'- 2'
+          DataBinding.FieldName = 'MZK_GK2'
+        end
         object cxGridDBTableView1MZK: TcxGridDBColumn
-          Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082' '#1079' '#1055#1044#1042' /m2'
+          Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082' /m2'
           DataBinding.FieldName = 'MZK'
           Options.Editing = False
           Width = 122
+        end
+        object cxGridDBTableView1MZK_PDV: TcxGridDBColumn
+          Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082' '#1079' '#1055#1044#1042' /m2'
+          DataBinding.FieldName = 'MZK_PDV'
         end
         object cxGridDBTableView1SUMOT: TcxGridDBColumn
           Caption = #1042#1072#1088#1090#1110#1089#1090#1100
@@ -763,6 +773,23 @@
           DataBinding.FieldName = 'SUMOTPDV'
           Options.Editing = False
           Width = 123
+        end
+        object cxGridDBTableView1SUMMZK: TcxGridDBColumn
+          Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1052#1047#1050
+          DataBinding.FieldName = 'SUMMZK'
+        end
+        object cxGridDBTableView1SUMMZK_PDV: TcxGridDBColumn
+          Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1052#1047#1050' '#1079' '#1055#1044#1042
+          DataBinding.FieldName = 'SUMMZK_PDV'
+        end
+        object cxGridDBTableView1ALLSUM: TcxGridDBColumn
+          Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1074#1072#1088#1090#1110#1089#1090#1100
+          DataBinding.FieldName = 'ALLSUM'
+        end
+        object cxGridDBTableView1ALLSUM_PDV: TcxGridDBColumn
+          Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1074#1072#1088#1090#1110#1089#1090#1100' '#1079' '#1055#1044#1042
+          DataBinding.FieldName = 'ALLSUM_PDV'
+          Width = 132
         end
         object cxGridDBTableView1ID_VIDCENA: TcxGridDBColumn
           Caption = #1042#1080#1076' '#1094#1110#1085#1080
@@ -805,7 +832,7 @@
       end
     end
     object cxDBMemo1: TcxDBMemo
-      Left = 723
+      Left = 856
       Top = 1
       Align = alRight
       DataBinding.DataField = 'NOTE'
@@ -1954,13 +1981,13 @@
   end
   object DSUL: TDataSource
     DataSet = IBUL
-    Left = 464
-    Top = 576
+    Left = 472
+    Top = 568
   end
   object DSDOM: TDataSource
     DataSet = IBDOM
-    Left = 504
-    Top = 576
+    Left = 512
+    Top = 568
   end
   object IBQuery2: TIBQuery
     Database = DataM.IBDatabase1
@@ -2925,7 +2952,7 @@
   object DSVIDAB: TDataSource
     DataSet = IBVIDAB
     Left = 560
-    Top = 576
+    Top = 568
   end
   object IBOTHER: TIBDataSet
     Database = DataM.IBDatabase1
@@ -2990,7 +3017,7 @@
   object DSOTHER: TDataSource
     DataSet = IBOTHER
     Left = 616
-    Top = 576
+    Top = 568
   end
   object IBTARIF_OTHER: TIBDataSet
     Database = DataM.IBDatabase1
@@ -3011,7 +3038,8 @@
         ', LICH_PN2, '
       
         '   LICH_PK2, LICH_PGK2, LICH_GK2, CENA1, CENA2, MZK_GK1, MZK_GK2' +
-        ', FL_MZK, FL_NONACH)'
+        ', FL_MZK, '
+      '   FL_NONACH, MZK_PDV, SUMMZK, SUMMZK_PDV, ALLSUM, ALLSUM_PDV)'
       'values'
       
         '  (:ID, :ID_TARIF, :ID_TARIFMES, :ID_DOMOTHER, :SPLAN, :SFACT, :' +
@@ -3022,45 +3050,48 @@
       
         '   :LICH_GK, :LICH_PN2, :LICH_PK2, :LICH_PGK2, :LICH_GK2, :CENA1' +
         ', :CENA2, '
-      '   :MZK_GK1, :MZK_GK2, :FL_MZK, :FL_NONACH)')
+      
+        '   :MZK_GK1, :MZK_GK2, :FL_MZK, :FL_NONACH, :MZK_PDV, :SUMMZK, :' +
+        'SUMMZK_PDV, '
+      '   :ALLSUM, :ALLSUM_PDV)')
     RefreshSQL.Strings = (
       'Select '
-      '  TARIF_OTHER.ID,'
-      '  TARIF_OTHER.ID_TARIF,'
-      '  TARIF_OTHER.ID_TARIFMES,'
-      '  TARIF_OTHER.ID_DOMOTHER,'
-      '  TARIF_OTHER.SPLAN,'
-      '  TARIF_OTHER.SFACT,'
-      '  TARIF_OTHER.NORMA,'
-      '  TARIF_OTHER.SEND,'
-      '  TARIF_OTHER.MZK,'
-      '  TARIF_OTHER.SUMOT,'
-      '  TARIF_OTHER.SUMOTPDV,'
-      '  TARIF_OTHER.SENDPDV,'
-      '  TARIF_OTHER.LICH_PN,'
-      '  TARIF_OTHER.LICH_PK,'
-      '  TARIF_OTHER.LICH_PGK,'
-      '  TARIF_OTHER.LICH_GK,'
-      '  TARIF_OTHER.LICH_PN2,'
-      '  TARIF_OTHER.LICH_PK2,'
-      '  TARIF_OTHER.LICH_PGK2,'
-      '  TARIF_OTHER.LICH_GK2,'
-      '  TARIF_OTHER.FL_LICH,'
-      '  TARIF_OTHER.ID_VIDCENA,'
-      '  TARIF_OTHER.CENA1,'
-      '  TARIF_OTHER.CENA2,'
-      '  TARIF_OTHER.MZK_GK1,'
-      '  TARIF_OTHER.MZK_GK2,'
-      '  TARIF_OTHER.FL_MZK,'
-      '  TARIF_OTHER.FL_NONACH,'
-      '  DOM_OTHER.id_other, '
-      '  DOM_OTHER.plos_bb, '
-      '  DOM_OTHER.plos_ob,'
-      '  DOM_OTHER.id_dom'
-      'from TARIF_OTHER'
-      'inner join DOM_OTHER on TARIF_OTHER.id_domother=DOM_OTHER.id '
+      '  ID,'
+      '  ID_TARIF,'
+      '  ID_TARIFMES,'
+      '  ID_DOMOTHER,'
+      '  SPLAN,'
+      '  SFACT,'
+      '  NORMA,'
+      '  SEND,'
+      '  MZK,'
+      '  SUMOT,'
+      '  SUMOTPDV,'
+      '  SENDPDV,'
+      '  LICH_PN,'
+      '  LICH_PK,'
+      '  LICH_PGK,'
+      '  LICH_GK,'
+      '  LICH_PN2,'
+      '  LICH_PK2,'
+      '  LICH_PGK2,'
+      '  LICH_GK2,'
+      '  FL_LICH,'
+      '  ID_VIDCENA,'
+      '  CENA1,'
+      '  CENA2,'
+      '  MZK_GK1,'
+      '  MZK_GK2,'
+      '  FL_MZK,'
+      '  FL_NONACH,'
+      '  MZK_PDV,'
+      '  SUMMZK,'
+      '  SUMMZK_PDV,'
+      '  ALLSUM,'
+      '  ALLSUM_PDV'
+      'from TARIF_OTHER '
       'where'
-      '  TARIF_OTHER.ID = :ID')
+      '  ID = :ID')
     SelectSQL.Strings = (
       
         'select TARIF_OTHER.*, DOM_OTHER.id_other, DOM_OTHER.plos_bb, DOM' +
@@ -3096,7 +3127,12 @@
       '  MZK_GK1 = :MZK_GK1,'
       '  MZK_GK2 = :MZK_GK2,'
       '  FL_MZK = :FL_MZK,'
-      '  FL_NONACH = :FL_NONACH'
+      '  FL_NONACH = :FL_NONACH,'
+      '  MZK_PDV = :MZK_PDV,'
+      '  SUMMZK = :SUMMZK,'
+      '  SUMMZK_PDV = :SUMMZK_PDV,'
+      '  ALLSUM = :ALLSUM,'
+      '  ALLSUM_PDV = :ALLSUM_PDV'
       'where'
       '  ID = :OLD_ID')
     ParamCheck = True
@@ -3285,6 +3321,36 @@
     object IBTARIF_OTHERFL_NONACH: TIntegerField
       FieldName = 'FL_NONACH'
       Origin = '"TARIF_OTHER"."FL_NONACH"'
+    end
+    object IBTARIF_OTHERMZK_PDV: TIBBCDField
+      FieldName = 'MZK_PDV'
+      Origin = '"TARIF_OTHER"."MZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERSUMMZK: TIBBCDField
+      FieldName = 'SUMMZK'
+      Origin = '"TARIF_OTHER"."SUMMZK"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERSUMMZK_PDV: TIBBCDField
+      FieldName = 'SUMMZK_PDV'
+      Origin = '"TARIF_OTHER"."SUMMZK_PDV"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERALLSUM: TIBBCDField
+      FieldName = 'ALLSUM'
+      Origin = '"TARIF_OTHER"."ALLSUM"'
+      Precision = 18
+      Size = 2
+    end
+    object IBTARIF_OTHERALLSUM_PDV: TIBBCDField
+      FieldName = 'ALLSUM_PDV'
+      Origin = '"TARIF_OTHER"."ALLSUM_PDV"'
+      Precision = 18
+      Size = 2
     end
   end
   object DSTARIF_OTHER: TDataSource
