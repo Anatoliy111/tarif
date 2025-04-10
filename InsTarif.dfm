@@ -5,7 +5,7 @@ inherited InsTar: TInsTar
   Position = poDefault
   OnCreate = FormCreate
   ExplicitWidth = 981
-  ExplicitHeight = 680
+  ExplicitHeight = 681
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
@@ -1072,7 +1072,6 @@ inherited InsTar: TInsTar
     end
   end
   inherited IBTransaction1: TIBTransaction
-    Active = False
     Left = 16
     Top = 520
   end

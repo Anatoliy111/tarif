@@ -1,11 +1,11 @@
 ﻿inherited Tarifs: TTarifs
   Caption = #1058#1072#1088#1080#1092#1080
-  ClientHeight = 661
+  ClientHeight = 694
   ClientWidth = 1061
   Position = poMainFormCenter
   OnCreate = FormCreate
   ExplicitWidth = 1077
-  ExplicitHeight = 700
+  ExplicitHeight = 733
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
@@ -61,7 +61,7 @@
     Left = 169
     Top = 89
     Width = 892
-    Height = 367
+    Height = 400
     Align = alClient
     TabOrder = 1
     object cxGrid1DBTableView1: TcxGridDBTableView
@@ -471,11 +471,11 @@
     end
   end
   inherited Panel4: TPanel
-    Top = 608
+    Top = 641
     Width = 1061
     Height = 53
     TabOrder = 0
-    ExplicitTop = 608
+    ExplicitTop = 641
     ExplicitWidth = 1061
     ExplicitHeight = 53
     inherited Panel3: TPanel
@@ -505,7 +505,7 @@
     Left = 0
     Top = 89
     Width = 169
-    Height = 367
+    Height = 400
     Align = alLeft
     TabOrder = 4
     object DBLookupListBox1: TDBLookupListBox
@@ -529,7 +529,7 @@
       Left = 1
       Top = 213
       Width = 167
-      Height = 153
+      Height = 186
       Align = alClient
       TabOrder = 1
       object cxGridDBTableView2: TcxGridDBTableView
@@ -563,7 +563,7 @@
   end
   object Panel6: TPanel [5]
     Left = 0
-    Top = 456
+    Top = 489
     Width = 1061
     Height = 152
     Align = alBottom
@@ -596,7 +596,6 @@
           end
           item
             Kind = skSum
-            Column = cxGridDBTableView1MZK
           end
           item
             Kind = skSum
@@ -752,16 +751,6 @@
           Caption = #1052#1047#1050' '#1043#1082#1072#1083'- 2'
           DataBinding.FieldName = 'MZK_GK2'
         end
-        object cxGridDBTableView1MZK: TcxGridDBColumn
-          Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082' /m2'
-          DataBinding.FieldName = 'MZK'
-          Options.Editing = False
-          Width = 122
-        end
-        object cxGridDBTableView1MZK_PDV: TcxGridDBColumn
-          Caption = #1058#1072#1088#1080#1092' '#1052#1079#1082' '#1079' '#1055#1044#1042' /m2'
-          DataBinding.FieldName = 'MZK_PDV'
-        end
         object cxGridDBTableView1SUMOT: TcxGridDBColumn
           Caption = #1042#1072#1088#1090#1110#1089#1090#1100
           DataBinding.FieldName = 'SUMOT'
@@ -773,14 +762,6 @@
           DataBinding.FieldName = 'SUMOTPDV'
           Options.Editing = False
           Width = 123
-        end
-        object cxGridDBTableView1SUMMZK: TcxGridDBColumn
-          Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1052#1047#1050
-          DataBinding.FieldName = 'SUMMZK'
-        end
-        object cxGridDBTableView1SUMMZK_PDV: TcxGridDBColumn
-          Caption = #1042#1072#1088#1090#1110#1089#1090#1100' '#1052#1047#1050' '#1079' '#1055#1044#1042
-          DataBinding.FieldName = 'SUMMZK_PDV'
         end
         object cxGridDBTableView1ALLSUM: TcxGridDBColumn
           Caption = #1047#1072#1075#1072#1083#1100#1085#1072' '#1074#1072#1088#1090#1110#1089#1090#1100
@@ -824,6 +805,15 @@
           Properties.NullStyle = nssUnchecked
           Properties.ValueChecked = 1
           Properties.ValueUnchecked = 0
+          Options.Editing = False
+        end
+        object cxGridDBTableView1FL_MZK: TcxGridDBColumn
+          Caption = #1052#1047#1050
+          DataBinding.FieldName = 'FL_MZK'
+          PropertiesClassName = 'TcxCheckBoxProperties'
+          Properties.NullStyle = nssUnchecked
+          Properties.ValueChecked = '1'
+          Properties.ValueUnchecked = '0'
           Options.Editing = False
         end
       end

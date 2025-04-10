@@ -11,7 +11,8 @@ uses
   IBX.IBCustomDataSet, cxLabel, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, cxDBLabel,
   cxTextEdit, cxMemo, cxDBEdit, cxDBLookupComboBox, IBX.IBQuery, cxCalc,
-  cxCheckBox, cxGroupBox, cxRadioGroup, dxmdaset;
+  cxCheckBox, cxGroupBox, cxRadioGroup, dxmdaset, dxSkinsCore,
+  dxSkinsDefaultPainters, dxSkinsdxStatusBarPainter, dxSkinscxPCPainter;
 
 type
   TInsTar = class(TAllMDICh)
@@ -302,7 +303,7 @@ begin
           IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
           IBQuery1.ParamByName('sum').Value:=sumplos;
           IBQuery1.ExecSQL;
-          fl_postt:=1;
+      //    fl_postt:=1;
 
 
 
@@ -321,7 +322,7 @@ begin
           IBQuery1.ParamByName('idmes').Value:=IBTARIF_MESID.Value;
           IBQuery1.ParamByName('sum').Value:=sumother;
           IBQuery1.ExecSQL;
-          fl_postt:=1;
+      //    fl_postt:=1;
 
     end;
 
@@ -353,7 +354,7 @@ begin
           IBQuery1.ParamByName('idmes').Value:=IBQuery4.FieldByName('id').Value;
           IBQuery1.ParamByName('sum').Value:=sumother;
           IBQuery1.ExecSQL;
-          fl_postt:=1;
+//          fl_postt:=1;
 
         IBQuery4.Next;
         end;

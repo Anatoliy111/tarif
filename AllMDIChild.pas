@@ -7,7 +7,7 @@ uses
   Dialogs, dxBar, cxGraphics, cxControls, dxStatusBar, cxClasses, Menus,
   cxLookAndFeelPainters, StdCtrls, cxButtons, ExtCtrls, cxContainer, cxEdit,
   cxGroupBox, IBDatabase, cxLabel, DB, IBCustomDataSet, cxLookAndFeels,
-  Vcl.Buttons;
+  Vcl.Buttons, dxSkinsCore, dxSkinsDefaultPainters, dxSkinsdxStatusBarPainter;
 
 type
   TAllMDICh = class(TForm)
